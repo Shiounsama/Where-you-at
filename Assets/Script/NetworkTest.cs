@@ -14,12 +14,14 @@ public class TNetworkTest : NetworkManager
 
         if (conn.connectionId == 0)
         {
-            playerData.SetRole("charlie");
+            playerData.SetRole("Charlie");
         }
         else
         {
-            playerData.SetRole("caméra");
+            playerData.SetRole("Camera");
         }
+
+        
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
