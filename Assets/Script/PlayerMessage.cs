@@ -66,13 +66,10 @@ public class PlayerMessage : NetworkBehaviour
         Debug.Log("Message reçu par Camera : " + message);
 
         PlayerData localPlayerData = FindObjectOfType<PlayerData>();
-        Debug.Log("Test du local player : " + localPlayerData);
         if (localPlayerData != null && localPlayerData.role == "Camera")
         {
+            localPlayerData.textMessage.text = message;
             Debug.Log("Le rôle de ce client est : " + localPlayerData.role);
-            localPlayerData.textMessage.text = message;  
         }
-
-        //data.textMessage.text = message;
     }
 }
