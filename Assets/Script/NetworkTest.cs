@@ -58,5 +58,11 @@ public class TNetworkTest : NetworkManager
     {
         Debug.Log("Un joueur s'est déconnecté : " + conn.connectionId);
         base.OnServerDisconnect(conn);
+        
+    }
+
+    public override void OnClientSceneChanged()
+    {
+        base.OnClientSceneChanged();
     }
 }
