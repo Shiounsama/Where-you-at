@@ -1157,11 +1157,11 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 3868943790335620159, guid: cc661fc391e8ffd438dc7ea7f8e3d108, type: 3}
+  playerPrefab: {fileID: 4085377434406468444, guid: 03fc970e1eb32134b84196344d9736b6, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs:
-  - {fileID: 5499267059861177052, guid: 378726bb601be304988cc923e8e06c52, type: 3}
+  - {fileID: 305765537287967308, guid: e932529cce1a1c8438244f9dc2051b87, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -1177,10 +1177,10 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  PremierJoueurPrefab: {fileID: 3868943790335620159, guid: cc661fc391e8ffd438dc7ea7f8e3d108, type: 3}
-  DeuxiemeJoueurPrefab: {fileID: 5499267059861177052, guid: 378726bb601be304988cc923e8e06c52, type: 3}
-  PremierJoueurSpawn: {fileID: 889890523}
-  DeuxiemeJoueurSpawn: {fileID: 760234345}
+  PremierJoueurPrefab: {fileID: 305765537287967308, guid: e932529cce1a1c8438244f9dc2051b87, type: 3}
+  DeuxiemeJoueurPrefab: {fileID: 305765537287967308, guid: e932529cce1a1c8438244f9dc2051b87, type: 3}
+  PremierJoueurSpawn: {fileID: 889890522}
+  DeuxiemeJoueurSpawn: {fileID: 760234344}
 --- !u!1 &760234344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,7 +1191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 760234345}
   m_Layer: 0
-  m_Name: DeuxiemeJoueurSpawn
+  m_Name: Spawn2
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1377,7 +1377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 889890523}
   m_Layer: 0
-  m_Name: PremierJoueurSpawn
+  m_Name: Spawn1
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
