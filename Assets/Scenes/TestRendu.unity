@@ -1040,7 +1040,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.1, y: 3.3648605, z: -88.46868}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 2, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 272910538}
@@ -1762,7 +1762,7 @@ Transform:
   m_GameObject: {fileID: 2041990583}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.773644, y: 2.8648605, z: -92.15232}
+  m_LocalPosition: {x: -5.4, y: 2.8648605, z: -92.15232}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1785,6 +1785,13 @@ MonoBehaviour:
   rotationLimitY: 90
   limiteMinZoom: 1
   limiteMaxZoom: 3
+  moveSpeed: 0.1
+  smoothSpeed: 5
+  zoomSpeed: 5
+  minZoom: 5
+  maxZoom: 15
+  LEMONDE: {fileID: 272910537}
+  camIso: {fileID: 706322435}
 --- !u!1 &2042451673
 GameObject:
   m_ObjectHideFlags: 0

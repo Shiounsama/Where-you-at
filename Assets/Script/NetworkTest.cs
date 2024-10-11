@@ -13,10 +13,16 @@ public class TNetworkTest : NetworkManager
     public Transform DeuxiemeJoueurSpawn;
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
-    {  
+    {
         //base.OnServerAddPlayer(conn);
         //GameObject player = conn.identity.gameObject;
         //PlayerData playerData = player.GetComponent<PlayerData>();
+
+        /*if (conn.connectionId == 1)
+        {
+            ServerChangeScene("testCamera");
+            return;
+        }*/
 
         Debug.Log("Un nouveau joueur s'est connecté : " + conn.connectionId);
         GameObject player;
@@ -45,7 +51,7 @@ public class TNetworkTest : NetworkManager
         player.transform.rotation = spawnRotation;
 
         NetworkServer.AddPlayerForConnection(conn, player);
-        //NetworkServer.Spawn(player);
+        
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)

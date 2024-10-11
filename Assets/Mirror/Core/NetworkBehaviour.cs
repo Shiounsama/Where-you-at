@@ -51,6 +51,11 @@ namespace Mirror
         // server itself is active rather than this object being active.
         public bool isServer => netIdentity.isServer;
 
+        public void OnClientSceneChanged()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>True if this object is on the client and has been spawned by the server.</summary>
         public bool isClient => netIdentity.isClient;
 

@@ -19,16 +19,20 @@ public class PlayerData : NetworkBehaviour
 
     public Canvas UImessage;
 
+    void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     [Server]
     public void SetRole(string newRole)
     {
         role = newRole;
-        Debug.Log("le rôle du joueur est maintenant : " + role);
+        Debug.Log("Le rôle du joueur est maintenant : " + role);
     }
 
     private void OnRoleChanged(string oldRole, string newRole)
     {
-        // Vérifier si c'est le joueur local avant de mettre à jour l'UI
         if (isLocalPlayer)
         {
             UpdateUIForRole(newRole);
@@ -38,19 +42,27 @@ public class PlayerData : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
+        SetupUI();
+        UpdateUIForRole(role);
+    }
 
-        message = GetComponent<PlayerMessage>();
+    private void SetupUI()
+    {
+        Debug.Log("Setup de l'UI pour le joueur local");
 
-        // Trouver les composants UI
         inputField = FindObjectOfType<TMP_InputField>();
         sendButton = FindObjectOfType<Button>();
         UImessage = FindObjectOfType<Canvas>();
 
         GameObject messageObject = GameObject.Find("ReceptionMessage");
-        textMessage = messageObject.GetComponent<TMP_Text>();
-
-        // Mettre à jour l'UI en fonction du rôle au démarrage du joueur local
-        UpdateUIForRole(role);
+        if (messageObject != null)
+        {
+            textMessage = messageObject.GetComponent<TMP_Text>();
+        }
+        else
+        {
+            Debug.LogWarning("ReceptionMessage n'a pas été trouvé dans la scène.");
+        }
     }
 
     private void UpdateUIForRole(string newRole)
@@ -62,7 +74,6 @@ public class PlayerData : NetworkBehaviour
             if (newRole == "Charlie")
             {
                 UImessage.enabled = true;
-
                 sendButton.gameObject.SetActive(true);
                 inputField.gameObject.SetActive(true);
                 textMessage.gameObject.SetActive(false);
@@ -70,7 +81,6 @@ public class PlayerData : NetworkBehaviour
             else if (newRole == "Camera")
             {
                 UImessage.enabled = true;
-
                 sendButton.gameObject.SetActive(false);
                 inputField.gameObject.SetActive(false);
                 textMessage.gameObject.SetActive(true);
@@ -90,6 +100,23 @@ public class PlayerData : NetworkBehaviour
             if (textMessage != null) textMessage.gameObject.SetActive(true);
 
             UImessage.enabled = false;
+        }
+    }
+
+    void Update()
+    {
+        if (isLocalPlayer && Input.GetKeyDown(KeyCode.E))
+        {
+            CmdRequestSceneChange();
+        }
+    }
+
+    [Command]
+    void CmdRequestSceneChange()
+    {
+        if (isServer)
+        {
+            NetworkManager.singleton.ServerChangeScene("testCamera");
         }
     }
 }
