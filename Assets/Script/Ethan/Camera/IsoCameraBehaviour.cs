@@ -35,7 +35,6 @@ public class IsoCameraBehaviour : MonoBehaviour
         {
             zoomTarget = transform.position;
             zoomTarget += transform.forward * action.ReadValue<float>() / 120;
-            transform.position = Vector3.Lerp(transform.position, zoomTarget, 5);
             moveSpeed += action.ReadValue<float>() / 100;
             GetComponent<Camera>().fieldOfView = Mathf.Clamp(GetComponent<Camera>().fieldOfView, 2, 90);
         }
