@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class TNetworkTest : NetworkManager
 {
+    public manager scriptManager;
 
     public GameObject PremierJoueurPrefab;
     public GameObject DeuxiemeJoueurPrefab;
@@ -70,16 +71,17 @@ public class TNetworkTest : NetworkManager
 
         if (SceneManager.GetActiveScene().name == "TestCamera")
         {
+            manager scriptManager = GetComponent<manager>();
             foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
             {
                 GameObject player = conn.identity.gameObject;
                 PlayerData playerData = player.GetComponent<PlayerData>();
                 TestCamera cam = player.GetComponent<TestCamera>();
+                
 
-
-                playerData.enabled = true;
-                cam.enabled = true;
-                player.GetComponent<Camera>().enabled = true;
+                Debug.Log(playerData.role);
+                /*cam.enabled = true;
+                player.GetComponent<Camera>().enabled = true;*/
 
                 PremierJoueurSpawn = GameObject.Find("spawn1");
                 DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
@@ -95,38 +97,15 @@ public class TNetworkTest : NetworkManager
                     player.transform.position = DeuxiemeJoueurSpawn.transform.position;
                     player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 }
-
-
-                if (playerData.isLocalPlayer)
-                {
-                    Debug.Log("UwU");
-                    ActivateLocalPlayerCamera(player, playerData.role);
-                }
             }
-        }
-    }
-
-    private void ActivateLocalPlayerCamera(GameObject player, string role)
-    {
-        
-        foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
-        {
-
-            GameObject otherPlayer = conn.identity.gameObject;
-            Camera playerCamera = otherPlayer.GetComponent<Camera>();
-            Debug.Log(playerCamera);
-            if (playerCamera != null)
+            if (scriptManager != null)
             {
-                playerCamera.enabled = false;  
+                scriptManager.testValide();
             }
+           
+            
         }
-
-        Camera localPlayerCamera = player.GetComponent<Camera>();
-        if (localPlayerCamera != null)
-        {
-            localPlayerCamera.enabled = true;  
-        }
-
-        Debug.Log($"La caméra du joueur local avec le rôle {role} est activée.");
     }
+
+    
 }

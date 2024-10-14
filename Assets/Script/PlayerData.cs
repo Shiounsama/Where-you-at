@@ -108,6 +108,30 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
+    public void startScene()
+    {
+        if (isLocalPlayer)
+        {
+            TestCamera cam = GetComponent<TestCamera>();
+
+            cam.enabled = true;
+            cam.LEMONDE = GameObject.Find("monde");
+            Debug.Log(GetComponent<Camera>().name);
+        }
+    }
+
+    public void testULTIME()
+    {
+        if (isLocalPlayer)
+        {
+            Camera cam = GetComponent<Camera>();
+            TestCamera scriptCam = GetComponent<TestCamera>();
+            cam.enabled = true;
+            scriptCam.enabled = true;
+            scriptCam.role = role;
+        }
+    }
+
     [Command]
     void CmdRequestSceneChange(string SceneChange)
     {
@@ -116,4 +140,5 @@ public class PlayerData : NetworkBehaviour
             NetworkManager.singleton.ServerChangeScene(SceneChange);
         }
     }
+
 }
