@@ -1,76 +1,170 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class IsoCameraBehaviour : MonoBehaviour
 {
-    private bool isButtonPressed;
+    private bool isDragging;
+    private bool isRotating;
 
-    private Vector3 objectTargetPos;
+    private Vector3 dragStartPosition;
     private Vector3 originDragPos;
-    private Vector3 offset;
-    private Vector3 zoomTarget;
+    private Vector3 dragOffset;
+    private Vector3 zoomTargetPosition;
+    private Vector3 cameraInitialRotation;
 
+    private Camera mainCamera;
+    private CinemachineVirtualCamera vcam;
+
+    private float rotationValue;
+
+    [Header("Caracteristique de la caméra")]
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float zoomSpeed;
+    [SerializeField, Tooltip("La vitesse à laquelle la camera va effectuer le zoom")] private float zoomSpeed;
+    [SerializeField, Tooltip("La force que le zoom va avoir à chaque coup de molette, plus la valeur est haute moins la force sera elevé")] private float zoomForce;
+    [SerializeField, Tooltip("La vitesse à laquelle la camera va tourner outour de notre objet")] private float rotationSpeed;
 
+    [Header("Interaction avec les objets")]
+    [SerializeField, Tooltip("Les Layer que notre raycast va tester pour voir si on peut lock l'objet qui porte ce layer")] private LayerMask layerToVerify;
     [SerializeField] private Transform objectToMove;
+    [SerializeField] private Transform objectLocked;
 
-    public void MoveWorld(InputAction.CallbackContext action)
+    private void Start()
     {
-        if (action.started)
-        {
-            originDragPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-            isButtonPressed = true;
-        }
-        if (action.canceled)
-        {
-            isButtonPressed = false;
-            offset = objectToMove.position;
-        }
-    }
-
-    public void CameraZoom(InputAction.CallbackContext action)
-    {
-        if (action.performed && !isButtonPressed)
-        {
-            zoomTarget = transform.position;
-            zoomTarget += transform.forward * action.ReadValue<float>() / 120;
-            moveSpeed += action.ReadValue<float>() / 100;
-            GetComponent<Camera>().fieldOfView = Mathf.Clamp(GetComponent<Camera>().fieldOfView, 2, 90);
-        }
-    }
-
-    public void RotateCameraAround(InputAction.CallbackContext action)
-    {
-        if(action.performed)
-        {
-            
-        }
+        vcam = GetComponentInChildren<CinemachineVirtualCamera>();
+        mainCamera = Camera.main;
+        cameraInitialRotation = transform.eulerAngles;
+        zoomTargetPosition = transform.position;
     }
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, zoomTarget, zoomSpeed * Time.deltaTime);
-        UpdateObjectPosition();
+        HandleCameraMovement();
+        HandleObjectDragging();
+        HandleCameraRotation();
     }
 
-    private void UpdateObjectPosition()
+
+    // === Public methods for user interaction ===
+
+    public void OnMoveWorld(InputAction.CallbackContext action)
     {
-        if (isButtonPressed)
+        if (action.started)
         {
-            //Je get la position de ma souris en coordonne de monde
-            Vector3 currentMouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-            //Je calcule la difference pour gagner la direction du mouvement
-            Vector3 delta = currentMouseWorldPos - originDragPos;
-            //Je definie la position voulu avec 0 en y pour le delta pour eviter que l'objet ne bouge sur cette axe
-            objectTargetPos = offset + new Vector3(delta.x, 0, delta.z);
-            //Je fais aller mon objet de sa position initiale vers la target pos avec un lerp
-            objectToMove.position = Vector3.Lerp(objectToMove.position, objectTargetPos, Time.deltaTime * moveSpeed);
+            StartDragging();
+        }
+        if (action.canceled)
+        {
+            StopDragging();
         }
     }
 
-    private void Start()
+    public void OnCameraZoom(InputAction.CallbackContext action)
     {
-        zoomTarget = transform.position;
+        if (action.performed && !isDragging)
+        {
+            ApplyZoom(action);
+        }
+    }
+
+    public void OnSelectObject(InputAction.CallbackContext action)
+    {
+        if (action.performed && objectLocked == null)
+        {
+            TrySelectObject();
+        }
+    }
+
+    public void OnRotateCamera(InputAction.CallbackContext action)
+    {
+        if (action.performed && objectLocked != null)
+        {
+            isRotating = true;
+            rotationValue = action.ReadValue<float>();
+        }
+        else
+        {
+            isRotating = false;
+        }
+    }
+
+    // === Private helper methods ===
+
+    private void HandleCameraMovement()
+    {
+        // Smooth camera movement towards the zoom target
+        transform.position = Vector3.Lerp(transform.position, zoomTargetPosition, zoomSpeed * Time.deltaTime);
+    }
+
+    private void HandleObjectDragging()
+    {
+        if (isDragging)
+        {
+            Vector3 currentMouseWorldPos = GetMouseWorldPosition();
+            Vector3 delta = currentMouseWorldPos - originDragPos;
+
+            // Calculate target position for objectToMove
+            dragStartPosition = dragOffset + new Vector3(delta.x, 0, delta.z);
+            objectToMove.position = Vector3.Lerp(objectToMove.position, dragStartPosition, Time.deltaTime * moveSpeed);
+        }
+    }
+
+    private void HandleCameraRotation()
+    {
+        if (isRotating)
+        {
+            transform.RotateAround(objectLocked.position, Vector3.up, rotationValue * rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    private void ApplyZoom(InputAction.CallbackContext action)
+    {
+        // Define the zoom target based on camera forward direction
+        zoomTargetPosition = transform.position + transform.forward * action.ReadValue<float>() / zoomForce;
+        moveSpeed += action.ReadValue<float>() / 100;
+        moveSpeed = Mathf.Clamp(moveSpeed, 5, Mathf.Infinity);
+
+        // Adjust field of view within limits
+        mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView, 2, 90);
+    }
+
+    private void StartDragging()
+    {
+        objectLocked = null;
+        vcam.m_LookAt = null;
+        ResetCameraRotation();
+        originDragPos = GetMouseWorldPosition();
+        isDragging = true;
+    }
+
+    private void StopDragging()
+    {
+        isRotating = false;
+        isDragging = false;
+        dragOffset = objectToMove.position;
+    }
+
+    private void TrySelectObject()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
+        {
+            objectLocked = hit.transform;
+            vcam.m_LookAt = objectLocked;
+        }
+    }
+
+    // === Shortcut helper methods ===
+
+    private Vector3 GetMouseWorldPosition()
+    {
+        // Convert mouse screen position to world position
+        return mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
+    }
+
+    private void ResetCameraRotation()
+    {
+        transform.rotation = Quaternion.Euler(cameraInitialRotation.x, cameraInitialRotation.y, cameraInitialRotation.z);
+        vcam.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 }
