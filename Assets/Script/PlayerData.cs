@@ -31,6 +31,12 @@ public class PlayerData : NetworkBehaviour
         {
             CmdRequestSceneChange("TestCamera");
         }
+
+        if(role == "Camera" && isLocalPlayer)
+        {
+            frontPNJ();
+        }
+
     }
 
     [Server]
@@ -116,7 +122,7 @@ public class PlayerData : NetworkBehaviour
 
             cam.enabled = true;
             cam.LEMONDE = GameObject.Find("monde");
-            Debug.Log(GetComponent<Camera>().name);
+
         }
     }
 
@@ -129,6 +135,25 @@ public class PlayerData : NetworkBehaviour
             cam.enabled = true;
             scriptCam.enabled = true;
             scriptCam.role = role;
+            frontPNJ();
+
+            if (role == "Camera")
+            {
+                cam.orthographic = true;
+            }
+        }
+    }
+
+    public void frontPNJ()
+    {
+        if (isLocalPlayer)
+        {
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+            foreach (GameObject obj in allPNJ)
+            {
+                obj.transform.LookAt(transform.position);
+
+            }
         }
     }
 

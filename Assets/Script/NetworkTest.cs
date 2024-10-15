@@ -18,22 +18,12 @@ public class TNetworkTest : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        //base.OnServerAddPlayer(conn);
-        //GameObject player = conn.identity.gameObject;
-        //PlayerData playerData = player.GetComponent<PlayerData>();
-
-        /*if (conn.connectionId == 1)
-        {
-            ServerChangeScene("testCamera");
-            return;
-        }*/
-
-        Debug.Log("Un nouveau joueur s'est connecté : " + conn.connectionId);
         GameObject player;
         Vector3 spawnPosition;
         Quaternion spawnRotation;
+        int compteurJoueur = 0;
 
-        if (conn.connectionId == 0)
+        if (compteurJoueur == 0)
         {
             
             player = Instantiate(PremierJoueurPrefab);
@@ -41,6 +31,7 @@ public class TNetworkTest : NetworkManager
             playerData.SetRole("Charlie");
             spawnPosition = PremierJoueurSpawn.transform.position;
             spawnRotation = PremierJoueurSpawn.transform.rotation;
+            compteurJoueur++;
         }
         else
         {
@@ -49,6 +40,7 @@ public class TNetworkTest : NetworkManager
             playerData.SetRole("Camera");
             spawnPosition = DeuxiemeJoueurSpawn.transform.position;
             spawnRotation = DeuxiemeJoueurSpawn.transform.rotation;
+            compteurJoueur++;
         }
 
         player.transform.position = spawnPosition;

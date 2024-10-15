@@ -30,13 +30,11 @@ public class TestCamera : MonoBehaviour
 
     public Camera camIso;
 
-    //private PlayerData player;
 
     private void Start()
     {
         camIso = GetComponent<Camera>();
         targetPosition = LEMONDE.transform.position;
-        //player = GetComponent<PlayerData>();
     }
 
     void Update()
@@ -54,10 +52,6 @@ public class TestCamera : MonoBehaviour
                 rotationY = Mathf.Clamp(rotationY, -rotationLimitY, rotationLimitY);
 
                 transform.rotation = Quaternion.Euler(rotationY, rotationX, 0);
-
-                //float scroll = Input.GetAxis("Mouse ScrollWheel");
-                //camIso.fieldOfView = Mathf.Clamp(camIso.fieldOfView - scroll * zoomSpeed, minZoom, maxZoom);
-                //ZoomAtMousePosition();
             }
         }
         else if (role == "Camera")
@@ -87,10 +81,7 @@ public class TestCamera : MonoBehaviour
             {
                 camIso.orthographicSize = Mathf.Clamp(camIso.orthographicSize - Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, minZoom, maxZoom);
             }
-            else
-            {
-                camIso.fieldOfView = Mathf.Clamp(camIso.orthographicSize - Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, minZoom, maxZoom);
-            }
+          
 
             if (camIso.orthographicSize > 7)
             {
@@ -130,4 +121,6 @@ public class TestCamera : MonoBehaviour
             camIso.transform.position += difference;
         }
     }
+
+    
 }
