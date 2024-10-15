@@ -43,18 +43,22 @@ public class PNJSpawner : MonoBehaviour
 
         for (int i = 0; i < numberToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
         {
-            GameObject actualPNJ = Instantiate(pnjPrefab, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
+            if (i == playerIndex)
+            {
+                GameObject actualPlayer = Instantiate(playerPrefab, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
                 new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
                 1,
                 (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
-            entitiesSpawnedArray[i] = actualPNJ; // On Ajoute l'entite creer dans un tableau
+                entitiesSpawnedArray[i] = actualPlayer; // On Ajoute l'entite creer dans un tableau
+            }
+            else
+            {
+                GameObject actualPNJ = Instantiate(pnjPrefab, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
+                    new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
+                    1,
+                    (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
+                entitiesSpawnedArray[i] = actualPNJ; // On Ajoute l'entite creer dans un tableau
+            }
         }
-        Destroy(entitiesSpawnedArray[playerIndex].gameObject);
-        entitiesSpawnedArray[playerIndex] = null;
-        GameObject actualPlayer = Instantiate(playerPrefab, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
-                new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
-                1,
-                (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
-        entitiesSpawnedArray[playerIndex] = actualPlayer; // On Ajoute l'entite creer dans un tableau
     }
 }
