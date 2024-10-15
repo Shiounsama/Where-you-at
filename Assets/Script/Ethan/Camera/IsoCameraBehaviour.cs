@@ -31,7 +31,7 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void Start()
     {
-        vcam = GetComponentInChildren<CinemachineVirtualCamera>();
+        vcam = GetComponent<CinemachineVirtualCamera>();
         mainCamera = Camera.main;
         cameraInitialRotation = transform.eulerAngles;
         zoomTargetPosition = transform.position;
@@ -42,6 +42,11 @@ public class IsoCameraBehaviour : MonoBehaviour
         HandleCameraMovement();
         HandleObjectDragging();
         HandleCameraRotation();
+
+        if (!objectLocked)
+        {
+            ResetCameraRotation();
+        }
     }
 
 
@@ -111,7 +116,7 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void HandleCameraRotation()
     {
-        if (isRotating)
+        if (isRotating && objectLocked)
         {
             transform.RotateAround(objectLocked.position, Vector3.up, rotationValue * rotationSpeed * Time.deltaTime);
         }
@@ -132,7 +137,7 @@ public class IsoCameraBehaviour : MonoBehaviour
     {
         objectLocked = null;
         vcam.m_LookAt = null;
-        ResetCameraRotation();
+        //ResetCameraRotation();
         originDragPos = GetMouseWorldPosition();
         isDragging = true;
     }
@@ -164,7 +169,11 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void ResetCameraRotation()
     {
-        transform.rotation = Quaternion.Euler(cameraInitialRotation.x, cameraInitialRotation.y, cameraInitialRotation.z);
-        vcam.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        Quaternion targetRota = Quaternion.Euler(cameraInitialRotation.x, cameraInitialRotation.y, cameraInitialRotation.z);
+
+        if (transform.rotation != targetRota)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRota, Time.deltaTime * 5);
+        }
     }
 }
