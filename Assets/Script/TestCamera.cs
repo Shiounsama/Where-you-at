@@ -24,23 +24,24 @@ public class TestCamera : MonoBehaviour
     private Vector3 dragOrigin;
     private Vector3 targetPosition;
 
+    public string role;
+
     public GameObject LEMONDE;
 
     public Camera camIso;
 
-    private PlayerData player;
+    //private PlayerData player;
 
     private void Start()
     {
         camIso = GetComponent<Camera>();
         targetPosition = LEMONDE.transform.position;
-        player = GetComponent<PlayerData>();
-
+        //player = GetComponent<PlayerData>();
     }
 
     void Update()
     {
-        if (player.role == "Charlie")
+        if (role == "Charlie")
         {
             if (Input.GetMouseButton(0))
             {
@@ -54,10 +55,12 @@ public class TestCamera : MonoBehaviour
 
                 transform.rotation = Quaternion.Euler(rotationY, rotationX, 0);
 
-                ZoomAtMousePosition();
+                //float scroll = Input.GetAxis("Mouse ScrollWheel");
+                //camIso.fieldOfView = Mathf.Clamp(camIso.fieldOfView - scroll * zoomSpeed, minZoom, maxZoom);
+                //ZoomAtMousePosition();
             }
         }
-        else if (player.role == "Camera")
+        else if (role == "Camera")
         {
             if (Input.GetMouseButtonDown(0))
             {

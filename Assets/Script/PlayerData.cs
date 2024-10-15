@@ -12,6 +12,7 @@ public class PlayerData : NetworkBehaviour
 
     public string playerName;
     private PlayerMessage message;
+    public bool playerReady;
 
     public TMP_InputField inputField;
     public Button sendButton;
@@ -24,11 +25,18 @@ public class PlayerData : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        if(isLocalPlayer && Input.GetKeyDown("e"))
+        {
+            CmdRequestSceneChange("TestCamera");
+        }
+    }
+
     [Server]
     public void SetRole(string newRole)
     {
         role = newRole;
-        Debug.Log("Le rôle du joueur est maintenant : " + role);
     }
 
     private void OnRoleChanged(string oldRole, string newRole)
@@ -42,19 +50,16 @@ public class PlayerData : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        SetupUI();
-        UpdateUIForRole(role);
     }
 
-    private void SetupUI()
+    public void SetupUI()
     {
-        Debug.Log("Setup de l'UI pour le joueur local");
-
         inputField = FindObjectOfType<TMP_InputField>();
         sendButton = FindObjectOfType<Button>();
         UImessage = FindObjectOfType<Canvas>();
 
         GameObject messageObject = GameObject.Find("ReceptionMessage");
+
         if (messageObject != null)
         {
             textMessage = messageObject.GetComponent<TMP_Text>();
@@ -103,20 +108,37 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    void Update()
+    public void startScene()
     {
-        if (isLocalPlayer && Input.GetKeyDown(KeyCode.E))
+        if (isLocalPlayer)
         {
-            CmdRequestSceneChange();
+            TestCamera cam = GetComponent<TestCamera>();
+
+            cam.enabled = true;
+            cam.LEMONDE = GameObject.Find("monde");
+            Debug.Log(GetComponent<Camera>().name);
+        }
+    }
+
+    public void activeComponentPlayer()
+    {
+        if (isLocalPlayer)
+        {
+            Camera cam = GetComponent<Camera>();
+            TestCamera scriptCam = GetComponent<TestCamera>();
+            cam.enabled = true;
+            scriptCam.enabled = true;
+            scriptCam.role = role;
         }
     }
 
     [Command]
-    void CmdRequestSceneChange()
+    void CmdRequestSceneChange(string SceneChange)
     {
         if (isServer)
         {
-            NetworkManager.singleton.ServerChangeScene("testCamera");
+            NetworkManager.singleton.ServerChangeScene(SceneChange);
         }
     }
+
 }
