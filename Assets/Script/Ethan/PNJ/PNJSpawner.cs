@@ -39,6 +39,8 @@ public class PNJSpawner : MonoBehaviour
 
     private void InstantiatePNJs()
     {
+        int playerIndex = Random.Range(0, numberToSpawn);
+
         for (int i = 0; i < numberToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
         {
             GameObject actualPNJ = Instantiate(pnjPrefab, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
@@ -47,5 +49,12 @@ public class PNJSpawner : MonoBehaviour
                 (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
             entitiesSpawnedArray[i] = actualPNJ; // On Ajoute l'entite creer dans un tableau
         }
+        Destroy(entitiesSpawnedArray[playerIndex].gameObject);
+        entitiesSpawnedArray[playerIndex] = null;
+        GameObject actualPlayer = Instantiate(playerPrefab, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
+                new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
+                1,
+                (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
+        entitiesSpawnedArray[playerIndex] = actualPlayer; // On Ajoute l'entite creer dans un tableau
     }
 }
