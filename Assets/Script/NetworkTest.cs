@@ -100,7 +100,7 @@ public class TNetworkTest : NetworkManager
             }
             if (scriptManager != null)
             {
-                scriptManager.testValide();
+                scriptManager.activeComponent();
             }
            
             

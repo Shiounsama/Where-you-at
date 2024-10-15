@@ -7,45 +7,31 @@ public class manager : NetworkBehaviour
 {
 
     public List<PlayerData> scriptPlayer;
-    
-    public void testValide()
+    public List<TestCamera> scriptCamera;
+    public List<GameObject> player;
+
+    public void activeComponent()
     {
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
-
-        foreach (PlayerData player in scriptPlayer)
+        
+        foreach (PlayerData playerscript in scriptPlayer)
         {
-            Debug.Log("Role du joueur : " + player.role);
-            player.testULTIME();
+            player.Add(playerscript.gameObject);
+            playerscript.activeComponentPlayer();
+            playerscript.SetupUI();
+            playerscript.SetRole(playerscript.role);
+
+        }
+
+        foreach(GameObject play in player)
+        {
+            PlayerData dataPlayer = play.GetComponent<PlayerData>();
+            TestCamera camPlayer = play.GetComponent<TestCamera>();
+
+            camPlayer.role = dataPlayer.role;
+            camPlayer.enabled = true;
+            camPlayer.LEMONDE = GameObject.Find("monde");
         }
     }
-
-    /*void Update()
-    {
-        // Test if the server is active
-        if (isServer)
-        {
-            Debug.Log("Le serveur est actif.");
-            // Ici tu peux exécuter tout code que tu veux uniquement sur le serveur
-        }
-        else
-        {
-            Debug.Log("Le serveur n'est pas actif, ceci est un client.");
-            RpcSetPosition();
-        }
-    }
-
-    [Server]
-    public void CmdPosition()
-    {
-        RpcSetPosition();
-    }
-
-    [ClientRpc]
-    public void RpcSetPosition(Vector3 position, Quaternion rotation)
-    {
-        Debug.Log("EN VRAI UN PETIT SUICIDE LA, ON EN PENSE QUOI ?");
-        // Cette fonction sera exécutée sur tous les clients
-        //transform.position = position;
-        //transform.rotation = rotation;
-    }*/
+   
 }

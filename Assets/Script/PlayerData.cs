@@ -120,7 +120,7 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    public void testULTIME()
+    public void activeComponentPlayer()
     {
         if (isLocalPlayer)
         {
