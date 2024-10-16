@@ -5,13 +5,14 @@ using UnityEngine.InputSystem;
 public class IsoCameraBehaviour : MonoBehaviour
 {
     private bool isDragging;
-    private bool isRotating;
 
     private Vector3 dragStartPosition;
     private Vector3 originDragPos;
     private Vector3 dragOffset;
     private Vector3 zoomTargetPosition;
     private Vector3 cameraInitialRotation;
+
+    private Quaternion actualRotationTarget;   
 
     private Camera mainCamera;
     private CinemachineVirtualCamera vcam;
@@ -27,7 +28,7 @@ public class IsoCameraBehaviour : MonoBehaviour
     [Header("Interaction avec les objets")]
     [SerializeField, Tooltip("Les Layer que notre raycast va tester pour voir si on peut lock l'objet qui porte ce layer")] private LayerMask layerToVerify;
     [SerializeField] private Transform objectToMove;
-    [SerializeField] private Transform objectLocked;
+    //[SerializeField] private Transform objectLocked;
 
     private void Start()
     {
@@ -43,10 +44,10 @@ public class IsoCameraBehaviour : MonoBehaviour
         HandleObjectDragging();
         HandleCameraRotation();
 
-        if (!objectLocked)
-        {
-            ResetCameraRotation();
-        }
+        //if (!objectLocked)
+        //{
+        //    ResetCameraRotation();
+        //}
     }
 
 
@@ -74,22 +75,18 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     public void OnSelectObject(InputAction.CallbackContext action)
     {
-        if (action.performed && objectLocked == null)
-        {
-            TrySelectObject();
-        }
+        //if (action.performed && objectLocked == null)
+        //{
+        //    //TrySelectObject();
+        //}
     }
 
     public void OnRotateCamera(InputAction.CallbackContext action)
     {
-        if (action.performed && objectLocked != null)
+        if (action.performed)
         {
-            isRotating = true;
             rotationValue = action.ReadValue<float>();
-        }
-        else
-        {
-            isRotating = false;
+            actualRotationTarget = Quaternion.Euler(0, objectToMove.eulerAngles.y + 45 * rotationValue, 0);
         }
     }
 
@@ -116,10 +113,7 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void HandleCameraRotation()
     {
-        if (isRotating && objectLocked)
-        {
-            transform.RotateAround(objectLocked.position, Vector3.up, rotationValue * rotationSpeed * Time.deltaTime);
-        }
+        objectToMove.rotation = Quaternion.RotateTowards(objectToMove.rotation, actualRotationTarget, Time.deltaTime * rotationSpeed);
     }
 
     private void ApplyZoom(InputAction.CallbackContext action)
@@ -135,7 +129,7 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void StartDragging()
     {
-        objectLocked = null;
+        //objectLocked = null;
         vcam.m_LookAt = null;
         //ResetCameraRotation();
         originDragPos = GetMouseWorldPosition();
@@ -144,7 +138,6 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void StopDragging()
     {
-        isRotating = false;
         isDragging = false;
         dragOffset = objectToMove.position;
     }
@@ -154,8 +147,8 @@ public class IsoCameraBehaviour : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
         {
-            objectLocked = hit.transform;
-            vcam.m_LookAt = objectLocked;
+            //objectLocked = hit.transform;
+            //vcam.m_LookAt = objectLocked;
         }
     }
 

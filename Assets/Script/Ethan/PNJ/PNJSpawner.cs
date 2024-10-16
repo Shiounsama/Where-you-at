@@ -45,20 +45,21 @@ public class PNJSpawner : MonoBehaviour
         {
             if (i == playerIndex)
             {
-                GameObject actualPlayer = Instantiate(playerPrefab, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
-                new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
-                1,
-                (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
-                entitiesSpawnedArray[i] = actualPlayer; // On Ajoute l'entite creer dans un tableau
+                InstantiateObject(i, playerPrefab);
             }
             else
             {
-                GameObject actualPNJ = Instantiate(pnjPrefab, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
-                    new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
-                    1,
-                    (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
-                entitiesSpawnedArray[i] = actualPNJ; // On Ajoute l'entite creer dans un tableau
+                InstantiateObject(i, pnjPrefab);
             }
         }
+    }
+
+    private void InstantiateObject(int i, GameObject objectToInstantiate)
+    {
+        GameObject actualPlayer = Instantiate(objectToInstantiate, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
+                        new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
+                        1,
+                        (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
+        entitiesSpawnedArray[i] = actualPlayer; // On Ajoute l'entite creer dans un tableau
     }
 }
