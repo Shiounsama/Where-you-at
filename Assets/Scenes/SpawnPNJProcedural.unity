@@ -791,7 +791,7 @@ MonoBehaviour:
   moveSpeed: 6
   zoomSpeed: 7
   zoomForce: 30
-  rotationSpeed: 200
+  rotationSpeed: 400
   layerToVerify:
     serializedVersion: 2
     m_Bits: 8
@@ -894,6 +894,52 @@ MonoBehaviour:
   m_DefaultActionMap: Keyboard & Mouse
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 1103513865}
+--- !u!1 &2120524251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2120524252}
+  - component: {fileID: 2120524253}
+  m_Layer: 0
+  m_Name: WorldGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2120524252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120524251}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.96, z: -5.92}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2120524253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120524251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744b48e84efc9f242b9591624b0482ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  length: 2
+  width: 2
 --- !u!1001 &8091340129623542678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -979,3 +1025,4 @@ SceneRoots:
   - {fileID: 796272435}
   - {fileID: 1733777431}
   - {fileID: 1103513866}
+  - {fileID: 2120524252}
