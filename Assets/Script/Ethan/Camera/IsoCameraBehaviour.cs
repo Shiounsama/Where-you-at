@@ -86,7 +86,7 @@ public class IsoCameraBehaviour : MonoBehaviour
         if (action.performed)
         {
             rotationValue = action.ReadValue<float>();
-            actualRotationTarget = Quaternion.Euler(0, objectToMove.eulerAngles.y + 45 * rotationValue, 0);
+            actualRotationTarget = Quaternion.Euler(0, objectToMove.eulerAngles.y + 90 * rotationValue, 0);
         }
     }
 
