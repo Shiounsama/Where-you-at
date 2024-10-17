@@ -3,11 +3,11 @@ using UnityEngine;
 public class PNJClothe : MonoBehaviour
 {
     [Header("CollectionOfClotheAppliedToOurPNJ")]
-    [SerializeField] private ClotheData headClothe;
-    [SerializeField] private ClotheData expressionClothe;
-    [SerializeField] private ClotheData chestClothe;
-    [SerializeField] private ClotheData legsClothe;
-    [SerializeField] private ClotheData feetsClothe;
+    [SerializeField] private ClotheCollection headClothe;
+    [SerializeField] private ClotheCollection expressionClothe;
+    [SerializeField] private ClotheCollection chestClothe;
+    [SerializeField] private ClotheCollection legsClothe;
+    [SerializeField] private ClotheCollection feetsClothe;
 
     [Header("BodyPartOfOurPNJ")]
     [SerializeField] private SpriteRenderer headClotheImage;
@@ -21,7 +21,7 @@ public class PNJClothe : MonoBehaviour
         GenerateRandomClothe(headClotheImage, headClothe);
     }
 
-    private void GenerateRandomClothe(SpriteRenderer bodyPartImage, ClotheData bodyPartCollection)
+    private void GenerateRandomClothe(SpriteRenderer bodyPartImage, ClotheCollection bodyPartCollection)
     {
         bodyPartImage.sprite = bodyPartCollection.clotheList[Random.Range(0, bodyPartCollection.clotheList.Count)].sprite;
     }
