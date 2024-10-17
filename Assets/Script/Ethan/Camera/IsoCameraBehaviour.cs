@@ -5,19 +5,24 @@ using UnityEngine.InputSystem;
 public class IsoCameraBehaviour : MonoBehaviour
 {
     private bool isDragging;
+    private float isUpDown;
+    private float isRotating;
 
     private Vector3 dragStartPosition;
     private Vector3 originDragPos;
     private Vector3 dragOffset;
     private Vector3 zoomTargetPosition;
     private Vector3 cameraInitialRotation;
+    private Vector3 yPosTarget;
 
-    private Quaternion actualRotationTarget;   
+    private Quaternion actualRotationTarget;
 
     private Camera mainCamera;
     private CinemachineVirtualCamera vcam;
 
     private float rotationValue;
+
+    private int actualRoomFloor;
 
     [Header("Caracteristique de la caméra")]
     [SerializeField] private float moveSpeed;
@@ -43,12 +48,14 @@ public class IsoCameraBehaviour : MonoBehaviour
         HandleCameraMovement();
         HandleObjectDragging();
         HandleCameraRotation();
+        HandleObjectVerticality();
 
         //if (!objectLocked)
         //{
         //    ResetCameraRotation();
         //}
     }
+
 
 
     // === Public methods for user interaction ===
@@ -83,10 +90,29 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     public void OnRotateCamera(InputAction.CallbackContext action)
     {
-        if (action.performed)
+        if (action.performed && isRotating <= 0)
         {
+            isRotating = 0.25f;
             rotationValue = action.ReadValue<float>();
             actualRotationTarget = Quaternion.Euler(0, objectToMove.eulerAngles.y + 90 * rotationValue, 0);
+        }
+    }
+
+    public void OnUpDown(InputAction.CallbackContext action)
+    {
+        if (action.performed && isUpDown <= 0)
+        {
+            isUpDown = 0.25f;
+            actualRoomFloor -= (int)action.ReadValue<float>();
+            if (actualRoomFloor > objectToMove.GetComponent<BuildingGenerator>().roomList.Count - 1)
+            {
+                actualRoomFloor = 0;
+            }
+            else if (actualRoomFloor < 0)
+            {
+                actualRoomFloor = objectToMove.GetComponent<BuildingGenerator>().roomList.Count - 1;
+            }
+            yPosTarget = objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].transform.localPosition;
         }
     }
 
@@ -107,13 +133,18 @@ public class IsoCameraBehaviour : MonoBehaviour
 
             // Calculate target position for objectToMove
             dragStartPosition = dragOffset + new Vector3(delta.x, 0, delta.z);
+            dragStartPosition.y = objectToMove.position.y;
             objectToMove.position = Vector3.Lerp(objectToMove.position, dragStartPosition, Time.deltaTime * moveSpeed);
         }
     }
 
     private void HandleCameraRotation()
     {
-        objectToMove.rotation = Quaternion.RotateTowards(objectToMove.rotation, actualRotationTarget, Time.deltaTime * rotationSpeed);
+        if (isRotating >= 0)
+        {
+            isRotating -= Time.deltaTime;
+            objectToMove.rotation = Quaternion.RotateTowards(objectToMove.rotation, actualRotationTarget, Time.deltaTime * rotationSpeed);
+        }
     }
 
     private void ApplyZoom(InputAction.CallbackContext action)
@@ -138,8 +169,8 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void StopDragging()
     {
-        isDragging = false;
         dragOffset = objectToMove.position;
+        isDragging = false;
     }
 
     private void TrySelectObject()
@@ -149,6 +180,15 @@ public class IsoCameraBehaviour : MonoBehaviour
         {
             //objectLocked = hit.transform;
             //vcam.m_LookAt = objectLocked;
+        }
+    }
+
+    private void HandleObjectVerticality()
+    {
+        if (isUpDown >= 0)
+        {
+            isUpDown -= Time.deltaTime;
+            objectToMove.position = Vector3.Lerp(objectToMove.position, yPosTarget, moveSpeed * Time.deltaTime);
         }
     }
 

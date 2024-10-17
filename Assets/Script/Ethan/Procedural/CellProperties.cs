@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public enum TypeOfConstruction
-{
-    road,
-    maison,
-    immeuble,
-}
+//public enum TypeOfBuilding
+//{
+//    road,
+//    maison,
+//    immeuble,
+//}
 
 public class CellProperties : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class CellProperties : MonoBehaviour
 
     public Vector2 cellPosition;
 
-    public TypeOfConstruction typeOfConstruction;
+    //public TypeOfBuilding typeOfConstruction;
 
     // == Public Methode for User Interactions
 
