@@ -19,7 +19,7 @@ public class BuildingGenerator : MonoBehaviour
 
     private void GenerateRoom()
     {
-        roomList = new List<GameObject>();
+        roomList.Clear();
 
         Vector3 pos = transform.position;
         for (int i = 0; i < numberOfRoom; i++)
@@ -30,32 +30,32 @@ public class BuildingGenerator : MonoBehaviour
         }
 
         playerRoomIndex = Random.Range(0, roomList.Count);
-        roomList[playerRoomIndex].GetComponent<RoomGenerator>().isPlayerIn = true;
-
         RoomGenerator playerRoom = roomList[playerRoomIndex].GetComponent<RoomGenerator>();
+        playerRoom.isPlayerIn = true;
 
         for (int i = 0; i < roomList.Count; i++)
         {
             if(i != playerRoomIndex)
-            {
-                CompareObjectRoom(playerRoom, i);
+            {            
+                if (playerRoom.prefabsInRoom[0].name == roomList[i].GetComponent<RoomGenerator>().prefabsInRoom[0].name)
+                {
+                    ClearRoom();
+                    return;
+                }
             }
         }
     }
 
-    private void CompareObjectRoom(RoomGenerator playerRoom, int roomToCompare)
+    private void ClearRoom()
     {
-        if (playerRoom.GetPrefab(TypeOfConstruction.Bed) == roomList[roomToCompare].GetComponent<RoomGenerator>().GetPrefab(TypeOfConstruction.Bed))
+        if(roomList.Count > 0)
         {
-            for (int i = 0; i < numberOfRoom; i++)
+            for (int i = 0; i < roomList.Count; i++)
             {
                 Destroy(roomList[i]);
             }
-            roomList.Clear();
         }
-        else
-        {
-            Debug.Log("false");
-        }
+        roomList.Clear();
+        GenerateRoom();
     }
 }
