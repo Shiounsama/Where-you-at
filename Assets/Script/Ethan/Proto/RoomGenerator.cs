@@ -37,7 +37,6 @@ public class RoomGenerator : MonoBehaviour
             {
                 prefabsLists[type] = new List<GameObject>();
             }
-
             prefabsLists[type].Add(prefab);
         }
     }
@@ -51,21 +50,5 @@ public class RoomGenerator : MonoBehaviour
             GameObject actualPrefab = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], spawnLocation, Quaternion.identity, transform);
             prefabsInRoom.Add(actualPrefab);
         }
-    }
-
-    public GameObject GetPrefab(TypeOfConstruction type)
-    {
-        switch (type)
-        {
-            case TypeOfConstruction.Bed:
-                return prefabsInRoom[0];
-            case TypeOfConstruction.Kitchen:
-                return prefabsInRoom[1];
-            case TypeOfConstruction.Wardrobe:
-                return prefabsInRoom[2];
-            case TypeOfConstruction.Bin:
-                return prefabsInRoom[3];
-        }
-        return null;
     }
 }
