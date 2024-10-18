@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class RoomGenerator : MonoBehaviour
 {
-    [SerializeField] private ConstructionTypeCollection typeCollection;
-    [SerializeField] private List<Transform> spotsList;
+    public bool isPlayerIn;
 
-    private void Start()
+    [SerializeField] private ConstructionTypeCollection typeCollection;
+    [SerializeField] private Dictionary<TypeOfConstruction, List<GameObject>> prefabsLists = new();
+
+    public List<Transform> spotsList;
+
+    public List<GameObject> prefabsInRoom;
+
+    private void Awake()
+    {
+        InitializeAllList();
+        SpawnAllPrefabInRoom();
+    }
+
+    private void SpawnAllPrefabInRoom()
     {
         InstantiateConstruction(TypeOfConstruction.Bed, spotsList[0].transform.position);
         InstantiateConstruction(TypeOfConstruction.Kitchen, spotsList[1].transform.position);
@@ -15,19 +27,45 @@ public class RoomGenerator : MonoBehaviour
         InstantiateConstruction(TypeOfConstruction.Bin, spotsList[3].transform.position);
     }
 
-    private void InstantiateConstruction(TypeOfConstruction type, Vector3 whereToMakeItSpawn)
+    private void InitializeAllList()
     {
-        List<GameObject> roomPrefabs = new List<GameObject>();
         foreach (GameObject prefab in typeCollection.prefabs)
         {
-            if (prefab.GetComponent<PrefabType>().type == type)
+            TypeOfConstruction type = prefab.GetComponent<PrefabType>().type;
+
+            if (!prefabsLists.ContainsKey(type))
             {
-                roomPrefabs.Add(prefab);
+                prefabsLists[type] = new List<GameObject>();
             }
+
+            prefabsLists[type].Add(prefab);
         }
-        if(roomPrefabs.Count > 0)
+    }
+
+    private void InstantiateConstruction(TypeOfConstruction type, Vector3 spawnLocation)
+    {
+        List<GameObject> roomPrefabs = prefabsLists[type];
+
+        if (roomPrefabs.Count > 0)
         {
-            Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], whereToMakeItSpawn, Quaternion.identity, transform);
+            GameObject actualPrefab = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], spawnLocation, Quaternion.identity, transform);
+            prefabsInRoom.Add(actualPrefab);
         }
+    }
+
+    public GameObject GetPrefab(TypeOfConstruction type)
+    {
+        switch (type)
+        {
+            case TypeOfConstruction.Bed:
+                return prefabsInRoom[0];
+            case TypeOfConstruction.Kitchen:
+                return prefabsInRoom[1];
+            case TypeOfConstruction.Wardrobe:
+                return prefabsInRoom[2];
+            case TypeOfConstruction.Bin:
+                return prefabsInRoom[3];
+        }
+        return null;
     }
 }

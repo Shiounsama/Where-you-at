@@ -285,7 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889b5b64bc77858459257af17203517c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRoom: 5
+  numberOfRoom: 2
+  playerRoomIndex: 0
   roomOffsetY: 1
   roomPrefab: {fileID: 1052788382011703801, guid: 83497d8136e32dd4b9aca4ecfeb0a561, type: 3}
   roomList: []
@@ -350,6 +351,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04758c7dc58eef34a858d31d56208ed2, type: 3}
+--- !u!1 &1258427457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1258427458}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1258427458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258427457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 7.35, z: -5.39}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2071134631
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,3 +562,4 @@ SceneRoots:
   - {fileID: 465242209}
   - {fileID: 1117313017}
   - {fileID: 673186337}
+  - {fileID: 1258427458}
