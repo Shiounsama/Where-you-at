@@ -14,6 +14,7 @@ public class TNetworkTest : NetworkManager
     public GameObject PremierJoueurSpawn;
     public GameObject DeuxiemeJoueurSpawn;
 
+    public int compteurJoueur = 0;
     //public GlobalVariable globalVariable;
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
@@ -21,7 +22,7 @@ public class TNetworkTest : NetworkManager
         GameObject player;
         Vector3 spawnPosition;
         Quaternion spawnRotation;
-        int compteurJoueur = 0;
+        
 
         if (compteurJoueur == 0)
         {
@@ -53,6 +54,7 @@ public class TNetworkTest : NetworkManager
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         Debug.Log("Un joueur s'est déconnecté : " + conn.connectionId);
+        compteurJoueur--; 
         base.OnServerDisconnect(conn);
         
     }
@@ -96,6 +98,38 @@ public class TNetworkTest : NetworkManager
             }
            
             
+        }
+
+        if (SceneManager.GetActiveScene().name == "JeuProto")
+        {
+            manager scriptManager = GetComponent<manager>();
+
+            foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+            {
+                GameObject player = conn.identity.gameObject;
+                PlayerData playerData = player.GetComponent<PlayerData>();
+
+                PremierJoueurSpawn = GameObject.Find("spawn1");
+                DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
+
+
+                if (playerData.role == "Charlie")
+                {
+                    player.transform.position = PremierJoueurSpawn.transform.position;
+                    player.transform.rotation = PremierJoueurSpawn.transform.rotation;
+                }
+                else if (playerData.role == "Camera")
+                {
+                    player.transform.position = DeuxiemeJoueurSpawn.transform.position;
+                    player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
+                }
+            }
+            if (scriptManager != null)
+            {
+                scriptManager.activeComponent();
+            }
+
+
         }
     }
 

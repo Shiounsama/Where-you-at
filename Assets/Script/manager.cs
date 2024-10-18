@@ -9,7 +9,7 @@ public class manager : NetworkBehaviour
     public List<PlayerData> scriptPlayer;
     public List<TestCamera> scriptCamera;
     public List<GameObject> player;
-
+    public int nbrJoueur;
     public void activeComponent()
     {
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
@@ -19,10 +19,12 @@ public class manager : NetworkBehaviour
             player.Add(playerscript.gameObject);
             playerscript.activeComponentPlayer();
             playerscript.startScene();
-            playerscript.SetupUI();
+            //playerscript.SetupUI();
             playerscript.SetRole(playerscript.role);
 
         }
+
+        nbrJoueur = player.Count;
     }
 
 }

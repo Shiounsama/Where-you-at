@@ -12,11 +12,15 @@ public class PlayerData : NetworkBehaviour
 
     public string playerName;
     private PlayerMessage message;
-    public bool playerReady;
 
-    public TMP_InputField inputField;
+    [Header("Multijoueur")]
+    public bool playerReady = false;
+    public float scoreJoueur;
+    public bool winJoueur;
+
+    /*public TMP_InputField inputField;
     public Button sendButton;
-    public TMP_Text textMessage;
+    public TMP_Text textMessage;*/
 
     public Canvas UImessage;
 
@@ -60,7 +64,7 @@ public class PlayerData : NetworkBehaviour
 
     public void SetupUI()
     {
-        inputField = FindObjectOfType<TMP_InputField>();
+        /*inputField = FindObjectOfType<TMP_InputField>();
         sendButton = FindObjectOfType<Button>();
         UImessage = FindObjectOfType<Canvas>();
 
@@ -73,12 +77,12 @@ public class PlayerData : NetworkBehaviour
         else
         {
             Debug.LogWarning("ReceptionMessage n'a pas été trouvé dans la scène.");
-        }
+        }*/
     }
 
     private void UpdateUIForRole(string newRole)
     {
-        if (!isLocalPlayer) return;
+        /*if (!isLocalPlayer) return;
 
         if (sendButton != null)
         {
@@ -96,7 +100,7 @@ public class PlayerData : NetworkBehaviour
                 inputField.gameObject.SetActive(false);
                 textMessage.gameObject.SetActive(true);
             }
-        }
+        }*/
     }
 
     public override void OnStopClient()
@@ -104,14 +108,14 @@ public class PlayerData : NetworkBehaviour
         base.OnStopClient();
 
         // Réactivez tous les éléments de l'UI lorsque le client se déconnecte
-        if (isLocalPlayer)
+        /*if (isLocalPlayer)
         {
             if (sendButton != null) sendButton.gameObject.SetActive(true);
             if (inputField != null) inputField.gameObject.SetActive(true);
             if (textMessage != null) textMessage.gameObject.SetActive(true);
 
             UImessage.enabled = false;
-        }
+        }*/
     }
 
     public void startScene()
@@ -155,6 +159,11 @@ public class PlayerData : NetworkBehaviour
 
             }
         }
+    }
+
+    public void buttonReady()
+    {
+        playerReady = !playerReady;
     }
 
     [Command]
