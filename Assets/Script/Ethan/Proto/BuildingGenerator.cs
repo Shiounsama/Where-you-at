@@ -8,6 +8,7 @@ public class BuildingGenerator : MonoBehaviour
 
     [SerializeField] private float roomOffsetY;
 
+    [SerializeField] private GameObject playerLostPrefab;
     [SerializeField] private GameObject roomPrefab;
 
     public List<GameObject> roomList;
@@ -25,7 +26,7 @@ public class BuildingGenerator : MonoBehaviour
         for (int i = 0; i < numberOfRoom; i++)
         {
             GameObject actualRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity, transform);
-            actualRoom.transform.position = new Vector3(pos.x, pos.y + (roomOffsetY * i), pos.z);
+            actualRoom.transform.position = new Vector3(pos.x, pos.y + (roomOffsetY * -i), pos.z);
             roomList.Add(actualRoom);
         }
 
@@ -35,8 +36,8 @@ public class BuildingGenerator : MonoBehaviour
 
         for (int i = 0; i < roomList.Count; i++)
         {
-            if(i != playerRoomIndex)
-            {            
+            if (i != playerRoomIndex)
+            {
                 if (playerRoom.prefabsInRoom[0].name == roomList[i].GetComponent<RoomGenerator>().prefabsInRoom[0].name)
                 {
                     ClearRoom();
@@ -44,11 +45,12 @@ public class BuildingGenerator : MonoBehaviour
                 }
             }
         }
+        SpawnPlayerLost(playerRoomIndex);
     }
 
     private void ClearRoom()
     {
-        if(roomList.Count > 0)
+        if (roomList.Count > 0)
         {
             for (int i = 0; i < roomList.Count; i++)
             {
@@ -57,5 +59,10 @@ public class BuildingGenerator : MonoBehaviour
         }
         roomList.Clear();
         GenerateRoom();
+    }
+
+    private void SpawnPlayerLost(int roomToSpawnIn)
+    {
+        Instantiate(playerLostPrefab, roomList[roomToSpawnIn].transform.position, Quaternion.identity, roomList[roomToSpawnIn].transform);
     }
 }

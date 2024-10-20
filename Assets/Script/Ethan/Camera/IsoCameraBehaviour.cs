@@ -102,7 +102,7 @@ public class IsoCameraBehaviour : MonoBehaviour
     {
         if (action.performed && isUpDown <= 0)
         {
-            isUpDown = 0.25f;
+            isUpDown = 0.5f;
             actualRoomFloor -= (int)action.ReadValue<float>();
             if (actualRoomFloor > objectToMove.GetComponent<BuildingGenerator>().roomList.Count - 1)
             {
@@ -112,7 +112,8 @@ public class IsoCameraBehaviour : MonoBehaviour
             {
                 actualRoomFloor = objectToMove.GetComponent<BuildingGenerator>().roomList.Count - 1;
             }
-            yPosTarget = objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].transform.localPosition;
+            //yPosTarget = objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].transform.localPosition;
+            yPosTarget.y = actualRoomFloor;
         }
     }
 
