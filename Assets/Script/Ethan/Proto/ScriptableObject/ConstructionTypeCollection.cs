@@ -4,7 +4,7 @@ using UnityEngine;
 public enum TypeOfConstruction
 {
     Bed,
-    Wardrobe,
+    Desk,
     Kitchen,
     Bin
 }

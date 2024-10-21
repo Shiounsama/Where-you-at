@@ -6,7 +6,7 @@ public class BuildingGenerator : MonoBehaviour
     [SerializeField] private int numberOfRoom;
     [SerializeField] private int playerRoomIndex;
 
-    [SerializeField] private float roomOffsetY;
+    public float roomOffsetY;
 
     [SerializeField] private GameObject playerLostPrefab;
     [SerializeField] private GameObject roomPrefab;

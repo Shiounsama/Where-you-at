@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectRoom",
+                    "type": "Button",
+                    "id": "e8ed25e6-efc9-4c8b-bff7-f8532bc320db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -170,6 +179,17 @@
                     "action": "ProtoUp/Down",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "5aebbad2-bef3-4f07-b5b6-13f78f909cef",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectRoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
