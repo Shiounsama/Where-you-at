@@ -22,7 +22,7 @@ public class RoomGenerator : MonoBehaviour
     {
         InstantiateConstruction(TypeOfConstruction.Bed, spotsList[0].transform.position);
         InstantiateConstruction(TypeOfConstruction.Kitchen, spotsList[1].transform.position);
-        InstantiateConstruction(TypeOfConstruction.Wardrobe, spotsList[2].transform.position);
+        InstantiateConstruction(TypeOfConstruction.Desk, spotsList[2].transform.position);
         InstantiateConstruction(TypeOfConstruction.Bin, spotsList[3].transform.position);
     }
 
@@ -44,7 +44,7 @@ public class RoomGenerator : MonoBehaviour
     {
         List<GameObject> roomPrefabs = prefabsLists[type];
 
-        if (roomPrefabs.Count > 0)
+        if (roomPrefabs.Count > 0 && spotsList.Count > 0)
         {
             GameObject actualPrefab = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], spawnLocation, Quaternion.identity, transform);
             prefabsInRoom.Add(actualPrefab);

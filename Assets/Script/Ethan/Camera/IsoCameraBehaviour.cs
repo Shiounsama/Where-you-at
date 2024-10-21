@@ -112,8 +112,23 @@ public class IsoCameraBehaviour : MonoBehaviour
             {
                 actualRoomFloor = objectToMove.GetComponent<BuildingGenerator>().roomList.Count - 1;
             }
-            //yPosTarget = objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].transform.localPosition;
+            //yPosTarget.y = objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].transform.localPosition.y;
             yPosTarget.y = actualRoomFloor;
+        }
+    }
+
+    public void SelectRoom(InputAction.CallbackContext action)
+    {
+        if (action.performed)
+        {
+            if (objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].GetComponent<RoomGenerator>().isPlayerIn == true)
+            {
+                Debug.Log("WON");
+            }
+            else
+            {
+                Debug.Log("Lose");
+            }
         }
     }
 
