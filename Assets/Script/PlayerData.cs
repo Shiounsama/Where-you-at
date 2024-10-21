@@ -33,7 +33,7 @@ public class PlayerData : NetworkBehaviour
     {
         if(isLocalPlayer && Input.GetKeyDown("e"))
         {
-            CmdRequestSceneChange("TestCamera");
+            CmdRequestSceneChange("ProtoJeu");
         }
 
         if(role == "Camera" && isLocalPlayer)

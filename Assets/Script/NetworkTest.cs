@@ -30,6 +30,7 @@ public class TNetworkTest : NetworkManager
             player = Instantiate(PremierJoueurPrefab);
             PlayerData playerData = player.GetComponent<PlayerData>();
             playerData.SetRole("Charlie");
+            playerData.name = "Player " + conn;
             spawnPosition = PremierJoueurSpawn.transform.position;
             spawnRotation = PremierJoueurSpawn.transform.rotation;
             compteurJoueur++;
@@ -39,6 +40,7 @@ public class TNetworkTest : NetworkManager
             player = Instantiate(DeuxiemeJoueurPrefab);
             PlayerData playerData = player.GetComponent<PlayerData>();
             playerData.SetRole("Camera");
+            playerData.name = "Player " + conn;
             spawnPosition = DeuxiemeJoueurSpawn.transform.position;
             spawnRotation = DeuxiemeJoueurSpawn.transform.rotation;
             compteurJoueur++;
@@ -100,7 +102,7 @@ public class TNetworkTest : NetworkManager
             
         }
 
-        if (SceneManager.GetActiveScene().name == "JeuProto")
+        if (SceneManager.GetActiveScene().name == "ProtoJeu")
         {
             manager scriptManager = GetComponent<manager>();
 

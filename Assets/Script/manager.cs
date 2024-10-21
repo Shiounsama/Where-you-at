@@ -27,4 +27,15 @@ public class manager : NetworkBehaviour
         nbrJoueur = player.Count;
     }
 
+    public void giveRole()
+    {
+        scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        player.Clear();
+        foreach (PlayerData playerscript in scriptPlayer)
+        {
+            player.Add(playerscript.gameObject);
+            playerscript.role = "Camera";
+
+        }
+    }
 }

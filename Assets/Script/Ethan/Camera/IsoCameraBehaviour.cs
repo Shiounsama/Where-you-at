@@ -1,6 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
 public class IsoCameraBehaviour : MonoBehaviour
 {
@@ -45,6 +46,9 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void Update()
     {
+        /*if (!isLocalPlayer)
+            return;*/
+
         HandleCameraMovement();
         HandleObjectDragging();
         HandleCameraRotation();
