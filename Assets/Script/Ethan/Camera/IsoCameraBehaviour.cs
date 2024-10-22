@@ -45,7 +45,7 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void Update()
     {
-        HandleCameraMovement();
+        HandleCameraZoom();
         HandleObjectDragging();
         HandleCameraRotation();
         HandleObjectVerticality();
@@ -108,12 +108,12 @@ public class IsoCameraBehaviour : MonoBehaviour
             {
                 actualRoomFloor = 0;
             }
-            else if (actualRoomFloor < 0)
+            if (actualRoomFloor < 0)
             {
                 actualRoomFloor = objectToMove.GetComponent<BuildingGenerator>().roomList.Count - 1;
             }
             //yPosTarget.y = objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].transform.localPosition.y;
-            yPosTarget.y = actualRoomFloor;
+            yPosTarget.y = -objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].transform.localPosition.y;
         }
     }
 
@@ -134,7 +134,7 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     // === Private helper methods ===
 
-    private void HandleCameraMovement()
+    private void HandleCameraZoom()
     {
         // Smooth camera movement towards the zoom target
         transform.position = Vector3.Lerp(transform.position, zoomTargetPosition, zoomSpeed * Time.deltaTime);
@@ -148,8 +148,12 @@ public class IsoCameraBehaviour : MonoBehaviour
             Vector3 delta = currentMouseWorldPos - originDragPos;
 
             // Calculate target position for objectToMove
-            dragStartPosition = dragOffset + new Vector3(delta.x, 0, delta.z);
-            dragStartPosition.y = objectToMove.position.y;
+            //dragStartPosition = dragOffset + new Vector3(delta.x, 0, delta.z);
+            //dragStartPosition.y = objectToMove.position.y;
+            //objectToMove.position = Vector3.Lerp(objectToMove.position, dragStartPosition, Time.deltaTime * moveSpeed);
+
+            dragStartPosition = dragOffset + new Vector3(delta.x, delta.z, 0);
+            dragStartPosition.z = objectToMove.position.z;
             objectToMove.position = Vector3.Lerp(objectToMove.position, dragStartPosition, Time.deltaTime * moveSpeed);
         }
     }
@@ -167,6 +171,7 @@ public class IsoCameraBehaviour : MonoBehaviour
     {
         // Define the zoom target based on camera forward direction
         zoomTargetPosition = transform.position + transform.forward * action.ReadValue<float>() / zoomForce;
+        zoomTargetPosition.z = Mathf.Clamp(zoomTargetPosition.z, -20, 0);
         moveSpeed += action.ReadValue<float>() / 100;
         moveSpeed = Mathf.Clamp(moveSpeed, 5, Mathf.Infinity);
 
