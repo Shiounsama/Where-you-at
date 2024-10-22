@@ -8,6 +8,8 @@ public class NetworkProto : NetworkManager
 {
     public GameObject JoueurPrefab;
 
+    public manager scriptManager;
+
     public GameObject PremierJoueurSpawn;
     public GameObject DeuxiemeJoueurSpawn;
 
@@ -49,9 +51,11 @@ public class NetworkProto : NetworkManager
                 GameObject player = conn.identity.gameObject;
                 PlayerData playerData = player.GetComponentInChildren<PlayerData>();
 
-                PremierJoueurSpawn = GameObject.Find("spawn1");
-                DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
+                PremierJoueurSpawn = GameObject.Find("spawnCharlieCamera");
+                DeuxiemeJoueurSpawn = GameObject.Find("spawnCameras");
             }
+            scriptManager.giveRole();
+            scriptManager.activeComponent();
         }
     }
 }

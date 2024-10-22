@@ -34,8 +34,11 @@ public class manager : NetworkBehaviour
         foreach (PlayerData playerscript in scriptPlayer)
         {
             player.Add(playerscript.gameObject);
-            playerscript.role = "Camera";
+            playerscript.SetRole("Camera");
 
         }
+        int nbrRandom = Random.Range(0, player.Count);
+        player[nbrRandom].GetComponent<PlayerData>().SetRole("Charlie"); 
+
     }
 }

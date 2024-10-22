@@ -111,17 +111,15 @@ public class TNetworkTest : NetworkManager
                 GameObject player = conn.identity.gameObject;
                 PlayerData playerData = player.GetComponent<PlayerData>();
 
-                PremierJoueurSpawn = GameObject.Find("spawn1");
-                DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
-
-
                 if (playerData.role == "Charlie")
                 {
+                    PremierJoueurSpawn = GameObject.Find("spawn1");
                     player.transform.position = PremierJoueurSpawn.transform.position;
                     player.transform.rotation = PremierJoueurSpawn.transform.rotation;
                 }
                 else if (playerData.role == "Camera")
                 {
+                    DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
                     player.transform.position = DeuxiemeJoueurSpawn.transform.position;
                     player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 }
