@@ -48,12 +48,6 @@ public class IsoCameraBehaviour : MonoBehaviour
         HandleCameraZoom();
         HandleObjectDragging();
         HandleCameraRotation();
-        HandleObjectVerticality();
-
-        //if (!objectLocked)
-        //{
-        //    ResetCameraRotation();
-        //}
     }
 
 
@@ -98,36 +92,17 @@ public class IsoCameraBehaviour : MonoBehaviour
         }
     }
 
-    public void OnUpDown(InputAction.CallbackContext action)
-    {
-        if (action.performed && isUpDown <= 0)
-        {
-            isUpDown = 0.5f;
-            actualRoomFloor -= (int)action.ReadValue<float>();
-            if (actualRoomFloor > objectToMove.GetComponent<BuildingGenerator>().roomList.Count - 1)
-            {
-                actualRoomFloor = 0;
-            }
-            if (actualRoomFloor < 0)
-            {
-                actualRoomFloor = objectToMove.GetComponent<BuildingGenerator>().roomList.Count - 1;
-            }
-            //yPosTarget.y = objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].transform.localPosition.y;
-            yPosTarget.y = -objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].transform.localPosition.y;
-        }
-    }
-
     public void SelectRoom(InputAction.CallbackContext action)
     {
         if (action.performed)
         {
-            if (objectToMove.GetComponent<BuildingGenerator>().roomList[actualRoomFloor].GetComponent<RoomGenerator>().isPlayerIn == true)
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
             {
-                Debug.Log("WON");
-            }
-            else
-            {
-                Debug.Log("Lose");
+                if(hit.transform.GetComponent<RoomGenerator>().isPlayerIn)
+                {
+                    Debug.Log("Win");
+                }
             }
         }
     }
@@ -152,7 +127,7 @@ public class IsoCameraBehaviour : MonoBehaviour
             //dragStartPosition.y = objectToMove.position.y;
             //objectToMove.position = Vector3.Lerp(objectToMove.position, dragStartPosition, Time.deltaTime * moveSpeed);
 
-            dragStartPosition = dragOffset + new Vector3(delta.x, delta.z, 0);
+            dragStartPosition = dragOffset + new Vector3(delta.x, delta.z, 0) * moveSpeed;
             dragStartPosition.z = objectToMove.position.z;
             objectToMove.position = Vector3.Lerp(objectToMove.position, dragStartPosition, Time.deltaTime * moveSpeed);
         }
@@ -171,9 +146,9 @@ public class IsoCameraBehaviour : MonoBehaviour
     {
         // Define the zoom target based on camera forward direction
         zoomTargetPosition = transform.position + transform.forward * action.ReadValue<float>() / zoomForce;
-        zoomTargetPosition.z = Mathf.Clamp(zoomTargetPosition.z, -20, 0);
-        moveSpeed += action.ReadValue<float>() / 100;
-        moveSpeed = Mathf.Clamp(moveSpeed, 5, Mathf.Infinity);
+        zoomTargetPosition.z = Mathf.Clamp(zoomTargetPosition.z, -10, 5);
+        moveSpeed += action.ReadValue<float>() / 120;
+        moveSpeed = Mathf.Clamp(moveSpeed, 5, 20);
 
         // Adjust field of view within limits
         mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView, 2, 90);
@@ -201,15 +176,6 @@ public class IsoCameraBehaviour : MonoBehaviour
         {
             //objectLocked = hit.transform;
             //vcam.m_LookAt = objectLocked;
-        }
-    }
-
-    private void HandleObjectVerticality()
-    {
-        if (isUpDown >= 0)
-        {
-            isUpDown -= Time.deltaTime;
-            objectToMove.position = Vector3.Lerp(objectToMove.position, yPosTarget, moveSpeed * Time.deltaTime);
         }
     }
 
