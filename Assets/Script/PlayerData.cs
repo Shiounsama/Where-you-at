@@ -24,10 +24,10 @@ public class PlayerData : NetworkBehaviour
 
     public Canvas UImessage;
 
-    void Start()
+    /*void Start()
     {
         DontDestroyOnLoad(gameObject);
-    }
+    }*/
 
     private void Update()
     {
@@ -122,10 +122,12 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            TestCamera cam = GetComponent<TestCamera>();
+            IsoCameraBehaviour cam = FindObjectOfType<IsoCameraBehaviour>();
 
             cam.enabled = true;
-            cam.LEMONDE = GameObject.Find("monde");
+            GameObject building = GameObject.Find("BuildingGenerator");
+            cam.objectToMove = building.transform;
+            Debug.Log(cam.objectToMove);
 
         }
     }
@@ -135,16 +137,16 @@ public class PlayerData : NetworkBehaviour
         if (isLocalPlayer)
         {
             Camera cam = GetComponent<Camera>();
-            TestCamera scriptCam = GetComponent<TestCamera>();
+            //TestCamera scriptCam = GetComponent<TestCamera>();
             cam.enabled = true;
-            scriptCam.enabled = true;
-            scriptCam.role = role;
-            frontPNJ();
+            //scriptCam.enabled = true;
+            //scriptCam.role = role;
+            //frontPNJ();
 
-            if (role == "Camera")
+            /*if (role == "Camera")
             {
                 cam.orthographic = true;
-            }
+            }*/
         }
     }
 

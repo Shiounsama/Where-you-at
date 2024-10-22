@@ -1092,9 +1092,9 @@ GameObject:
   m_Component:
   - component: {fileID: 743056741}
   - component: {fileID: 743056739}
-  - component: {fileID: 743056743}
-  - component: {fileID: 743056744}
   - component: {fileID: 743056746}
+  - component: {fileID: 743056744}
+  - component: {fileID: 743056745}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1141,58 +1141,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &743056743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743056737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4defe897b2f6e4db437030e212d4ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
-  runInBackground: 1
-  headlessStartMode: 1
-  editorAutoStart: 0
-  sendRate: 60
-  autoStartServerBuild: 0
-  autoConnectClientBuild: 0
-  offlineScene: 
-  onlineScene: 
-  transport: {fileID: 0}
-  networkAddress: localhost
-  maxConnections: 100
-  disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
-  playerPrefab: {fileID: 4085377434406468444, guid: 03fc970e1eb32134b84196344d9736b6, type: 3}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 1
-  spawnPrefabs:
-  - {fileID: 305765537287967308, guid: e932529cce1a1c8438244f9dc2051b87, type: 3}
-  exceptionsDisconnect: 1
-  snapshotSettings:
-    bufferTimeMultiplier: 2
-    bufferLimit: 32
-    catchupNegativeThreshold: -1
-    catchupPositiveThreshold: 1
-    catchupSpeed: 0.019999999552965164
-    slowdownSpeed: 0.03999999910593033
-    driftEmaDuration: 1
-    dynamicAdjustment: 1
-    dynamicAdjustmentTolerance: 1
-    deliveryTimeEmaDuration: 2
-  evaluationMethod: 0
-  evaluationInterval: 3
-  timeInterpolationGui: 0
-  scriptManager: {fileID: 0}
-  PremierJoueurPrefab: {fileID: 305765537287967308, guid: e932529cce1a1c8438244f9dc2051b87, type: 3}
-  DeuxiemeJoueurPrefab: {fileID: 305765537287967308, guid: e932529cce1a1c8438244f9dc2051b87, type: 3}
-  PremierJoueurSpawn: {fileID: 889890522}
-  DeuxiemeJoueurSpawn: {fileID: 760234344}
 --- !u!114 &743056744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1211,7 +1159,8 @@ MonoBehaviour:
   scriptPlayer: []
   scriptCamera: []
   player: []
---- !u!114 &743056746
+  nbrJoueur: 0
+--- !u!114 &743056745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1224,7 +1173,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetX: 0
-  offsetY: -30
+  offsetY: -25
+--- !u!114 &743056746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743056737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdb128514523e24bb0d7212ff9783db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  runInBackground: 1
+  headlessStartMode: 1
+  editorAutoStart: 0
+  sendRate: 60
+  autoStartServerBuild: 0
+  autoConnectClientBuild: 0
+  offlineScene: 
+  onlineScene: 
+  transport: {fileID: 0}
+  networkAddress: localhost
+  maxConnections: 100
+  disconnectInactiveConnections: 0
+  disconnectInactiveTimeout: 60
+  authenticator: {fileID: 0}
+  playerPrefab: {fileID: 620388920761478827, guid: 3c90669d033f7b1459efeb2eeef47cca, type: 3}
+  autoCreatePlayer: 1
+  playerSpawnMethod: 0
+  spawnPrefabs: []
+  exceptionsDisconnect: 1
+  snapshotSettings:
+    bufferTimeMultiplier: 2
+    bufferLimit: 32
+    catchupNegativeThreshold: -1
+    catchupPositiveThreshold: 1
+    catchupSpeed: 0.019999999552965164
+    slowdownSpeed: 0.03999999910593033
+    driftEmaDuration: 1
+    dynamicAdjustment: 1
+    dynamicAdjustmentTolerance: 1
+    deliveryTimeEmaDuration: 2
+  evaluationMethod: 0
+  evaluationInterval: 3
+  timeInterpolationGui: 0
+  JoueurPrefab: {fileID: 620388920761478827, guid: 3c90669d033f7b1459efeb2eeef47cca, type: 3}
+  scriptManager: {fileID: 743056744}
+  PremierJoueurSpawn: {fileID: 889890522}
+  DeuxiemeJoueurSpawn: {fileID: 760234344}
 --- !u!1 &760234344
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,6 +22,8 @@ public class NetworkProto : NetworkManager
         player = Instantiate(JoueurPrefab);
         PlayerData playerData = player.GetComponentInChildren<PlayerData>();
         playerData.name = "Player " + conn.connectionId;
+        playerData.playerName = "Player " + conn.connectionId;
+
 
         spawnPosition = PremierJoueurSpawn.transform.position;
         spawnRotation = PremierJoueurSpawn.transform.rotation;
@@ -43,18 +45,27 @@ public class NetworkProto : NetworkManager
     {
         base.OnClientSceneChanged();
 
-        if (SceneManager.GetActiveScene().name == "TestCamera")
-        {
-            manager scriptManager = GetComponent<manager>();
+        if (SceneManager.GetActiveScene().name == "ProtoJeu") { 
+
+            scriptManager.giveRole();
+            PremierJoueurSpawn = GameObject.Find("CharlieCamera(Clone)");
+            DeuxiemeJoueurSpawn = GameObject.Find("CameraIsoSpawn");
             foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
             {
                 GameObject player = conn.identity.gameObject;
                 PlayerData playerData = player.GetComponentInChildren<PlayerData>();
+                if (playerData.role == "Charlie")
+                {
+                    player.transform.position = PremierJoueurSpawn.transform.position;
+                    player.transform.rotation = PremierJoueurSpawn.transform.rotation;
+                }
+                else if (playerData.role == "Camera")
+                {
+                    player.transform.position = DeuxiemeJoueurSpawn.transform.position;
+                    player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
+                }
 
-                PremierJoueurSpawn = GameObject.Find("spawnCharlieCamera");
-                DeuxiemeJoueurSpawn = GameObject.Find("spawnCameras");
             }
-            scriptManager.giveRole();
             scriptManager.activeComponent();
         }
     }
