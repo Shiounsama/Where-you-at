@@ -33,7 +33,6 @@ public class IsoCameraBehaviour : MonoBehaviour
     [Header("Interaction avec les objets")]
     [SerializeField, Tooltip("Les Layer que notre raycast va tester pour voir si on peut lock l'objet qui porte ce layer")] private LayerMask layerToVerify;
     [SerializeField] private Transform objectToMove;
-    //[SerializeField] private Transform objectLocked;
 
     private void Start()
     {
@@ -49,8 +48,6 @@ public class IsoCameraBehaviour : MonoBehaviour
         HandleObjectDragging();
         HandleCameraRotation();
     }
-
-
 
     // === Public methods for user interaction ===
 
