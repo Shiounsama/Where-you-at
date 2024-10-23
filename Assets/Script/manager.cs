@@ -32,11 +32,11 @@ public class manager : NetworkBehaviour
         foreach (PlayerData playerscript in scriptPlayer)
         {
             player.Add(playerscript.gameObject);
-            playerscript.SetRole("Camera");
+            playerscript.role = "Camera";
 
         }
         int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().SetRole("Charlie"); 
+        player[nbrRandom].GetComponent<PlayerData>().role = "Charlie"; 
 
     }
 }

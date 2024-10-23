@@ -124,10 +124,7 @@ public class PlayerData : NetworkBehaviour
                 cam.enabled = true;
                 GameObject building = GameObject.Find("BuildingGenerator");
                 cam.objectToMove = building.transform;
-                cam.GetComponent<PlayerInput>().enabled = true;
-
-               
-               
+                cam.GetComponent<PlayerInput>().enabled = true;   
             }
 
             if (role == "Charlie")

@@ -45,8 +45,7 @@ public class NetworkProto : NetworkManager
     {
         base.OnClientSceneChanged();
 
-        if (SceneManager.GetActiveScene().name == "ProtoJeu") { 
-
+        if (SceneManager.GetActiveScene().name == "ProtoJeu") {
             scriptManager.giveRole();
             PremierJoueurSpawn = GameObject.Find("CharlieCamera(Clone)");
             DeuxiemeJoueurSpawn = GameObject.Find("CameraIsoSpawn");
@@ -54,15 +53,19 @@ public class NetworkProto : NetworkManager
             {
                 GameObject player = conn.identity.gameObject;
                 PlayerData playerData = player.GetComponentInChildren<PlayerData>();
+                Debug.Log(playerData.role);
                 if (playerData.role == "Charlie")
                 {
-                    Debug.Log("TU ES TP DANS CHARLIE FDP");
-                    player.transform.position = PremierJoueurSpawn.transform.position;
+                    
+                    player.transform.position = PremierJoueurSpawn.transform.position - new Vector3(0, 0.48000002f, -3.28999996f);
                     player.transform.rotation = PremierJoueurSpawn.transform.rotation;
+                    Debug.Log(PremierJoueurSpawn.transform.position + " Global");
+                    Debug.Log(PremierJoueurSpawn.transform.localPosition + " Local");
+
                 }
                 else if (playerData.role == "Camera")
                 {
-                    player.transform.position = DeuxiemeJoueurSpawn.transform.localPosition;
+                    player.transform.position = DeuxiemeJoueurSpawn.transform.position;
                     player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 }
             }
