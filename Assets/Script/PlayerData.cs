@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PlayerData : NetworkBehaviour
 {
@@ -23,11 +24,7 @@ public class PlayerData : NetworkBehaviour
     public TMP_Text textMessage;*/
 
     public Canvas UImessage;
-
-    /*void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }*/
+    public GameObject UI;
 
     private void Update()
     {
@@ -122,12 +119,24 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            IsoCameraBehaviour cam = FindObjectOfType<IsoCameraBehaviour>();
+            if (role == "Camera") {
+                IsoCameraBehaviour cam = transform.parent.gameObject.GetComponentInChildren<IsoCameraBehaviour>();
+                cam.enabled = true;
+                GameObject building = GameObject.Find("BuildingGenerator");
+                cam.objectToMove = building.transform;
+                cam.GetComponent<PlayerInput>().enabled = true;
 
-            cam.enabled = true;
-            GameObject building = GameObject.Find("BuildingGenerator");
-            cam.objectToMove = building.transform;
-            Debug.Log(cam.objectToMove);
+               
+               
+            }
+
+            if (role == "Charlie")
+            {
+                TestCamera cam = transform.parent.gameObject.GetComponentInChildren<TestCamera>();
+                Debug.Log("Test cam : " + cam);
+                cam.enabled = true;
+               
+            }
 
         }
     }
@@ -137,8 +146,9 @@ public class PlayerData : NetworkBehaviour
         if (isLocalPlayer)
         {
             Camera cam = GetComponent<Camera>();
-            //TestCamera scriptCam = GetComponent<TestCamera>();
             cam.enabled = true;
+
+            //TestCamera scriptCam = GetComponent<TestCamera>();
             //scriptCam.enabled = true;
             //scriptCam.role = role;
             //frontPNJ();

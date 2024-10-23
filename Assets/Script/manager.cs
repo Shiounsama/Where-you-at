@@ -16,11 +16,9 @@ public class manager : NetworkBehaviour
 
         foreach (PlayerData playerscript in scriptPlayer)
         {
-            player.Add(playerscript.gameObject);
             playerscript.activeComponentPlayer();
             playerscript.startScene();
             //playerscript.SetupUI();
-            playerscript.SetRole(playerscript.role);
 
         }
 

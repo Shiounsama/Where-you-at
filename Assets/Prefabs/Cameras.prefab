@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 3238286266421671346}
   - component: {fileID: 163190873758213615}
   - component: {fileID: 399093506737046280}
+  - component: {fileID: 1792860962710810789}
   - component: {fileID: 1282485438790196413}
   m_Layer: 0
   m_Name: Virtual Camera
@@ -145,7 +146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4022091751945393399}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -268,6 +269,22 @@ MonoBehaviour:
   m_DefaultActionMap: Keyboard & Mouse
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1792860962710810789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4022091751945393399}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc19c3e3d6faef74f81a1fe1d5592313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 5
+  rotationLimitY: 90
+  limiteMinZoom: 1
+  limiteMaxZoom: 3
 --- !u!114 &1282485438790196413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +304,7 @@ MonoBehaviour:
   layerToVerify:
     serializedVersion: 2
     m_Bits: 8
-  objectToMove: {fileID: 0}
+  objectToMove: {fileID: 5817665984477566024}
 --- !u!1 &5971760027535294172
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +413,7 @@ MonoBehaviour:
   scoreJoueur: 0
   winJoueur: 0
   UImessage: {fileID: 0}
+  UI: {fileID: 0}
 --- !u!81 &9196251228806759180
 AudioListener:
   m_ObjectHideFlags: 0

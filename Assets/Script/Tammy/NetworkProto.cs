@@ -56,15 +56,15 @@ public class NetworkProto : NetworkManager
                 PlayerData playerData = player.GetComponentInChildren<PlayerData>();
                 if (playerData.role == "Charlie")
                 {
+                    Debug.Log("TU ES TP DANS CHARLIE FDP");
                     player.transform.position = PremierJoueurSpawn.transform.position;
                     player.transform.rotation = PremierJoueurSpawn.transform.rotation;
                 }
                 else if (playerData.role == "Camera")
                 {
-                    player.transform.position = DeuxiemeJoueurSpawn.transform.position;
+                    player.transform.position = DeuxiemeJoueurSpawn.transform.localPosition;
                     player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 }
-
             }
             scriptManager.activeComponent();
         }
