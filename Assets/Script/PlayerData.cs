@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using Mirror;
-using TMPro;
-using UnityEngine.InputSystem;
 using Cinemachine;
+using Mirror;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerData : NetworkBehaviour
 {
@@ -20,7 +16,7 @@ public class PlayerData : NetworkBehaviour
     public bool playerReady = false;
     public float scoreJoueur;
     public bool winJoueur;
-    
+
 
     /*public TMP_InputField inputField;
     public Button sendButton;
@@ -31,12 +27,12 @@ public class PlayerData : NetworkBehaviour
 
     private void Update()
     {
-        if(isLocalPlayer && Input.GetKeyDown("e"))
+        if (isLocalPlayer && Input.GetKeyDown("e"))
         {
             CmdRequestSceneChange("ProtoJeu");
         }
 
-        if(role == "Camera" && isLocalPlayer)
+        if (role == "Camera" && isLocalPlayer)
         {
             frontPNJ();
         }
@@ -64,14 +60,14 @@ public class PlayerData : NetworkBehaviour
             startScene();
         }
     }
-    
+
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
 
 
         role = "Test";
-        
+
     }
 
     public void SetupUI()
@@ -134,29 +130,29 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            IsoCameraBehaviour camIso = transform.parent.gameObject.GetComponentInChildren<IsoCameraBehaviour>();
+            IsoCameraDrag camDragIso = transform.parent.gameObject.GetComponentInChildren<IsoCameraDrag>();
             CinemachineVirtualCamera virtualCamera = transform.parent.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
             TestCamera cam360 = transform.parent.gameObject.GetComponentInChildren<TestCamera>();
-            
+
             Camera camPlayer = GetComponent<Camera>();
 
             if (role == "Camera" || role == "Charlie")
             {
                 GameObject building = GameObject.Find("BuildingGenerator");
-                camIso.GetComponent<PlayerInput>().enabled = false;
-                camIso.enabled = false;
-                camIso.GetComponent<PlayerInput>().enabled = false;
+                camDragIso.GetComponent<PlayerInput>().enabled = false;
+                camDragIso.enabled = false;
+                camDragIso.GetComponent<PlayerInput>().enabled = false;
                 cam360.enabled = false;
                 virtualCamera.Priority = 15;
-                camIso.objectToMove = building.transform;
+                camDragIso.objectToMove = building.transform;
                 ChangeRole = true;
                 camPlayer.enabled = true;
 
                 if (role == "Camera")
                 {
 
-                    camIso.enabled = true;
-                    camIso.GetComponent<PlayerInput>().enabled = true;
+                    camDragIso.enabled = true;
+                    camDragIso.GetComponent<PlayerInput>().enabled = true;
 
                     //TestCamera scriptCam = GetComponent<TestCamera>();
                     //scriptCam.enabled = true;

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class IsoCameraDrag : MonoBehaviour
 {
-    [SerializeField] private Transform objectToMove;
+    public Transform objectToMove;
 
     private bool isDragging;
 
