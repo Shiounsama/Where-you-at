@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 163190873758213615}
   - component: {fileID: 399093506737046280}
   - component: {fileID: 1792860962710810789}
-  - component: {fileID: 1282485438790196413}
+  - component: {fileID: 7002679708759617233}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1282485438790196413}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IsoCameraBehaviour, Assembly-CSharp
         m_MethodName: OnCameraZoom
         m_Mode: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
     m_ActionName: Keyboard & Mouse/Ping Map[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1282485438790196413}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IsoCameraBehaviour, Assembly-CSharp
         m_MethodName: OnMoveWorld
         m_Mode: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
     m_ActionName: Keyboard & Mouse/MoveWorld[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1282485438790196413}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IsoCameraBehaviour, Assembly-CSharp
         m_MethodName: OnRotateCamera
         m_Mode: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
     m_ActionName: Keyboard & Mouse/RotateCamera[/Keyboard/q,/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1282485438790196413}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IsoCameraBehaviour, Assembly-CSharp
         m_MethodName: OnSelectObject
         m_Mode: 0
@@ -234,7 +234,7 @@ MonoBehaviour:
     m_ActionName: Keyboard & Mouse/SelectObject[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1282485438790196413}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IsoCameraBehaviour, Assembly-CSharp
         m_MethodName: SelectRoom
         m_Mode: 0
@@ -269,7 +269,7 @@ MonoBehaviour:
   rotationLimitY: 90
   limiteMinZoom: 1
   limiteMaxZoom: 3
---- !u!114 &1282485438790196413
+--- !u!114 &7002679708759617233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -278,17 +278,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4022091751945393399}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 860c73aaa58fe014e95287795ce17c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7252ba89a48310943ba94d80ba7323ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  zoomSpeed: 7
-  zoomForce: 150
-  rotationSpeed: 400
-  layerToVerify:
-    serializedVersion: 2
-    m_Bits: 4294967295
   objectToMove: {fileID: 0}
+  moveSpeed: 10
+  axisLocker: {x: 1, y: 1, z: 1}
 --- !u!1 &5971760027535294172
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +388,7 @@ MonoBehaviour:
   syncInterval: 0
   role: 
   playerName: 
+  ChangeRole: 0
   playerReady: 0
   scoreJoueur: 0
   winJoueur: 0

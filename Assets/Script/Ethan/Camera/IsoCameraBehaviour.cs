@@ -32,7 +32,7 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     [Header("Interaction avec les objets")]
     [SerializeField, Tooltip("Les Layer que notre raycast va tester pour voir si on peut lock l'objet qui porte ce layer")] private LayerMask layerToVerify;
-    [SerializeField] private Transform objectToMove;
+    [SerializeField] public Transform objectToMove;
 
     private void Start()
     {
@@ -96,7 +96,7 @@ public class IsoCameraBehaviour : MonoBehaviour
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
             {
-                if(hit.transform.GetComponent<RoomGenerator>().isPlayerIn)
+                if (hit.transform.GetComponent<RoomGenerator>().isPlayerIn)
                 {
                     Debug.Log("Win");
                 }
