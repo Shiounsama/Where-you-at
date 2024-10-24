@@ -77,6 +77,8 @@ GameObject:
   - component: {fileID: 399093506737046280}
   - component: {fileID: 1792860962710810789}
   - component: {fileID: 7002679708759617233}
+  - component: {fileID: 7744140331467053973}
+  - component: {fileID: 4354392317942564778}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -166,9 +168,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IsoCameraBehaviour, Assembly-CSharp
-        m_MethodName: OnCameraZoom
+      - m_Target: {fileID: 4354392317942564778}
+        m_TargetAssemblyTypeName: IsoCameraZoom, Assembly-CSharp
+        m_MethodName: OnZoom
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -186,9 +188,9 @@ MonoBehaviour:
     m_ActionName: Keyboard & Mouse/Ping Map[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IsoCameraBehaviour, Assembly-CSharp
-        m_MethodName: OnMoveWorld
+      - m_Target: {fileID: 7002679708759617233}
+        m_TargetAssemblyTypeName: IsoCameraDrag, Assembly-CSharp
+        m_MethodName: OnDragAction
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -202,9 +204,9 @@ MonoBehaviour:
     m_ActionName: Keyboard & Mouse/MoveWorld[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IsoCameraBehaviour, Assembly-CSharp
-        m_MethodName: OnRotateCamera
+      - m_Target: {fileID: 7744140331467053973}
+        m_TargetAssemblyTypeName: IsoCameraRotation, Assembly-CSharp
+        m_MethodName: OnRotate
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -282,8 +284,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToMove: {fileID: 0}
-  moveSpeed: 10
+  moveSpeed: 20
   axisLocker: {x: 1, y: 1, z: 1}
+--- !u!114 &7744140331467053973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4022091751945393399}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e7dd62db5b0cf4ea5aa670ae4a9784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToRotate: {fileID: 0}
+  rotationValue: 90
+  rotationSpeed: 500
+  rotationCooldown: 0.25
+--- !u!114 &4354392317942564778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4022091751945393399}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ab935da3a7bf640b9acefba84a75ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToMove: {fileID: 0}
+  zoomSpeed: 5
+  zoomSensitivity: 60
+  zoomCooldown: 0.25
 --- !u!1 &5971760027535294172
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,8 +347,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5971760027535294172}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08715578, y: -0, z: -0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 1.48, z: -3.29}
+  m_LocalRotation: {x: 0.0871558, y: 0, z: -0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 1.4799999, z: -3.2900004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
