@@ -15,10 +15,10 @@ public class BuildingGenerator : MonoBehaviour
 
     private void Awake()
     {
-        GenerateRoom();
+
     }
 
-    private void GenerateRoom()
+    public void GenerateRoom()
     {
         roomList.Clear();
 

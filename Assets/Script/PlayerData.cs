@@ -5,19 +5,22 @@ using UnityEngine.UI;
 using Mirror;
 using TMPro;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerData : NetworkBehaviour
 {
-    [SyncVar(hook = nameof(OnRoleChanged))]
+    [SyncVar/*(hook = nameof(OnRoleChanged))*/]
     public string role = null;
-
+    [SyncVar]
     public string playerName;
     private PlayerMessage message;
+    public bool ChangeRole = false;
 
     [Header("Multijoueur")]
     public bool playerReady = false;
     public float scoreJoueur;
     public bool winJoueur;
+    
 
     /*public TMP_InputField inputField;
     public Button sendButton;
@@ -48,15 +51,27 @@ public class PlayerData : NetworkBehaviour
 
     private void OnRoleChanged(string oldRole, string newRole)
     {
+        if (oldRole == newRole)
+        {
+            Debug.LogWarning("La valeur de 'role' n'a pas changé.");
+            return;
+        }
+
         if (isLocalPlayer)
         {
+            Debug.Log("coucou");
             UpdateUIForRole(newRole);
+            startScene();
         }
     }
-
+    
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
+
+
+        role = "Test";
+        
     }
 
     public void SetupUI()
@@ -119,41 +134,46 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            if (role == "Camera") {
-                IsoCameraBehaviour cam = transform.parent.gameObject.GetComponentInChildren<IsoCameraBehaviour>();
-                cam.enabled = true;
+            IsoCameraBehaviour camIso = transform.parent.gameObject.GetComponentInChildren<IsoCameraBehaviour>();
+            CinemachineVirtualCamera virtualCamera = transform.parent.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
+            TestCamera cam360 = transform.parent.gameObject.GetComponentInChildren<TestCamera>();
+            
+            Camera camPlayer = GetComponent<Camera>();
+
+            if (role == "Camera" || role == "Charlie")
+            {
                 GameObject building = GameObject.Find("BuildingGenerator");
-                cam.objectToMove = building.transform;
-                cam.GetComponent<PlayerInput>().enabled = true;   
+                camIso.GetComponent<PlayerInput>().enabled = false;
+                camIso.enabled = false;
+                camIso.GetComponent<PlayerInput>().enabled = false;
+                cam360.enabled = false;
+                virtualCamera.Priority = 15;
+                camIso.objectToMove = building.transform;
+                ChangeRole = true;
+                camPlayer.enabled = true;
+
+                if (role == "Camera")
+                {
+
+                    camIso.enabled = true;
+                    camIso.GetComponent<PlayerInput>().enabled = true;
+
+                    //TestCamera scriptCam = GetComponent<TestCamera>();
+                    //scriptCam.enabled = true;
+                    //scriptCam.role = role;
+                    //frontPNJ();
+
+                    /*if (role == "Camera")
+                    {
+                        cam.orthographic = true;
+                    }*/
+                }
+
+                else if (role == "Charlie")
+                {
+                    cam360.enabled = true;
+                }
             }
-
-            if (role == "Charlie")
-            {
-                TestCamera cam = transform.parent.gameObject.GetComponentInChildren<TestCamera>();
-                Debug.Log("Test cam : " + cam);
-                cam.enabled = true;
-               
-            }
-
-        }
-    }
-
-    public void activeComponentPlayer()
-    {
-        if (isLocalPlayer)
-        {
-            Camera cam = GetComponent<Camera>();
-            cam.enabled = true;
-
-            //TestCamera scriptCam = GetComponent<TestCamera>();
-            //scriptCam.enabled = true;
-            //scriptCam.role = role;
-            //frontPNJ();
-
-            /*if (role == "Camera")
-            {
-                cam.orthographic = true;
-            }*/
         }
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Org.BouncyCastle.Asn1.Mozilla;
 
 public class manager : NetworkBehaviour
 {
@@ -16,7 +17,6 @@ public class manager : NetworkBehaviour
 
         foreach (PlayerData playerscript in scriptPlayer)
         {
-            playerscript.activeComponentPlayer();
             playerscript.startScene();
             //playerscript.SetupUI();
 
@@ -27,6 +27,11 @@ public class manager : NetworkBehaviour
 
     public void giveRole()
     {
+        StartCoroutine(testRole());
+    }
+
+    public IEnumerator testRole()
+    {
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         player.Clear();
         foreach (PlayerData playerscript in scriptPlayer)
@@ -36,7 +41,21 @@ public class manager : NetworkBehaviour
 
         }
         int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().role = "Charlie"; 
+        player[nbrRandom].GetComponent<PlayerData>().role = "Charlie";
 
+        yield return new WaitForSeconds(0.1f);
+
+        foreach (PlayerData playerscript in scriptPlayer)
+        {
+            playerscript.startScene();
+
+        }
     }
+
+    public void spawnBatiment()
+    {
+        BuildingGenerator scriptBatiment = FindObjectOfType<BuildingGenerator>();
+        scriptBatiment.GenerateRoom();
+    }
+    
 }

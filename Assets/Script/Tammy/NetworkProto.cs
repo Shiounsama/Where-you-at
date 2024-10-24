@@ -45,7 +45,14 @@ public class NetworkProto : NetworkManager
     {
         base.OnClientSceneChanged();
 
-        if (SceneManager.GetActiveScene().name == "ProtoJeu") {
+        if (SceneManager.GetActiveScene().name == "ProtoJeu") 
+        {
+            if (NetworkServer.active) 
+            {
+                BuildingGenerator scriptBatiment = FindObjectOfType<BuildingGenerator>();
+                scriptBatiment.GenerateRoom();
+            }
+
             scriptManager.giveRole();
             PremierJoueurSpawn = GameObject.Find("CharlieCamera(Clone)");
             DeuxiemeJoueurSpawn = GameObject.Find("CameraIsoSpawn");
@@ -69,7 +76,7 @@ public class NetworkProto : NetworkManager
                     player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 }
             }
-            scriptManager.activeComponent();
+            
         }
     }
 }
