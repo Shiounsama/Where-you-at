@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1026917464017004989}
   - component: {fileID: 7230402181454971770}
   - component: {fileID: -6538856766576334383}
-  - component: {fileID: -704318012593765291}
+  - component: {fileID: -6116062951039715804}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -45,7 +45,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305765537287967308}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -165,6 +165,7 @@ MonoBehaviour:
   syncInterval: 0
   role: 
   playerName: 
+  playerReady: 0
   inputField: {fileID: 0}
   sendButton: {fileID: 0}
   textMessage: {fileID: 0}
@@ -176,7 +177,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305765537287967308}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc19c3e3d6faef74f81a1fe1d5592313, type: 3}
   m_Name: 
@@ -190,9 +191,10 @@ MonoBehaviour:
   zoomSpeed: 5
   minZoom: 5
   maxZoom: 15
+  role: 
   LEMONDE: {fileID: 0}
   camIso: {fileID: 0}
---- !u!114 &-704318012593765291
+--- !u!114 &-6116062951039715804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

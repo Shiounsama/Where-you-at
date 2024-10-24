@@ -2,49 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class TNetworkTest : NetworkManager
 {
+    public manager scriptManager;
 
     public GameObject PremierJoueurPrefab;
     public GameObject DeuxiemeJoueurPrefab;
 
-    public Transform PremierJoueurSpawn;
-    public Transform DeuxiemeJoueurSpawn;
+    public GameObject PremierJoueurSpawn;
+    public GameObject DeuxiemeJoueurSpawn;
+
+    public int compteurJoueur = 0;
+    //public GlobalVariable globalVariable;
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        //base.OnServerAddPlayer(conn);
-        //GameObject player = conn.identity.gameObject;
-        //PlayerData playerData = player.GetComponent<PlayerData>();
-
-        /*if (conn.connectionId == 1)
-        {
-            ServerChangeScene("testCamera");
-            return;
-        }*/
-
-        Debug.Log("Un nouveau joueur s'est connecté : " + conn.connectionId);
         GameObject player;
         Vector3 spawnPosition;
         Quaternion spawnRotation;
+        
 
-        if (conn.connectionId == 0)
+        if (compteurJoueur == 0)
         {
             
             player = Instantiate(PremierJoueurPrefab);
             PlayerData playerData = player.GetComponent<PlayerData>();
             playerData.SetRole("Charlie");
-            spawnPosition = PremierJoueurSpawn.position;
-            spawnRotation = PremierJoueurSpawn.rotation;
+            playerData.name = "Player " + conn;
+            spawnPosition = PremierJoueurSpawn.transform.position;
+            spawnRotation = PremierJoueurSpawn.transform.rotation;
+            compteurJoueur++;
         }
         else
         {
             player = Instantiate(DeuxiemeJoueurPrefab);
             PlayerData playerData = player.GetComponent<PlayerData>();
             playerData.SetRole("Camera");
-            spawnPosition = DeuxiemeJoueurSpawn.position;
-            spawnRotation = DeuxiemeJoueurSpawn.rotation;
+            playerData.name = "Player " + conn;
+            spawnPosition = DeuxiemeJoueurSpawn.transform.position;
+            spawnRotation = DeuxiemeJoueurSpawn.transform.rotation;
+            compteurJoueur++;
         }
 
         player.transform.position = spawnPosition;
@@ -57,6 +56,82 @@ public class TNetworkTest : NetworkManager
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         Debug.Log("Un joueur s'est déconnecté : " + conn.connectionId);
+        compteurJoueur--; 
         base.OnServerDisconnect(conn);
+        
     }
+
+    public override void OnClientSceneChanged()
+    {
+        base.OnClientSceneChanged();
+
+        if (SceneManager.GetActiveScene().name == "TestCamera")
+        {
+            manager scriptManager = GetComponent<manager>();
+            foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+            {
+                GameObject player = conn.identity.gameObject;
+                PlayerData playerData = player.GetComponent<PlayerData>();
+                TestCamera cam = player.GetComponent<TestCamera>();
+                
+
+                Debug.Log(playerData.role);
+                /*cam.enabled = true;
+                player.GetComponent<Camera>().enabled = true;*/
+
+                PremierJoueurSpawn = GameObject.Find("spawn1");
+                DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
+
+
+                if (playerData.role == "Charlie")
+                {
+                    player.transform.position = PremierJoueurSpawn.transform.position;
+                    player.transform.rotation = PremierJoueurSpawn.transform.rotation;
+                }
+                else if (playerData.role == "Camera")
+                {
+                    player.transform.position = DeuxiemeJoueurSpawn.transform.position;
+                    player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
+                }
+            }
+            if (scriptManager != null)
+            {
+                scriptManager.activeComponent();
+            }
+           
+            
+        }
+
+        if (SceneManager.GetActiveScene().name == "ProtoJeu")
+        {
+            manager scriptManager = GetComponent<manager>();
+
+            foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+            {
+                GameObject player = conn.identity.gameObject;
+                PlayerData playerData = player.GetComponent<PlayerData>();
+
+                if (playerData.role == "Charlie")
+                {
+                    PremierJoueurSpawn = GameObject.Find("spawn1");
+                    player.transform.position = PremierJoueurSpawn.transform.position;
+                    player.transform.rotation = PremierJoueurSpawn.transform.rotation;
+                }
+                else if (playerData.role == "Camera")
+                {
+                    DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
+                    player.transform.position = DeuxiemeJoueurSpawn.transform.position;
+                    player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
+                }
+            }
+            if (scriptManager != null)
+            {
+                scriptManager.activeComponent();
+            }
+
+
+        }
+    }
+
+    
 }

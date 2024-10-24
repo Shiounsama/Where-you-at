@@ -5,7 +5,7 @@ using TMPro;
 
 public class PlayerMessage : NetworkBehaviour
 {
-    PlayerData data;
+    /*PlayerData data;
 
     void Start()
     {
@@ -71,5 +71,5 @@ public class PlayerMessage : NetworkBehaviour
             localPlayerData.textMessage.text = message;
             Debug.Log("Le rôle de ce client est : " + localPlayerData.role);
         }
-    }
+    }*/
 }
