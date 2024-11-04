@@ -11,6 +11,7 @@ public class BuildingGenerator : MonoBehaviour
     [SerializeField] private GameObject playerLostPrefab;
     [SerializeField] private GameObject roomPrefab;
 
+    public GameObject buildingGenerated;
     public List<GameObject> roomList;
 
     private void Awake()
@@ -45,6 +46,7 @@ public class BuildingGenerator : MonoBehaviour
                 }
             }
         }
+        buildingGenerated = GetTheActualObject();
         SpawnPlayerLost(playerRoomIndex);
     }
 
@@ -64,5 +66,10 @@ public class BuildingGenerator : MonoBehaviour
     private void SpawnPlayerLost(int roomToSpawnIn)
     {
         Instantiate(playerLostPrefab, roomList[roomToSpawnIn].transform.position, Quaternion.identity, roomList[roomToSpawnIn].transform);
+    }
+
+    private GameObject GetTheActualObject()
+    {
+        return gameObject;
     }
 }
