@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class BuildingGenerator : MonoBehaviour
+public class BuildingGenerator : NetworkBehaviour
 {
     [SerializeField] private int numberOfRoom;
     [SerializeField] private int playerRoomIndex;
@@ -11,12 +12,17 @@ public class BuildingGenerator : MonoBehaviour
     [SerializeField] private GameObject playerLostPrefab;
     [SerializeField] private GameObject roomPrefab;
 
-    public GameObject buildingGenerated;
+    [SyncVar(hook = nameof(OnBuildingGeneratedChanged))]
+    public GameObject buildingGenerated; 
+
     public List<GameObject> roomList;
 
     private void Awake()
     {
-
+        if (isServer)
+        {
+            GenerateRoom();
+        }
     }
 
     public void GenerateRoom()
@@ -46,7 +52,7 @@ public class BuildingGenerator : MonoBehaviour
                 }
             }
         }
-        buildingGenerated = GetTheActualObject();
+        buildingGenerated = GetTheActualObject(); 
         SpawnPlayerLost(playerRoomIndex);
     }
 
@@ -71,5 +77,10 @@ public class BuildingGenerator : MonoBehaviour
     private GameObject GetTheActualObject()
     {
         return gameObject;
+    }
+
+    private void OnBuildingGeneratedChanged(GameObject oldBuilding, GameObject newBuilding)
+    {
+        Debug.Log($"buildingGenerated a changé de {oldBuilding} à {newBuilding}");
     }
 }
