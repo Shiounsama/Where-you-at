@@ -12,6 +12,8 @@ public class BuildingGenerator : NetworkBehaviour
     [SerializeField] private GameObject playerLostPrefab;
     [SerializeField] private GameObject roomPrefab;
 
+    public Transform parentToSpawnRoom;
+
     [SyncVar(hook = nameof(OnBuildingGeneratedChanged))]
     public GameObject buildingGenerated; 
 
@@ -32,7 +34,7 @@ public class BuildingGenerator : NetworkBehaviour
         Vector3 pos = transform.position;
         for (int i = 0; i < numberOfRoom; i++)
         {
-            GameObject actualRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity, transform);
+            GameObject actualRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity, parentToSpawnRoom);
             actualRoom.transform.position = new Vector3(pos.x, pos.y + (roomOffsetY * -i), pos.z);
             roomList.Add(actualRoom);
         }
