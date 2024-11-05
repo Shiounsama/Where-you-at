@@ -49,8 +49,8 @@ public class NetworkProto : NetworkManager
         {
             if (NetworkServer.active) 
             {
-                BuildingGenerator scriptBatiment = FindObjectOfType<BuildingGenerator>();
-                scriptBatiment.GenerateRoom();
+                BuildingGenerator scriptBatiment = GetComponent<BuildingGenerator>();
+                scriptBatiment.LaunchBuiding();
             }
 
             scriptManager.giveRole();

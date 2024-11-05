@@ -1094,6 +1094,7 @@ GameObject:
   - component: {fileID: 743056739}
   - component: {fileID: 743056746}
   - component: {fileID: 743056744}
+  - component: {fileID: 743056747}
   - component: {fileID: 743056745}
   m_Layer: 0
   m_Name: NetworkManager
@@ -1159,6 +1160,7 @@ MonoBehaviour:
   scriptPlayer: []
   scriptCamera: []
   player: []
+  testBuilding: {fileID: 0}
   nbrJoueur: 0
 --- !u!114 &743056745
 MonoBehaviour:
@@ -1224,6 +1226,29 @@ MonoBehaviour:
   scriptManager: {fileID: 743056744}
   PremierJoueurSpawn: {fileID: 889890522}
   DeuxiemeJoueurSpawn: {fileID: 760234344}
+--- !u!114 &743056747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743056737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889b5b64bc77858459257af17203517c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  numberOfRoom: 7
+  playerRoomIndex: 0
+  roomOffsetY: 2
+  playerLostPrefab: {fileID: 4659432455312777317, guid: 50da26b8e4808b84b938643c0132df65, type: 3}
+  roomPrefab: {fileID: 1990092612250243734, guid: b1802236fe0d3024bbb41b525411cfda, type: 3}
+  parentToSpawnRoom: {fileID: 0}
+  buildingGenerated: {fileID: 0}
+  roomList: []
 --- !u!1 &760234344
 GameObject:
   m_ObjectHideFlags: 0

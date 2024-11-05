@@ -12,19 +12,19 @@ public class BuildingGenerator : NetworkBehaviour
     [SerializeField] private GameObject playerLostPrefab;
     [SerializeField] private GameObject roomPrefab;
 
-    public Transform parentToSpawnRoom;
+    public GameObject parentToSpawnRoom;
 
-    [SyncVar(hook = nameof(OnBuildingGeneratedChanged))]
-    public GameObject buildingGenerated; 
+    public GameObject buildingGenerated;
 
     public List<GameObject> roomList;
 
-    private void Awake()
+    public void LaunchBuiding()
     {
-        if (isServer)
-        {
-            GenerateRoom();
-        }
+        parentToSpawnRoom = GameObject.Find("uwu");
+        GenerateRoom();
+        manager Manager = GetComponent<manager>();
+        Manager.testBuilding = buildingGenerated;
+
     }
 
     public void GenerateRoom()
@@ -34,7 +34,7 @@ public class BuildingGenerator : NetworkBehaviour
         Vector3 pos = transform.position;
         for (int i = 0; i < numberOfRoom; i++)
         {
-            GameObject actualRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity, parentToSpawnRoom);
+            GameObject actualRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity, parentToSpawnRoom.transform);
             actualRoom.transform.position = new Vector3(pos.x, pos.y + (roomOffsetY * -i), pos.z);
             roomList.Add(actualRoom);
         }
@@ -54,7 +54,7 @@ public class BuildingGenerator : NetworkBehaviour
                 }
             }
         }
-        buildingGenerated = GetTheActualObject(); 
+        buildingGenerated = parentToSpawnRoom;
         SpawnPlayerLost(playerRoomIndex);
     }
 
@@ -76,13 +76,5 @@ public class BuildingGenerator : NetworkBehaviour
         Instantiate(playerLostPrefab, roomList[roomToSpawnIn].transform.position, Quaternion.identity, roomList[roomToSpawnIn].transform);
     }
 
-    private GameObject GetTheActualObject()
-    {
-        return gameObject;
-    }
-
-    private void OnBuildingGeneratedChanged(GameObject oldBuilding, GameObject newBuilding)
-    {
-        Debug.Log($"buildingGenerated a changé de {oldBuilding} à {newBuilding}");
-    }
+    
 }

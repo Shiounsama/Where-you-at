@@ -10,6 +10,7 @@ public class manager : NetworkBehaviour
     public List<PlayerData> scriptPlayer;
     public List<TestCamera> scriptCamera;
     public List<GameObject> player;
+    public GameObject testBuilding;
     public int nbrJoueur;
     public void activeComponent()
     {
