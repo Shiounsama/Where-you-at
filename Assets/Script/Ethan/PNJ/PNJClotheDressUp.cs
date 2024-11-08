@@ -28,7 +28,9 @@ public class PNJClothe : MonoBehaviour
     private void GenerateRandomClothe(SpriteRenderer bodyPartImage, ClotheCollection bodyPartCollection)
     {
         if (bodyPartCollection.clotheList.Count <= 0)
+        {
             return;
-        bodyPartImage.sprite = bodyPartCollection.clotheList[Random.Range(0, bodyPartCollection.clotheList.Count)].sprite;
+        }
+        bodyPartImage.sprite = bodyPartCollection.ReturnRandomClothe();
     }
 }
