@@ -5,8 +5,8 @@ public class RoomGenerator : MonoBehaviour
 {
     public bool isPlayerIn;
 
-    [SerializeField] private ConstructionTypeCollection typeCollection;
-    [SerializeField] private Dictionary<TypeOfConstruction, List<GameObject>> prefabsLists = new();
+    [SerializeField] private FurnitureTypeCollection typeCollection;
+    [SerializeField] private Dictionary<TypeOfFurniture, List<GameObject>> prefabsLists = new();
 
     public List<Transform> spotsList;
 
@@ -20,17 +20,17 @@ public class RoomGenerator : MonoBehaviour
 
     private void SpawnAllPrefabInRoom()
     {
-        InstantiateConstruction(TypeOfConstruction.Bed, spotsList[0].transform.position);
-        InstantiateConstruction(TypeOfConstruction.Kitchen, spotsList[1].transform.position);
-        InstantiateConstruction(TypeOfConstruction.Desk, spotsList[2].transform.position);
-        InstantiateConstruction(TypeOfConstruction.Bin, spotsList[3].transform.position);
+        InstantiateConstruction(TypeOfFurniture.Bed, spotsList[0].transform.position);
+        InstantiateConstruction(TypeOfFurniture.Kitchen, spotsList[1].transform.position);
+        InstantiateConstruction(TypeOfFurniture.Desk, spotsList[2].transform.position);
+        InstantiateConstruction(TypeOfFurniture.Bin, spotsList[3].transform.position);
     }
 
     private void InitializeAllList()
     {
         foreach (GameObject prefab in typeCollection.prefabs)
         {
-            TypeOfConstruction type = prefab.GetComponent<PrefabType>().type;
+            TypeOfFurniture type = prefab.GetComponent<FurnitureType>().type;
 
             if (!prefabsLists.ContainsKey(type))
             {
@@ -40,7 +40,7 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
-    private void InstantiateConstruction(TypeOfConstruction type, Vector3 spawnLocation)
+    private void InstantiateConstruction(TypeOfFurniture type, Vector3 spawnLocation)
     {
         List<GameObject> roomPrefabs = prefabsLists[type];
 
