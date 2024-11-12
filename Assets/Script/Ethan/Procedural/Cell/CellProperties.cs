@@ -9,14 +9,10 @@ public class CellProperties : MonoBehaviour
 
     // == Public Methode for User Interactions
 
-    //public void Awake()
-    //{
-    //    typeOfConstruction = GetRandomEnum<TypeOfConstruction>();
-    //}
-
     public void SetTypeOfConstruction(TypeOfConstruction constructionType)
     {
         typeOfConstruction = constructionType;
+        transform.name = constructionType.ToString() + ":" + cellPosition.x.ToString() +","+ cellPosition.y.ToString();
     }
 
     public void SetCellPosition(int x, int y)
@@ -27,11 +23,4 @@ public class CellProperties : MonoBehaviour
     // == Private Methode for User Interactions
 
     // == Shortcut Methode for User Interactions
-
-    static T GetRandomEnum<T>()
-    {
-        System.Array A = System.Enum.GetValues(typeof(T));
-        T V = (T)A.GetValue(UnityEngine.Random.Range(0, A.Length));
-        return V;
-    }
 }

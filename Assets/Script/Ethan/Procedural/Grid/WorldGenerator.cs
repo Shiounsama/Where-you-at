@@ -1,6 +1,4 @@
-using NaughtyAttributes;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Direction
@@ -10,8 +8,6 @@ public enum Direction
 
 public class WorldGenerator : MonoBehaviour
 {
-    public bool RandomizeOnStart;
-
     public int test;
 
     public Vector2 gridSize;
@@ -26,6 +22,7 @@ public class WorldGenerator : MonoBehaviour
     [Header("World Parameter")]
     public IntSA numberOfRoad;
     public IntSA minimumIntervaleOnTurn;
+    public IntSA roadIteration;
 
     // == Public Methode for User Interactions
 
@@ -36,44 +33,12 @@ public class WorldGenerator : MonoBehaviour
 
     public void Start()
     {
-        if (RandomizeOnStart)
-        {
-            GenerateGrid();
-            CreateRoad(numberOfRoad.Value);
-        }
+        GenerateGrid();
+        CreateRoad(numberOfRoad.Value);
     }
 
     // == Private Methode for User Interactions
 
-    private Vector2 PickOneBorderCoord()
-    {
-        Vector2 position = Vector2.zero;
-        int spot = Random.Range(0, 4);
-        if (spot == 0)
-        {
-            position.x = (int)Random.Range(0, gridSize.x);
-            position.y = 0;
-        }
-        if (spot == 1)
-        {
-            position.x = 0;
-            position.y = (int)Random.Range(0, gridSize.y);
-        }
-        if (spot == 2)
-        {
-            position.x = (int)gridSize.x - 1;
-            position.y = (int)Random.Range(0, gridSize.y);
-        }
-        if (spot == 3)
-        {
-            position.x = (int)Random.Range(0, gridSize.x);
-            position.y = (int)gridSize.y - 1;
-        }
-
-        return position;
-    }
-
-    [Button]
     private void GenerateGrid()
     {
         if (worldArray.Count > 0)
@@ -86,10 +51,6 @@ public class WorldGenerator : MonoBehaviour
                 }
             }
             worldArray.Clear();
-        }
-        if (RandomizeOnStart)
-        {
-            return;
         }
         for (int i = 0; i < gridSize.x; i++)
         {
@@ -109,19 +70,25 @@ public class WorldGenerator : MonoBehaviour
     {
         for (int i = 0; i < RoadCount; i++)
         {
-            index = PickOneBorderCoord();
-            for (int j = 0; j < 5; j++)
+            index = PickOneBorderCoordAndSetRoad();
+
+            for (int j = 0; j < roadIteration.Value; j++)
             {
-                NextMovePosition(index);
-                print(index);
+                index = NextMovePosition(index);
             }
         }
     }
 
-    // == Shortcut Methode for User Interactions
+    private void SetCellTypeAtPosition(Vector2 position, TypeOfConstruction cellType)
+    {
+        GetCellWithPosition(position).SetTypeOfConstruction(cellType);
+    }
+
+    // == Shortcut Methode for User Interactions 
 
     private Vector2 NextMovePosition(Vector2 vector2ToMove)
     {
+        SetCellTypeAtPosition(vector2ToMove, TypeOfConstruction.Route);
         int randomNumberMax = 0;
         int direction = Random.Range(0, 4);
         if (direction == 0) // DROITE
@@ -134,11 +101,21 @@ public class WorldGenerator : MonoBehaviour
                 if (randomNumberMax > minimumIntervaleOnTurn.Value)
                 {
                     test = Random.Range(minimumIntervaleOnTurn.Value, randomNumberMax);
+                    for (int i = 0; i < test; i++)
+                    {
+                        if (CheckNeighbour((int)vector2ToMove.x + 1, (int)vector2ToMove.y + 1) &&
+                            CheckNeighbour((int)vector2ToMove.x + 1, (int)vector2ToMove.y - 1) &&
+                            CheckNeighbour((int)vector2ToMove.x + 1, (int)vector2ToMove.y))
+                        {
+                            SetCellTypeAtPosition(vector2ToMove, TypeOfConstruction.Route);
+                            vector2ToMove.x++;
+                        }
+                    }
                 }
-                for (int i = 0; i < test; i++)
-                {
-                    vector2ToMove.x++;
-                }
+            }
+            else
+            {
+                NextMovePosition(vector2ToMove);
             }
         }
         if (direction == 1) // HAUT
@@ -151,11 +128,21 @@ public class WorldGenerator : MonoBehaviour
                 if (randomNumberMax > minimumIntervaleOnTurn.Value)
                 {
                     test = Random.Range(minimumIntervaleOnTurn.Value, randomNumberMax);
+                    for (int i = 0; i < test; i++)
+                    {
+                        if (CheckNeighbour((int)vector2ToMove.x + 1, (int)vector2ToMove.y + 1) &&
+                            CheckNeighbour((int)vector2ToMove.x - 1, (int)vector2ToMove.y + 1) &&
+                            CheckNeighbour((int)vector2ToMove.x, (int)vector2ToMove.y + 1))
+                        {
+                            SetCellTypeAtPosition(vector2ToMove, TypeOfConstruction.Route);
+                            vector2ToMove.y++;
+                        }
+                    }
                 }
-                for (int i = 0; i < test; i++)
-                {
-                    vector2ToMove.y++;
-                }
+            }
+            else
+            {
+                NextMovePosition(vector2ToMove);
             }
         }
         if (direction == 2) // GAUCHE
@@ -168,11 +155,21 @@ public class WorldGenerator : MonoBehaviour
                 if (randomNumberMax > minimumIntervaleOnTurn.Value)
                 {
                     test = Random.Range(minimumIntervaleOnTurn.Value, randomNumberMax);
+                    for (int i = 0; i < test; i++)
+                    {
+                        if (CheckNeighbour((int)vector2ToMove.x - 1, (int)vector2ToMove.y + 1) &&
+                            CheckNeighbour((int)vector2ToMove.x - 1, (int)vector2ToMove.y - 1) &&
+                            CheckNeighbour((int)vector2ToMove.x - 1, (int)vector2ToMove.y))
+                        {
+                            SetCellTypeAtPosition(vector2ToMove, TypeOfConstruction.Route);
+                            vector2ToMove.x--;
+                        }
+                    }
                 }
-                for (int i = 0; i < test; i++)
-                {
-                    vector2ToMove.x--;
-                }
+            }
+            else
+            {
+                NextMovePosition(vector2ToMove);
             }
         }
         if (direction == 3) // BAS
@@ -185,11 +182,21 @@ public class WorldGenerator : MonoBehaviour
                 if (randomNumberMax > minimumIntervaleOnTurn.Value)
                 {
                     test = Random.Range(minimumIntervaleOnTurn.Value, randomNumberMax);
+                    for (int i = 0; i < test; i++)
+                    {
+                        if (CheckNeighbour((int)vector2ToMove.x + 1, (int)vector2ToMove.y - 1) &&
+                            CheckNeighbour((int)vector2ToMove.x - 1, (int)vector2ToMove.y - 1) &&
+                            CheckNeighbour((int)vector2ToMove.x, (int)vector2ToMove.y - 1))
+                        {
+                            SetCellTypeAtPosition(vector2ToMove, TypeOfConstruction.Route);
+                            vector2ToMove.y--;
+                        }
+                    }
                 }
-                for (int i = 0; i < test; i++)
-                {
-                    vector2ToMove.y--;
-                }
+            }
+            else
+            {
+                NextMovePosition(vector2ToMove);
             }
         }
         return vector2ToMove;
@@ -205,12 +212,83 @@ public class WorldGenerator : MonoBehaviour
         return false;
     }
 
-    private bool IsInBorder(Vector2 position)
+    private bool CheckNeighbour(int positionToCheckX, int positionToCheckY)
     {
-        if (position.x == 0 || position.x == gridSize.x - 1 || position.y == 0 || position.y == gridSize.y - 1)
+        if (positionToCheckX >= 0 && positionToCheckX < gridSize.x && positionToCheckY >= 0 && positionToCheckY < gridSize.y)
         {
-            return true;
+            if (GetCellWithPosition(new Vector2(positionToCheckX, positionToCheckY)).typeOfConstruction != TypeOfConstruction.Route
+                && GetCellWithPosition(new Vector2(positionToCheckX, positionToCheckY)) != null)
+            {
+                return true;
+            }
         }
         return false;
+    }
+
+    private CellProperties GetCellWithPosition(Vector2 cellPositionToVerify)
+    {
+        foreach (var item in worldArray)
+        {
+            if (item.GetComponent<CellProperties>().cellPosition == cellPositionToVerify)
+            {
+                return item.GetComponent<CellProperties>();
+            }
+        }
+        return null;
+    }
+
+    private Vector2 PickOneBorderCoordAndSetRoad()
+    {
+        Vector2 position = Vector2.zero;
+        int spot = Random.Range(0, 4);
+        if (spot == 0)
+        {
+            position.x = (int)Random.Range(0, gridSize.x);
+            position.y = 0;
+
+            if (!CheckNeighbour((int)position.x + 1, (int)position.y) && !CheckNeighbour((int)position.x - 1, (int)position.y) &&
+                !CheckNeighbour((int)position.x, (int)position.y + 1) && !CheckNeighbour((int)position.x + 1, (int)position.y + 1)
+                && !CheckNeighbour((int)position.x - 1, (int)position.y + 1))
+            {
+                PickOneBorderCoordAndSetRoad();
+            }
+        }
+        if (spot == 1)
+        {
+            position.x = 0;
+            position.y = (int)Random.Range(0, gridSize.y);
+
+            if (!CheckNeighbour((int)position.x, (int)position.y + 1) && !CheckNeighbour((int)position.x, (int)position.y - 1) &&
+                !CheckNeighbour((int)position.x + 1, (int)position.y) && !CheckNeighbour((int)position.x + 1, (int)position.y + 1)
+                && !CheckNeighbour((int)position.x + 1, (int)position.y - 1))
+            {
+                PickOneBorderCoordAndSetRoad();
+            }
+        }
+        if (spot == 2)
+        {
+            position.x = (int)gridSize.x - 1;
+            position.y = (int)Random.Range(0, gridSize.y);
+
+            if (!CheckNeighbour((int)position.x, (int)position.y + 1) && !CheckNeighbour((int)position.x, (int)position.y - 1) &&
+                !CheckNeighbour((int)position.x - 1, (int)position.y) && !CheckNeighbour((int)position.x - 1, (int)position.y + 1)
+                && !CheckNeighbour((int)position.x - 1, (int)position.y - 1))
+            {
+                PickOneBorderCoordAndSetRoad();
+            }
+        }
+        if (spot == 3)
+        {
+            position.x = (int)Random.Range(0, gridSize.x);
+            position.y = (int)gridSize.y - 1;
+            if (!CheckNeighbour((int)position.x + 1, (int)position.y) && !CheckNeighbour((int)position.x - 1, (int)position.y) &&
+                !CheckNeighbour((int)position.x, (int)position.y - 1) && !CheckNeighbour((int)position.x + 1, (int)position.y - 1)
+                && !CheckNeighbour((int)position.x - 1, (int)position.y - 1))
+            {
+                PickOneBorderCoordAndSetRoad();
+            }
+        }
+        SetCellTypeAtPosition(position, TypeOfConstruction.Route);
+        return position;
     }
 }
