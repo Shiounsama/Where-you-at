@@ -2,6 +2,7 @@ using UnityEngine;
 
 public enum TypeOfConstruction
 {
+    None,
     Route,
     Maison,
     Immeuble,

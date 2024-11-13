@@ -12,7 +12,10 @@ public class CellProperties : MonoBehaviour
     public void SetTypeOfConstruction(TypeOfConstruction constructionType)
     {
         typeOfConstruction = constructionType;
-        transform.name = constructionType.ToString() + ":" + cellPosition.x.ToString() +","+ cellPosition.y.ToString();
+        if(constructionType == TypeOfConstruction.Route)
+        {
+            transform.name = constructionType.ToString() + ":" + cellPosition.x.ToString() +","+ cellPosition.y.ToString();
+        }
     }
 
     public void SetCellPosition(int x, int y)
