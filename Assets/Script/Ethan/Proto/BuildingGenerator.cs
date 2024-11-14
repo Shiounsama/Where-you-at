@@ -20,7 +20,6 @@ public class BuildingGenerator : NetworkBehaviour
 
     public void LaunchBuiding()
     {
-        parentToSpawnRoom = GameObject.Find("uwu");
         GenerateRoom();
         manager Manager = GetComponent<manager>();
         Manager.testBuilding = buildingGenerated;
