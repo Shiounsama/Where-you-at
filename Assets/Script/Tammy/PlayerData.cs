@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerData : NetworkBehaviour
 {
-    [SyncVar/*(hook = nameof(OnRoleChanged))*/]
+    [SyncVar(hook = nameof(OnRoleChanged))]
     public string role = null;
     [SyncVar]
     public string playerName;
@@ -14,8 +14,6 @@ public class PlayerData : NetworkBehaviour
 
     [Header("Multijoueur")]
     public bool playerReady = false;
-    public float scoreJoueur;
-    public bool winJoueur;
 
     /*public TMP_InputField inputField;
     public Button sendButton;
@@ -55,7 +53,7 @@ public class PlayerData : NetworkBehaviour
         if (isLocalPlayer)
         {
             Debug.Log("coucou");
-            UpdateUIForRole(newRole);
+            //UpdateUIForRole(newRole);
             startScene();
         }
     }
@@ -63,9 +61,6 @@ public class PlayerData : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-
-
-        role = "Test";
 
     }
 

@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 4689662853712564538}
   - component: {fileID: 1347594404514216364}
   - component: {fileID: 4465647715096171259}
+  - component: {fileID: 1808463024530652050}
   - component: {fileID: 9196251228806759180}
   - component: {fileID: 4617556730504382486}
   - component: {fileID: 3017034801752854974}
@@ -347,8 +348,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5971760027535294172}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0871558, y: 0, z: -0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 1.4799999, z: -3.2900004}
+  m_LocalRotation: {x: 0.08715578, y: -0, z: -0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 1.48, z: -3.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -428,6 +429,22 @@ MonoBehaviour:
   winJoueur: 0
   UImessage: {fileID: 0}
   UI: {fileID: 0}
+--- !u!114 &1808463024530652050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971760027535294172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ef68d2225fda944a7c939c20704998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  ScoreTest: 0
 --- !u!81 &9196251228806759180
 AudioListener:
   m_ObjectHideFlags: 0

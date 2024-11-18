@@ -11,6 +11,7 @@ public class MessageSystem : NetworkBehaviour
     {
         data = GetComponent<PlayerData>();
 
+        //Vérifier qu'on test pour chaque pc (le if(isLocalPlayer) permet de vérifier le pc sur lequel on est)
         if (isLocalPlayer)
         {
             if (data.role == "Charlie") {
