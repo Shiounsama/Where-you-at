@@ -19,10 +19,18 @@ public class PNJClothe : MonoBehaviour
     private void Start()
     {
         GenerateRandomClothe(headClotheImage, headClothe);
+        GenerateRandomClothe(expressionClotheImage, expressionClothe);
+        GenerateRandomClothe(chestClotheImage, chestClothe);
+        GenerateRandomClothe(legsClotheImage, legsClothe);
+        GenerateRandomClothe(feetsClotheImage, feetsClothe);
     }
 
     private void GenerateRandomClothe(SpriteRenderer bodyPartImage, ClotheCollection bodyPartCollection)
     {
-        bodyPartImage.sprite = bodyPartCollection.clotheList[Random.Range(0, bodyPartCollection.clotheList.Count)].sprite;
+        if (bodyPartCollection.clotheList.Count <= 0)
+        {
+            return;
+        }
+        bodyPartImage.sprite = bodyPartCollection.ReturnRandomClothe();
     }
 }

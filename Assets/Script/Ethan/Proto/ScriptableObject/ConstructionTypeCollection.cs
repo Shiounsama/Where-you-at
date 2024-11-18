@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TypeOfConstruction
+public enum TypeOfFurniture
 {
     Bed,
     Desk,
@@ -9,15 +9,8 @@ public enum TypeOfConstruction
     Bin
 }
 
-[CreateAssetMenu(menuName = "My Asset/ConstructionType")]
-public class ConstructionTypeCollection : ScriptableObject
+[CreateAssetMenu(menuName = "My Asset/FurnitureType")]
+public class FurnitureTypeCollection : ScriptableObject
 {
-    //public TypeOfConstruction type;
-
     public List<GameObject> prefabs = new();
-
-    //public GameObject GetRandomPrefab()
-    //{
-    //    return prefabs[Random.Range(0, prefabs.Count)];
-    //}
 }
