@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
+using System.Linq;
 
-public class ScoreGame : MonoBehaviour
+public class ScoreGame : NetworkBehaviour
 {
     private List<scoringPlayer> scoreJoueur;
 
@@ -18,7 +20,10 @@ public class ScoreGame : MonoBehaviour
     {
         scoreJoueur = new List<scoringPlayer>(FindObjectsOfType<scoringPlayer>());
 
-        foreach(scoringPlayer score in scoreJoueur)
+        scoreJoueur = scoreJoueur.OrderByDescending(scoreJoueur => scoreJoueur.ScoreTest).ToList();
+
+
+        foreach (scoringPlayer score in scoreJoueur)
         {
             Debug.Log("je suis " + score.playerName + " et j'ai fait un score de " + score.ScoreTest);
         }
