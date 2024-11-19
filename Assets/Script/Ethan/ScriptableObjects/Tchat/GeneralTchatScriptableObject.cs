@@ -13,7 +13,7 @@ public class GeneralTchatScriptableObject : ScriptableObject
     {
         Debug.Log(OnMessageAdded);
         listOfMessage.Add(playerWhoSendIt + ": " + messageToAdd);//J'ajoute à ma liste le message que j'ai reçu 
-        OnMessageAdded.Invoke();//Je Trigger mon event
+        OnMessageAdded?.Invoke();//Je Trigger mon event
 
         //GO dans GeneralTchat.cs pour la suite du fonctionnement
     }
