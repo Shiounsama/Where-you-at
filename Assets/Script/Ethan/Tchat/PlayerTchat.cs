@@ -3,8 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Mirror;
 
-public class PlayerTchat : MonoBehaviour
+public class PlayerTchat : NetworkBehaviour
 {
     public string nameOfPlayer;
 
@@ -14,9 +15,13 @@ public class PlayerTchat : MonoBehaviour
 
     public void SendMessage()//Quand un joueur envoie un message via le bouton sur l'écran ou la touche entrée
     {
-        generalTchatSA.AddMessage(textToSend.text, nameOfPlayer);//On va appeller la fonction Add Message du generalTchat
-        textToSend.text = "";//On reinitialise la valeur a "vide" pour éviter que le message envoyer reste dans la barre d'envoie
-
+        if (isLocalPlayer) 
+        {
+            
+            generalTchatSA.AddMessage(textToSend.text, nameOfPlayer);
+            //ReseauSendMessage(textToSend.text);
+            textToSend.text = "";//On reinitialise la valeur a "vide" pour éviter que le message envoyer reste dans la barre d'envoie
+        }
         //Go Dans GeneralTchatScriptableObject.cs pour la suite du fonctionnement
     }
 
@@ -27,5 +32,11 @@ public class PlayerTchat : MonoBehaviour
             generalTchatSA.AddMessage(textToSend.text, nameOfPlayer);//On va appeller la fonction Add Message du generalTchat
             textToSend.text = "";//On reinitialise la valeur a "vide" pour éviter que le message envoyer reste dans la barre d'envoie
         }
+    }
+
+    [Command]
+    public void ReseauSendMessage(string message)
+    {
+        generalTchatSA.AddMessage(message, nameOfPlayer);
     }
 }
