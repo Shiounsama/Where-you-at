@@ -11,7 +11,7 @@ public class scoringPlayer : NetworkBehaviour
     public bool victoire;
 
     [SyncVar]
-    public int ScoreTest;
+    public int ScoreFinal;
 
     [SyncVar]
     public string playerName;
@@ -29,7 +29,7 @@ public class scoringPlayer : NetworkBehaviour
     [Command]
     private void ServeurScore(int newScore)
     {
-        ScoreTest = newScore; 
+        ScoreFinal = newScore; 
     }
 
     [Command]
