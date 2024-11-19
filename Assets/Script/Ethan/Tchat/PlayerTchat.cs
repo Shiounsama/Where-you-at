@@ -13,11 +13,10 @@ public class PlayerTchat : NetworkBehaviour
 
     public TMP_InputField textToSend;
 
-    public void SendMessage()//Quand un joueur envoie un message via le bouton sur l'écran ou la touche entrée
+    public void SendMessage()//Quand un joueur envoie un message via le bouton sur l'écran
     {
         if (isLocalPlayer) 
         {
-            
             generalTchatSA.AddMessage(textToSend.text, nameOfPlayer);
             //ReseauSendMessage(textToSend.text);
             textToSend.text = "";//On reinitialise la valeur a "vide" pour éviter que le message envoyer reste dans la barre d'envoie
@@ -25,7 +24,7 @@ public class PlayerTchat : NetworkBehaviour
         //Go Dans GeneralTchatScriptableObject.cs pour la suite du fonctionnement
     }
 
-    public void SendMessageViaInput(InputAction.CallbackContext context)
+    public void SendMessageViaInput(InputAction.CallbackContext context)//Quand un joueur envoie un message via l'input
     {
         if (context.performed)
         {

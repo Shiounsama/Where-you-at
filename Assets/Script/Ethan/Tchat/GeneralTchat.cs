@@ -12,18 +12,15 @@ public class GeneralTchat : MonoBehaviour
 
     public Transform canvasTransform;
     
-    private void Start()
+    public void Start()
     {
+        //Je Clear le tchat pour être sur de ne pas avoir déjà des residus de messages lors du début du jeu
+        ClearTchat();
+        //Au Début du jeu je fais en sorte d'abonner la fonction CreateMessage à l'event OnMessageAdded
         generalTchat.OnMessageAdded -= createMessage;
         generalTchat.OnMessageAdded += createMessage;
 
-       
-        //Au Début du jeu je fais en sorte d'abonner la fonction CreateMessage à l'event OnMessageAdded
         Debug.Log("le reseau c dur " + messageCount);
-
-        //Je Clear le tchat pour être sur de ne pas avoir déjà des residus de messages lors du début du jeu
-        ClearTchat();
-        messageCount = generalTchat.listOfMessage.Count;
     }
 
     private void createMessage()
@@ -39,5 +36,6 @@ public class GeneralTchat : MonoBehaviour
     private void ClearTchat()
     {
         generalTchat.listOfMessage.Clear();
+        messageCount = generalTchat.listOfMessage.Count;
     }
 }
