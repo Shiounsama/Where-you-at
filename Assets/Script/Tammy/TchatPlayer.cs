@@ -16,10 +16,7 @@ public class TchatPlayer : NetworkBehaviour
         nameOfPlayer = GetComponentInParent<dontDestroy>().playerName;
         generalTchatManager = FindObjectOfType<TchatManager>();
 
-        if (generalTchatManager == null)
-        {
-            Debug.LogError("generalTchatManager is null! Ensure TchatManager exists in the scene.");
-        }
+        
     }
 
     public void SendMessage()
@@ -34,7 +31,8 @@ public class TchatPlayer : NetworkBehaviour
     [Command]
     public void CmdSendMessage(string message)
     {
-        Debug.Log("SALUT");
-        generalTchatManager.CmdAddMessage(message, nameOfPlayer);
+        //generalTchatManager.CmdAddMessage(message, nameOfPlayer);
+
+        TchatManager.Instance.AddMessage(message, nameOfPlayer);
     }
 }

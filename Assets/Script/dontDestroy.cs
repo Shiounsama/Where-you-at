@@ -10,6 +10,11 @@ public class dontDestroy : NetworkBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        
+    }
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
         playerName = GetComponentInChildren<PlayerData>().playerName;
     }
 }

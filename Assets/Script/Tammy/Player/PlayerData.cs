@@ -23,11 +23,11 @@ public class PlayerData : NetworkBehaviour
     public GameObject UI;
 
     private void Update()
-    {
+    {/*
         if (isLocalPlayer && Input.GetKeyDown("e"))
         {
             CmdRequestSceneChange("ProtoJeu");
-        }
+        }*/
 
         if (role == "Camera" && isLocalPlayer)
         {

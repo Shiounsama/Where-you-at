@@ -9,29 +9,28 @@ public class TchatManager : NetworkBehaviour
     public GameObject newMessagePrefab;
     public Transform canvasTransform;
     public int messageCount;
+    public static TchatManager Instance;
 
-    private void Start()
+    private void Awake()
     {
-        messageCount = 0;
+        Instance = this; 
     }
 
-    [Command]
-    public void CmdAddMessage(string message, string sender)
+    [Server]
+    public void AddMessage(string message, string sender)
     {
         string fullMessage = $"{sender}: {message}";
         messageCount++;
-        //CreateMessage(fullMessage);
+        Debug.Log("Message ajouté : " + fullMessage);
+
+        CreateMessage(fullMessage);
     }
 
     [ClientRpc]
     private void CreateMessage(string fullMessage)
     {
-        //TchatManager test = FindObjectOfType<TchatManager>();
-        //Debug.Log($"Salut ça va ? Moi je trouve {canvasTransform}");
-        //Debug.Log($"LA CON DE TOI {test.canvasTransform}");
-
-        //GameObject actualMessage = Instantiate(newMessagePrefab, test.canvasTransform.position, Quaternion.identity, test.canvasTransform);
-        //actualMessage.GetComponent<TextMeshProUGUI>().text = fullMessage;
+        GameObject actualMessage = Instantiate(newMessagePrefab, canvasTransform.position, Quaternion.identity, canvasTransform);
+        actualMessage.GetComponent<TextMeshProUGUI>().text = fullMessage;
     }
 
     [Command]
