@@ -138,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3192453512278710497}
   - component: {fileID: 3402775018661235876}
+  - component: {fileID: 2390497286495024922}
   m_Layer: 0
   m_Name: General TChat
   m_TagString: Untagged
@@ -168,7 +169,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883389810137931629}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 444f0268e389ee940a3968ff39a878c7, type: 3}
   m_Name: 
@@ -176,3 +177,21 @@ MonoBehaviour:
   generalTchat: {fileID: 11400000, guid: ace43c1c933a40a489c5be2a64964698, type: 2}
   newMessagePrefab: {fileID: 3395364202626205395, guid: a5a81560c8f881944b1a5dcd6088238f, type: 3}
   canvasTransform: {fileID: 7061527597401075736}
+--- !u!114 &2390497286495024922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883389810137931629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbd7627ec739c6409d7e6686de3f1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  newMessagePrefab: {fileID: 3395364202626205395, guid: a5a81560c8f881944b1a5dcd6088238f, type: 3}
+  canvasTransform: {fileID: 7061527597401075736}
+  messageCount: 0

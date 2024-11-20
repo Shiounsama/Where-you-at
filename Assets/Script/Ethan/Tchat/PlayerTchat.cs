@@ -17,8 +17,8 @@ public class PlayerTchat : NetworkBehaviour
     {
         if (isLocalPlayer) 
         {
-            generalTchatSA.AddMessage(textToSend.text, nameOfPlayer);
-            //ReseauSendMessage(textToSend.text);
+            //generalTchatSA.AddMessage(textToSend.text, nameOfPlayer);
+            ReseauSendMessage(textToSend.text);
             textToSend.text = "";//On reinitialise la valeur a "vide" pour éviter que le message envoyer reste dans la barre d'envoie
         }
         //Go Dans GeneralTchatScriptableObject.cs pour la suite du fonctionnement
