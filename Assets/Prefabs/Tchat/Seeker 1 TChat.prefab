@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8926465551794881928}
-  - component: {fileID: 3235514024706673405}
+  - component: {fileID: 9152809773624468445}
   m_Layer: 0
   m_Name: Seeker 1 TChat
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 639537372564315225}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3235514024706673405
+--- !u!114 &9152809773624468445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,12 +42,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1583128334050001969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd745334ca2c78547b92074ddf86e48d, type: 3}
+  m_Script: {fileID: 11500000, guid: f333bf7fd7a0af54692a1032831f7fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfPlayer: Player 1
-  generalTchatSA: {fileID: 11400000, guid: ace43c1c933a40a489c5be2a64964698, type: 2}
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  nameOfPlayer: PoDeNom
   textToSend: {fileID: 6877823649051814202}
+  generalTchatManager: {fileID: 0}
 --- !u!1 &2167581320703254389
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,8 +461,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3235514024706673405}
-        m_TargetAssemblyTypeName: PlayerTchat, Assembly-CSharp
+      - m_Target: {fileID: 9152809773624468445}
+        m_TargetAssemblyTypeName: TchatPlayer, Assembly-CSharp
         m_MethodName: SendMessage
         m_Mode: 1
         m_Arguments:
