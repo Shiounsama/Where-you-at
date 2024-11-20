@@ -9,14 +9,11 @@ public class EmojiButton : MonoBehaviour
 
     private TextMeshProUGUI textToChangeToEmoji;
 
-    private void Start()
+    public void Start()
     {
         textToChangeToEmoji = GetComponentInChildren<TextMeshProUGUI>();
 
-        if(generalEmoji.listOfEmoji.Count > 0 )
-        {
-            textToChangeToEmoji.text = "<sprite name=" + generalEmoji.listOfEmoji[Random.Range(0,generalEmoji.listOfEmoji.Count)].emojiName + ">";
-        }
+        textToChangeToEmoji.text = "<sprite name=" + generalEmoji.GetEmoji() + ">";
     }
 
     public void OnButtonPressed()

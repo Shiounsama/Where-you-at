@@ -9,11 +9,13 @@ public class TchatManager : NetworkBehaviour
     public GameObject newMessagePrefab;
     public Transform canvasTransform;
     public int messageCount;
+    public GeneralEmoji generalEmoji;
     public static TchatManager Instance;
 
     private void Awake()
     {
         Instance = this; 
+        generalEmoji.listOfEmojiUsed.Clear();
     }
 
     [Server]
