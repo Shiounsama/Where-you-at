@@ -1,5 +1,7 @@
 using Cinemachine;
 using Mirror;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,15 +21,28 @@ public class PlayerData : NetworkBehaviour
     public Button sendButton;
     public TMP_Text textMessage;*/
 
+
     public Canvas UImessage;
     public GameObject UI;
 
+
+        
+
     private void Update()
-    {/*
+    {
         if (isLocalPlayer && Input.GetKeyDown("e"))
         {
-            CmdRequestSceneChange("ProtoJeu");
-        }*/
+            //CmdRequestSceneChange("ProtoJeu");
+            List<TchatPlayer> listTchat = new List<TchatPlayer>(FindObjectsOfType<TchatPlayer>());
+            foreach (TchatPlayer tchat in listTchat)
+            {
+                if (tchat.nameOfPlayer != playerName)
+                {
+                    Debug.Log($"LE {tchat.nameOfPlayer} RESTE AU VATICAN");
+                    tchat.gameObject.SetActive(false);
+                }
+            }
+        }
 
         if (role == "Camera" && isLocalPlayer)
         {
@@ -35,6 +50,9 @@ public class PlayerData : NetworkBehaviour
         }
 
     }
+
+    
+
 
     [Server]
     public void SetRole(string newRole)
@@ -56,12 +74,6 @@ public class PlayerData : NetworkBehaviour
             //UpdateUIForRole(newRole);
             startScene();
         }
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-
     }
 
     public void SetupUI()
