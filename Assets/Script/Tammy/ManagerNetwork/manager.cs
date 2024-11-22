@@ -12,10 +12,15 @@ public class manager : NetworkBehaviour
     public List<GameObject> player;
     public GameObject testBuilding;
     public int nbrJoueur;
+
+    private void Start()
+    {
+        
+    }
+
     public void activeComponent()
     {
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
-
         foreach (PlayerData playerscript in scriptPlayer)
         {
             playerscript.startScene();
@@ -37,11 +42,15 @@ public class manager : NetworkBehaviour
         player.Clear();
         foreach (PlayerData playerscript in scriptPlayer)
         {
+            Debug.Log("Salut Arthur " + playerscript.playerName);
             player.Add(playerscript.gameObject);
             playerscript.role = "Camera";
 
         }
+
+
         int nbrRandom = Random.Range(0, player.Count);
+        Debug.Log($"L'aléatoire veut que ce soir {nbrRandom}");
         player[nbrRandom].GetComponent<PlayerData>().role = "Charlie";
 
         yield return new WaitForSeconds(0.1f);
@@ -52,11 +61,4 @@ public class manager : NetworkBehaviour
 
         }
     }
-
-    public void spawnBatiment()
-    {
-        BuildingGenerator scriptBatiment = FindObjectOfType<BuildingGenerator>();
-        scriptBatiment.GenerateRoom();
-    }
-    
 }

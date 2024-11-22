@@ -12,36 +12,20 @@ public class PlayerData : NetworkBehaviour
     [SyncVar]
     public string playerName;
     private MessageSystem message;
-    public bool ChangeRole = false;
 
     [Header("Multijoueur")]
     public bool playerReady = false;
 
-    /*public TMP_InputField inputField;
-    public Button sendButton;
-    public TMP_Text textMessage;*/
-
-
     public Canvas UImessage;
     public GameObject UI;
-
-
-        
 
     private void Update()
     {
         if (isLocalPlayer && Input.GetKeyDown("e"))
         {
-            //CmdRequestSceneChange("ProtoJeu");
-            List<TchatPlayer> listTchat = new List<TchatPlayer>(FindObjectsOfType<TchatPlayer>());
-            foreach (TchatPlayer tchat in listTchat)
-            {
-                if (tchat.nameOfPlayer != playerName)
-                {
-                    Debug.Log($"LE {tchat.nameOfPlayer} RESTE AU VATICAN");
-                    tchat.gameObject.SetActive(false);
-                }
-            }
+            CmdRequestSceneChange("TestCamera");
+            ClearOtherTchat();
+            
         }
 
         if (role == "Camera" && isLocalPlayer)
@@ -50,9 +34,6 @@ public class PlayerData : NetworkBehaviour
         }
 
     }
-
-    
-
 
     [Server]
     public void SetRole(string newRole)
@@ -70,7 +51,6 @@ public class PlayerData : NetworkBehaviour
 
         if (isLocalPlayer)
         {
-            Debug.Log("coucou");
             //UpdateUIForRole(newRole);
             startScene();
         }
@@ -137,6 +117,9 @@ public class PlayerData : NetworkBehaviour
         if (isLocalPlayer)
         {
             IsoCameraDrag camDragIso = transform.parent.gameObject.GetComponentInChildren<IsoCameraDrag>();
+            IsoCameraRotation camRotaIso = transform.parent.gameObject.GetComponentInChildren<IsoCameraRotation>();
+            IsoCameraZoom camZoomIso = transform.parent.gameObject.GetComponentInChildren<IsoCameraZoom>();
+
             CinemachineVirtualCamera virtualCamera = transform.parent.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
             Camera360 cam360 = transform.parent.gameObject.GetComponentInChildren<Camera360>();
 
@@ -144,36 +127,39 @@ public class PlayerData : NetworkBehaviour
 
             if (role == "Camera" || role == "Charlie")
             {
-                GameObject building = GameObject.Find("BuildingGenerator");
-                camDragIso.GetComponent<PlayerInput>().enabled = false;
-                camDragIso.enabled = false;
-                camDragIso.GetComponent<PlayerInput>().enabled = false;
+                GameObject building = GameObject.Find("monde");
+                transform.parent.gameObject.GetComponentInChildren<PlayerInput>().enabled = false;
+                
                 cam360.enabled = false;
+
                 virtualCamera.Priority = 15;
+
+                camDragIso.enabled = false;
                 camDragIso.objectToMove = building.transform;
-                ChangeRole = true;
+
+                camZoomIso.enabled = false;
+                camZoomIso.objectToMove = building.transform;
+
+                camRotaIso.enabled = false;
+                camRotaIso.objectToRotate = building.transform;
+
                 camPlayer.enabled = true;
 
                 if (role == "Camera")
                 {
-
                     camDragIso.enabled = true;
-                    camDragIso.GetComponent<PlayerInput>().enabled = true;
+                    camZoomIso.enabled = true;
+                    camRotaIso.enabled = true;
 
-                    //TestCamera scriptCam = GetComponent<TestCamera>();
-                    //scriptCam.enabled = true;
-                    //scriptCam.role = role;
-                    //frontPNJ();
-
-                    /*if (role == "Camera")
-                    {
-                        cam.orthographic = true;
-                    }*/
+                    transform.parent.gameObject.GetComponentInChildren<PlayerInput>().enabled = true;
+                    camPlayer.orthographic = true;
                 }
 
                 else if (role == "Charlie")
                 {
+                    frontPNJ();
                     cam360.enabled = true;
+                    camPlayer.orthographic = false;
                 }
             }
         }
@@ -195,6 +181,18 @@ public class PlayerData : NetworkBehaviour
     public void buttonReady()
     {
         playerReady = !playerReady;
+    }
+
+    public void ClearOtherTchat()
+    {
+        List<TchatPlayer> listTchat = new List<TchatPlayer>(FindObjectsOfType<TchatPlayer>());
+        foreach (TchatPlayer tchat in listTchat)
+        {
+            if (tchat.nameOfPlayer != playerName)
+            {
+                tchat.gameObject.SetActive(false);
+            }
+        }
     }
 
     [Command]

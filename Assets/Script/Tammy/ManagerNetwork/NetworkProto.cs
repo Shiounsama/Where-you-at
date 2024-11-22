@@ -30,8 +30,9 @@ public class NetworkProto : NetworkManager
         player.transform.position = spawnPosition;
         player.transform.rotation = spawnRotation;
 
-        NetworkServer.AddPlayerForConnection(conn, player);
+       
 
+        NetworkServer.AddPlayerForConnection(conn, player);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
@@ -45,17 +46,12 @@ public class NetworkProto : NetworkManager
     {
         base.OnClientSceneChanged();
 
-        if (SceneManager.GetActiveScene().name == "ProtoJeu") 
+        if (SceneManager.GetActiveScene().name == "TestCamera") 
         {
-            if (NetworkServer.active) 
-            {
-                BuildingGenerator scriptBatiment = GetComponent<BuildingGenerator>();
-                scriptBatiment.LaunchBuiding();
-            }
-
             scriptManager.giveRole();
-            PremierJoueurSpawn = GameObject.Find("CharlieCamera(Clone)");
-            DeuxiemeJoueurSpawn = GameObject.Find("CameraIsoSpawn");
+            PremierJoueurSpawn = GameObject.Find("spawn1");
+            DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
+
             foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
             {
                 GameObject player = conn.identity.gameObject;
@@ -63,12 +59,8 @@ public class NetworkProto : NetworkManager
                 Debug.Log(playerData.role);
                 if (playerData.role == "Charlie")
                 {
-                    
-                    player.transform.position = PremierJoueurSpawn.transform.position - new Vector3(0, 0.48000002f, -3.28999996f);
+                    player.transform.position = PremierJoueurSpawn.transform.position;
                     player.transform.rotation = PremierJoueurSpawn.transform.rotation;
-                    Debug.Log(PremierJoueurSpawn.transform.position + " Global");
-                    Debug.Log(PremierJoueurSpawn.transform.localPosition + " Local");
-
                 }
                 else if (playerData.role == "Camera")
                 {

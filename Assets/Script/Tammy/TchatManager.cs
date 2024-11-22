@@ -16,6 +16,12 @@ public class TchatManager : NetworkBehaviour
         Instance = this; 
     }
 
+    private void OnServerInitialized()
+    {
+        base.OnStartServer();
+
+    }
+
     [Server]
     public void AddMessage(string message, string sender)
     {

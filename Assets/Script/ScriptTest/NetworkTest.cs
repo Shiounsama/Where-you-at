@@ -72,12 +72,7 @@ public class TNetworkTest : NetworkManager
             {
                 GameObject player = conn.identity.gameObject;
                 PlayerData playerData = player.GetComponent<PlayerData>();
-                
-
-                Debug.Log(playerData.role);
-                /*cam.enabled = true;
-                player.GetComponent<Camera>().enabled = true;*/
-
+               
                 PremierJoueurSpawn = GameObject.Find("spawn1");
                 DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
