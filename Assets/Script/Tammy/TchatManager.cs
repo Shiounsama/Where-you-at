@@ -18,6 +18,12 @@ public class TchatManager : NetworkBehaviour
         generalEmoji.listOfEmojiUsed.Clear();
     }
 
+    private void OnServerInitialized()
+    {
+        base.OnStartServer();
+
+    }
+
     [Server]
     public void AddMessage(string message, string sender)
     {

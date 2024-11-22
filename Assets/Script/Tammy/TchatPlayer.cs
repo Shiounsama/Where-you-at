@@ -5,6 +5,7 @@ using Mirror;
 
 public class TchatPlayer : NetworkBehaviour
 {
+    [SyncVar]
     public string nameOfPlayer;
     public TMP_InputField textToSend;
 
@@ -13,7 +14,7 @@ public class TchatPlayer : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        nameOfPlayer = GetComponentInParent<dontDestroy>().playerName;
+        ServeurNom(GetComponentInParent<dontDestroy>().playerName);
         generalTchatManager = FindObjectOfType<TchatManager>();
 
         
@@ -34,5 +35,10 @@ public class TchatPlayer : NetworkBehaviour
         //generalTchatManager.CmdAddMessage(message, nameOfPlayer);
 
         TchatManager.Instance.AddMessage(message, nameOfPlayer);
+    }
+    [Command]
+    private void ServeurNom(string newNom)
+    {
+        nameOfPlayer = newNom;
     }
 }
