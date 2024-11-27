@@ -241,6 +241,41 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &339629408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339629409}
+  m_Layer: 5
+  m_Name: Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &339629409
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339629408}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1434844775}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &416843797 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2390497286495024922, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
@@ -467,6 +502,11 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!224 &1434844775 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5318135244263587106, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+  m_PrefabInstance: {fileID: 3665680384859401881}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1670162460013918594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -486,6 +526,14 @@ PrefabInstance:
     - target: {fileID: 6877823649051814202, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
       propertyPath: m_isRichTextEditingAllowed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6882798235952484094, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210882742259860755, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7762257269979732617, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
       propertyPath: m_text
@@ -560,10 +608,114 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 436931901829410487, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 436931901829410487, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 622372728413205538, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 622372728413205538, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 904900485397986214, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 904900485397986214, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 1323230758772498814, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 1323230758772498814, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 1387383801590068648, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 1387383801590068648, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 1408319978574965659, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 1408319978574965659, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
     - target: {fileID: 1745731761184461587, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_Name
       value: Lost TChat
       objectReference: {fileID: 0}
+    - target: {fileID: 1784497646011429732, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 1784497646011429732, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 2022284076693963269, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 2022284076693963269, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 2473739981679099242, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 2473739981679099242, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 2930346146763097542, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 2930346146763097542, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 3351291460244543281, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 3351291460244543281, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 3463478281306099928, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 3463478281306099928, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 4055058034452967877, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 4055058034452967877, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
     - target: {fileID: 4347040787397548738, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: generalTchatManager
       value: 
@@ -608,9 +760,100 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5918795419157748991, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 5918795419157748991, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 6009739263861079768, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 6009739263861079768, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 6325538379175071913, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 6325538379175071913, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 6822181425620113133, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 6822181425620113133, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 6942075491128469253, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 6942075491128469253, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 7194742594457399004, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 7194742594457399004, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 7246021129425669067, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 7246021129425669067, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 7829432683060645067, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 7829432683060645067, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 8261952020908870595, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 8261952020908870595, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 9057740551229436191, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 9057740551229436191, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 9158818554133292717, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: generalEmoji
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 9158818554133292717, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5318135244263587106, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 339629409}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a3b853580310747ba3488154d5adae, type: 3}
 --- !u!1001 &4187796937210763278
@@ -625,6 +868,22 @@ PrefabInstance:
       propertyPath: generalEmoji
       value: 
       objectReference: {fileID: 11400000, guid: 491e8c4454480404bbd4f94356e1f3c8, type: 2}
+    - target: {fileID: 2390497286495024922, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: emojiList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2390497286495024922, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: emojiList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
+    - target: {fileID: 2390497286495024922, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: generalEmojiList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2390497286495024922, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: generalEmojiList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
     - target: {fileID: 2883389810137931629, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_Name
       value: General TChat

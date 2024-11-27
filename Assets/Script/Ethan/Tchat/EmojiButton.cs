@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EmojiButton : MonoBehaviour
 {
-    public GeneralEmoji generalEmoji;
+    public EmojiFamily emojiFamilyToTakeIn;
 
     public TMP_InputField textToSend;
 
@@ -13,7 +13,7 @@ public class EmojiButton : MonoBehaviour
     {
         textToChangeToEmoji = GetComponentInChildren<TextMeshProUGUI>();
 
-        textToChangeToEmoji.text = "<sprite name=" + generalEmoji.GetEmoji() + ">";
+        textToChangeToEmoji.text = "<sprite name=" + emojiFamilyToTakeIn.GetEmoji() + ">";
     }
 
     public void OnButtonPressed()
