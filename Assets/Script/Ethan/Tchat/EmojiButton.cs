@@ -13,7 +13,7 @@ public class EmojiButton : MonoBehaviour
     {
         textToChangeToEmoji = GetComponentInChildren<TextMeshProUGUI>();
 
-        textToChangeToEmoji.text = "<sprite name=" + emojiFamilyToTakeIn.GetEmoji() + ">";
+        textToChangeToEmoji.text = "<sprite name=" + emojiFamilyToTakeIn.GetEmoji(true) + ">";
     }
 
     public void OnButtonPressed()

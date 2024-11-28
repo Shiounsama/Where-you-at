@@ -7,40 +7,61 @@ public enum EmojiFamilyID
     Parc
 }
 
-[CreateAssetMenu(menuName = "My Asset/EmojiFamily")]
+[CreateAssetMenu(menuName = "My Asset/TextOREmojiFamily")]
 public class EmojiFamily : ScriptableObject
 {
     public EmojiFamilyID familyItBelongTo;
-    public List<EmojiID> listOfEmoji;
-    public List<int> listOfEmojiUsed;
-    public bool isAllEmojiUsed;
+    public List<TextOrEmojiAsset> listOfValue;
+    public List<int> listOfValueUsed;
+    public bool isAllValueUsed;
 
-    public string GetEmoji()
+    public string GetEmoji(bool getEmoji)
     {
-        if (listOfEmoji.Count > 0)
+        if (listOfValue.Count > 0)
         {
-            int x = Random.Range(0, listOfEmoji.Count);
-            while (listOfEmojiUsed.Contains(x))
+            int x = Random.Range(0, listOfValue.Count);
+            while (listOfValueUsed.Contains(x))
             {
-                x = Random.Range(0, listOfEmoji.Count);
-                if (listOfEmojiUsed.Count >= listOfEmoji.Count)
+                x = Random.Range(0, listOfValue.Count);
+                if (listOfValueUsed.Count >= listOfValue.Count)
                 {
-                    isAllEmojiUsed = true;
-                    return listOfEmoji[0].emojiName;
+                    isAllValueUsed = true;
+                    if(getEmoji)
+                    {
+                        return listOfValue[0].GetEmojiName();
+                    }
+                    else
+                    {
+                        return listOfValue[0].GetText();
+                    }
                 }
             }
-            listOfEmojiUsed.Add(x);
-            if (listOfEmojiUsed.Count <= listOfEmoji.Count)
+            listOfValueUsed.Add(x);
+            if (listOfValueUsed.Count <= listOfValue.Count)
             {
-                return listOfEmoji[x].emojiName;
+                if (getEmoji)
+                {
+                    return listOfValue[x].GetEmojiName();
+                }
+                else
+                {
+                    return listOfValue[x].GetText();
+                }
             }
         }
-        return listOfEmoji[0].emojiName;
+        if(getEmoji)
+        {
+            return listOfValue[0].GetEmojiName();
+        }
+        else
+        {
+            return listOfValue[0].GetText();
+        }
     }
 
     public void ResetListOfEmoji()
     {
-        listOfEmojiUsed.Clear();
-        isAllEmojiUsed = false;
+        listOfValueUsed.Clear();
+        isAllValueUsed = false;
     }
 }

@@ -12,10 +12,13 @@ public class manager : NetworkBehaviour
     public List<GameObject> player;
     public GameObject testBuilding;
     public int nbrJoueur;
+    public int seed;
+    public static manager Instance;
 
-    private void Start()
+    public void Awake()
     {
-        
+        Instance = this;
+        seed = (int)Random.Range(0, Mathf.Infinity);
     }
 
     public void activeComponent()
