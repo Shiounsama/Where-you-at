@@ -3,26 +3,35 @@ using UnityEngine;
 public class PNJClothe : MonoBehaviour
 {
     [Header("CollectionOfClotheAppliedToOurPNJ")]
-    [SerializeField] private ClotheCollection headClothe;
-    [SerializeField] private ClotheCollection expressionClothe;
-    [SerializeField] private ClotheCollection chestClothe;
-    [SerializeField] private ClotheCollection legsClothe;
-    [SerializeField] private ClotheCollection feetsClothe;
+    public ClotheCollection frontHairClothe;
+    public ClotheCollection backHairClothe;
+    public ClotheCollection eyesClothe;
+    public ClotheCollection plusClothe;
+    public ClotheCollection mouthClothe;
+    public ClotheCollection hautClothe;
+    public ClotheCollection basClothe;
+    public ClotheCollection shoesClothe;
 
     [Header("BodyPartOfOurPNJ")]
-    [SerializeField] private SpriteRenderer headClotheImage;
-    [SerializeField] private SpriteRenderer expressionClotheImage;
-    [SerializeField] private SpriteRenderer chestClotheImage;
-    [SerializeField] private SpriteRenderer legsClotheImage;
-    [SerializeField] private SpriteRenderer feetsClotheImage;
+    public SpriteRenderer frontHairClotheImage;
+    public SpriteRenderer backHairClotheImage;
+    public SpriteRenderer eyesClotheImage;
+    public SpriteRenderer plusClotheImage;
+    public SpriteRenderer mouthClotheImage;
+    public SpriteRenderer hautClotheImage;
+    public SpriteRenderer basClotheImage;
+    public SpriteRenderer shoesClotheImage;
 
-    private void Start()
+    public void Start()
     {
-        GenerateRandomClothe(headClotheImage, headClothe);
-        GenerateRandomClothe(expressionClotheImage, expressionClothe);
-        GenerateRandomClothe(chestClotheImage, chestClothe);
-        GenerateRandomClothe(legsClotheImage, legsClothe);
-        GenerateRandomClothe(feetsClotheImage, feetsClothe);
+        GenerateRandomClothe(frontHairClotheImage, frontHairClothe);
+        GenerateRandomClothe(backHairClotheImage, backHairClothe);
+        GenerateRandomClothe(eyesClotheImage, eyesClothe);
+        GenerateRandomClothe(plusClotheImage, plusClothe);
+        GenerateRandomClothe(mouthClotheImage, mouthClothe);
+        GenerateRandomClothe(hautClotheImage, hautClothe);
+        GenerateRandomClothe(basClotheImage, basClothe);
+        GenerateRandomClothe(shoesClotheImage, shoesClothe);
     }
 
     private void GenerateRandomClothe(SpriteRenderer bodyPartImage, ClotheCollection bodyPartCollection)

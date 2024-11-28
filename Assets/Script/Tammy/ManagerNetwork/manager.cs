@@ -18,7 +18,12 @@ public class manager : NetworkBehaviour
     public void Awake()
     {
         Instance = this;
-        seed = (int)Random.Range(0, Mathf.Infinity);
+        RandomizeSeed();
+    }
+
+    public void RandomizeSeed()
+    {
+        seed = Random.Range(0, 90000);
     }
 
     public void activeComponent()
