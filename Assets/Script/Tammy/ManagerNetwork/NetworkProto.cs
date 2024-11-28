@@ -30,14 +30,14 @@ public class NetworkProto : NetworkManager
         player.transform.position = spawnPosition;
         player.transform.rotation = spawnRotation;
 
-       
+        scriptManager.nbrJoueur++;
 
         NetworkServer.AddPlayerForConnection(conn, player);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        Debug.Log("Un joueur s'est déconnecté : " + conn.connectionId);
+        scriptManager.nbrJoueur--;
         base.OnServerDisconnect(conn);
 
     }

@@ -11,12 +11,9 @@ public class manager : NetworkBehaviour
     //public List<TestCamera> scriptCamera;
     public List<GameObject> player;
     public GameObject testBuilding;
-    public int nbrJoueur;
-
-    private void Start()
-    {
-        
-    }
+    public int nbrJoueur = 0;
+    public int nbrJoueurRdy = 0;
+    public bool InGame;
 
     public void activeComponent()
     {
@@ -24,8 +21,6 @@ public class manager : NetworkBehaviour
         foreach (PlayerData playerscript in scriptPlayer)
         {
             playerscript.startScene();
-            //playerscript.SetupUI();
-
         }
 
         nbrJoueur = player.Count;
@@ -61,4 +56,24 @@ public class manager : NetworkBehaviour
 
         }
     }
+
+    public void checkStart()
+    {
+        scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        if (nbrJoueur == nbrJoueurRdy)
+        {
+            foreach (PlayerData playerscript in scriptPlayer)
+            {
+                playerscript.showStart(true);
+            }
+        }
+        else
+        {
+            foreach (PlayerData playerscript in scriptPlayer)
+            {
+                playerscript.showStart(false);
+            }
+        }
+    }
+   
 }
