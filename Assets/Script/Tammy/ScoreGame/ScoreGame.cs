@@ -20,12 +20,12 @@ public class ScoreGame : NetworkBehaviour
     {
         scoreJoueur = new List<scoringPlayer>(FindObjectsOfType<scoringPlayer>());
 
-        scoreJoueur = scoreJoueur.OrderByDescending(scoreJoueur => scoreJoueur.ScoreTest).ToList();
+        scoreJoueur = scoreJoueur.OrderByDescending(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
 
 
         foreach (scoringPlayer score in scoreJoueur)
         {
-            Debug.Log("je suis " + score.playerName + " et j'ai fait un score de " + score.ScoreTest);
+            Debug.Log("je suis " + score.playerName + " et j'ai fait un score de " + score.ScoreFinal);
         }
     }
 }
