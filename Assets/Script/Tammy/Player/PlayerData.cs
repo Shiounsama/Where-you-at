@@ -24,15 +24,14 @@ public class PlayerData : NetworkBehaviour
         if (isLocalPlayer && Input.GetKeyDown("e"))
         {
             CmdRequestSceneChange("TestCamera");
-            ClearOtherTchat();
-            
+            clearButton();
+                   
         }
 
         if (role == "Camera" && isLocalPlayer)
         {
             frontPNJ();
         }
-
     }
 
     [Server]
@@ -135,7 +134,22 @@ public class PlayerData : NetworkBehaviour
 
             }
         }
-    } 
+    }
+
+    public void ClearOtherCanvas()
+    {
+        if (isLocalPlayer)
+        {
+            Debug.Log(transform.parent.GetComponentInChildren<Canvas>().name);
+            transform.parent.GetComponentInChildren<Canvas>().enabled = true;
+        }
+    }
+
+    public void clearButton()
+    {
+        if (isLocalPlayer)
+            transform.parent.GetComponentInChildren<Canvas>().enabled = false;
+    }
 
     [Command]
     void CmdRequestSceneChange(string SceneChange)

@@ -37,12 +37,10 @@ public class manager : NetworkBehaviour
         player.Clear();
         foreach (PlayerData playerscript in scriptPlayer)
         {
-            Debug.Log("Salut Arthur " + playerscript.playerName);
             player.Add(playerscript.gameObject);
             playerscript.role = "Camera";
 
         }
-
 
         int nbrRandom = Random.Range(0, player.Count);
         Debug.Log($"L'aléatoire veut que ce soir {nbrRandom}");
@@ -76,4 +74,13 @@ public class manager : NetworkBehaviour
         }
     }
    
+    public void UIPlayer()
+    {
+        scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        foreach (PlayerData playerscript in scriptPlayer)
+        {
+            playerscript.ClearOtherCanvas();
+            playerscript.ClearOtherTchat();
+        }
+    }
 }

@@ -31,8 +31,10 @@ public class NetworkProto : NetworkManager
         player.transform.rotation = spawnRotation;
 
         scriptManager.nbrJoueur++;
-
+        
         NetworkServer.AddPlayerForConnection(conn, player);
+
+        scriptManager.UIPlayer();
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
