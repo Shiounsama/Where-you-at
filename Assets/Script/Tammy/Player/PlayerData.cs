@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerData : NetworkBehaviour
 {
-    [SyncVar(hook = nameof(OnRoleChanged))]
+    [SyncVar/*(hook = nameof(OnRoleChanged))*/]
     public string role = null;
     [SyncVar]
     public string playerName;
@@ -21,17 +21,21 @@ public class PlayerData : NetworkBehaviour
 
     private void Update()
     {
-        if (isLocalPlayer && Input.GetKeyDown("e"))
-        {
-            CmdRequestSceneChange("TestCamera");
-            clearButton();
-                   
-        }
-
         if (role == "Camera" && isLocalPlayer)
         {
             frontPNJ();
         }
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+
+        if (isLocalPlayer)
+        {
+            ShowCanvas();
+        }
+
     }
 
     [Server]
@@ -40,13 +44,13 @@ public class PlayerData : NetworkBehaviour
         role = newRole;
     }
 
-    private void OnRoleChanged(string oldRole, string newRole)
+    /*private void OnRoleChanged(string oldRole, string newRole)
     {      
         if (isLocalPlayer)
         {
             startScene();
         }
-    }
+    }*/
 
 
     public override void OnStopClient()
@@ -58,6 +62,8 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            Debug.Log("IDIOT");
+
             IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
             IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
             IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
@@ -65,6 +71,10 @@ public class PlayerData : NetworkBehaviour
             Camera360 cam360 = this.GetComponent<Camera360>();
 
             Camera camPlayer = this.GetComponent<Camera>();
+
+            clearButton();
+            ClearOtherTchat();
+            ClearCanvas();
 
             if (role == "Camera" || role == "Charlie")
             {
@@ -121,34 +131,49 @@ public class PlayerData : NetworkBehaviour
 
     public void ClearOtherTchat()
     {
-        List<TchatPlayer> listTchat = new List<TchatPlayer>(FindObjectsOfType<TchatPlayer>());
-        foreach (TchatPlayer tchat in listTchat)
+        if (isLocalPlayer)
         {
-            if (tchat.nameOfPlayer == playerName)           
+            List<TchatPlayer> listTchat = new List<TchatPlayer>(FindObjectsOfType<TchatPlayer>());
+            foreach (TchatPlayer tchat in listTchat)
             {
-                tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
-            }
-            else
-            {
-                tchat.gameObject.GetComponentInChildren<Canvas>().enabled = false;
+                if (tchat.nameOfPlayer == playerName)
+                {
+                    tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
+                }
+                else
+                {
+                    Debug.Log(tchat.nameOfPlayer);
+                    tchat.gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
+                }
             }
         }
     }
 
-    public void ClearOtherCanvas()
+    public void ShowCanvas()
     {
         if (isLocalPlayer)
         {
-            Debug.Log(transform.parent.GetComponentInChildren<Canvas>().name);
             transform.parent.GetComponentInChildren<Canvas>().enabled = true;
         }
     }
-
+    
+    public void ClearCanvas()
+    {
+        if (isLocalPlayer)
+        {
+            transform.parent.GetComponentInChildren<Canvas>().enabled = false;
+        }
+    }
     public void clearButton()
     {
         if (isLocalPlayer)
             transform.parent.GetComponentInChildren<Canvas>().enabled = false;
+    }
+
+    public void StartGame()
+    {
+        CmdRequestSceneChange("TestCamera");
     }
 
     [Command]

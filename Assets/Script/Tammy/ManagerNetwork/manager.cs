@@ -8,10 +8,11 @@ public class manager : NetworkBehaviour
 {
 
     public List<PlayerData> scriptPlayer;
-    //public List<TestCamera> scriptCamera;
     public List<GameObject> player;
     public GameObject testBuilding;
+    [SyncVar]
     public int nbrJoueur = 0;
+    [SyncVar]
     public int nbrJoueurRdy = 0;
     public bool InGame;
 
@@ -28,10 +29,10 @@ public class manager : NetworkBehaviour
 
     public void giveRole()
     {
-        StartCoroutine(testRole());
+        StartCoroutine(changeRole());
     }
 
-    public IEnumerator testRole()
+    public IEnumerator changeRole()
     {
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         player.Clear();
@@ -43,7 +44,6 @@ public class manager : NetworkBehaviour
         }
 
         int nbrRandom = Random.Range(0, player.Count);
-        Debug.Log($"L'aléatoire veut que ce soir {nbrRandom}");
         player[nbrRandom].GetComponent<PlayerData>().role = "Charlie";
 
         yield return new WaitForSeconds(0.1f);
@@ -73,14 +73,34 @@ public class manager : NetworkBehaviour
             }
         }
     }
-   
-    public void UIPlayer()
+  
+    public void testAddPlayer()
     {
-        scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
-        foreach (PlayerData playerscript in scriptPlayer)
-        {
-            playerscript.ClearOtherCanvas();
-            playerscript.ClearOtherTchat();
-        }
+        cmdAddPlayer();
+    }
+
+
+    [Command]
+    private void cmdAddPlayer()
+    {
+        nbrJoueur++;
+    }
+
+    [Command]
+    private void cmdRemovePlayer()
+    {
+        nbrJoueur--;
+    }
+
+    [Command]
+    private void cmdAddPlayerReady()
+    {
+        nbrJoueurRdy++;
+    }
+
+    [Command]
+    private void cmdRemovePlayerReady()
+    {
+        nbrJoueurRdy--;
     }
 }
