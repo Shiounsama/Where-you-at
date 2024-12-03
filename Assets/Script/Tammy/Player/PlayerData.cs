@@ -138,7 +138,7 @@ public class PlayerData : NetworkBehaviour
                 camDragIso.objectToMove = building.transform;
 
                 camZoomIso.enabled = false;
-                camZoomIso.objectToMove = building.transform;
+                //camZoomIso.objectToMove = building.transform;
 
                 camRotaIso.enabled = false;
                 camRotaIso.objectToRotate = building.transform;
