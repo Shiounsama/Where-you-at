@@ -28,6 +28,13 @@ public class PlayerData : NetworkBehaviour
         {
             frontPNJ();
         }
+
+        
+            if (Input.GetKeyDown("v"))
+            {
+                CmdRequestSceneChange("TestCamera");
+            }
+        
     }
 
     public override void OnStartLocalPlayer()
@@ -56,6 +63,8 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            Debug.Log("Saluuut, je suis partout ?");
+
             IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
             IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
             IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
@@ -75,6 +84,7 @@ public class PlayerData : NetworkBehaviour
             if (role == "Camera" || role == "Charlie")
             {
                 GameObject building = GameObject.Find("monde");
+                building.transform.position = new Vector3(-0.9570656f, -8.279863f, 42.36227f);
                 this.GetComponent<PlayerInput>().enabled = false;
                 
                 cam360.enabled = false;

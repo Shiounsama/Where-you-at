@@ -48,7 +48,7 @@ public class manager : NetworkBehaviour
         int nbrRandom = Random.Range(0, player.Count);
         player[nbrRandom].GetComponent<PlayerData>().role = "Charlie";
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
         foreach (PlayerData playerscript in scriptPlayer)
         {
