@@ -1172,6 +1172,7 @@ GameObject:
   - component: {fileID: 743056747}
   - component: {fileID: 743056748}
   - component: {fileID: 743056745}
+  - component: {fileID: 743056749}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1237,6 +1238,7 @@ MonoBehaviour:
   scriptPlayer: []
   player: []
   testBuilding: {fileID: 0}
+  seed: 0
   nbrJoueur: 0
   nbrJoueurRdy: 0
   InGame: 0
@@ -1302,8 +1304,7 @@ MonoBehaviour:
   timeInterpolationGui: 0
   JoueurPrefab: {fileID: 620388920761478827, guid: 3c90669d033f7b1459efeb2eeef47cca, type: 3}
   scriptManager: {fileID: 743056744}
-  PremierJoueurSpawn: {fileID: 889890522}
-  DeuxiemeJoueurSpawn: {fileID: 760234344}
+  seedScript: {fileID: 743056749}
 --- !u!114 &743056747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1342,6 +1343,22 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+--- !u!114 &743056749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743056737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1899e56f12fccbf4ca2ced83200a0141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  SeedValue: 0
 --- !u!1 &760234344
 GameObject:
   m_ObjectHideFlags: 0

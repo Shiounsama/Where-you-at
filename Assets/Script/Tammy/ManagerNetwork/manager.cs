@@ -10,35 +10,23 @@ public class manager : NetworkBehaviour
     public List<PlayerData> scriptPlayer;
     public List<GameObject> player;
     public GameObject testBuilding;
-    public IntSA seed;
 
     public static manager Instance;
+
+    public int seed;
+
     [SyncVar]
     public int nbrJoueur = 0;
+
     [SyncVar]
     public int nbrJoueurRdy = 0;
+
     public bool InGame;
 
     public void Awake()
     {
         Instance = this;
-        RandomizeSeed();
-    }
-
-    public void RandomizeSeed()
-    {
-        seed.Value = Random.Range(0, 90000);
-    }
-
-    public void activeComponent()
-    {
-        scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
-        foreach (PlayerData playerscript in scriptPlayer)
-        {
-            playerscript.startScene();
-        }
-
-        nbrJoueur = player.Count;
+        
     }
 
     public void giveRole()
@@ -74,12 +62,14 @@ public class manager : NetworkBehaviour
     public void checkStart()
     {
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        
 
         if (nbrJoueur == nbrJoueurRdy)
         {
             foreach (PlayerData playerscript in scriptPlayer)
             {
                 playerscript.showStart(true);
+                
             }
         }
         else
@@ -90,34 +80,6 @@ public class manager : NetworkBehaviour
             }
         }
     }
-  
-    public void testAddPlayer()
-    {
-        cmdAddPlayer();
-    }
 
 
-    [Command]
-    private void cmdAddPlayer()
-    {
-        nbrJoueur++;
-    }
-
-    [Command]
-    private void cmdRemovePlayer()
-    {
-        nbrJoueur--;
-    }
-
-    [Command]
-    private void cmdAddPlayerReady()
-    {
-        nbrJoueurRdy++;
-    }
-
-    [Command]
-    private void cmdRemovePlayerReady()
-    {
-        nbrJoueurRdy--;
-    }
 }

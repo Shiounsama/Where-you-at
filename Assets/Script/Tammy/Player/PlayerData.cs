@@ -29,11 +29,13 @@ public class PlayerData : NetworkBehaviour
             frontPNJ();
         }
 
-        
+        if (isLocalPlayer)
+        {
             if (Input.GetKeyDown("v"))
             {
                 CmdRequestSceneChange("TestCamera");
             }
+        }
         
     }
 
@@ -63,8 +65,7 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            Debug.Log("Saluuut, je suis partout ?");
-
+            Debug.Log("mon dernier espoir " + FindObjectOfType<manager>().seed);
             IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
             IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
             IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
