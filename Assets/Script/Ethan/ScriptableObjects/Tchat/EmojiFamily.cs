@@ -48,15 +48,16 @@ public class EmojiFamily : ScriptableObject
                     return listOfValue[x].GetText();
                 }
             }
+            if(getEmoji)
+            {
+                return listOfValue[0].GetEmojiName();
+            }
+            else
+            {
+                return listOfValue[0].GetText();
+            }
         }
-        if(getEmoji)
-        {
-            return listOfValue[0].GetEmojiName();
-        }
-        else
-        {
-            return listOfValue[0].GetText();
-        }
+        return null;
     }
 
     public void ResetListOfEmoji()

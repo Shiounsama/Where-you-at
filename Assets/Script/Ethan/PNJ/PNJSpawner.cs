@@ -17,7 +17,7 @@ public class PNJSpawner : MonoBehaviour
     [SerializeField] private GameObject[] entitiesSpawnedArray;
     private BoxCollider boxCollider;
 
-    private void Awake()
+    public void Awake()
     {
         boxCollider = GetComponent<BoxCollider>(); //On recupere le boxCollider 
         spawnRange = new Vector3(length, 1, width); // On sauvegarde la range du spawn dans une variable
@@ -26,18 +26,18 @@ public class PNJSpawner : MonoBehaviour
         boxCollider.size = spawnRange; // On set la taille du box collider a la variable "spawnRange"
     }
 
-    private void OnDrawGizmosSelected() //Gizmos qui permet de visualiser dans l'editor la taille de la box
+    public void OnDrawGizmosSelected() //Gizmos qui permet de visualiser dans l'editor la taille de la box
     {
         Gizmos.color = Color.blue; // Bleu parce que bleu = ciel = liberte et liberte = pas de travail :))))))
         Gizmos.DrawWireCube(transform.position, new Vector3(length, 1, width));
     }
 
-    private void Start()
+    public void Start()
     {
         InstantiatePNJs();
     }
 
-    private void InstantiatePNJs()
+    public void InstantiatePNJs()
     {
         int playerIndex = Random.Range(0, numberToSpawn);
 
