@@ -8,13 +8,12 @@ public class ClotheCollection : ScriptableObject
 
     public Sprite ReturnRandomClothe()
     {
-        Random.InitState(manager.Instance.seed);
+        Random.InitState(manager.Instance.seed.Value);
 
         if(clotheList.Count <= 0)
         {
             return null;
         }
-        manager.Instance.RandomizeSeed();
         return clotheList[Random.Range(0, clotheList.Count)];
     }
 }

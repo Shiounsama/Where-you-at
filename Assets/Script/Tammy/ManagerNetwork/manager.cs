@@ -12,7 +12,7 @@ public class manager : NetworkBehaviour
     public List<GameObject> player;
     public GameObject testBuilding;
     public int nbrJoueur;
-    public int seed;
+    public IntSA seed;
     public static manager Instance;
 
     public void Awake()
@@ -23,7 +23,7 @@ public class manager : NetworkBehaviour
 
     public void RandomizeSeed()
     {
-        seed = Random.Range(0, 90000);
+        seed.Value = Random.Range(0, 90000);
     }
 
     public void activeComponent()
