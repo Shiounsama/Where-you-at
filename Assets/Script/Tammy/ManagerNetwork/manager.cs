@@ -25,9 +25,6 @@ public class manager : NetworkBehaviour
         seed = (int)Random.Range(0, Mathf.Infinity);
     }
 
-    
-
-
     public void activeComponent()
     {
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
