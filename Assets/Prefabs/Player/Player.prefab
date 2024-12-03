@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 4617556730504382486}
   - component: {fileID: 6890939613314767505}
   - component: {fileID: 195158185042866202}
+  - component: {fileID: 8764772925373807745}
   - component: {fileID: 8925695547685376029}
   - component: {fileID: 1331415498431507271}
   - component: {fileID: 1682726955131857155}
@@ -550,6 +551,8 @@ MonoBehaviour:
   playerReady: 0
   boutonReady: {fileID: 4530001957247553444}
   boutonStart: {fileID: 3616835487507774685}
+  PremierJoueurSpawn: {fileID: 0}
+  DeuxiemeJoueurSpawn: {fileID: 0}
 --- !u!114 &1808463024530652050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -647,7 +650,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1682726955131857155}
         m_TargetAssemblyTypeName: IsoCameraZoom, Assembly-CSharp
         m_MethodName: OnZoom
         m_Mode: 0
@@ -667,7 +670,7 @@ MonoBehaviour:
     m_ActionName: Keyboard & Mouse/Ping Map[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8925695547685376029}
         m_TargetAssemblyTypeName: IsoCameraDrag, Assembly-CSharp
         m_MethodName: OnDragAction
         m_Mode: 0
@@ -683,7 +686,7 @@ MonoBehaviour:
     m_ActionName: Keyboard & Mouse/MoveWorld[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1331415498431507271}
         m_TargetAssemblyTypeName: IsoCameraRotation, Assembly-CSharp
         m_MethodName: OnRotate
         m_Mode: 0
@@ -750,6 +753,25 @@ MonoBehaviour:
   rotationLimitY: 90
   limiteMinZoom: 1
   limiteMaxZoom: 3
+--- !u!114 &8764772925373807745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971760027535294172}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a5a61488f8d8548aa8d88757f1fe5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.1
+  smoothSpeed: 5
+  zoomSpeed: 5
+  minZoom: 5
+  maxZoom: 15
+  terrain: {fileID: 0}
+  camIso: {fileID: 1347594404514216364}
 --- !u!114 &8925695547685376029
 MonoBehaviour:
   m_ObjectHideFlags: 0

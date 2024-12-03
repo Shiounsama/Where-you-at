@@ -45,14 +45,14 @@ public class TchatManager : NetworkBehaviour
         actualMessage.GetComponent<TextMeshProUGUI>().text = fullMessage;
     }
 
-    [Command]
+    
     public void clearTchat()
     {
         messageCount = 0;
         CmdClearTchat(); 
     }
 
-    [ClientRpc]
+    
     private void CmdClearTchat()
     {
         foreach (Transform child in canvasTransform)

@@ -29,11 +29,13 @@ public class manager : NetworkBehaviour
 
     public void giveRole()
     {
-        StartCoroutine(changeRole());
+        StartCoroutine(startGame());
     }
 
-    public IEnumerator changeRole()
+    public IEnumerator startGame()
     {
+        //METTRE LA GENERATION ICI
+
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         player.Clear();
         foreach (PlayerData playerscript in scriptPlayer)
@@ -58,6 +60,7 @@ public class manager : NetworkBehaviour
     public void checkStart()
     {
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+
         if (nbrJoueur == nbrJoueurRdy)
         {
             foreach (PlayerData playerscript in scriptPlayer)

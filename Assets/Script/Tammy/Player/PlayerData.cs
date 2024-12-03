@@ -19,6 +19,9 @@ public class PlayerData : NetworkBehaviour
     public Button boutonReady;
     public Button boutonStart;
 
+    public GameObject PremierJoueurSpawn;
+    public GameObject DeuxiemeJoueurSpawn;
+
     private void Update()
     {
         if (role == "Camera" && isLocalPlayer)
@@ -44,15 +47,6 @@ public class PlayerData : NetworkBehaviour
         role = newRole;
     }
 
-    /*private void OnRoleChanged(string oldRole, string newRole)
-    {      
-        if (isLocalPlayer)
-        {
-            startScene();
-        }
-    }*/
-
-
     public override void OnStopClient()
     {
         base.OnStopClient();
@@ -62,15 +56,17 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            Debug.Log("IDIOT");
-
             IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
             IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
             IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
 
+            CameraIso camIso = this.GetComponent<CameraIso>();
             Camera360 cam360 = this.GetComponent<Camera360>();
 
             Camera camPlayer = this.GetComponent<Camera>();
+
+            PremierJoueurSpawn = GameObject.Find("spawn1");
+            DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             clearButton();
             ClearOtherTchat();
@@ -82,6 +78,7 @@ public class PlayerData : NetworkBehaviour
                 this.GetComponent<PlayerInput>().enabled = false;
                 
                 cam360.enabled = false;
+                camIso.enabled = false;
 
                 camDragIso.enabled = false;
                 camDragIso.objectToMove = building.transform;
@@ -100,8 +97,14 @@ public class PlayerData : NetworkBehaviour
                     camZoomIso.enabled = true;
                     camRotaIso.enabled = true;
 
+                    //camIso.enabled = true;
+                    //camIso.terrain = building;
+
                     this.GetComponent<PlayerInput>().enabled = true;
                     camPlayer.orthographic = true;
+
+                    transform.position = DeuxiemeJoueurSpawn.transform.position;
+                    transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 }
 
                 else if (role == "Charlie")
@@ -109,6 +112,9 @@ public class PlayerData : NetworkBehaviour
                     frontPNJ();
                     cam360.enabled = true;
                     camPlayer.orthographic = false;
+
+                    transform.position = PremierJoueurSpawn.transform.position;
+                    transform.rotation = PremierJoueurSpawn.transform.rotation;
                 }
             }
         }
@@ -133,7 +139,11 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
             List<TchatPlayer> listTchat = new List<TchatPlayer>(FindObjectsOfType<TchatPlayer>());
+
+            tchatGeneral.clearTchat();
+
             foreach (TchatPlayer tchat in listTchat)
             {
                 if (tchat.nameOfPlayer == playerName)
@@ -142,9 +152,7 @@ public class PlayerData : NetworkBehaviour
                 }
                 else
                 {
-                    Debug.Log(tchat.nameOfPlayer);
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = false;
-
                 }
             }
         }
