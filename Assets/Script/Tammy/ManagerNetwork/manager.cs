@@ -10,8 +10,8 @@ public class manager : NetworkBehaviour
     public List<PlayerData> scriptPlayer;
     public List<GameObject> player;
     public GameObject testBuilding;
+    public IntSA seed;
 
-    public int seed;
     public static manager Instance;
     [SyncVar]
     public int nbrJoueur = 0;
@@ -22,7 +22,12 @@ public class manager : NetworkBehaviour
     public void Awake()
     {
         Instance = this;
-        seed = (int)Random.Range(0, Mathf.Infinity);
+        RandomizeSeed();
+    }
+
+    public void RandomizeSeed()
+    {
+        seed.Value = Random.Range(0, 90000);
     }
 
     public void activeComponent()
