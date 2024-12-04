@@ -1237,7 +1237,6 @@ MonoBehaviour:
   scriptPlayer: []
   player: []
   testBuilding: {fileID: 0}
-  seed: 0
   nbrJoueur: 0
   nbrJoueurRdy: 0
   InGame: 0
@@ -1728,6 +1727,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1335414160}
   - component: {fileID: 1335414159}
+  - component: {fileID: 1335414162}
   - component: {fileID: 1335414161}
   m_Layer: 0
   m_Name: seed
@@ -1784,6 +1784,22 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &1335414162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335414158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83df28d2a0f405d419c36666b7e4b1e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerName: 
 --- !u!1 &1460485219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,5 +1997,5 @@ SceneRoots:
   - {fileID: 521044323}
   - {fileID: 889890523}
   - {fileID: 760234345}
-  - {fileID: 743056741}
   - {fileID: 1335414160}
+  - {fileID: 743056741}

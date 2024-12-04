@@ -5,7 +5,7 @@ using Mirror;
 
 public class seed : NetworkBehaviour
 {
-    [SyncVar(hook = nameof(DoSeed))] 
+    [SyncVar] 
     public int SeedValue;
 
     public static seed Instance;
@@ -15,8 +15,5 @@ public class seed : NetworkBehaviour
         Instance = this;
     }
 
-    private void DoSeed(int oldSeed, int newSeed)
-    {
-        Debug.Log($"L'ancienne seed était {oldSeed} et le nouveau est {newSeed}");
-    }
+
 }
