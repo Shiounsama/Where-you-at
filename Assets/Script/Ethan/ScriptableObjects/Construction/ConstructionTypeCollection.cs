@@ -11,6 +11,7 @@ public class ConstructionTypeCollection : ScriptableObject
 
     public GameObject GetPrefab(TypeOfConstruction typeToGet)
     {
+        //Random.InitState(seed.Instance.SeedValue);
         // Initialisation du dictionnaire
         prefabsByType = new Dictionary<TypeOfConstruction, List<GameObject>>();
 
