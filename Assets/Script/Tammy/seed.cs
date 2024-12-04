@@ -14,13 +14,9 @@ public class seed : NetworkBehaviour
     {
         Instance = this;
     }
-    public void SetSeed(int seed)
-    {
-        SeedValue = seed;
-    }
 
     private void DoSeed(int oldSeed, int newSeed)
     {
-        SeedValue = newSeed;
+        Debug.Log($"L'ancienne seed était {oldSeed} et le nouveau est {newSeed}");
     }
 }
