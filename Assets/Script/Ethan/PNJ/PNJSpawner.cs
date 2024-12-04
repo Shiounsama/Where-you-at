@@ -47,7 +47,10 @@ public class PNJSpawner : MonoBehaviour
 
     private void InstantiateObject(int i, GameObject objectToInstantiate, string tagToSet)
     {
-        Random.InitState(seed.Instance.SeedValue);
+        if(seed.Instance != null)
+        {
+            Random.InitState(seed.Instance.SeedValue);
+        }
 
         GameObject actualPlayer = Instantiate(objectToInstantiate, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
                         new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
@@ -56,6 +59,9 @@ public class PNJSpawner : MonoBehaviour
         entitiesSpawnedArray[i] = actualPlayer; // On Ajoute l'entite creer dans un tableau
         actualPlayer.transform.tag = tagToSet;
 
-        seed.Instance.SeedValue++;
+        if (seed.Instance != null)
+        {
+            seed.Instance.SeedValue++;
+        }
     }
 }
