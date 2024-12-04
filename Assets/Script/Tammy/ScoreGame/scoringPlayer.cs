@@ -25,8 +25,6 @@ public class scoringPlayer : NetworkBehaviour
         ServeurScore(Random.Range(0, 1000));
 
     }
-
-    [Command]
     private void ServeurScore(int newScore)
     {
         ScoreFinal = newScore; 

@@ -8,7 +8,7 @@ public class ClotheCollection : ScriptableObject
 
     public Sprite ReturnRandomClothe()
     {
-        Random.InitState(manager.Instance.seed);
+        Random.InitState(seed.Instance.SeedValue);
 
         if(clotheList.Count <= 0)
         {

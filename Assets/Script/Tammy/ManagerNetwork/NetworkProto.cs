@@ -12,14 +12,9 @@ public class NetworkProto : NetworkManager
 
     public seed seedScript;
 
-    private int generatedSeed;
-
     public override void OnStartServer()
     {
-        
-        generatedSeed = Random.Range(0, 10000);
-        seedScript.SetSeed(generatedSeed);
-
+        seed.Instance.SeedValue = Random.Range(0, 90000);
     }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
@@ -30,7 +25,6 @@ public class NetworkProto : NetworkManager
         playerData.playerName = "Player " + conn.connectionId;
 
         scriptManager.nbrJoueur++;
-        seed.Instance.SeedValue = generatedSeed;
         NetworkServer.AddPlayerForConnection(conn, player);
     }
 
@@ -48,11 +42,9 @@ public class NetworkProto : NetworkManager
         if (SceneManager.GetActiveScene().name == "TestCamera") 
         {
             scriptManager.giveRole();
-            seedScript.SetSeed(generatedSeed);
             foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
             {
-                GameObject player = conn.identity.gameObject;
-                
+                GameObject player = conn.identity.gameObject;               
             }           
         }
     }

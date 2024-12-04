@@ -33,7 +33,8 @@ public class PlayerData : NetworkBehaviour
         {
             if (Input.GetKeyDown("v"))
             {
-                CmdRequestSceneChange("TestCamera");
+                //CmdRequestSceneChange("TestCamera");
+                changeSeed();
             }
         }
         
@@ -65,7 +66,6 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            Debug.Log("mon dernier espoir " + FindObjectOfType<manager>().seed);
             IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
             IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
             IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
@@ -236,6 +236,13 @@ public class PlayerData : NetworkBehaviour
     }
 
     [Command]
+    public void changeSeed()
+    {
+        //seed.Instance.SeedValue = Random.Range(0, 10000);
+
+    }
+
+    [Command]
     public void cmdReadyPlus()
     {
         manager scriptManager = FindObjectOfType<manager>();
@@ -250,6 +257,5 @@ public class PlayerData : NetworkBehaviour
         manager scriptManager = FindObjectOfType<manager>();
         scriptManager.nbrJoueurRdy--;
         scriptManager.checkStart();
-
     }
 }

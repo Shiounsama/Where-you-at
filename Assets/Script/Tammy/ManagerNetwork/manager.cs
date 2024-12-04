@@ -13,8 +13,6 @@ public class manager : NetworkBehaviour
 
     public static manager Instance;
 
-    public int seed;
-
     [SyncVar]
     public int nbrJoueur = 0;
 
