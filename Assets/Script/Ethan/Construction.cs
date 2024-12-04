@@ -14,19 +14,14 @@ public class Construction : MonoBehaviour
     public float rotationY;
     public Vector3 spawnPosition;
 
-    public void Start()
+    [Button]
+    private void SpawnPrefab()
     {
         if(constructionType == null)
         {
             gameObject.AddComponent(typeof(ConstructionType));
         }
         constructionType = GetComponent<ConstructionType>();
-        SpawnPrefab();
-    }
-
-    [Button]
-    private void SpawnPrefab()
-    {
         if (transform.childCount > 0 && !Application.isPlaying) 
         {
             for (int i = this.transform.childCount; i > 0; --i)

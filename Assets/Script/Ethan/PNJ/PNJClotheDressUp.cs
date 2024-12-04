@@ -24,7 +24,10 @@ public class PNJClothe : MonoBehaviour
 
     public void Start()
     {
-        seed.Instance.SeedValue++;
+        if (seed.Instance != null)
+        {
+            seed.Instance.SeedValue++;
+        }
         GenerateRandomClothe(frontHairClotheImage, frontHairClothe);
         GenerateRandomClothe(backHairClotheImage, backHairClothe);
         GenerateRandomClothe(eyesClotheImage, eyesClothe);
