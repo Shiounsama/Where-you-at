@@ -85,7 +85,7 @@ public class PlayerData : NetworkBehaviour
             if (role == "Camera" || role == "Charlie")
             {
                 GameObject building = GameObject.Find("monde");
-                building.transform.position = new Vector3(-0.9570656f, -8.279863f, 42.36227f);
+                building.transform.position = new Vector3(0, 0, 0);
                 this.GetComponent<PlayerInput>().enabled = false;
                 
                 cam360.enabled = false;
