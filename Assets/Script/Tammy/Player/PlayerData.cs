@@ -3,11 +3,12 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PlayerData : NetworkBehaviour
 {
-    [SyncVar(hook = nameof(OnRoleChanged))]
+    [SyncVar/*(hook = nameof(OnRoleChanged))*/]
     public string role = null;
     [SyncVar]
     public string playerName;
@@ -15,22 +16,36 @@ public class PlayerData : NetworkBehaviour
 
     [Header("Multijoueur")]
     public bool playerReady = false;
+    public Button boutonReady;
+    public Button boutonStart;
 
-    public Canvas UImessage;
-    public GameObject UI;
+    public GameObject PremierJoueurSpawn;
+    public GameObject DeuxiemeJoueurSpawn;
 
     private void Update()
     {
-        if (isLocalPlayer && Input.GetKeyDown("e"))
-        {
-            CmdRequestSceneChange("TestCamera");
-            ClearOtherTchat();
-            
-        }
-
         if (role == "Camera" && isLocalPlayer)
         {
             frontPNJ();
+        }
+
+        if (isLocalPlayer)
+        {
+            if (Input.GetKeyDown("v"))
+            {
+                CmdRequestSceneChange("TestCamera");
+            }
+        }
+        
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+
+        if (isLocalPlayer)
+        {
+            ShowCanvas();
         }
 
     }
@@ -41,98 +56,40 @@ public class PlayerData : NetworkBehaviour
         role = newRole;
     }
 
-    private void OnRoleChanged(string oldRole, string newRole)
-    {
-        if (oldRole == newRole)
-        {
-            Debug.LogWarning("La valeur de 'role' n'a pas changé.");
-            return;
-        }
-
-        if (isLocalPlayer)
-        {
-            //UpdateUIForRole(newRole);
-            startScene();
-        }
-    }
-
-    public void SetupUI()
-    {
-        /*inputField = FindObjectOfType<TMP_InputField>();
-        sendButton = FindObjectOfType<Button>();
-        UImessage = FindObjectOfType<Canvas>();
-
-        GameObject messageObject = GameObject.Find("ReceptionMessage");
-
-        if (messageObject != null)
-        {
-            textMessage = messageObject.GetComponent<TMP_Text>();
-        }
-        else
-        {
-            Debug.LogWarning("ReceptionMessage n'a pas été trouvé dans la scène.");
-        }*/
-    }
-
-    private void UpdateUIForRole(string newRole)
-    {
-        /*if (!isLocalPlayer) return;
-
-        if (sendButton != null)
-        {
-            if (newRole == "Charlie")
-            {
-                UImessage.enabled = true;
-                sendButton.gameObject.SetActive(true);
-                inputField.gameObject.SetActive(true);
-                textMessage.gameObject.SetActive(false);
-            }
-            else if (newRole == "Camera")
-            {
-                UImessage.enabled = true;
-                sendButton.gameObject.SetActive(false);
-                inputField.gameObject.SetActive(false);
-                textMessage.gameObject.SetActive(true);
-            }
-        }*/
-    }
-
     public override void OnStopClient()
     {
         base.OnStopClient();
-
-        // Réactivez tous les éléments de l'UI lorsque le client se déconnecte
-        /*if (isLocalPlayer)
-        {
-            if (sendButton != null) sendButton.gameObject.SetActive(true);
-            if (inputField != null) inputField.gameObject.SetActive(true);
-            if (textMessage != null) textMessage.gameObject.SetActive(true);
-
-            UImessage.enabled = false;
-        }*/
     }
 
     public void startScene()
     {
         if (isLocalPlayer)
         {
-            IsoCameraDrag camDragIso = transform.parent.gameObject.GetComponentInChildren<IsoCameraDrag>();
-            IsoCameraRotation camRotaIso = transform.parent.gameObject.GetComponentInChildren<IsoCameraRotation>();
-            IsoCameraZoom camZoomIso = transform.parent.gameObject.GetComponentInChildren<IsoCameraZoom>();
+            Debug.Log("mon dernier espoir " + FindObjectOfType<manager>().seed);
+            IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
+            IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
+            IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
 
-            CinemachineVirtualCamera virtualCamera = transform.parent.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
-            Camera360 cam360 = transform.parent.gameObject.GetComponentInChildren<Camera360>();
+            CameraIso camIso = this.GetComponent<CameraIso>();
+            Camera360 cam360 = this.GetComponent<Camera360>();
 
-            Camera camPlayer = GetComponent<Camera>();
+            Camera camPlayer = this.GetComponent<Camera>();
+
+            PremierJoueurSpawn = GameObject.Find("spawn1");
+            DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
+
+            clearButton();
+            ClearOtherTchat();
+            ClearCanvas();
 
             if (role == "Camera" || role == "Charlie")
             {
                 GameObject building = GameObject.Find("monde");
-                transform.parent.gameObject.GetComponentInChildren<PlayerInput>().enabled = false;
+                building.transform.position = new Vector3(-0.9570656f, -8.279863f, 42.36227f);
+                this.GetComponent<PlayerInput>().enabled = false;
                 
                 cam360.enabled = false;
-
-                virtualCamera.Priority = 15;
+                camIso.enabled = false;
 
                 camDragIso.enabled = false;
                 camDragIso.objectToMove = building.transform;
@@ -151,8 +108,14 @@ public class PlayerData : NetworkBehaviour
                     camZoomIso.enabled = true;
                     camRotaIso.enabled = true;
 
-                    transform.parent.gameObject.GetComponentInChildren<PlayerInput>().enabled = true;
+                    //camIso.enabled = true;
+                    //camIso.terrain = building;
+
+                    this.GetComponent<PlayerInput>().enabled = true;
                     camPlayer.orthographic = true;
+
+                    transform.position = DeuxiemeJoueurSpawn.transform.position;
+                    transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 }
 
                 else if (role == "Charlie")
@@ -160,6 +123,9 @@ public class PlayerData : NetworkBehaviour
                     frontPNJ();
                     cam360.enabled = true;
                     camPlayer.orthographic = false;
+
+                    transform.position = PremierJoueurSpawn.transform.position;
+                    transform.rotation = PremierJoueurSpawn.transform.rotation;
                 }
             }
         }
@@ -173,26 +139,60 @@ public class PlayerData : NetworkBehaviour
             foreach (GameObject obj in allPNJ)
             {
                 obj.transform.LookAt(transform.position);
-
+                Vector3 lockedRotation = obj.transform.eulerAngles;
+                lockedRotation.x = 0; 
+                obj.transform.eulerAngles = lockedRotation;
             }
         }
-    }
-
-    public void buttonReady()
-    {
-        playerReady = !playerReady;
     }
 
     public void ClearOtherTchat()
     {
-        List<TchatPlayer> listTchat = new List<TchatPlayer>(FindObjectsOfType<TchatPlayer>());
-        foreach (TchatPlayer tchat in listTchat)
+        if (isLocalPlayer)
         {
-            if (tchat.nameOfPlayer != playerName)
+            TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
+            List<TchatPlayer> listTchat = new List<TchatPlayer>(FindObjectsOfType<TchatPlayer>());
+
+            tchatGeneral.clearTchat();
+
+            foreach (TchatPlayer tchat in listTchat)
             {
-                tchat.gameObject.SetActive(false);
+                if (tchat.nameOfPlayer == playerName)
+                {
+                    tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
+                }
+                else
+                {
+                    tchat.gameObject.GetComponentInChildren<Canvas>().enabled = false;
+                }
             }
         }
+    }
+
+    public void ShowCanvas()
+    {
+        if (isLocalPlayer)
+        {
+            transform.parent.GetComponentInChildren<Canvas>().enabled = true;
+        }
+    }
+    
+    public void ClearCanvas()
+    {
+        if (isLocalPlayer)
+        {
+            transform.parent.GetComponentInChildren<Canvas>().enabled = false;
+        }
+    }
+    public void clearButton()
+    {
+        if (isLocalPlayer)
+            transform.parent.GetComponentInChildren<Canvas>().enabled = false;
+    }
+
+    public void StartGame()
+    {
+        CmdRequestSceneChange("TestCamera");
     }
 
     [Command]
@@ -204,4 +204,52 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
+    public void buttonReady()
+    {
+        if (isLocalPlayer)
+        {
+            manager scriptManager = FindObjectOfType<manager>();
+            playerReady = !playerReady;
+
+            if (playerReady)
+            {
+                boutonReady.GetComponentInChildren<Text>().text = "not ready";
+                cmdReadyPlus();                              
+            }
+            if (!playerReady)
+            {
+                boutonReady.GetComponentInChildren<Text>().text = "ready";
+                cmdReadyMoins();
+            }
+        }
+    }
+
+    public void showStart(bool allready)
+    {
+        if (isLocalPlayer)
+        {
+            if (allready)
+                boutonStart.gameObject.SetActive(true);
+            else
+                boutonStart.gameObject.SetActive(false);
+        }
+    }
+
+    [Command]
+    public void cmdReadyPlus()
+    {
+        manager scriptManager = FindObjectOfType<manager>();
+        scriptManager.nbrJoueurRdy++;
+        scriptManager.checkStart();
+
+    }
+
+    [Command]
+    public void cmdReadyMoins()
+    {
+        manager scriptManager = FindObjectOfType<manager>();
+        scriptManager.nbrJoueurRdy--;
+        scriptManager.checkStart();
+
+    }
 }
