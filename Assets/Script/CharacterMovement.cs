@@ -24,22 +24,6 @@ public class CharacterMovement : NetworkBehaviour
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Translate(move * speed * Time.deltaTime, Space.World);
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            CmdSendMessageToServer();
-        }
-    }
 
-    [Command]
-    void CmdSendMessageToServer()
-    {
-        Debug.Log("Bonjour je suis le joueur avec l'ID : " + netId);
-        RpcShowMessageToAllClients("Bonjour je suis le joueur avec l'ID : " + netId);
-    }
-
-    [ClientRpc]
-    void RpcShowMessageToAllClients(string message)
-    {
-        Debug.Log(message);
     }
 }
