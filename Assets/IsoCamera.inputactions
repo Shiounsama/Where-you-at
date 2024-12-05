@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Ping Map",
-                    "type": "Button",
-                    "id": "4f077d06-e275-481c-9f06-3d54558406c2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "MoveWorld",
                     "type": "Button",
                     "id": "22647cfe-ab13-4e08-b793-e13a64369f6b",
@@ -51,9 +42,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SelectRoom",
+                    "name": "UnselectObject",
                     "type": "Button",
-                    "id": "e8ed25e6-efc9-4c8b-bff7-f8532bc320db",
+                    "id": "97cfc4c1-bc23-489d-82a7-6b37ed9acd9f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SendMessage",
+                    "type": "Button",
+                    "id": "ea4e8e81-5051-4529-b671-e77699bc017e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CheckPNJ",
+                    "type": "Button",
+                    "id": "83722aae-5000-4cd2-ba8d-54cb7e2e2399",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -69,17 +78,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "ZoomCamera",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "45dff7a5-6693-42c1-a6d1-2d4247b5f0cb",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Ping Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -140,12 +138,34 @@
                 },
                 {
                     "name": "",
-                    "id": "5aebbad2-bef3-4f07-b5b6-13f78f909cef",
+                    "id": "2b0522d0-62fe-4e9b-9864-2281d6477b5c",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SendMessage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "878c2902-91ec-4062-8e0c-1f54e8df90d3",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectRoom",
+                    "action": "CheckPNJ",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f66cb4a2-1327-42bf-b283-64764db177ef",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UnselectObject",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
