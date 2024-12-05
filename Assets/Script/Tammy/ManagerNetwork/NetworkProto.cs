@@ -14,7 +14,7 @@ public class NetworkProto : NetworkManager
 
     public override void OnStartServer()
     {
-        seed.Instance.SeedValue = Random.Range(0, 90000);
+        seedScript.SeedValue = Random.Range(0, 90000);
     }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
@@ -38,6 +38,7 @@ public class NetworkProto : NetworkManager
     public override void OnClientSceneChanged()
     {
         base.OnClientSceneChanged();
+        
 
         if (SceneManager.GetActiveScene().name == "TestCamera") 
         {

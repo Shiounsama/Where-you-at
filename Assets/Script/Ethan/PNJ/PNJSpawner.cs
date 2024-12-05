@@ -63,4 +63,6 @@ public class PNJSpawner : MonoBehaviour
             seed.Instance.SeedValue++;
         }
     }
+
+  
 }

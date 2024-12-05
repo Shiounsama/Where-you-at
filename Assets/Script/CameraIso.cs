@@ -92,4 +92,30 @@ public class CameraIso : MonoBehaviour
             camIso.transform.position += difference;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Ray ray = camIso.ScreenPointToRay(transform.forward);
+        Gizmos.DrawRay(ray);
+
+        Vector3 cameraPosition = camIso.transform.position;
+        Vector3 cameraDirection = camIso.transform.forward;
+
+
+        float t = 0; 
+        if (cameraDirection.y != 0)
+        {
+            t = -cameraPosition.y / cameraDirection.y;
+        }
+
+        Vector3 intersectionPoint = cameraPosition + cameraDirection * t;
+
+        if (t > 0)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(cameraPosition, intersectionPoint);
+        }
+    }
 }
+
