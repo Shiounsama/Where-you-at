@@ -24,7 +24,7 @@ public class PlayerData : NetworkBehaviour
 
     private void Update()
     {
-        if (role == "Camera" && isLocalPlayer)
+        if (isLocalPlayer)
         {
             frontPNJ();
         }
@@ -143,6 +143,11 @@ public class PlayerData : NetworkBehaviour
                 lockedRotation.x = 0;
                 lockedRotation.z = 0;
                 obj.transform.eulerAngles = lockedRotation;
+
+                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
+                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
+                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
+
             }
         }
     }

@@ -21,7 +21,6 @@ public class PNJSpawner : MonoBehaviour
     {
         boxCollider = GetComponent<BoxCollider>(); //On recupere le boxCollider 
         spawnRange = new Vector3(length, 1, width); // On sauvegarde la range du spawn dans une variable
-        transform.position = new Vector3(transform.position.x, 1.2f, transform.position.z); // On bloque la position au ras du sol quand on lance le jeu
         entitiesSpawnedArray = new GameObject[numberToSpawn]; // On set la taille du tableau en fonction de la variable "numberToSpawn"
         boxCollider.size = spawnRange; // On set la taille du box collider a la variable "spawnRange"
     }
@@ -54,7 +53,7 @@ public class PNJSpawner : MonoBehaviour
 
         GameObject actualPlayer = Instantiate(objectToInstantiate, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
                         new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
-                        1,
+                        transform.position.y,
                         (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
         entitiesSpawnedArray[i] = actualPlayer; // On Ajoute l'entite creer dans un tableau
         actualPlayer.transform.tag = tagToSet;
