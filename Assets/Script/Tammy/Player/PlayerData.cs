@@ -140,7 +140,8 @@ public class PlayerData : NetworkBehaviour
             {
                 obj.transform.LookAt(transform.position);
                 Vector3 lockedRotation = obj.transform.eulerAngles;
-                lockedRotation.x = 0; 
+                lockedRotation.x = 0;
+                lockedRotation.z = 0;
                 obj.transform.eulerAngles = lockedRotation;
             }
         }
