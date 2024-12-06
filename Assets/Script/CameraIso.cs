@@ -7,8 +7,8 @@ public class CameraIso : MonoBehaviour
     public float moveSpeed = 0.1f;    
     public float smoothSpeed = 5f;    
     public float zoomSpeed = 5f;      
-    public float minZoom = 5f;        
-    public float maxZoom = 15f;       
+    public float minZoom = 1f;        
+    public float maxZoom = 30f;       
 
     private Vector3 dragOrigin;
     private Vector3 targetPosition;
@@ -16,6 +16,9 @@ public class CameraIso : MonoBehaviour
     public GameObject terrain;
 
     public Camera camIso;
+    public float transitionDuration = 1.0f;
+
+    private bool isTransitioning = false;
 
     void Start()
     {
@@ -25,6 +28,11 @@ public class CameraIso : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown("q"))
+        {
+            RotateCameraAroundPoint();
+        }
+
         
         if (Input.GetMouseButtonDown(0)) 
         {
@@ -93,26 +101,69 @@ public class CameraIso : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    void RotateCameraAroundPoint()
     {
-        Gizmos.color = Color.cyan;
-        Ray ray = camIso.ScreenPointToRay(transform.forward);
-        Gizmos.DrawRay(ray);
 
         Vector3 cameraPosition = camIso.transform.position;
         Vector3 cameraDirection = camIso.transform.forward;
 
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
 
-        float t = 0; 
-        if (cameraDirection.y != 0)
+        Ray ray = new Ray(cameraPosition, cameraDirection);
+
+        if (groundPlane.Raycast(ray, out float distanceToPlane))
         {
-            t = -cameraPosition.y / cameraDirection.y;
+            Vector3 intersectionPoint = ray.GetPoint(distanceToPlane);
+
+            float distanceToPoint = Vector3.Distance(cameraPosition, intersectionPoint);
+
+            Quaternion rotation = Quaternion.Euler(0f, 90f, 0f); 
+            Vector3 directionFromPoint = cameraPosition - intersectionPoint; 
+            Vector3 newDirection = rotation * directionFromPoint; 
+            Vector3 newPosition = intersectionPoint + newDirection.normalized * distanceToPoint;
+
+            StartCoroutine(SmoothTransition(camIso, newPosition, intersectionPoint));
+        }
+    }
+
+    private IEnumerator SmoothTransition(Camera cam, Vector3 targetPosition, Vector3 lookAtPoint)
+    {
+        isTransitioning = true;
+
+        Vector3 startPosition = cam.transform.position;
+        Quaternion startRotation = cam.transform.rotation;
+
+        Quaternion targetRotation = Quaternion.LookRotation(lookAtPoint - targetPosition);
+
+        float elapsedTime = 0f;
+        while (elapsedTime < transitionDuration)
+        {
+            cam.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / transitionDuration);
+            cam.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / transitionDuration);
+
+            elapsedTime += Time.deltaTime;
+            yield return null; 
         }
 
-        Vector3 intersectionPoint = cameraPosition + cameraDirection * t;
+        cam.transform.position = targetPosition;
+        cam.transform.rotation = targetRotation;
 
-        if (t > 0)
+        isTransitioning = false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 cameraPosition = camIso.transform.position;
+        Vector3 cameraDirection = camIso.transform.forward;
+
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+        Ray ray = new Ray(cameraPosition, cameraDirection);
+
+        if (groundPlane.Raycast(ray, out float distanceToPlane))
         {
+            Vector3 intersectionPoint = ray.GetPoint(distanceToPlane);
+
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(cameraPosition, intersectionPoint);
         }

@@ -454,7 +454,6 @@ GameObject:
   - component: {fileID: 4617556730504382486}
   - component: {fileID: 6890939613314767505}
   - component: {fileID: 195158185042866202}
-  - component: {fileID: 8764772925373807745}
   - component: {fileID: 8925695547685376029}
   - component: {fileID: 1331415498431507271}
   - component: {fileID: 1682726955131857155}
@@ -753,25 +752,6 @@ MonoBehaviour:
   rotationLimitY: 90
   limiteMinZoom: 1
   limiteMaxZoom: 3
---- !u!114 &8764772925373807745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5971760027535294172}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65a5a61488f8d8548aa8d88757f1fe5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0.1
-  smoothSpeed: 5
-  zoomSpeed: 5
-  minZoom: 5
-  maxZoom: 15
-  terrain: {fileID: 0}
-  camIso: {fileID: 1347594404514216364}
 --- !u!114 &8925695547685376029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,6 +783,8 @@ MonoBehaviour:
   rotationValue: 90
   rotationSpeed: 500
   rotationCooldown: 0.25
+  camIso: {fileID: 1347594404514216364}
+  transitionDuration: 1
 --- !u!114 &1682726955131857155
 MonoBehaviour:
   m_ObjectHideFlags: 0
