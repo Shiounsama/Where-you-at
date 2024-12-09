@@ -70,7 +70,7 @@ public class PlayerData : NetworkBehaviour
             IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
             IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
 
-            CameraIso camIso = this.GetComponent<CameraIso>();
+            //CameraIso camIso = this.GetComponent<CameraIso>();
             Camera360 cam360 = this.GetComponent<Camera360>();
 
             Camera camPlayer = this.GetComponent<Camera>();
@@ -89,7 +89,7 @@ public class PlayerData : NetworkBehaviour
                 this.GetComponent<PlayerInput>().enabled = false;
                 
                 cam360.enabled = false;
-                camIso.enabled = false;
+                //camIso.enabled = false;
 
                 camDragIso.enabled = false;
                 camDragIso.objectToMove = building.transform;

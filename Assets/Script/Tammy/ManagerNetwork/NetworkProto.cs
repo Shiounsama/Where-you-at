@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
+using System;
+using System.Linq;
+using Edgegap;
 
 public class NetworkProto : NetworkManager
 {
@@ -12,20 +15,43 @@ public class NetworkProto : NetworkManager
 
     public seed seedScript;
 
+    public static event Action OnClientConnected;
+    public static event Action OnClientDisconnected;
+
+
     public override void OnStartServer()
     {
-        seedScript.SeedValue = Random.Range(0, 90000);
+        seedScript.SeedValue = UnityEngine.Random.Range(0, 90000);
+        spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+
     }
 
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    public override void OnStartClient()
     {
-        GameObject player = Instantiate(JoueurPrefab);
-        PlayerData playerData = player.GetComponentInChildren<PlayerData>();
-        playerData.name = "Player " + conn.connectionId;
-        playerData.playerName = "Player " + conn.connectionId;
+        base.OnStartClient();
+        {
+            var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
 
-        scriptManager.nbrJoueur++;
-        NetworkServer.AddPlayerForConnection(conn, player);
+            foreach (var prefab in spawnablePrefabs)
+            {
+                NetworkClient.RegisterPrefab(prefab);
+            }
+        }
+    }
+
+    public override void OnServerConnect(NetworkConnectionToClient conn)
+    {
+        if (numPlayers >= maxConnections)
+        {
+            conn.Disconnect();
+            return;
+        }
+
+        if(SceneManager.GetActiveScene().name != "Lobby")
+        {
+            conn.Disconnect();
+            return;
+        }
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
@@ -33,6 +59,36 @@ public class NetworkProto : NetworkManager
         scriptManager.nbrJoueur--;
         base.OnServerDisconnect(conn);
 
+    }
+
+    /*public override void OnClientConnect()
+    {
+        base.OnClientConnect();
+
+        OnClientConnected?.Invoke();
+    }
+
+    public override void OnClientDisconnect()
+    {
+        base.OnClientConnect();
+
+        OnClientDisconnected?.Invoke();
+    }*/
+
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    {
+        if (SceneManager.GetActiveScene().name == "Lobby")
+        {
+            GameObject player = Instantiate(JoueurPrefab);
+            PlayerData playerData = player.GetComponentInChildren<PlayerData>();
+            playerData.name = "Player " + conn.connectionId;
+            playerData.playerName = "Player " + conn.connectionId;
+
+            scriptManager.nbrJoueur++;
+
+           
+            NetworkServer.AddPlayerForConnection(conn, player);
+        }
     }
 
     public override void OnClientSceneChanged()
