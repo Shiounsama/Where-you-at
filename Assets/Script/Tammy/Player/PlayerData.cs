@@ -24,7 +24,7 @@ public class PlayerData : NetworkBehaviour
 
     private void Update()
     {
-        if (role == "Camera" && isLocalPlayer)
+        if (isLocalPlayer)
         {
             frontPNJ();
         }
@@ -70,7 +70,7 @@ public class PlayerData : NetworkBehaviour
             IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
             IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
 
-            CameraIso camIso = this.GetComponent<CameraIso>();
+            //CameraIso camIso = this.GetComponent<CameraIso>();
             Camera360 cam360 = this.GetComponent<Camera360>();
 
             Camera camPlayer = this.GetComponent<Camera>();
@@ -89,7 +89,7 @@ public class PlayerData : NetworkBehaviour
                 this.GetComponent<PlayerInput>().enabled = false;
                 
                 cam360.enabled = false;
-                camIso.enabled = false;
+                //camIso.enabled = false;
 
                 camDragIso.enabled = false;
                 camDragIso.objectToMove = building.transform;
@@ -126,6 +126,19 @@ public class PlayerData : NetworkBehaviour
 
                     transform.position = PremierJoueurSpawn.transform.position;
                     transform.rotation = PremierJoueurSpawn.transform.rotation;
+
+                    GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+                    List<GameObject> ListPNJ = new List<GameObject>();
+                    foreach (GameObject obj in allPNJ)
+                    {
+                        ListPNJ.Add(obj);   
+                    }
+
+                    int randomNumber = Random.Range(0, ListPNJ.Count);
+
+                    transform.position = new Vector3(ListPNJ[randomNumber].transform.position.x, 1.4f, ListPNJ[randomNumber].transform.position.z);
+                    transform.rotation = ListPNJ[randomNumber].transform.rotation;
+                    Destroy(ListPNJ[randomNumber]);
                 }
             }
         }
@@ -140,8 +153,14 @@ public class PlayerData : NetworkBehaviour
             {
                 obj.transform.LookAt(transform.position);
                 Vector3 lockedRotation = obj.transform.eulerAngles;
-                lockedRotation.x = 0; 
+                lockedRotation.x = 0;
+                lockedRotation.z = 0;
                 obj.transform.eulerAngles = lockedRotation;
+
+                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
+                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
+                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
+
             }
         }
     }
