@@ -1457,7 +1457,8 @@ MonoBehaviour:
   player: []
   testBuilding: {fileID: 0}
   nbrJoueur: 0
-  seed: {fileID: 11400000, guid: 1b418120aa9dd564e9102bac5e756c3a, type: 2}
+  nbrJoueurRdy: 0
+  InGame: 0
 --- !u!1001 &1670162460013918594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1559,10 +1560,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 271182934125036062, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
     - target: {fileID: 1017637346056853289, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1611,18 +1608,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1528815416554104914, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
     - target: {fileID: 1745731761184461587, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_Name
       value: Lost TChat
       objectReference: {fileID: 0}
-    - target: {fileID: 2737247466111511816, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
     - target: {fileID: 3385495856934545532, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1743,22 +1732,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4236582747866478660, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
     - target: {fileID: 4347040787397548738, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: generalTchatManager
       value: 
       objectReference: {fileID: 416843797}
-    - target: {fileID: 4877921285572145742, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
-    - target: {fileID: 4971357132023933574, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
     - target: {fileID: 5797958616058105237, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1799,26 +1776,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5938416313128221940, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
-    - target: {fileID: 6464037951073611190, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
-    - target: {fileID: 6516010303986086369, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
-    - target: {fileID: 6952944043273503102, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
-    - target: {fileID: 7189242307553105265, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
     - target: {fileID: 7463244193874644784, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1867,10 +1824,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8190926968654548912, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
     - target: {fileID: 8228003695492605013, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1895,10 +1848,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8465499478022560774, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
     - target: {fileID: 8981401706912949935, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

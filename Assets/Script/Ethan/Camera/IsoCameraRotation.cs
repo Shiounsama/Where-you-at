@@ -20,18 +20,18 @@ public class IsoCameraRotation : MonoBehaviour
 
     private bool isTransitioning = false;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("q"))
-        {
-            RotateCameraAroundPoint(90);
-        }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown("q"))
+    //    {
+    //        RotateCameraAroundPoint(90);
+    //    }
 
-        if (Input.GetKeyDown("e"))
-        {
-            RotateCameraAroundPoint(-90);
-        }
-    }
+    //    if (Input.GetKeyDown("e"))
+    //    {
+    //        RotateCameraAroundPoint(-90);
+    //    }
+    //}
 
     private void HandleCameraRotation()
     {
@@ -49,7 +49,8 @@ public class IsoCameraRotation : MonoBehaviour
         if (context.performed && rotationCooldownValue <= 0)
         {
             rotationCooldownValue = rotationCooldown;
-            rotationTarget = Quaternion.Euler(new Vector3(objectToRotate.rotation.x, objectToRotate.eulerAngles.y + rotationValue * (int)context.ReadValue<float>(), objectToRotate.rotation.z));
+            RotateCameraAroundPoint(90 * (int)context.ReadValue<float>());
+            //rotationTarget = Quaternion.Euler(new Vector3(objectToRotate.rotation.x, objectToRotate.eulerAngles.y + rotationValue * (int)context.ReadValue<float>(), objectToRotate.rotation.z));
         }
     }
 
