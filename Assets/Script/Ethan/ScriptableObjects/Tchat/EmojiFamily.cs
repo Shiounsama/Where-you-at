@@ -3,6 +3,9 @@ using UnityEngine;
 
 public enum EmojiFamilyID
 {
+    Vision,
+    Ressenti,
+    Position,
     Eglise,
     Parc
 }
@@ -11,9 +14,13 @@ public enum EmojiFamilyID
 public class EmojiFamily : ScriptableObject
 {
     public EmojiFamilyID familyItBelongTo;
+
     public List<TextOrEmojiAsset> listOfValue;
+
     public List<int> listOfValueUsed;
+
     public bool isAllValueUsed;
+
 
     public string GetEmoji(bool getEmoji)
     {
@@ -24,7 +31,7 @@ public class EmojiFamily : ScriptableObject
             {
                 x = Random.Range(0, listOfValue.Count);
                 if (listOfValueUsed.Count >= listOfValue.Count)
-                {
+                {   
                     isAllValueUsed = true;
                     if(getEmoji)
                     {

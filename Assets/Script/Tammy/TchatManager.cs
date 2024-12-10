@@ -19,13 +19,11 @@ public class TchatManager : NetworkBehaviour
         {
             emojiList[i].ResetListOfEmoji();
         }
-        
     }
 
     private void OnServerInitialized()
     {
         base.OnStartServer();
-
     }
 
     [Server]
@@ -45,14 +43,12 @@ public class TchatManager : NetworkBehaviour
         actualMessage.GetComponent<TextMeshProUGUI>().text = fullMessage;
     }
 
-    
     public void clearTchat()
     {
         messageCount = 0;
         CmdClearTchat(); 
     }
 
-    
     private void CmdClearTchat()
     {
         foreach (Transform child in canvasTransform)
