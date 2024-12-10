@@ -123,7 +123,7 @@ public class PlayerData : NetworkBehaviour
                     frontPNJ();
                     cam360.enabled = true;
                     camPlayer.orthographic = false;
-
+                    
                     transform.position = PremierJoueurSpawn.transform.position;
                     transform.rotation = PremierJoueurSpawn.transform.rotation;
 
