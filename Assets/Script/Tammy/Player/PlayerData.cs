@@ -130,7 +130,7 @@ public class PlayerData : NetworkBehaviour
 
                     int randomNumber = Random.Range(0, ListPNJ.Count);
 
-                    transform.position = new Vector3(ListPNJ[randomNumber].transform.position.x, 1.4f, ListPNJ[randomNumber].transform.position.z);
+                    transform.position = new Vector3(ListPNJ[randomNumber].transform.position.x, 1f, ListPNJ[randomNumber].transform.position.z);
                     transform.rotation = ListPNJ[randomNumber].transform.rotation;
                     Destroy(ListPNJ[randomNumber]);
                 }
