@@ -34,7 +34,6 @@ public class PlayerData : NetworkBehaviour
             if (Input.GetKeyDown("v"))
             {
                 //CmdRequestSceneChange("TestCamera");
-                changeSeed();
             }
         }
         
@@ -89,13 +88,11 @@ public class PlayerData : NetworkBehaviour
                 this.GetComponent<PlayerInput>().enabled = false;
                 
                 cam360.enabled = false;
-                //camIso.enabled = false;
 
                 camDragIso.enabled = false;
                 camDragIso.objectToMove = building.transform;
 
                 camZoomIso.enabled = false;
-                //camZoomIso.objectToMove = building.transform;
 
                 camRotaIso.enabled = false;
                 camRotaIso.objectToRotate = building.transform;
@@ -107,9 +104,6 @@ public class PlayerData : NetworkBehaviour
                     camDragIso.enabled = true;
                     camZoomIso.enabled = true;
                     camRotaIso.enabled = true;
-
-                    //camIso.enabled = true;
-                    //camIso.terrain = building;
 
                     this.GetComponent<PlayerInput>().enabled = true;
                     camPlayer.orthographic = true;
@@ -252,13 +246,6 @@ public class PlayerData : NetworkBehaviour
             else
                 boutonStart.gameObject.SetActive(false);
         }
-    }
-
-    [Command]
-    public void changeSeed()
-    {
-        //seed.Instance.SeedValue = Random.Range(0, 10000);
-
     }
 
     [Command]
