@@ -24,8 +24,11 @@ public class TchatPlayer : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdSendMessage(textToSend.text);
-            textToSend.text = "";
+            if (textToSend.text.Length > 0)
+            {
+                CmdSendMessage(textToSend.text);
+                textToSend.text = "";
+            }
         }
     }
 

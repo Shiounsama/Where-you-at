@@ -22,6 +22,9 @@ public class PlayerData : NetworkBehaviour
     public GameObject PremierJoueurSpawn;
     public GameObject DeuxiemeJoueurSpawn;
 
+    public List<GameObject> seekerObjects;
+    public List<GameObject> charlieObjects;
+
     private void Update()
     {
         if (isLocalPlayer)
@@ -104,6 +107,8 @@ public class PlayerData : NetworkBehaviour
 
                 if (role == "Camera")
                 {
+                    ObjectsStateSetter(charlieObjects, false);
+                    ObjectsStateSetter(seekerObjects, true);
                     camDragIso.enabled = true;
                     camZoomIso.enabled = true;
                     camRotaIso.enabled = true;
@@ -116,10 +121,13 @@ public class PlayerData : NetworkBehaviour
 
                     transform.position = DeuxiemeJoueurSpawn.transform.position;
                     transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
+
                 }
 
                 else if (role == "Charlie")
                 {
+                    ObjectsStateSetter(seekerObjects, false);
+                    ObjectsStateSetter(charlieObjects, true);
                     frontPNJ();
                     cam360.enabled = true;
                     camPlayer.orthographic = false;
@@ -276,5 +284,16 @@ public class PlayerData : NetworkBehaviour
         manager scriptManager = FindObjectOfType<manager>();
         scriptManager.nbrJoueurRdy--;
         scriptManager.checkStart();
+    }
+
+    private void ObjectsStateSetter(List<GameObject> listOfObjectToChangeState ,bool setOnObject)
+    {
+        if(listOfObjectToChangeState.Count > 0)
+        {
+            for (int i = 0; i < listOfObjectToChangeState.Count; i++)
+            {
+                listOfObjectToChangeState[i].SetActive(setOnObject);
+            }
+        }
     }
 }
