@@ -22,8 +22,12 @@ public class PlayerData : NetworkBehaviour
     public GameObject PremierJoueurSpawn;
     public GameObject DeuxiemeJoueurSpawn;
 
+
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
+
+    public GameObject PNJcible;
+
 
     private void Update()
     {
@@ -102,6 +106,16 @@ public class PlayerData : NetworkBehaviour
 
                 camPlayer.enabled = true;
 
+                GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+                List<GameObject> ListPNJ = new List<GameObject>();
+                foreach (GameObject obj in allPNJ)
+                {
+                    ListPNJ.Add(obj);
+                }
+
+                int randomNumber = Random.Range(0, ListPNJ.Count);
+                PNJcible = ListPNJ[randomNumber];
+
                 if (role == "Camera")
                 {
                     ObjectsStateSetter(charlieObjects, false);
@@ -129,14 +143,7 @@ public class PlayerData : NetworkBehaviour
                     transform.position = PremierJoueurSpawn.transform.position;
                     transform.rotation = PremierJoueurSpawn.transform.rotation;
 
-                    GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
-                    List<GameObject> ListPNJ = new List<GameObject>();
-                    foreach (GameObject obj in allPNJ)
-                    {
-                        ListPNJ.Add(obj);   
-                    }
-
-                    int randomNumber = Random.Range(0, ListPNJ.Count);
+                    
 
                     transform.position = new Vector3(ListPNJ[randomNumber].transform.position.x, 1f, ListPNJ[randomNumber].transform.position.z);
                     transform.rotation = ListPNJ[randomNumber].transform.rotation;

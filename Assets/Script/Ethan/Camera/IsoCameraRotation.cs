@@ -7,16 +7,13 @@ public class IsoCameraRotation : MonoBehaviour
 {
     public Transform objectToRotate;
 
-    private Quaternion rotationTarget;
-
-    public int distanceTerrainCamera;
+    public int distanceTerrainCamera = 60;
 
     [SerializeField] private int rotationValue;
     [SerializeField] private int rotationSpeed;
 
     [SerializeField] private float rotationCooldown;
 
-    private float rotationCooldownValue;
     public Camera camIso;
     public float transitionDuration = 1.0f;
 
@@ -49,10 +46,8 @@ public class IsoCameraRotation : MonoBehaviour
         {
             Vector3 intersectionPoint = ray.GetPoint(distanceToPlane);
 
-            // Fixer la distance à 40 unités
-            float fixedDistance = 40f;
+            float fixedDistance = distanceTerrainCamera;
 
-            // Calculer la nouvelle position de la caméra
             Quaternion rotation = Quaternion.Euler(0f, rotateAngle, 0f);
             Vector3 directionFromPoint = (cameraPosition - intersectionPoint).normalized;
             Vector3 newDirection = rotation * directionFromPoint;
@@ -71,10 +66,8 @@ public class IsoCameraRotation : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < transitionDuration)
         {
-            // Interpoler la position
             cam.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / transitionDuration);
 
-            // Recalculer la rotation pour toujours regarder le point
             cam.transform.rotation = Quaternion.LookRotation(lookAtPoint - cam.transform.position);
 
             elapsedTime += Time.deltaTime;
@@ -88,7 +81,7 @@ public class IsoCameraRotation : MonoBehaviour
         isTransitioning = false;
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Vector3 cameraPosition = camIso.transform.position;
         Vector3 cameraDirection = camIso.transform.forward;
@@ -104,6 +97,6 @@ public class IsoCameraRotation : MonoBehaviour
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(cameraPosition, intersectionPoint);
         }
-    }
+    }*/
 
 }
