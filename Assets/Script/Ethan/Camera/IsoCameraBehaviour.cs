@@ -5,18 +5,24 @@ using UnityEngine.InputSystem;
 public class IsoCameraBehaviour : MonoBehaviour
 {
     private bool isDragging;
-    private bool isRotating;
+    private float isUpDown;
+    private float isRotating;
 
     private Vector3 dragStartPosition;
     private Vector3 originDragPos;
     private Vector3 dragOffset;
     private Vector3 zoomTargetPosition;
     private Vector3 cameraInitialRotation;
+    private Vector3 yPosTarget;
+
+    private Quaternion actualRotationTarget;
 
     private Camera mainCamera;
     private CinemachineVirtualCamera vcam;
 
     private float rotationValue;
+
+    private int actualRoomFloor;
 
     [Header("Caracteristique de la caméra")]
     [SerializeField] private float moveSpeed;
@@ -26,8 +32,7 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     [Header("Interaction avec les objets")]
     [SerializeField, Tooltip("Les Layer que notre raycast va tester pour voir si on peut lock l'objet qui porte ce layer")] private LayerMask layerToVerify;
-    [SerializeField] private Transform objectToMove;
-    [SerializeField] private Transform objectLocked;
+    [SerializeField] public Transform objectToMove;
 
     private void Start()
     {
@@ -39,16 +44,10 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void Update()
     {
-        HandleCameraMovement();
+        HandleCameraZoom();
         HandleObjectDragging();
         HandleCameraRotation();
-
-        if (!objectLocked)
-        {
-            ResetCameraRotation();
-        }
     }
-
 
     // === Public methods for user interaction ===
 
@@ -74,28 +73,40 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     public void OnSelectObject(InputAction.CallbackContext action)
     {
-        if (action.performed && objectLocked == null)
-        {
-            TrySelectObject();
-        }
+        //if (action.performed && objectLocked == null)
+        //{
+        //    //TrySelectObject();
+        //}
     }
 
     public void OnRotateCamera(InputAction.CallbackContext action)
     {
-        if (action.performed && objectLocked != null)
+        if (action.performed && isRotating <= 0)
         {
-            isRotating = true;
+            isRotating = 0.25f;
             rotationValue = action.ReadValue<float>();
+            actualRotationTarget = Quaternion.Euler(0, objectToMove.eulerAngles.y + 90 * rotationValue, 0);
         }
-        else
+    }
+
+    public void SelectRoom(InputAction.CallbackContext action)
+    {
+        if (action.performed)
         {
-            isRotating = false;
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
+            {
+                if (hit.transform.GetComponent<RoomGenerator>().isPlayerIn)
+                {
+                    Debug.Log("Win");
+                }
+            }
         }
     }
 
     // === Private helper methods ===
 
-    private void HandleCameraMovement()
+    private void HandleCameraZoom()
     {
         // Smooth camera movement towards the zoom target
         transform.position = Vector3.Lerp(transform.position, zoomTargetPosition, zoomSpeed * Time.deltaTime);
@@ -109,16 +120,22 @@ public class IsoCameraBehaviour : MonoBehaviour
             Vector3 delta = currentMouseWorldPos - originDragPos;
 
             // Calculate target position for objectToMove
-            dragStartPosition = dragOffset + new Vector3(delta.x, 0, delta.z);
+            //dragStartPosition = dragOffset + new Vector3(delta.x, 0, delta.z);
+            //dragStartPosition.y = objectToMove.position.y;
+            //objectToMove.position = Vector3.Lerp(objectToMove.position, dragStartPosition, Time.deltaTime * moveSpeed);
+
+            dragStartPosition = dragOffset + new Vector3(delta.x, delta.z, 0) * moveSpeed;
+            dragStartPosition.z = objectToMove.position.z;
             objectToMove.position = Vector3.Lerp(objectToMove.position, dragStartPosition, Time.deltaTime * moveSpeed);
         }
     }
 
     private void HandleCameraRotation()
     {
-        if (isRotating && objectLocked)
+        if (isRotating >= 0)
         {
-            transform.RotateAround(objectLocked.position, Vector3.up, rotationValue * rotationSpeed * Time.deltaTime);
+            isRotating -= Time.deltaTime;
+            objectToMove.rotation = Quaternion.RotateTowards(objectToMove.rotation, actualRotationTarget, Time.deltaTime * rotationSpeed);
         }
     }
 
@@ -126,8 +143,9 @@ public class IsoCameraBehaviour : MonoBehaviour
     {
         // Define the zoom target based on camera forward direction
         zoomTargetPosition = transform.position + transform.forward * action.ReadValue<float>() / zoomForce;
-        moveSpeed += action.ReadValue<float>() / 100;
-        moveSpeed = Mathf.Clamp(moveSpeed, 5, Mathf.Infinity);
+        zoomTargetPosition.z = Mathf.Clamp(zoomTargetPosition.z, -10, 5);
+        moveSpeed += action.ReadValue<float>() / 120;
+        moveSpeed = Mathf.Clamp(moveSpeed, 5, 20);
 
         // Adjust field of view within limits
         mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView, 2, 90);
@@ -135,7 +153,7 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void StartDragging()
     {
-        objectLocked = null;
+        //objectLocked = null;
         vcam.m_LookAt = null;
         //ResetCameraRotation();
         originDragPos = GetMouseWorldPosition();
@@ -144,9 +162,8 @@ public class IsoCameraBehaviour : MonoBehaviour
 
     private void StopDragging()
     {
-        isRotating = false;
-        isDragging = false;
         dragOffset = objectToMove.position;
+        isDragging = false;
     }
 
     private void TrySelectObject()
@@ -154,8 +171,8 @@ public class IsoCameraBehaviour : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
         {
-            objectLocked = hit.transform;
-            vcam.m_LookAt = objectLocked;
+            //objectLocked = hit.transform;
+            //vcam.m_LookAt = objectLocked;
         }
     }
 
