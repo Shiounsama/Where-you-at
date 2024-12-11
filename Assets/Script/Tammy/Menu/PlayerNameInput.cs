@@ -39,7 +39,7 @@ public class PlayerNameInput : MonoBehaviour
     public void SavePlayerName()
     {
         DisplayName = nameInputField.text;
-
+        Debug.Log(DisplayName);
         PlayerPrefs.SetString(PlayerPrefsNameKey, DisplayName);
     }
 }

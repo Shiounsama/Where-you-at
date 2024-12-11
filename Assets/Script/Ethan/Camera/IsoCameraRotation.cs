@@ -9,6 +9,8 @@ public class IsoCameraRotation : MonoBehaviour
 
     private Quaternion rotationTarget;
 
+    public int distanceTerrainCamera;
+
     [SerializeField] private int rotationValue;
     [SerializeField] private int rotationSpeed;
 
@@ -20,60 +22,41 @@ public class IsoCameraRotation : MonoBehaviour
 
     private bool isTransitioning = false;
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown("q"))
-    //    {
-    //        RotateCameraAroundPoint(90);
-    //    }
-
-    //    if (Input.GetKeyDown("e"))
-    //    {
-    //        RotateCameraAroundPoint(-90);
-    //    }
-    //}
-
-    private void HandleCameraRotation()
+    private void Update()
     {
-        if (rotationCooldownValue >= 0)
+        if (Input.GetKeyDown("q"))
         {
-            rotationCooldownValue -= Time.deltaTime;
-            objectToRotate.rotation = Quaternion.RotateTowards(objectToRotate.rotation, rotationTarget, rotationSpeed * Time.deltaTime);
+            RotateCameraAroundPoint(90);
         }
-    }
 
-    // == Public Methodes == \\
-
-    public void OnRotate(InputAction.CallbackContext context)
-    {
-        if (context.performed && rotationCooldownValue <= 0)
+        if (Input.GetKeyDown("e"))
         {
-            rotationCooldownValue = rotationCooldown;
-            RotateCameraAroundPoint(90 * (int)context.ReadValue<float>());
-            //rotationTarget = Quaternion.Euler(new Vector3(objectToRotate.rotation.x, objectToRotate.eulerAngles.y + rotationValue * (int)context.ReadValue<float>(), objectToRotate.rotation.z));
+            RotateCameraAroundPoint(-90);
         }
     }
 
     void RotateCameraAroundPoint(int rotateAngle)
     {
+        if (isTransitioning) return; 
 
         Vector3 cameraPosition = camIso.transform.position;
         Vector3 cameraDirection = camIso.transform.forward;
 
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-
+        Plane groundPlane = new Plane(Vector3.up, new Vector3(0, objectToRotate.position.y, 0));
         Ray ray = new Ray(cameraPosition, cameraDirection);
 
         if (groundPlane.Raycast(ray, out float distanceToPlane))
         {
             Vector3 intersectionPoint = ray.GetPoint(distanceToPlane);
 
-            float distanceToPoint = Vector3.Distance(cameraPosition, intersectionPoint);
+            // Fixer la distance à 40 unités
+            float fixedDistance = 40f;
 
+            // Calculer la nouvelle position de la caméra
             Quaternion rotation = Quaternion.Euler(0f, rotateAngle, 0f);
-            Vector3 directionFromPoint = cameraPosition - intersectionPoint;
+            Vector3 directionFromPoint = (cameraPosition - intersectionPoint).normalized;
             Vector3 newDirection = rotation * directionFromPoint;
-            Vector3 newPosition = intersectionPoint + newDirection.normalized * distanceToPoint;
+            Vector3 newPosition = intersectionPoint + newDirection * fixedDistance;
 
             StartCoroutine(SmoothTransition(camIso, newPosition, intersectionPoint));
         }
@@ -84,22 +67,23 @@ public class IsoCameraRotation : MonoBehaviour
         isTransitioning = true;
 
         Vector3 startPosition = cam.transform.position;
-        Quaternion startRotation = cam.transform.rotation;
-
-        Quaternion targetRotation = Quaternion.LookRotation(lookAtPoint - targetPosition);
 
         float elapsedTime = 0f;
         while (elapsedTime < transitionDuration)
         {
+            // Interpoler la position
             cam.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / transitionDuration);
-            cam.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / transitionDuration);
+
+            // Recalculer la rotation pour toujours regarder le point
+            cam.transform.rotation = Quaternion.LookRotation(lookAtPoint - cam.transform.position);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
+        // Fixer la position et la rotation finale
         cam.transform.position = targetPosition;
-        cam.transform.rotation = targetRotation;
+        cam.transform.rotation = Quaternion.LookRotation(lookAtPoint - cam.transform.position);
 
         isTransitioning = false;
     }
@@ -109,7 +93,7 @@ public class IsoCameraRotation : MonoBehaviour
         Vector3 cameraPosition = camIso.transform.position;
         Vector3 cameraDirection = camIso.transform.forward;
 
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        Plane groundPlane = new Plane(Vector3.up, new Vector3(0, objectToRotate.position.y, 0));
 
         Ray ray = new Ray(cameraPosition, cameraDirection);
 
