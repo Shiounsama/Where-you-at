@@ -7,8 +7,6 @@ public class IsoCameraRotation : MonoBehaviour
 {
     public Transform objectToRotate;
 
-    private Quaternion rotationTarget;
-
     public int distanceTerrainCamera;
 
     [SerializeField] private int rotationValue;
@@ -16,7 +14,6 @@ public class IsoCameraRotation : MonoBehaviour
 
     [SerializeField] private float rotationCooldown;
 
-    private float rotationCooldownValue;
     public Camera camIso;
     public float transitionDuration = 1.0f;
 
@@ -71,10 +68,8 @@ public class IsoCameraRotation : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < transitionDuration)
         {
-            // Interpoler la position
             cam.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / transitionDuration);
 
-            // Recalculer la rotation pour toujours regarder le point
             cam.transform.rotation = Quaternion.LookRotation(lookAtPoint - cam.transform.position);
 
             elapsedTime += Time.deltaTime;
