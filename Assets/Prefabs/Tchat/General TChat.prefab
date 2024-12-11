@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 3192453512278710497}
   - component: {fileID: 3402775018661235876}
   - component: {fileID: 2390497286495024922}
-  - component: {fileID: 1395988015200615722}
+  - component: {fileID: 6587183467982799530}
   m_Layer: 0
   m_Name: General TChat
   m_TagString: Untagged
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generalTchat: {fileID: 11400000, guid: ace43c1c933a40a489c5be2a64964698, type: 2}
   newMessagePrefab: {fileID: 3395364202626205395, guid: a5a81560c8f881944b1a5dcd6088238f, type: 3}
-  canvasTransform: {fileID: 7061527597401075736}
+  canvasTransform: {fileID: 8420155528952295229}
 --- !u!114 &2390497286495024922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,14 +243,14 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   newMessagePrefab: {fileID: 3395364202626205395, guid: a5a81560c8f881944b1a5dcd6088238f, type: 3}
-  canvasTransform: {fileID: 7061527597401075736}
+  canvasTransform: {fileID: 8420155528952295229}
   messageCount: 0
   emojiList:
   - {fileID: 11400000, guid: 76ae9aab25f3fce49ba6ba541cfb6a9d, type: 2}
   - {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   - {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   - {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
---- !u!114 &1395988015200615722
+--- !u!114 &6587183467982799530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,6 +267,81 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!1 &2890437063302515711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7720487119494337661}
+  - component: {fileID: 1552061196496764114}
+  - component: {fileID: 1207110448924322135}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7720487119494337661
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890437063302515711}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4055683626933709483}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1552061196496764114
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890437063302515711}
+  m_CullTransparentMesh: 1
+--- !u!114 &1207110448924322135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890437063302515711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.4392157}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4496130885081605021
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +372,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7720487119494337661}
   - {fileID: 8420155528952295229}
   m_Father: {fileID: 7302084564199805908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -324,7 +400,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 3
   m_Viewport: {fileID: 4055683626933709483}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
