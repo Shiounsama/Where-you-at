@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
+using Mirror;
 
-public class EmojiButton : MonoBehaviour
+public class EmojiButton : NetworkBehaviour
 {
     public EmojiFamily emojiFamilyToTakeIn;
 
@@ -9,8 +10,10 @@ public class EmojiButton : MonoBehaviour
 
     private TextMeshProUGUI textToChangeToEmoji;
 
-    public void Start()
+    public override void OnStartLocalPlayer()
     {
+        base.OnStartLocalPlayer();
+
         textToChangeToEmoji = GetComponentInChildren<TextMeshProUGUI>();
 
         if(isQuestion())
