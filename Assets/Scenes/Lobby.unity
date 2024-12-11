@@ -678,6 +678,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 743056741}
     m_Modifications:
+    - target: {fileID: 2390497286495024922, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: canvasTransform
+      value: 
+      objectReference: {fileID: 783335761}
     - target: {fileID: 2883389810137931629, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_Name
       value: General TChat
@@ -720,6 +724,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3192453512278710497, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402775018661235876, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: canvasTransform
+      value: 
+      objectReference: {fileID: 783335761}
+    - target: {fileID: 4974634030249533244, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_ScrollSensitivity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1524,6 +1544,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &783335761 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+  m_PrefabInstance: {fileID: 371048575}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &820423859
 GameObject:
   m_ObjectHideFlags: 0
