@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45035225, g: 0.5003727, b: 0.57528096, a: 1}
+  m_IndirectSpecularColor: {r: 0.45053703, g: 0.50052756, b: 0.5750959, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -152,7 +152,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.41652194, g: 0.40744036, b: 0.7924528, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
@@ -211,13 +211,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210258140}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42167678, y: -0.50450546, z: -0.028193628, w: 0.75290644}
-  m_LocalPosition: {x: 1.191, y: 2.229, z: -7.977}
+  m_LocalRotation: {x: 0.85944945, y: 0.3598428, z: -0.28327465, w: 0.22719006}
+  m_LocalPosition: {x: -12.3, y: 5.87, z: -19.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 37.338, y: -80.2, z: -36.054}
+  m_LocalEulerAnglesHint: {x: 36.469, y: 203.714, z: 142.476}
 --- !u!114 &210258143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,9 +403,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 66df1f6e025189f4ca743f92e26f68c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 038e6c8bf81149246a07b92860c8b414, type: 2}
     - target: {fileID: 919132149155446097, guid: 66df1f6e025189f4ca743f92e26f68c5, type: 3}
       propertyPath: m_Name
       value: church
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 66df1f6e025189f4ca743f92e26f68c5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 66df1f6e025189f4ca743f92e26f68c5, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -925,6 +937,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: taller house layout 2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c48962a3309193347abd2989b402f7d6, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: c48962a3309193347abd2989b402f7d6, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -978,9 +998,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 0f883e6572a8e1a47b76fe851cde39d3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 038e6c8bf81149246a07b92860c8b414, type: 2}
     - target: {fileID: 919132149155446097, guid: 0f883e6572a8e1a47b76fe851cde39d3, type: 3}
       propertyPath: m_Name
       value: house layout 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0f883e6572a8e1a47b76fe851cde39d3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 0f883e6572a8e1a47b76fe851cde39d3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1035,9 +1067,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 10715cdb49258de44adcd7cdc3aad15b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 038e6c8bf81149246a07b92860c8b414, type: 2}
     - target: {fileID: 919132149155446097, guid: 10715cdb49258de44adcd7cdc3aad15b, type: 3}
       propertyPath: m_Name
       value: house mix layout 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 10715cdb49258de44adcd7cdc3aad15b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 10715cdb49258de44adcd7cdc3aad15b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1096,6 +1140,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: shop
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6d23ebb5e0a58f44db4d98d648d7c290, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 6d23ebb5e0a58f44db4d98d648d7c290, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1152,6 +1204,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 583f0f3ffb24f684ebd2b1a0c7f0b684, type: 3}
       propertyPath: m_Name
       value: ferris wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 583f0f3ffb24f684ebd2b1a0c7f0b684, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 583f0f3ffb24f684ebd2b1a0c7f0b684, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
