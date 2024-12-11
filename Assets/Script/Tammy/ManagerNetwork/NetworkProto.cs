@@ -84,6 +84,9 @@ public class NetworkProto : NetworkManager
             playerData.name = "Player " + conn.connectionId;
             playerData.playerName = "Player " + conn.connectionId;
 
+            /*playerData.name = PlayerNameInput.DisplayName;
+            playerData.playerName = PlayerNameInput.DisplayName;*/
+
             scriptManager.nbrJoueur++;
 
            
