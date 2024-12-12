@@ -35,10 +35,9 @@ public class TchatPlayer : NetworkBehaviour
     [Command]
     public void CmdSendMessage(string message)
     {
-        //generalTchatManager.CmdAddMessage(message, nameOfPlayer);
-
         TchatManager.Instance.AddMessage(message, nameOfPlayer);
     }
+
     [Command]
     private void ServeurNom(string newNom)
     {

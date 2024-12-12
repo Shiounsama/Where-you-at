@@ -33,6 +33,9 @@ public class JoinLobbyMenu : MonoBehaviour
         networkManager.networkAddress = ipAddress;
         networkManager.StartClient();
 
+        gameObject.SetActive(false);
+        landingPagePanel.SetActive(false);
+
         joinButton.interactable = false;
     }
 

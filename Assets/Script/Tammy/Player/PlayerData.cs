@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerData : NetworkBehaviour
 {
-    [SyncVar/*(hook = nameof(OnRoleChanged))*/]
+    [SyncVar]
     public string role = null;
     [SyncVar]
     public string playerName;
@@ -84,7 +84,6 @@ public class PlayerData : NetworkBehaviour
             PremierJoueurSpawn = GameObject.Find("spawn1");
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
-            clearButton();
             ClearOtherTchat();
             ClearCanvas();
 
@@ -180,6 +179,7 @@ public class PlayerData : NetworkBehaviour
         {
             TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
             List<TchatPlayer> listTchat = new List<TchatPlayer>(FindObjectsOfType<TchatPlayer>());
+            tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = true;
 
             tchatGeneral.clearTchat();
 
@@ -187,10 +187,13 @@ public class PlayerData : NetworkBehaviour
             {
                 if (tchat.nameOfPlayer == playerName)
                 {
+                    
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
+                    
                 }
                 else
                 {
+                    
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = false;
                 }
             }
@@ -211,11 +214,6 @@ public class PlayerData : NetworkBehaviour
         {
             transform.parent.GetComponentInChildren<Canvas>().enabled = false;
         }
-    }
-    public void clearButton()
-    {
-        if (isLocalPlayer)
-            transform.parent.GetComponentInChildren<Canvas>().enabled = false;
     }
 
     public void StartGame()
