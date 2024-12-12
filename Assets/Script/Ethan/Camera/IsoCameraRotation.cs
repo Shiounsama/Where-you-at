@@ -60,6 +60,8 @@ public class IsoCameraRotation : MonoBehaviour
     private IEnumerator SmoothTransition(Camera cam, Vector3 targetPosition, Vector3 lookAtPoint)
     {
         isTransitioning = true;
+        GetComponent<IsoCameraDrag>().enabled = false;
+        GetComponent<IsoCameraDrag>().isDragging = false;
 
         Vector3 startPosition = cam.transform.position;
 
@@ -78,7 +80,10 @@ public class IsoCameraRotation : MonoBehaviour
         cam.transform.position = targetPosition;
         cam.transform.rotation = Quaternion.LookRotation(lookAtPoint - cam.transform.position);
 
+
         isTransitioning = false;
+        GetComponent<IsoCameraDrag>().enabled = true;
+
     }
 
     /*private void OnDrawGizmos()

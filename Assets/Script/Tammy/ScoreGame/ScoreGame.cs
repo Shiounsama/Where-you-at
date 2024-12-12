@@ -10,10 +10,10 @@ public class ScoreGame : NetworkBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("q"))
+        /*if (Input.GetKeyDown("q"))
         {
             showScore();
-        }
+        }*/
     }
 
     public void showScore()
