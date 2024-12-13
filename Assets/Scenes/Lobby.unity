@@ -214,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 2390497286495024922, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: canvasTransform
       value: 
-      objectReference: {fileID: 783335761}
+      objectReference: {fileID: 0}
     - target: {fileID: 2883389810137931629, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_Name
       value: General TChat
@@ -266,7 +266,7 @@ PrefabInstance:
     - target: {fileID: 3402775018661235876, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: canvasTransform
       value: 
-      objectReference: {fileID: 783335761}
+      objectReference: {fileID: 0}
     - target: {fileID: 4974634030249533244, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_ScrollSensitivity
       value: 3
@@ -275,27 +275,31 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6650
+      objectReference: {fileID: 0}
     - target: {fileID: 7302084564199805908, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -136
       objectReference: {fileID: 0}
     - target: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -495
       objectReference: {fileID: 0}
     - target: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -4745.492
+      value: -51870.53
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4055683626933709483, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      insertIndex: 0
+    - targetCorrespondingSourceObject: {fileID: 3192453512278710497, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 699943632}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2883389810137931629, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
@@ -796,7 +800,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1088081541}
+  m_Father: {fileID: 955870258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1144,7 +1148,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  scoreJoueur: []
   classementCanvas: {fileID: 2075255518}
+  finish: 0
 --- !u!1 &760234344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,11 +1182,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &783335761 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-  m_PrefabInstance: {fileID: 371048575}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &833643245 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 515614554960657488, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
@@ -1420,11 +1421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &1088081541 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4055683626933709483, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-  m_PrefabInstance: {fileID: 371048575}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1281773000 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
