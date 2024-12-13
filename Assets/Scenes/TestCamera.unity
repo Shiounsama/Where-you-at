@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44597095, g: 0.49572003, b: 0.5744273, a: 1}
+  m_IndirectSpecularColor: {r: 0.44598156, g: 0.4957342, b: 0.5744372, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -213,7 +213,6 @@ GameObject:
   - component: {fileID: 15796719}
   - component: {fileID: 15796718}
   - component: {fileID: 15796721}
-  - component: {fileID: 15796720}
   m_Layer: 0
   m_Name: Maison (10)
   m_TagString: Untagged
@@ -286,22 +285,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15796716}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &15796720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15796716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &15796721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,7 +450,7 @@ MonoBehaviour:
   length: 5
   width: 57
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
-  tagToApply: pnj
+  tagToApply: 
   numberToSpawn: 15
   entitiesSpawnedArray: []
 --- !u!1 &31065586
@@ -616,7 +599,6 @@ GameObject:
   - component: {fileID: 60279449}
   - component: {fileID: 60279448}
   - component: {fileID: 60279451}
-  - component: {fileID: 60279450}
   m_Layer: 0
   m_Name: Maison (35)
   m_TagString: Untagged
@@ -689,22 +671,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60279446}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &60279450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 60279446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &60279451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,7 +696,6 @@ GameObject:
   - component: {fileID: 70496195}
   - component: {fileID: 70496194}
   - component: {fileID: 70496197}
-  - component: {fileID: 70496196}
   m_Layer: 0
   m_Name: Maison (20)
   m_TagString: Untagged
@@ -803,22 +768,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 70496192}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &70496196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70496192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &70496197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,7 +793,6 @@ GameObject:
   - component: {fileID: 97114824}
   - component: {fileID: 97114823}
   - component: {fileID: 97114826}
-  - component: {fileID: 97114825}
   m_Layer: 0
   m_Name: Maison (56)
   m_TagString: Untagged
@@ -917,22 +865,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97114821}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &97114825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97114821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &97114826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -958,7 +890,6 @@ GameObject:
   - component: {fileID: 97561257}
   - component: {fileID: 97561256}
   - component: {fileID: 97561259}
-  - component: {fileID: 97561258}
   m_Layer: 0
   m_Name: Maison (47)
   m_TagString: Untagged
@@ -1031,22 +962,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97561254}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &97561258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97561254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &97561259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,7 +987,6 @@ GameObject:
   - component: {fileID: 101649213}
   - component: {fileID: 101649212}
   - component: {fileID: 101649215}
-  - component: {fileID: 101649214}
   m_Layer: 0
   m_Name: Maison (34)
   m_TagString: Untagged
@@ -1145,22 +1059,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101649210}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &101649214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 101649210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &101649215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1186,7 +1084,6 @@ GameObject:
   - component: {fileID: 105719914}
   - component: {fileID: 105719913}
   - component: {fileID: 105719916}
-  - component: {fileID: 105719915}
   m_Layer: 0
   m_Name: Maison (4)
   m_TagString: Untagged
@@ -1259,22 +1156,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105719911}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &105719915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 105719911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &105719916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1300,7 +1181,6 @@ GameObject:
   - component: {fileID: 107975164}
   - component: {fileID: 107975163}
   - component: {fileID: 107975166}
-  - component: {fileID: 107975165}
   m_Layer: 0
   m_Name: Maison (17)
   m_TagString: Untagged
@@ -1373,22 +1253,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107975161}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &107975165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107975161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &107975166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1497,7 +1361,6 @@ GameObject:
   - component: {fileID: 116941008}
   - component: {fileID: 116941007}
   - component: {fileID: 116941010}
-  - component: {fileID: 116941009}
   m_Layer: 0
   m_Name: Maison (63)
   m_TagString: Untagged
@@ -1570,22 +1433,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116941005}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &116941009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 116941005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &116941010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1611,7 +1458,6 @@ GameObject:
   - component: {fileID: 128916011}
   - component: {fileID: 128916010}
   - component: {fileID: 128916013}
-  - component: {fileID: 128916012}
   m_Layer: 0
   m_Name: Maison (53)
   m_TagString: Untagged
@@ -1684,22 +1530,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 128916008}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &128916012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 128916008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &128916013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1725,7 +1555,6 @@ GameObject:
   - component: {fileID: 139963176}
   - component: {fileID: 139963175}
   - component: {fileID: 139963178}
-  - component: {fileID: 139963177}
   m_Layer: 0
   m_Name: Maison (25)
   m_TagString: Untagged
@@ -1798,22 +1627,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139963173}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &139963177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139963173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &139963178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1839,7 +1652,6 @@ GameObject:
   - component: {fileID: 148149995}
   - component: {fileID: 148149994}
   - component: {fileID: 148149997}
-  - component: {fileID: 148149996}
   m_Layer: 0
   m_Name: Maison (33)
   m_TagString: Untagged
@@ -1912,22 +1724,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 148149992}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &148149996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148149992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &148149997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1953,7 +1749,6 @@ GameObject:
   - component: {fileID: 153995760}
   - component: {fileID: 153995759}
   - component: {fileID: 153995762}
-  - component: {fileID: 153995761}
   m_Layer: 0
   m_Name: Maison (49)
   m_TagString: Untagged
@@ -2026,22 +1821,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153995757}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &153995761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 153995757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &153995762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2133,7 +1912,6 @@ GameObject:
   - component: {fileID: 167812184}
   - component: {fileID: 167812183}
   - component: {fileID: 167812186}
-  - component: {fileID: 167812185}
   m_Layer: 0
   m_Name: Maison (42)
   m_TagString: Untagged
@@ -2206,22 +1984,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167812181}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &167812185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167812181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &167812186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2247,7 +2009,6 @@ GameObject:
   - component: {fileID: 179391077}
   - component: {fileID: 179391076}
   - component: {fileID: 179391079}
-  - component: {fileID: 179391078}
   m_Layer: 0
   m_Name: Maison (80)
   m_TagString: Untagged
@@ -2320,22 +2081,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179391074}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &179391078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 179391074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &179391079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2361,7 +2106,6 @@ GameObject:
   - component: {fileID: 227358810}
   - component: {fileID: 227358809}
   - component: {fileID: 227358812}
-  - component: {fileID: 227358811}
   m_Layer: 0
   m_Name: Maison (13)
   m_TagString: Untagged
@@ -2434,22 +2178,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227358807}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &227358811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 227358807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &227358812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2475,7 +2203,6 @@ GameObject:
   - component: {fileID: 263614094}
   - component: {fileID: 263614093}
   - component: {fileID: 263614096}
-  - component: {fileID: 263614095}
   m_Layer: 0
   m_Name: Maison (23)
   m_TagString: Untagged
@@ -2548,22 +2275,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263614091}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &263614095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 263614091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &263614096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2672,7 +2383,6 @@ GameObject:
   - component: {fileID: 276978908}
   - component: {fileID: 276978907}
   - component: {fileID: 276978910}
-  - component: {fileID: 276978909}
   m_Layer: 0
   m_Name: Maison (31)
   m_TagString: Untagged
@@ -2745,22 +2455,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276978905}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &276978909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 276978905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &276978910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2786,7 +2480,6 @@ GameObject:
   - component: {fileID: 283570886}
   - component: {fileID: 283570885}
   - component: {fileID: 283570888}
-  - component: {fileID: 283570887}
   m_Layer: 0
   m_Name: Maison (70)
   m_TagString: Untagged
@@ -2859,22 +2552,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283570883}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &283570887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283570883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &283570888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2900,7 +2577,6 @@ GameObject:
   - component: {fileID: 292280675}
   - component: {fileID: 292280674}
   - component: {fileID: 292280677}
-  - component: {fileID: 292280676}
   m_Layer: 0
   m_Name: Maison (81)
   m_TagString: Untagged
@@ -2973,22 +2649,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292280672}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &292280676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292280672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &292280677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3180,7 +2840,6 @@ GameObject:
   - component: {fileID: 358059109}
   - component: {fileID: 358059108}
   - component: {fileID: 358059111}
-  - component: {fileID: 358059110}
   m_Layer: 0
   m_Name: Maison (50)
   m_TagString: Untagged
@@ -3253,22 +2912,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358059106}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &358059110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358059106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &358059111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3460,7 +3103,6 @@ GameObject:
   - component: {fileID: 382931166}
   - component: {fileID: 382931165}
   - component: {fileID: 382931168}
-  - component: {fileID: 382931167}
   m_Layer: 0
   m_Name: Maison (37)
   m_TagString: Untagged
@@ -3533,22 +3175,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382931163}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &382931167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 382931163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &382931168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3574,7 +3200,6 @@ GameObject:
   - component: {fileID: 402982076}
   - component: {fileID: 402982075}
   - component: {fileID: 402982078}
-  - component: {fileID: 402982077}
   m_Layer: 0
   m_Name: Maison (75)
   m_TagString: Untagged
@@ -3647,22 +3272,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402982073}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &402982077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 402982073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &402982078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3937,7 +3546,6 @@ GameObject:
   - component: {fileID: 486667124}
   - component: {fileID: 486667123}
   - component: {fileID: 486667126}
-  - component: {fileID: 486667125}
   m_Layer: 0
   m_Name: Maison (65)
   m_TagString: Untagged
@@ -4010,22 +3618,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486667121}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &486667125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486667121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &486667126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4134,7 +3726,6 @@ GameObject:
   - component: {fileID: 527217094}
   - component: {fileID: 527217093}
   - component: {fileID: 527217096}
-  - component: {fileID: 527217095}
   m_Layer: 0
   m_Name: Maison (68)
   m_TagString: Untagged
@@ -4207,22 +3798,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527217091}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &527217095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 527217091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &527217096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4331,7 +3906,6 @@ GameObject:
   - component: {fileID: 556265326}
   - component: {fileID: 556265325}
   - component: {fileID: 556265328}
-  - component: {fileID: 556265327}
   m_Layer: 0
   m_Name: Maison (6)
   m_TagString: Untagged
@@ -4404,22 +3978,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556265323}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &556265327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556265323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &556265328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4445,7 +4003,6 @@ GameObject:
   - component: {fileID: 572911566}
   - component: {fileID: 572911565}
   - component: {fileID: 572911568}
-  - component: {fileID: 572911567}
   m_Layer: 0
   m_Name: Maison (64)
   m_TagString: Untagged
@@ -4518,22 +4075,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 572911563}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &572911567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572911563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &572911568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4559,7 +4100,6 @@ GameObject:
   - component: {fileID: 594586882}
   - component: {fileID: 594586881}
   - component: {fileID: 594586884}
-  - component: {fileID: 594586883}
   m_Layer: 0
   m_Name: Maison (57)
   m_TagString: Untagged
@@ -4632,22 +4172,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594586879}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &594586883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594586879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &594586884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4756,7 +4280,6 @@ GameObject:
   - component: {fileID: 598737666}
   - component: {fileID: 598737665}
   - component: {fileID: 598737668}
-  - component: {fileID: 598737667}
   m_Layer: 0
   m_Name: Maison (44)
   m_TagString: Untagged
@@ -4829,22 +4352,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598737663}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &598737667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598737663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &598737668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4870,7 +4377,6 @@ GameObject:
   - component: {fileID: 599071160}
   - component: {fileID: 599071159}
   - component: {fileID: 599071162}
-  - component: {fileID: 599071161}
   m_Layer: 0
   m_Name: Maison (43)
   m_TagString: Untagged
@@ -4943,22 +4449,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599071157}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &599071161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 599071157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &599071162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5067,7 +4557,6 @@ GameObject:
   - component: {fileID: 603965158}
   - component: {fileID: 603965157}
   - component: {fileID: 603965160}
-  - component: {fileID: 603965159}
   m_Layer: 0
   m_Name: Maison (51)
   m_TagString: Untagged
@@ -5140,22 +4629,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603965155}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &603965159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603965155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &603965160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5217,7 +4690,7 @@ MonoBehaviour:
   length: 5
   width: 40
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
-  tagToApply: pnj
+  tagToApply: 
   numberToSpawn: 10
   entitiesSpawnedArray: []
 --- !u!65 &604779806
@@ -5668,7 +5141,6 @@ GameObject:
   - component: {fileID: 750265755}
   - component: {fileID: 750265754}
   - component: {fileID: 750265757}
-  - component: {fileID: 750265756}
   m_Layer: 0
   m_Name: Maison (21)
   m_TagString: Untagged
@@ -5741,22 +5213,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750265752}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &750265756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 750265752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &750265757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5865,7 +5321,6 @@ GameObject:
   - component: {fileID: 753707681}
   - component: {fileID: 753707680}
   - component: {fileID: 753707683}
-  - component: {fileID: 753707682}
   m_Layer: 0
   m_Name: Maison (62)
   m_TagString: Untagged
@@ -5938,22 +5393,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753707678}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &753707682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753707678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &753707683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5979,7 +5418,6 @@ GameObject:
   - component: {fileID: 755696910}
   - component: {fileID: 755696909}
   - component: {fileID: 755696912}
-  - component: {fileID: 755696911}
   m_Layer: 0
   m_Name: Maison (19)
   m_TagString: Untagged
@@ -6052,22 +5490,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755696907}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &755696911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 755696907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &755696912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6093,7 +5515,6 @@ GameObject:
   - component: {fileID: 763162781}
   - component: {fileID: 763162780}
   - component: {fileID: 763162783}
-  - component: {fileID: 763162782}
   m_Layer: 0
   m_Name: Maison (32)
   m_TagString: Untagged
@@ -6166,22 +5587,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763162778}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &763162782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763162778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &763162783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6373,7 +5778,6 @@ GameObject:
   - component: {fileID: 788183757}
   - component: {fileID: 788183756}
   - component: {fileID: 788183759}
-  - component: {fileID: 788183758}
   m_Layer: 0
   m_Name: Maison (71)
   m_TagString: Untagged
@@ -6446,22 +5850,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788183754}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &788183758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788183754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &788183759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6487,7 +5875,6 @@ GameObject:
   - component: {fileID: 791729566}
   - component: {fileID: 791729565}
   - component: {fileID: 791729568}
-  - component: {fileID: 791729567}
   m_Layer: 0
   m_Name: Maison (46)
   m_TagString: Untagged
@@ -6560,22 +5947,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791729563}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &791729567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791729563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &791729568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6601,7 +5972,6 @@ GameObject:
   - component: {fileID: 851082146}
   - component: {fileID: 851082145}
   - component: {fileID: 851082148}
-  - component: {fileID: 851082147}
   m_Layer: 0
   m_Name: Maison (28)
   m_TagString: Untagged
@@ -6674,22 +6044,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851082143}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &851082147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 851082143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &851082148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6715,7 +6069,6 @@ GameObject:
   - component: {fileID: 858961324}
   - component: {fileID: 858961323}
   - component: {fileID: 858961326}
-  - component: {fileID: 858961325}
   m_Layer: 0
   m_Name: Maison (60)
   m_TagString: Untagged
@@ -6788,22 +6141,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858961321}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &858961325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858961321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &858961326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7123,7 +6460,6 @@ GameObject:
   - component: {fileID: 952982526}
   - component: {fileID: 952982525}
   - component: {fileID: 952982528}
-  - component: {fileID: 952982527}
   m_Layer: 0
   m_Name: Maison (12)
   m_TagString: Untagged
@@ -7196,22 +6532,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952982523}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &952982527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 952982523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &952982528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7237,7 +6557,6 @@ GameObject:
   - component: {fileID: 961834614}
   - component: {fileID: 961834613}
   - component: {fileID: 961834616}
-  - component: {fileID: 961834615}
   m_Layer: 0
   m_Name: Maison (55)
   m_TagString: Untagged
@@ -7310,22 +6629,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961834611}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &961834615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961834611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &961834616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7766,7 +7069,6 @@ GameObject:
   - component: {fileID: 1037573209}
   - component: {fileID: 1037573208}
   - component: {fileID: 1037573211}
-  - component: {fileID: 1037573210}
   m_Layer: 0
   m_Name: Maison (1)
   m_TagString: Untagged
@@ -7839,22 +7141,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037573206}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1037573210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1037573206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1037573211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7994,7 +7280,6 @@ GameObject:
   - component: {fileID: 1055153676}
   - component: {fileID: 1055153675}
   - component: {fileID: 1055153678}
-  - component: {fileID: 1055153677}
   m_Layer: 0
   m_Name: Maison (61)
   m_TagString: Untagged
@@ -8067,22 +7352,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055153673}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1055153677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1055153673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1055153678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8191,7 +7460,6 @@ GameObject:
   - component: {fileID: 1064876306}
   - component: {fileID: 1064876305}
   - component: {fileID: 1064876308}
-  - component: {fileID: 1064876307}
   m_Layer: 0
   m_Name: Maison (58)
   m_TagString: Untagged
@@ -8264,22 +7532,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064876303}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1064876307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064876303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1064876308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8471,7 +7723,6 @@ GameObject:
   - component: {fileID: 1118621613}
   - component: {fileID: 1118621612}
   - component: {fileID: 1118621615}
-  - component: {fileID: 1118621614}
   m_Layer: 0
   m_Name: Maison (69)
   m_TagString: Untagged
@@ -8544,22 +7795,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118621610}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1118621614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1118621610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1118621615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8621,7 +7856,7 @@ MonoBehaviour:
   length: 85
   width: 5
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
-  tagToApply: pnj
+  tagToApply: 
   numberToSpawn: 20
   entitiesSpawnedArray: []
 --- !u!65 &1118831751
@@ -8657,7 +7892,6 @@ GameObject:
   - component: {fileID: 1122331590}
   - component: {fileID: 1122331589}
   - component: {fileID: 1122331592}
-  - component: {fileID: 1122331591}
   m_Layer: 0
   m_Name: Maison (29)
   m_TagString: Untagged
@@ -8730,22 +7964,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1122331587}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1122331591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1122331587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1122331592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8771,7 +7989,6 @@ GameObject:
   - component: {fileID: 1131209379}
   - component: {fileID: 1131209378}
   - component: {fileID: 1131209381}
-  - component: {fileID: 1131209380}
   m_Layer: 0
   m_Name: Maison (79)
   m_TagString: Untagged
@@ -8844,22 +8061,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131209376}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1131209380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1131209376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1131209381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8885,7 +8086,6 @@ GameObject:
   - component: {fileID: 1132708810}
   - component: {fileID: 1132708809}
   - component: {fileID: 1132708812}
-  - component: {fileID: 1132708811}
   m_Layer: 0
   m_Name: Maison (72)
   m_TagString: Untagged
@@ -8958,22 +8158,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132708807}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1132708811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132708807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1132708812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8999,7 +8183,6 @@ GameObject:
   - component: {fileID: 1134430362}
   - component: {fileID: 1134430361}
   - component: {fileID: 1134430364}
-  - component: {fileID: 1134430363}
   m_Layer: 0
   m_Name: Maison (76)
   m_TagString: Untagged
@@ -9072,22 +8255,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134430359}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1134430363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134430359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1134430364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9196,7 +8363,6 @@ GameObject:
   - component: {fileID: 1166812315}
   - component: {fileID: 1166812314}
   - component: {fileID: 1166812317}
-  - component: {fileID: 1166812316}
   m_Layer: 0
   m_Name: Maison (5)
   m_TagString: Untagged
@@ -9269,22 +8435,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166812312}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1166812316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166812312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1166812317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9310,7 +8460,6 @@ GameObject:
   - component: {fileID: 1169217115}
   - component: {fileID: 1169217114}
   - component: {fileID: 1169217117}
-  - component: {fileID: 1169217116}
   m_Layer: 0
   m_Name: Maison (8)
   m_TagString: Untagged
@@ -9383,22 +8532,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169217112}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1169217116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1169217112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1169217117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9756,7 +8889,6 @@ GameObject:
   - component: {fileID: 1239815715}
   - component: {fileID: 1239815714}
   - component: {fileID: 1239815717}
-  - component: {fileID: 1239815716}
   m_Layer: 0
   m_Name: Maison (41)
   m_TagString: Untagged
@@ -9829,22 +8961,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1239815712}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1239815716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239815712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1239815717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9870,7 +8986,6 @@ GameObject:
   - component: {fileID: 1243111757}
   - component: {fileID: 1243111756}
   - component: {fileID: 1243111759}
-  - component: {fileID: 1243111758}
   m_Layer: 0
   m_Name: Maison
   m_TagString: Untagged
@@ -9943,22 +9058,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243111754}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1243111758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243111754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1243111759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10067,7 +9166,6 @@ GameObject:
   - component: {fileID: 1260159010}
   - component: {fileID: 1260159009}
   - component: {fileID: 1260159012}
-  - component: {fileID: 1260159011}
   m_Layer: 0
   m_Name: Maison (15)
   m_TagString: Untagged
@@ -10140,22 +9238,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260159007}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1260159011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1260159007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1260159012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10181,7 +9263,6 @@ GameObject:
   - component: {fileID: 1276241550}
   - component: {fileID: 1276241549}
   - component: {fileID: 1276241552}
-  - component: {fileID: 1276241551}
   m_Layer: 0
   m_Name: Maison (45)
   m_TagString: Untagged
@@ -10254,22 +9335,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276241547}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1276241551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276241547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1276241552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10331,7 +9396,7 @@ MonoBehaviour:
   length: 5
   width: 10.9
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
-  tagToApply: pnj
+  tagToApply: 
   numberToSpawn: 5
   entitiesSpawnedArray: []
 --- !u!65 &1279985012
@@ -10533,7 +9598,6 @@ GameObject:
   - component: {fileID: 1302375095}
   - component: {fileID: 1302375094}
   - component: {fileID: 1302375097}
-  - component: {fileID: 1302375096}
   m_Layer: 0
   m_Name: Maison (16)
   m_TagString: Untagged
@@ -10606,22 +9670,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1302375092}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1302375096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1302375092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1302375097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11259,7 +10307,6 @@ GameObject:
   - component: {fileID: 1541973371}
   - component: {fileID: 1541973370}
   - component: {fileID: 1541973373}
-  - component: {fileID: 1541973372}
   m_Layer: 0
   m_Name: Maison (27)
   m_TagString: Untagged
@@ -11332,22 +10379,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541973368}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1541973372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541973368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1541973373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11456,7 +10487,6 @@ GameObject:
   - component: {fileID: 1597535271}
   - component: {fileID: 1597535270}
   - component: {fileID: 1597535273}
-  - component: {fileID: 1597535272}
   m_Layer: 0
   m_Name: Maison (82)
   m_TagString: Untagged
@@ -11529,22 +10559,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597535268}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1597535272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597535268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1597535273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11653,7 +10667,6 @@ GameObject:
   - component: {fileID: 1636931140}
   - component: {fileID: 1636931139}
   - component: {fileID: 1636931142}
-  - component: {fileID: 1636931141}
   m_Layer: 0
   m_Name: Maison (39)
   m_TagString: Untagged
@@ -11726,22 +10739,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636931137}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1636931141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1636931137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1636931142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11850,7 +10847,6 @@ GameObject:
   - component: {fileID: 1662760748}
   - component: {fileID: 1662760747}
   - component: {fileID: 1662760750}
-  - component: {fileID: 1662760749}
   m_Layer: 0
   m_Name: Maison (74)
   m_TagString: Untagged
@@ -11923,22 +10919,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662760745}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1662760749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1662760745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1662760750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11964,7 +10944,6 @@ GameObject:
   - component: {fileID: 1663449045}
   - component: {fileID: 1663449044}
   - component: {fileID: 1663449047}
-  - component: {fileID: 1663449046}
   m_Layer: 0
   m_Name: Maison (73)
   m_TagString: Untagged
@@ -12037,22 +11016,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663449042}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1663449046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663449042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1663449047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12244,7 +11207,6 @@ GameObject:
   - component: {fileID: 1681613841}
   - component: {fileID: 1681613840}
   - component: {fileID: 1681613843}
-  - component: {fileID: 1681613842}
   m_Layer: 0
   m_Name: Maison (67)
   m_TagString: Untagged
@@ -12317,22 +11279,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681613838}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1681613842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681613838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1681613843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12358,7 +11304,6 @@ GameObject:
   - component: {fileID: 1705988946}
   - component: {fileID: 1705988945}
   - component: {fileID: 1705988948}
-  - component: {fileID: 1705988947}
   m_Layer: 0
   m_Name: Maison (54)
   m_TagString: Untagged
@@ -12431,22 +11376,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705988943}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1705988947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705988943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1705988948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12555,7 +11484,6 @@ GameObject:
   - component: {fileID: 1716666072}
   - component: {fileID: 1716666071}
   - component: {fileID: 1716666074}
-  - component: {fileID: 1716666073}
   m_Layer: 0
   m_Name: Maison (22)
   m_TagString: Untagged
@@ -12628,22 +11556,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716666069}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1716666073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1716666069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1716666074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12669,7 +11581,6 @@ GameObject:
   - component: {fileID: 1729737979}
   - component: {fileID: 1729737978}
   - component: {fileID: 1729737981}
-  - component: {fileID: 1729737980}
   m_Layer: 0
   m_Name: Maison (66)
   m_TagString: Untagged
@@ -12742,22 +11653,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729737976}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1729737980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729737976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1729737981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12866,7 +11761,6 @@ GameObject:
   - component: {fileID: 1751715231}
   - component: {fileID: 1751715230}
   - component: {fileID: 1751715233}
-  - component: {fileID: 1751715232}
   m_Layer: 0
   m_Name: Maison (9)
   m_TagString: Untagged
@@ -12939,22 +11833,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751715228}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1751715232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1751715228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1751715233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12980,7 +11858,6 @@ GameObject:
   - component: {fileID: 1778629260}
   - component: {fileID: 1778629259}
   - component: {fileID: 1778629262}
-  - component: {fileID: 1778629261}
   m_Layer: 0
   m_Name: Maison (7)
   m_TagString: Untagged
@@ -13053,22 +11930,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778629257}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1778629261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1778629257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1778629262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13260,7 +12121,6 @@ GameObject:
   - component: {fileID: 1793212956}
   - component: {fileID: 1793212955}
   - component: {fileID: 1793212958}
-  - component: {fileID: 1793212957}
   m_Layer: 0
   m_Name: Maison (40)
   m_TagString: Untagged
@@ -13333,22 +12193,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793212953}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1793212957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1793212953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1793212958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13374,7 +12218,6 @@ GameObject:
   - component: {fileID: 1804635096}
   - component: {fileID: 1804635095}
   - component: {fileID: 1804635098}
-  - component: {fileID: 1804635097}
   m_Layer: 0
   m_Name: Maison (77)
   m_TagString: Untagged
@@ -13447,22 +12290,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804635093}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1804635097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804635093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1804635098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13488,7 +12315,6 @@ GameObject:
   - component: {fileID: 1805365441}
   - component: {fileID: 1805365440}
   - component: {fileID: 1805365443}
-  - component: {fileID: 1805365442}
   m_Layer: 0
   m_Name: Maison (52)
   m_TagString: Untagged
@@ -13561,22 +12387,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805365438}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1805365442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805365438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1805365443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13922,7 +12732,7 @@ MonoBehaviour:
   length: 78
   width: 5
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
-  tagToApply: pnj
+  tagToApply: 
   numberToSpawn: 25
   entitiesSpawnedArray: []
 --- !u!65 &1843492708
@@ -13958,7 +12768,6 @@ GameObject:
   - component: {fileID: 1856684843}
   - component: {fileID: 1856684842}
   - component: {fileID: 1856684845}
-  - component: {fileID: 1856684844}
   m_Layer: 0
   m_Name: Maison (30)
   m_TagString: Untagged
@@ -14031,22 +12840,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1856684840}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1856684844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1856684840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1856684845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14072,7 +12865,6 @@ GameObject:
   - component: {fileID: 1857132100}
   - component: {fileID: 1857132099}
   - component: {fileID: 1857132102}
-  - component: {fileID: 1857132101}
   m_Layer: 0
   m_Name: Maison (24)
   m_TagString: Untagged
@@ -14145,22 +12937,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857132097}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1857132101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857132097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1857132102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14186,7 +12962,6 @@ GameObject:
   - component: {fileID: 1859330982}
   - component: {fileID: 1859330981}
   - component: {fileID: 1859330984}
-  - component: {fileID: 1859330983}
   m_Layer: 0
   m_Name: Maison (26)
   m_TagString: Untagged
@@ -14259,22 +13034,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859330979}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1859330983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859330979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1859330984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14300,7 +13059,6 @@ GameObject:
   - component: {fileID: 1859742357}
   - component: {fileID: 1859742356}
   - component: {fileID: 1859742359}
-  - component: {fileID: 1859742358}
   m_Layer: 0
   m_Name: Maison (36)
   m_TagString: Untagged
@@ -14373,22 +13131,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859742354}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1859742358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859742354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1859742359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14414,7 +13156,6 @@ GameObject:
   - component: {fileID: 1865414695}
   - component: {fileID: 1865414694}
   - component: {fileID: 1865414697}
-  - component: {fileID: 1865414696}
   m_Layer: 0
   m_Name: Maison (2)
   m_TagString: Untagged
@@ -14487,22 +13228,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865414692}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1865414696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865414692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1865414697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14528,7 +13253,6 @@ GameObject:
   - component: {fileID: 1878875157}
   - component: {fileID: 1878875156}
   - component: {fileID: 1878875159}
-  - component: {fileID: 1878875158}
   m_Layer: 0
   m_Name: Maison (38)
   m_TagString: Untagged
@@ -14601,22 +13325,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878875154}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1878875158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878875154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1878875159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14642,7 +13350,6 @@ GameObject:
   - component: {fileID: 1885500437}
   - component: {fileID: 1885500436}
   - component: {fileID: 1885500439}
-  - component: {fileID: 1885500438}
   m_Layer: 0
   m_Name: Maison (78)
   m_TagString: Untagged
@@ -14715,22 +13422,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885500434}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1885500438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1885500434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1885500439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14756,7 +13447,6 @@ GameObject:
   - component: {fileID: 1902972376}
   - component: {fileID: 1902972375}
   - component: {fileID: 1902972378}
-  - component: {fileID: 1902972377}
   m_Layer: 0
   m_Name: Maison (3)
   m_TagString: Untagged
@@ -14829,22 +13519,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902972373}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1902972377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902972373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1902972378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14953,7 +13627,6 @@ GameObject:
   - component: {fileID: 1933177291}
   - component: {fileID: 1933177290}
   - component: {fileID: 1933177293}
-  - component: {fileID: 1933177292}
   m_Layer: 0
   m_Name: Maison (18)
   m_TagString: Untagged
@@ -15026,22 +13699,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933177288}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1933177292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933177288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1933177293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15134,7 +13791,7 @@ MonoBehaviour:
   length: 16
   width: 5
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
-  tagToApply: pnj
+  tagToApply: 
   numberToSpawn: 6
   entitiesSpawnedArray: []
 --- !u!65 &1957230394
@@ -15253,7 +13910,6 @@ GameObject:
   - component: {fileID: 1980323085}
   - component: {fileID: 1980323084}
   - component: {fileID: 1980323087}
-  - component: {fileID: 1980323086}
   m_Layer: 0
   m_Name: Maison (59)
   m_TagString: Untagged
@@ -15326,22 +13982,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980323082}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &1980323086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980323082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1980323087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15450,7 +14090,6 @@ GameObject:
   - component: {fileID: 2006421256}
   - component: {fileID: 2006421255}
   - component: {fileID: 2006421258}
-  - component: {fileID: 2006421257}
   m_Layer: 0
   m_Name: Maison (14)
   m_TagString: Untagged
@@ -15523,22 +14162,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2006421253}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &2006421257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2006421253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2006421258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15564,7 +14187,6 @@ GameObject:
   - component: {fileID: 2007115102}
   - component: {fileID: 2007115101}
   - component: {fileID: 2007115104}
-  - component: {fileID: 2007115103}
   m_Layer: 0
   m_Name: Maison (11)
   m_TagString: Untagged
@@ -15637,22 +14259,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007115099}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!114 &2007115103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007115099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2007115104
 MonoBehaviour:
   m_ObjectHideFlags: 0
