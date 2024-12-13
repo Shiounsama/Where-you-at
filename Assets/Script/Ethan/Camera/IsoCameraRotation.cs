@@ -76,7 +76,6 @@ public class IsoCameraRotation : MonoBehaviour
             yield return null;
         }
 
-        // Fixer la position et la rotation finale
         cam.transform.position = targetPosition;
         cam.transform.rotation = Quaternion.LookRotation(lookAtPoint - cam.transform.position);
 
