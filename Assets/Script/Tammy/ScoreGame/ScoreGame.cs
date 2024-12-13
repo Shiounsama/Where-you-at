@@ -7,8 +7,13 @@ using UnityEngine.UI;
 
 public class ScoreGame : NetworkBehaviour
 {
-    private List<scoringPlayer> scoreJoueur;
+    public List<scoringPlayer> scoreJoueur;
     public Canvas classementCanvas;
+
+    public bool finish = false;
+
+
+
 
     public void showScore()
     {
@@ -19,18 +24,11 @@ public class ScoreGame : NetworkBehaviour
         AfficherClassement(scoreJoueur);
     }
 
-    [ClientRpc]
-    public void RpcShowScore()
-    {
-        showScore();
-    }
-
     void AfficherClassement(List<scoringPlayer> scores)
     {
         classementCanvas.enabled = true;
 
         Transform parentTransform = classementCanvas.transform;
-
 
         foreach (Transform child in parentTransform)
         {
@@ -47,7 +45,7 @@ public class ScoreGame : NetworkBehaviour
             textObject.transform.SetParent(parentTransform);
 
             Text textComponent = textObject.AddComponent<Text>();
-            textComponent.text = $"{i + 1} - {scores[i].playerName} avec {scores[i].ScoreFinal} points";
+            textComponent.text = $"{i + 1} - {scores[i].playerName} avec {scores[i].ScoreFinal} mètres";
 
             textComponent.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
             textComponent.fontSize = 24;

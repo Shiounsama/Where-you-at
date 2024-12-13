@@ -41,20 +41,24 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public void IsGuess()
     {
-        if (isLocalPlayer) {
-
-            StartCoroutine(resultat());
+        if (isLocalPlayer)
+        {
+            scoreGame.finish = true;
+            //StartCoroutine(resultatFunction());
+            float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+            score.ServeurScore(resultat);
         }
-    
+
     }
 
-    public IEnumerator resultat()
+    /*public IEnumerator resultatFunction()
     {
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-        score.ServeurScore(resultat);
+        
         yield return new WaitForSeconds(0.1f);
+        
         scoreGame.showScore();
-    }
+    }*/
 
-    
+
 }

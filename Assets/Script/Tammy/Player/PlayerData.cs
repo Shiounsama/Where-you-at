@@ -232,6 +232,7 @@ public class PlayerData : NetworkBehaviour
         {
             GameObject building = GameObject.Find("monde");
             building.transform.position = new Vector3(0, 0, 0);
+
             this.GetComponent<PlayerInput>().enabled = false;
 
             cam360.enabled = false;
@@ -283,8 +284,6 @@ public class PlayerData : NetworkBehaviour
                 transform.position = PremierJoueurSpawn.transform.position;
                 transform.rotation = PremierJoueurSpawn.transform.rotation;
 
-
-
                 transform.position = new Vector3(ListPNJ[randomNumber].transform.position.x, 1f, ListPNJ[randomNumber].transform.position.z);
                 transform.rotation = ListPNJ[randomNumber].transform.rotation;
                 Destroy(ListPNJ[randomNumber]);
@@ -297,7 +296,7 @@ public class PlayerData : NetworkBehaviour
         IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
         IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
         IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
-
+        TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
         Camera360 cam360 = this.GetComponent<Camera360>();
 
         this.GetComponent<PlayerInput>().enabled = false;
@@ -309,5 +308,7 @@ public class PlayerData : NetworkBehaviour
         camZoomIso.enabled = false;
 
         camRotaIso.enabled = false;
+  
+        tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
     }
 }
