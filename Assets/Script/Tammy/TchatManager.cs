@@ -9,19 +9,21 @@ public class TchatManager : NetworkBehaviour
     public GameObject newMessagePrefab;
     public Transform canvasTransform;
     public int messageCount;
-    public GeneralEmoji generalEmoji;
+    public List<EmojiFamily> emojiList;
     public static TchatManager Instance;
 
-    private void Awake()
+    public void Awake()
     {
         Instance = this; 
-        generalEmoji.listOfEmojiUsed.Clear();
+        for (int i = 0; i < emojiList.Count; i++)
+        {
+            emojiList[i].ResetListOfEmoji();
+        }
     }
 
     private void OnServerInitialized()
     {
         base.OnStartServer();
-
     }
 
     [Server]
@@ -41,14 +43,12 @@ public class TchatManager : NetworkBehaviour
         actualMessage.GetComponent<TextMeshProUGUI>().text = fullMessage;
     }
 
-    [Command]
     public void clearTchat()
     {
         messageCount = 0;
         CmdClearTchat(); 
     }
 
-    [ClientRpc]
     private void CmdClearTchat()
     {
         foreach (Transform child in canvasTransform)

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
+using System;
+using System.Linq;
+using Edgegap;
 
 public class NetworkProto : NetworkManager
 {
@@ -10,65 +13,101 @@ public class NetworkProto : NetworkManager
 
     public manager scriptManager;
 
-    public GameObject PremierJoueurSpawn;
-    public GameObject DeuxiemeJoueurSpawn;
+    public seed seedScript;
 
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    public static event Action OnClientConnected;
+    public static event Action OnClientDisconnected;
+
+
+    public override void OnStartServer()
     {
-        GameObject player;
-        Vector3 spawnPosition;
-        Quaternion spawnRotation;
+        seedScript.SeedValue = UnityEngine.Random.Range(0, 90000);
+        spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
-        player = Instantiate(JoueurPrefab);
-        PlayerData playerData = player.GetComponentInChildren<PlayerData>();
-        playerData.name = "Player " + conn.connectionId;
-        playerData.playerName = "Player " + conn.connectionId;
+    }
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        {
+            var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
 
-        spawnPosition = PremierJoueurSpawn.transform.position;
-        spawnRotation = PremierJoueurSpawn.transform.rotation;
-        player.transform.position = spawnPosition;
-        player.transform.rotation = spawnRotation;
+            foreach (var prefab in spawnablePrefabs)
+            {
+                NetworkClient.RegisterPrefab(prefab);
+            }
+        }
+    }
 
-       
+    public override void OnServerConnect(NetworkConnectionToClient conn)
+    {
+        if (numPlayers >= maxConnections)
+        {
+            conn.Disconnect();
+            return;
+        }
 
-        NetworkServer.AddPlayerForConnection(conn, player);
+        if(SceneManager.GetActiveScene().name != "Lobby")
+        {
+            conn.Disconnect();
+            return;
+        }
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        Debug.Log("Un joueur s'est déconnecté : " + conn.connectionId);
+        scriptManager.nbrJoueur--;
         base.OnServerDisconnect(conn);
 
+    }
+
+    /*public override void OnClientConnect()
+    {
+        base.OnClientConnect();
+
+        OnClientConnected?.Invoke();
+    }
+
+    public override void OnClientDisconnect()
+    {
+        base.OnClientConnect();
+
+        OnClientDisconnected?.Invoke();
+    }*/
+
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    {
+        if (SceneManager.GetActiveScene().name == "Lobby")
+        {
+            GameObject player = Instantiate(JoueurPrefab);
+            PlayerData playerData = player.GetComponentInChildren<PlayerData>();
+            playerData.name = "Player " + conn.connectionId;
+            playerData.playerName = "Player " + conn.connectionId;
+
+            /*playerData.name = PlayerNameInput.DisplayName;
+            playerData.playerName = PlayerNameInput.DisplayName;*/
+
+            scriptManager.nbrJoueur++;
+
+           
+            NetworkServer.AddPlayerForConnection(conn, player);
+        }
     }
 
     public override void OnClientSceneChanged()
     {
         base.OnClientSceneChanged();
+        
 
         if (SceneManager.GetActiveScene().name == "TestCamera") 
         {
             scriptManager.giveRole();
-            PremierJoueurSpawn = GameObject.Find("spawn1");
-            DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
-
             foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
             {
-                GameObject player = conn.identity.gameObject;
-                PlayerData playerData = player.GetComponentInChildren<PlayerData>();
-                Debug.Log(playerData.role);
-                if (playerData.role == "Charlie")
-                {
-                    player.transform.position = PremierJoueurSpawn.transform.position;
-                    player.transform.rotation = PremierJoueurSpawn.transform.rotation;
-                }
-                else if (playerData.role == "Camera")
-                {
-                    player.transform.position = DeuxiemeJoueurSpawn.transform.position;
-                    player.transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
-                }
-            }
-            
+                GameObject player = conn.identity.gameObject;               
+            }           
         }
     }
+
+
 }

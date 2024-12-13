@@ -1,23 +1,51 @@
 using TMPro;
 using UnityEngine;
+using Mirror;
 
-public class EmojiButton : MonoBehaviour
+public class EmojiButton : NetworkBehaviour
 {
-    public GeneralEmoji generalEmoji;
+    public EmojiFamily emojiFamilyToTakeIn;
 
     public TMP_InputField textToSend;
 
     private TextMeshProUGUI textToChangeToEmoji;
 
-    public void Start()
+    public override void OnStartLocalPlayer()
     {
+        base.OnStartLocalPlayer();
+
         textToChangeToEmoji = GetComponentInChildren<TextMeshProUGUI>();
 
-        textToChangeToEmoji.text = "<sprite name=" + generalEmoji.GetEmoji() + ">";
+        if(isQuestion())
+        {
+            textToChangeToEmoji.text = emojiFamilyToTakeIn.GetEmoji(false);
+        }
+        else
+        {
+            textToChangeToEmoji.text = "<sprite name=" + emojiFamilyToTakeIn.GetEmoji(true) + ">";
+        }
     }
 
     public void OnButtonPressed()
     {
-        textToSend.text += textToChangeToEmoji.text + " ";
+        if(!isQuestion())
+        {
+            textToSend.text += textToChangeToEmoji.text + " ";
+        }
+        else
+        {
+            textToSend.text = textToChangeToEmoji.text;
+        }
+    }
+
+    private bool isQuestion()
+    {
+        if (emojiFamilyToTakeIn.familyItBelongTo == EmojiFamilyID.Vision ||
+           emojiFamilyToTakeIn.familyItBelongTo == EmojiFamilyID.Ressenti ||
+           emojiFamilyToTakeIn.familyItBelongTo == EmojiFamilyID.Position)
+        {
+            return true;
+        }
+        return false;
     }
 }

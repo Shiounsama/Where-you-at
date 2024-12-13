@@ -24,18 +24,20 @@ public class TchatPlayer : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdSendMessage(textToSend.text);
-            textToSend.text = "";
+            if (textToSend.text.Length > 0)
+            {
+                CmdSendMessage(textToSend.text);
+                textToSend.text = "";
+            }
         }
     }
 
     [Command]
     public void CmdSendMessage(string message)
     {
-        //generalTchatManager.CmdAddMessage(message, nameOfPlayer);
-
         TchatManager.Instance.AddMessage(message, nameOfPlayer);
     }
+
     [Command]
     private void ServeurNom(string newNom)
     {

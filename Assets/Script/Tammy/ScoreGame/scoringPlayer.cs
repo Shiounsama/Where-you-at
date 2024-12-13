@@ -7,11 +7,11 @@ public class scoringPlayer : NetworkBehaviour
 {
     private int ScoreTemps;
     private int ScoreDistance;
-
+    
     public bool victoire;
 
     [SyncVar]
-    public int ScoreFinal;
+    public float ScoreFinal;
 
     [SyncVar]
     public string playerName;
@@ -22,12 +22,12 @@ public class scoringPlayer : NetworkBehaviour
         base.OnStartLocalPlayer();
 
         ServeurName(GetComponent<PlayerData>().playerName);
-        ServeurScore(Random.Range(0, 1000));
+        
 
     }
 
     [Command]
-    private void ServeurScore(int newScore)
+    public void ServeurScore(float newScore)
     {
         ScoreFinal = newScore; 
     }
@@ -37,5 +37,7 @@ public class scoringPlayer : NetworkBehaviour
     {
         playerName = newName;
     }
+
+    
 
 }
