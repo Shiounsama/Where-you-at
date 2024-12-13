@@ -10,43 +10,36 @@ public class ScoreGame : NetworkBehaviour
     private List<scoringPlayer> scoreJoueur;
     public Canvas classementCanvas;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("a"))
-        {
-            showScore();
-        }
-    }
-
     public void showScore()
     {
         scoreJoueur = new List<scoringPlayer>(FindObjectsOfType<scoringPlayer>());
 
-        scoreJoueur = scoreJoueur.OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
+        scoreJoueur = scoreJoueur.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
 
+        AfficherClassement(scoreJoueur);
+    }
 
-        /*foreach (scoringPlayer score in scoreJoueur)
-        {
-            Debug.Log("je suis " + score.playerName + " et j'ai fait un score de " + score.ScoreFinal);
-        }*/
-
-        classementCanvas.enabled = true;
+    [ClientRpc]
+    public void RpcShowScore()
+    {
+        showScore();
     }
 
     void AfficherClassement(List<scoringPlayer> scores)
     {
-        if (classementCanvas == null)
-        {
-            Debug.LogError("Canvas de classement non défini !");
-            return;
-        }
+        classementCanvas.enabled = true;
 
         Transform parentTransform = classementCanvas.transform;
 
+
         foreach (Transform child in parentTransform)
         {
-            Destroy(child.gameObject);
+            if (child.GetComponent<Text>() != null)
+            {
+                Destroy(child.gameObject);
+            }
         }
+
 
         for (int i = 0; i < scores.Count; i++)
         {
@@ -54,9 +47,9 @@ public class ScoreGame : NetworkBehaviour
             textObject.transform.SetParent(parentTransform);
 
             Text textComponent = textObject.AddComponent<Text>();
-            textComponent.text = $"{i + 1} {scores[i].playerName} avec {scores[i].ScoreFinal} points";
+            textComponent.text = $"{i + 1} - {scores[i].playerName} avec {scores[i].ScoreFinal} points";
 
-            textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            textComponent.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
             textComponent.fontSize = 24;
             textComponent.color = Color.black;
             textComponent.alignment = TextAnchor.MiddleCenter;
@@ -64,6 +57,10 @@ public class ScoreGame : NetworkBehaviour
             RectTransform rectTransform = textObject.GetComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(400, 30);
             rectTransform.anchoredPosition = new Vector2(0, -i * 35);
+
+            scores[i].GetComponent<PlayerData>().desactivatePlayer();
+            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
+            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
         }
     }
 }
