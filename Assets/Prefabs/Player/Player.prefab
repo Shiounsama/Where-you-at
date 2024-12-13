@@ -458,6 +458,8 @@ GameObject:
   - component: {fileID: 8925695547685376029}
   - component: {fileID: 1331415498431507271}
   - component: {fileID: 1682726955131857155}
+  - component: {fileID: 6013026304806549834}
+  - component: {fileID: 4746901686026315967}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -557,7 +559,6 @@ MonoBehaviour:
   - {fileID: 1814803264221922803}
   charlieObjects:
   - {fileID: 5977802680650240070}
-  PNJcible: {fileID: 0}
 --- !u!114 &1808463024530652050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,26 +687,14 @@ MonoBehaviour:
     m_ActionId: 22647cfe-ab13-4e08-b793-e13a64369f6b
     m_ActionName: Keyboard & Mouse/MoveWorld[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1331415498431507271}
-        m_TargetAssemblyTypeName: IsoCameraRotation, Assembly-CSharp
-        m_MethodName: OnRotate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: f068f9c4-defe-413a-91e0-63e36f9a6230
     m_ActionName: Keyboard & Mouse/RotateCamera[/Keyboard/q,/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IsoCameraBehaviour, Assembly-CSharp
-        m_MethodName: OnSelectObject
+      - m_Target: {fileID: 6013026304806549834}
+        m_TargetAssemblyTypeName: IsoCameraSelection, Assembly-CSharp
+        m_MethodName: OnObjectSelected
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -718,7 +707,19 @@ MonoBehaviour:
     m_ActionId: 9cbaabed-b5d1-41f5-befe-1b7d1f18d1e6
     m_ActionName: Keyboard & Mouse/SelectObject[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6013026304806549834}
+        m_TargetAssemblyTypeName: IsoCameraSelection, Assembly-CSharp
+        m_MethodName: OnObjectUnselected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 97cfc4c1-bc23-489d-82a7-6b37ed9acd9f
     m_ActionName: Keyboard & Mouse/UnselectObject[/Mouse/rightButton]
   - m_PersistentCalls:
@@ -763,6 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToMove: {fileID: 0}
+  isDragging: 0
   moveSpeed: 20
   axisLocker: {x: 1, y: 1, z: 1}
 --- !u!114 &1331415498431507271
@@ -801,6 +803,38 @@ MonoBehaviour:
   zoomSpeed: 4
   zoomSensitivity: 2
   zoomCooldown: 0.25
+--- !u!114 &6013026304806549834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971760027535294172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8c04753b6b4a843a0ef876ac0c5de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedObject: {fileID: 0}
+  layerToVerify:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &4746901686026315967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971760027535294172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa20d6a6725976a42b99812cdbcf9c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cameraSelection: {fileID: 6013026304806549834}
 --- !u!1 &8061942671625002303
 GameObject:
   m_ObjectHideFlags: 0

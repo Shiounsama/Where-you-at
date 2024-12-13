@@ -26,7 +26,7 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
-    public GameObject PNJcible;
+    public static GameObject PNJcible { get; private set; }
 
 
     private void Update()
