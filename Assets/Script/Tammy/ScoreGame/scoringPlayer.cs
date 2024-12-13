@@ -11,6 +11,9 @@ public class scoringPlayer : NetworkBehaviour
     public bool victoire;
 
     [SyncVar]
+    public bool finish;
+
+    [SyncVar]
     public float ScoreFinal;
 
     [SyncVar]
@@ -22,6 +25,7 @@ public class scoringPlayer : NetworkBehaviour
         base.OnStartLocalPlayer();
 
         ServeurName(GetComponent<PlayerData>().playerName);
+        finish = false;
         
 
     }
@@ -29,7 +33,8 @@ public class scoringPlayer : NetworkBehaviour
     [Command]
     public void ServeurScore(float newScore)
     {
-        ScoreFinal = newScore; 
+        ScoreFinal = newScore;
+        finish = true;
     }
 
     [Command]
