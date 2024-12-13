@@ -43,7 +43,7 @@ public class PlayerData : NetworkBehaviour
                 //CmdRequestSceneChange("TestCamera");
             }
         }
-        
+
     }
 
     public override void OnStartLocalPlayer()
@@ -72,83 +72,12 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
-            IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
-            IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
-
-            //CameraIso camIso = this.GetComponent<CameraIso>();
-            Camera360 cam360 = this.GetComponent<Camera360>();
-
-            Camera camPlayer = this.GetComponent<Camera>();
-
             PremierJoueurSpawn = GameObject.Find("spawn1");
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             ClearOtherTchat();
             ClearCanvas();
-
-            if (role == "Camera" || role == "Charlie")
-            {
-                GameObject building = GameObject.Find("monde");
-                building.transform.position = new Vector3(0, 0, 0);
-                this.GetComponent<PlayerInput>().enabled = false;
-                
-                cam360.enabled = false;
-
-                camDragIso.enabled = false;
-                camDragIso.objectToMove = building.transform;
-
-                camZoomIso.enabled = false;
-
-                camRotaIso.enabled = false;
-                camRotaIso.objectToRotate = building.transform;
-
-                camPlayer.enabled = true;
-
-                GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
-                List<GameObject> ListPNJ = new List<GameObject>();
-                foreach (GameObject obj in allPNJ)
-                {
-                    ListPNJ.Add(obj);
-                }
-
-                int randomNumber = Random.Range(0, ListPNJ.Count);
-                PNJcible = ListPNJ[randomNumber];
-
-                if (role == "Camera")
-                {
-                    ObjectsStateSetter(charlieObjects, false);
-                    ObjectsStateSetter(seekerObjects, true);
-                    camDragIso.enabled = true;
-                    camZoomIso.enabled = true;
-                    camRotaIso.enabled = true;
-
-                    this.GetComponent<PlayerInput>().enabled = true;
-                    camPlayer.orthographic = true;
-
-                    transform.position = DeuxiemeJoueurSpawn.transform.position;
-                    transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
-
-                }
-
-                else if (role == "Charlie")
-                {
-                    ObjectsStateSetter(seekerObjects, false);
-                    ObjectsStateSetter(charlieObjects, true);
-                    frontPNJ();
-                    cam360.enabled = true;
-                    camPlayer.orthographic = false;
-                    
-                    transform.position = PremierJoueurSpawn.transform.position;
-                    transform.rotation = PremierJoueurSpawn.transform.rotation;
-
-                    
-
-                    transform.position = new Vector3(ListPNJ[randomNumber].transform.position.x, 1f, ListPNJ[randomNumber].transform.position.z);
-                    transform.rotation = ListPNJ[randomNumber].transform.rotation;
-                    Destroy(ListPNJ[randomNumber]);
-                }
-            }
+            activatePlayer(role);
         }
     }
 
@@ -187,13 +116,13 @@ public class PlayerData : NetworkBehaviour
             {
                 if (tchat.nameOfPlayer == playerName)
                 {
-                    
+
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
-                    
+
                 }
                 else
                 {
-                    
+
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = false;
                 }
             }
@@ -207,7 +136,7 @@ public class PlayerData : NetworkBehaviour
             transform.parent.GetComponentInChildren<Canvas>().enabled = true;
         }
     }
-    
+
     public void ClearCanvas()
     {
         if (isLocalPlayer)
@@ -240,7 +169,7 @@ public class PlayerData : NetworkBehaviour
             if (playerReady)
             {
                 boutonReady.GetComponentInChildren<Text>().text = "not ready";
-                cmdReadyPlus();                              
+                cmdReadyPlus();
             }
             if (!playerReady)
             {
@@ -278,14 +207,107 @@ public class PlayerData : NetworkBehaviour
         scriptManager.checkStart();
     }
 
-    private void ObjectsStateSetter(List<GameObject> listOfObjectToChangeState ,bool setOnObject)
+    public void ObjectsStateSetter(List<GameObject> listOfObjectToChangeState, bool setOnObject)
     {
-        if(listOfObjectToChangeState.Count > 0)
+        if (listOfObjectToChangeState.Count > 0)
         {
             for (int i = 0; i < listOfObjectToChangeState.Count; i++)
             {
                 listOfObjectToChangeState[i].SetActive(setOnObject);
             }
         }
+    }
+
+    public void activatePlayer(string role)
+    {
+        IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
+
+        Camera360 cam360 = this.GetComponent<Camera360>();
+
+        Camera camPlayer = this.GetComponent<Camera>();
+
+        if (role == "Camera" || role == "Charlie")
+        {
+            GameObject building = GameObject.Find("monde");
+            building.transform.position = new Vector3(0, 0, 0);
+            this.GetComponent<PlayerInput>().enabled = false;
+
+            cam360.enabled = false;
+
+            camDragIso.enabled = false;
+            camDragIso.objectToMove = building.transform;
+
+            camZoomIso.enabled = false;
+
+            camRotaIso.enabled = false;
+            camRotaIso.objectToRotate = building.transform;
+
+            camPlayer.enabled = true;
+
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+            List<GameObject> ListPNJ = new List<GameObject>();
+            foreach (GameObject obj in allPNJ)
+            {
+                ListPNJ.Add(obj);
+            }
+
+            int randomNumber = Random.Range(0, ListPNJ.Count);
+            PNJcible = ListPNJ[randomNumber];
+
+            if (role == "Camera")
+            {
+                ObjectsStateSetter(charlieObjects, false);
+                ObjectsStateSetter(seekerObjects, true);
+                camDragIso.enabled = true;
+                camZoomIso.enabled = true;
+                camRotaIso.enabled = true;
+
+                this.GetComponent<PlayerInput>().enabled = true;
+                camPlayer.orthographic = true;
+
+                transform.position = DeuxiemeJoueurSpawn.transform.position;
+                transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
+
+            }
+
+            else if (role == "Charlie")
+            {
+                ObjectsStateSetter(seekerObjects, false);
+                ObjectsStateSetter(charlieObjects, true);
+                frontPNJ();
+                cam360.enabled = true;
+                camPlayer.orthographic = false;
+
+                transform.position = PremierJoueurSpawn.transform.position;
+                transform.rotation = PremierJoueurSpawn.transform.rotation;
+
+
+
+                transform.position = new Vector3(ListPNJ[randomNumber].transform.position.x, 1f, ListPNJ[randomNumber].transform.position.z);
+                transform.rotation = ListPNJ[randomNumber].transform.rotation;
+                Destroy(ListPNJ[randomNumber]);
+            }
+        }
+    }
+
+    public void desactivatePlayer()
+    {
+        IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
+
+        Camera360 cam360 = this.GetComponent<Camera360>();
+
+        this.GetComponent<PlayerInput>().enabled = false;
+
+        cam360.enabled = false;
+
+        camDragIso.enabled = false;
+
+        camZoomIso.enabled = false;
+
+        camRotaIso.enabled = false;
     }
 }

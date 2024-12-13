@@ -10,14 +10,6 @@ public class ScoreGame : NetworkBehaviour
     private List<scoringPlayer> scoreJoueur;
     public Canvas classementCanvas;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("a"))
-        {
-            showScore();
-        }
-    }
-
     public void showScore()
     {
         scoreJoueur = new List<scoringPlayer>(FindObjectsOfType<scoringPlayer>());
@@ -25,7 +17,12 @@ public class ScoreGame : NetworkBehaviour
         scoreJoueur = scoreJoueur.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
 
         AfficherClassement(scoreJoueur);
-        
+    }
+
+    [ClientRpc]
+    public void RpcShowScore()
+    {
+        showScore();
     }
 
     void AfficherClassement(List<scoringPlayer> scores)
@@ -34,6 +31,7 @@ public class ScoreGame : NetworkBehaviour
 
         Transform parentTransform = classementCanvas.transform;
 
+
         foreach (Transform child in parentTransform)
         {
             if (child.GetComponent<Text>() != null)
@@ -41,6 +39,7 @@ public class ScoreGame : NetworkBehaviour
                 Destroy(child.gameObject);
             }
         }
+
 
         for (int i = 0; i < scores.Count; i++)
         {
@@ -58,6 +57,10 @@ public class ScoreGame : NetworkBehaviour
             RectTransform rectTransform = textObject.GetComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(400, 30);
             rectTransform.anchoredPosition = new Vector2(0, -i * 35);
+
+            scores[i].GetComponent<PlayerData>().desactivatePlayer();
+            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
+            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
         }
     }
 }
