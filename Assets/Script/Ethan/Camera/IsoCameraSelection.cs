@@ -7,8 +7,9 @@ public class IsoCameraSelection : MonoBehaviour
 
     public LayerMask layerToVerify;
 
-    public GameObject ButtonToValidateCanvas;
+    //public GameObject ButtonToValidateCanvas;
 
+   
     public void OnObjectSelected(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -17,7 +18,7 @@ public class IsoCameraSelection : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
             {
                 selectedObject = hit.transform;
-                ButtonToValidateCanvas.SetActive(true);
+                //ButtonToValidateCanvas.SetActive(true);
             }
         }
     }
@@ -27,7 +28,7 @@ public class IsoCameraSelection : MonoBehaviour
         if (context.performed)
         {
             selectedObject = null;
-            ButtonToValidateCanvas.SetActive(false);
+            //ButtonToValidateCanvas.SetActive(false);
         }
     }
 }
