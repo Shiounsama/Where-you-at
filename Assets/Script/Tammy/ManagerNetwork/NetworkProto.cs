@@ -9,6 +9,13 @@ using Edgegap;
 
 public class NetworkProto : NetworkManager
 {
+    [Scene] [SerializeField] private string menuScene = string.Empty;
+
+    [Header ("Room")]
+    [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
+
+
+
     [SerializeField] private int minPlayers = 1;
     public GameObject JoueurPrefab;
 
@@ -19,7 +26,6 @@ public class NetworkProto : NetworkManager
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
 
-    public NetworkRoomPlayerLobby roomPlayerPrefab = null;
     public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
 
 
@@ -33,14 +39,11 @@ public class NetworkProto : NetworkManager
 
     public override void OnStartClient()
     {
-        base.OnStartClient();
-        {
-            var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
+        var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
 
-            foreach (var prefab in spawnablePrefabs)
-            {
-                NetworkClient.RegisterPrefab(prefab);
-            }
+        foreach (var prefab in spawnablePrefabs)
+        {
+            NetworkClient.RegisterPrefab(prefab);
         }
     }
 
@@ -76,7 +79,7 @@ public class NetworkProto : NetworkManager
 
     }
 
-    /*public override void OnClientConnect()
+    public override void OnClientConnect()
     {
         base.OnClientConnect();
 
@@ -88,7 +91,7 @@ public class NetworkProto : NetworkManager
         base.OnClientConnect();
 
         OnClientDisconnected?.Invoke();
-    }*/
+    }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
@@ -98,18 +101,14 @@ public class NetworkProto : NetworkManager
             NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
             roomPlayerInstance.IsLeader = isLeader;
 
-            GameObject player = Instantiate(JoueurPrefab);
-            PlayerData playerData = player.GetComponentInChildren<PlayerData>();
-            playerData.name = "Player " + conn.connectionId;
-            playerData.playerName = "Player " + conn.connectionId;
+            NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
 
-            /*playerData.name = PlayerNameInput.DisplayName;
-            playerData.playerName = PlayerNameInput.DisplayName;*/
+            //GameObject player = Instantiate(JoueurPrefab);
+            //PlayerData playerData = player.GetComponentInChildren<PlayerData>();
+           // playerData.name = "Player " + conn.connectionId;
+            //playerData.playerName = "Player " + conn.connectionId;
 
             scriptManager.nbrJoueur++;
-
-           
-            NetworkServer.AddPlayerForConnection(conn, player);
         }
     }
 
