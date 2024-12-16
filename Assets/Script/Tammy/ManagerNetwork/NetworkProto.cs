@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 using Edgegap;
+using UnityEditor.VersionControl;
 
 public class NetworkProto : NetworkManager
 {
@@ -112,6 +113,17 @@ public class NetworkProto : NetworkManager
         }
     }
 
+    public void StartGame()
+    {
+        if (SceneManager.GetActiveScene().name == "Lobby")
+        {
+            if (!IsReadyToStart()) { return; }
+
+            Debug.Log("Test2");
+            ServerChangeScene("TestCamera");
+        }
+    }
+
     public override void OnClientSceneChanged()
     {
         base.OnClientSceneChanged();
@@ -120,12 +132,44 @@ public class NetworkProto : NetworkManager
         if (SceneManager.GetActiveScene().name == "TestCamera") 
         {
             scriptManager.giveRole();
-            foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
-            {
-                GameObject player = conn.identity.gameObject;               
-            }           
+         
         }
     }
+
+    public override void ServerChangeScene(string newSceneName)
+    {
+        if (SceneManager.GetActiveScene().name == "TestCamera")
+        {
+            for (int i = RoomPlayers.Count - 1; i >= 0; i--)
+            {
+
+                var conn = RoomPlayers[i].connectionToClient;
+                var gameplayerInstance = Instantiate(JoueurPrefab);
+                PlayerData playerData = gameplayerInstance.GetComponentInChildren<PlayerData>();
+                playerData.playerName = RoomPlayers[i].DisplayName;
+
+                NetworkServer.Destroy(conn.identity.gameObject);
+
+                NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject);
+
+                scriptManager.giveRole();
+            }
+        }
+
+        base.ServerChangeScene(newSceneName);
+    }
+
+    /*public override void OnServerSceneChanged(string sceneName)
+    {
+        if (sceneName.StartsWith("TestCamera"))
+        {
+            GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
+            NetworkServer.Spawn(playerSpawnSystemInstance);
+
+            GameObject roundSystemInstance = Instantiate(roundSystem);
+            NetworkServer.Spawn(roundSystemInstance);
+        }
+    }*/
 
     public override void OnStopServer()
     {

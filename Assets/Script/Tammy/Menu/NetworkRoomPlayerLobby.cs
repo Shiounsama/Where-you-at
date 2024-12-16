@@ -13,7 +13,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[5];
     [SerializeField] private Button startGameButton = null;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
@@ -40,7 +40,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        Debug.Log("UwU");
         CmdSetDisplayName(PlayerNameInput.DisplayName);
         //List<PlayerData> playerData = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         lobbyUI.SetActive(true);
@@ -120,6 +119,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
 
-        Room.RoomPlayers[0].GetComponent<PlayerData>().StartGame();
+        Room.StartGame();
     }
 }
