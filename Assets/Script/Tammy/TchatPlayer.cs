@@ -32,6 +32,14 @@ public class TchatPlayer : NetworkBehaviour
         }
     }
 
+    public void ClearTchat()
+    {
+        if(isLocalPlayer)
+        {
+            textToSend.text = "";
+        }
+    }
+
     [Command]
     public void CmdSendMessage(string message)
     {
