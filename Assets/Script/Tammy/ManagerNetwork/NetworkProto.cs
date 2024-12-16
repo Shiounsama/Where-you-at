@@ -9,6 +9,7 @@ using Edgegap;
 
 public class NetworkProto : NetworkManager
 {
+    [SerializeField] private int minPlayers = 1;
     public GameObject JoueurPrefab;
 
     public manager scriptManager;
@@ -17,6 +18,10 @@ public class NetworkProto : NetworkManager
 
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
+
+    public NetworkRoomPlayerLobby roomPlayerPrefab = null;
+    public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
+
 
 
     public override void OnStartServer()
@@ -56,6 +61,16 @@ public class NetworkProto : NetworkManager
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
+        if (conn.identity != null)
+        {
+            var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
+
+            RoomPlayers.Remove(player);
+
+            NotifyPlayersOfReadyState();
+
+        }
+
         scriptManager.nbrJoueur--;
         base.OnServerDisconnect(conn);
 
@@ -79,6 +94,10 @@ public class NetworkProto : NetworkManager
     {
         if (SceneManager.GetActiveScene().name == "Lobby")
         {
+            bool isLeader = RoomPlayers.Count == 0;
+            NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
+            roomPlayerInstance.IsLeader = isLeader;
+
             GameObject player = Instantiate(JoueurPrefab);
             PlayerData playerData = player.GetComponentInChildren<PlayerData>();
             playerData.name = "Player " + conn.connectionId;
@@ -109,5 +128,35 @@ public class NetworkProto : NetworkManager
         }
     }
 
+    public override void OnStopServer()
+    {
+        RoomPlayers.Clear();
+        base.OnStopServer();
+    }
 
+    public void NotifyPlayersOfReadyState()
+    {
+        foreach (var player in RoomPlayers)
+        {
+            player.HandleReadyToStart(IsReadyToStart());
+        }
+    }
+
+    public bool IsReadyToStart()
+    {
+        if (numPlayers < minPlayers)
+        {
+            return false;
+        }
+
+        foreach (var player in RoomPlayers)
+        {
+            if (!player.IsReady)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
