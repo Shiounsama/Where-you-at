@@ -213,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1962997
+      value: 1972952.9
       objectReference: {fileID: 0}
     - target: {fileID: 7302084564199805908, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1121,8 +1121,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1130,11 +1134,15 @@ PrefabInstance:
       objectReference: {fileID: 774918098}
     - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetPlayerName
+      value: SavePlayerName
       objectReference: {fileID: 0}
     - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerNameInput, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2339895252841124236, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
       propertyPath: m_fontColor.b
