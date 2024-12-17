@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 2800000, guid: 4b82daf4b5ba6f842b1eedd2aadf7ed9, type: 3}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.99999946, g: 0.99999946, b: 0.99999946, a: 1}
+  m_IndirectSpecularColor: {r: 0.9997447, g: 0.9997447, b: 0.9997447, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -131,29 +131,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 743056741}
     m_Modifications:
-    - target: {fileID: 788559408060881206, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.000030517578
-      objectReference: {fileID: 0}
-    - target: {fileID: 788559408060881206, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.0002746582
-      objectReference: {fileID: 0}
-    - target: {fileID: 1086294643413344042, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_Name
-      value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 1086294643413344042, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2883389810137931629, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_Name
       value: General TChat
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883389810137931629, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3192453512278710497, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_LocalPosition.x
@@ -195,55 +175,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3345160181363582456, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.0006866455
-      objectReference: {fileID: 0}
-    - target: {fileID: 3402775018661235876, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: canvasTransform
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4974634030249533244, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_ScrollSensitivity
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6821097195087456703, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 6434018488733056305, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: sceneId
+      value: 894018809
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1780559.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7302084564199805908, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -136
-      objectReference: {fileID: 0}
-    - target: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8420155528952295229, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -4745.492
+      value: 2222723.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2883389810137931629, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 955870261}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
---- !u!1 &390864521 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2883389810137931629, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
-  m_PrefabInstance: {fileID: 371048575}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &443169869
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,23 +804,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3192453512278710497, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
   m_PrefabInstance: {fileID: 371048575}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &955870261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 390864521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 894018809
-  _assetId: 3008418308
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
