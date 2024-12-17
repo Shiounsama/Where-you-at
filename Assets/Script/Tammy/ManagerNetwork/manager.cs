@@ -30,6 +30,22 @@ public class manager : NetworkBehaviour
     public void giveRole()
     {
         StartCoroutine(startGame());
+
+        GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+        List<GameObject> ListPNJ = new List<GameObject>();
+        foreach (GameObject obj in allPNJ)
+        {
+            ListPNJ.Add(obj);
+        }
+
+       /* int randomNumber = Random.Range(0, ListPNJ.Count);
+
+        scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        foreach (PlayerData playerscript in scriptPlayer)
+        {
+            playerscript.PNJcible = ListPNJ[randomNumber];
+        }*/
+        
     }
 
     public IEnumerator startGame()
@@ -53,28 +69,6 @@ public class manager : NetworkBehaviour
         {
             playerscript.startScene();
 
-        }
-    }
-
-    public void checkStart()
-    {
-        scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
-        
-
-        if (nbrJoueur == nbrJoueurRdy)
-        {
-            foreach (PlayerData playerscript in scriptPlayer)
-            {
-                playerscript.showStart(true);
-                
-            }
-        }
-        else
-        {
-            foreach (PlayerData playerscript in scriptPlayer)
-            {
-                playerscript.showStart(false);
-            }
         }
     }
 

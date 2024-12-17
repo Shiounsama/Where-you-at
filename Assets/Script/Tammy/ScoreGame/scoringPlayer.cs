@@ -20,14 +20,11 @@ public class scoringPlayer : NetworkBehaviour
     [SyncVar]
     public string playerName;
 
-    public Button ButtonRestart;
 
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-
-        ButtonRestart.enabled = false;
         ServeurName(GetComponent<PlayerData>().playerName);
         finish = false;
     }

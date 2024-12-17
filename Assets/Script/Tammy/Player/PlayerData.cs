@@ -14,10 +14,6 @@ public class PlayerData : NetworkBehaviour
     public string playerName;
     private MessageSystem message;
 
-    [Header("Multijoueur")]
-    public bool playerReady = false;
-    public Button boutonReady;
-    public Button boutonStart;
 
     public GameObject PremierJoueurSpawn;
     public GameObject DeuxiemeJoueurSpawn;
@@ -27,6 +23,7 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> charlieObjects;
 
     public static GameObject PNJcible { get; private set; }
+    public GameObject PNJBESOIN;
 
 
     private void Update()
@@ -36,14 +33,7 @@ public class PlayerData : NetworkBehaviour
             frontPNJ();
         }
 
-        if (isLocalPlayer)
-        {
-            if (Input.GetKeyDown("v"))
-            {
-                //CmdRequestSceneChange("TestCamera");
-            }
-        }
-
+        PNJBESOIN = PNJcible;
     }
 
     public override void OnStartLocalPlayer()
@@ -81,7 +71,23 @@ public class PlayerData : NetworkBehaviour
         if (isLocalPlayer)
         {
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+            GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
+
             foreach (GameObject obj in allPNJ)
+            {
+                obj.transform.LookAt(transform.position);
+                Vector3 lockedRotation = obj.transform.eulerAngles;
+                lockedRotation.x = 0;
+                lockedRotation.z = 0;
+                obj.transform.eulerAngles = lockedRotation;
+
+                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
+                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
+                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
+
+            }
+
+            foreach (GameObject obj in allPNJPI)
             {
                 obj.transform.LookAt(transform.position);
                 Vector3 lockedRotation = obj.transform.eulerAngles;
@@ -124,22 +130,6 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    /*public void ShowCanvas()
-    {
-        if (isLocalPlayer)
-        {
-            transform.parent.GetComponentInChildren<Canvas>().enabled = true;
-        }
-    }
-
-    public void ClearCanvas()
-    {
-        if (isLocalPlayer)
-        {
-            transform.parent.GetComponentInChildren<Canvas>().enabled = false;
-        }
-    }*/
-
     public void StartGame()
     {
         CmdRequestSceneChange("TestCamera");
@@ -152,54 +142,6 @@ public class PlayerData : NetworkBehaviour
         {
             NetworkManager.singleton.ServerChangeScene(SceneChange);
         }
-    }
-
-    public void buttonReady()
-    {
-        if (isLocalPlayer)
-        {
-            manager scriptManager = FindObjectOfType<manager>();
-            playerReady = !playerReady;
-
-            if (playerReady)
-            {
-                boutonReady.GetComponentInChildren<Text>().text = "not ready";
-                cmdReadyPlus();
-            }
-            if (!playerReady)
-            {
-                boutonReady.GetComponentInChildren<Text>().text = "ready";
-                cmdReadyMoins();
-            }
-        }
-    }
-
-    public void showStart(bool allready)
-    {
-        if (isLocalPlayer)
-        {
-            if (allready)
-                boutonStart.gameObject.SetActive(true);
-            else
-                boutonStart.gameObject.SetActive(false);
-        }
-    }
-
-    [Command]
-    public void cmdReadyPlus()
-    {
-        manager scriptManager = FindObjectOfType<manager>();
-        scriptManager.nbrJoueurRdy++;
-        scriptManager.checkStart();
-
-    }
-
-    [Command]
-    public void cmdReadyMoins()
-    {
-        manager scriptManager = FindObjectOfType<manager>();
-        scriptManager.nbrJoueurRdy--;
-        scriptManager.checkStart();
     }
 
     public void ObjectsStateSetter(List<GameObject> listOfObjectToChangeState, bool setOnObject)
@@ -279,9 +221,9 @@ public class PlayerData : NetworkBehaviour
                 transform.position = PremierJoueurSpawn.transform.position;
                 transform.rotation = PremierJoueurSpawn.transform.rotation;
 
-                transform.position = new Vector3(ListPNJ[randomNumber].transform.position.x, 1f, ListPNJ[randomNumber].transform.position.z);
-                transform.rotation = ListPNJ[randomNumber].transform.rotation;
-                Destroy(ListPNJ[randomNumber]);
+                transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
+                transform.rotation = PNJcible.transform.rotation;
+                Destroy(PNJcible);
             }
         }
     }

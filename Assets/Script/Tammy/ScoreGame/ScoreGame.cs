@@ -12,15 +12,19 @@ public class ScoreGame : NetworkBehaviour
     public Transform parentTransform;
     public bool finish = false;
 
+    private int nbrJoueur;
+
     private Button restartButton;
     public Button restartButtonPrefab;
     public GameObject BackgroundImage;
+
+    
 
 
     public void showScore()
     {
         scoreJoueur = new List<scoringPlayer>(FindObjectsOfType<scoringPlayer>());
-
+        nbrJoueur = scoreJoueur.Count();
         scoreJoueur = scoreJoueur.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
 
         //Debug.Log(GetComponent<manager>().nbrJoueur);
@@ -67,8 +71,10 @@ public class ScoreGame : NetworkBehaviour
 
             BackgroundImage.SetActive(true);
 
-            if (scores.Count == GetComponent<manager>().nbrJoueur)
+            /*
+            if (scores.Count == nbrJoueur - 1)
             {
+                
                 restartButton = Instantiate(restartButtonPrefab, parentTransform);
                 restartButton.GetComponentInChildren<Text>().text = "Restart";
                 restartButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -scores.Count * 35 - 50);
@@ -76,7 +82,8 @@ public class ScoreGame : NetworkBehaviour
                 restartButton.onClick.AddListener(RestartGame);
 
                 restartButton.gameObject.SetActive(true);
-            }
+
+            }*/
         }
     }
 
@@ -87,11 +94,8 @@ public class ScoreGame : NetworkBehaviour
     }
 
     void CmdRequestSceneChange()
-    {
-        
-            Debug.Log("cc c moi ");
-            NetworkManager.singleton.ServerChangeScene("TestCamera");
-        
+    {       
+            NetworkManager.singleton.ServerChangeScene("TestCamera");        
     }
 
     public void DestroyUI()
@@ -108,5 +112,8 @@ public class ScoreGame : NetworkBehaviour
         {
             Destroy(restartButton.gameObject);
         }
+
+        scoreJoueur.Clear();
+
     }
 }

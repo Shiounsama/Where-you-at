@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 2800000, guid: 4b82daf4b5ba6f842b1eedd2aadf7ed9, type: 3}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.9997447, g: 0.9997447, b: 0.9997447, a: 1}
+  m_IndirectSpecularColor: {r: 0.99999946, g: 0.99999946, b: 0.99999946, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2238973.2
+      value: 2411764
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -238,14 +238,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.083303645, g: 0.71229196, b: 0.8490566, a: 0.53333336}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 9a931aa5f5da73546936568cb74fc758, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -479,7 +479,6 @@ GameObject:
   - component: {fileID: 743056739}
   - component: {fileID: 743056746}
   - component: {fileID: 743056744}
-  - component: {fileID: 743056747}
   - component: {fileID: 743056748}
   - component: {fileID: 743056745}
   m_Layer: 0
@@ -617,29 +616,6 @@ MonoBehaviour:
   JoueurPrefab: {fileID: 620388920761478827, guid: 3c90669d033f7b1459efeb2eeef47cca, type: 3}
   scriptManager: {fileID: 743056744}
   seedScript: {fileID: 1335414159}
---- !u!114 &743056747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743056737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 889b5b64bc77858459257af17203517c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  numberOfRoom: 7
-  playerRoomIndex: 0
-  roomOffsetY: 2
-  playerLostPrefab: {fileID: 4659432455312777317, guid: 50da26b8e4808b84b938643c0132df65, type: 3}
-  roomPrefab: {fileID: 1990092612250243734, guid: b1802236fe0d3024bbb41b525411cfda, type: 3}
-  parentToSpawnRoom: {fileID: 0}
-  buildingGenerated: {fileID: 0}
-  roomList: []
 --- !u!114 &743056748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1048,6 +1024,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
       objectReference: {fileID: 0}
@@ -1062,6 +1042,10 @@ PrefabInstance:
     - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerNameInput, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260305778479379804, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2339895252841124236, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
       propertyPath: m_fontColor.b

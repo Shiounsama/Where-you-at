@@ -5,8 +5,6 @@ using Mirror;
 using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
-using Edgegap;
-using UnityEditor.VersionControl;
 
 public class NetworkProto : NetworkManager
 {
