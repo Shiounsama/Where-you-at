@@ -34,10 +34,9 @@ public class manager : NetworkBehaviour
 
     public IEnumerator startGame()
     {
-        //METTRE LA GENERATION ICI
-
         scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         player.Clear();
+
         foreach (PlayerData playerscript in scriptPlayer)
         {
             player.Add(playerscript.gameObject);

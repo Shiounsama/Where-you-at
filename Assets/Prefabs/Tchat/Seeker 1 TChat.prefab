@@ -603,6 +603,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &1850692064272242897
@@ -1019,6 +1022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &4582241754884790727
@@ -1167,6 +1173,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &4322543907675281352
@@ -1985,6 +1994,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &6801700770499397911
@@ -2133,6 +2145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &414108725337840204
@@ -2415,6 +2430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &811492512112538295
@@ -2563,6 +2581,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &698184206568888060
@@ -2659,88 +2680,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &1500113262392594035
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1357657490013158092}
-  - component: {fileID: 6730368481858056048}
-  - component: {fileID: 13327357831410810}
-  m_Layer: 5
-  m_Name: ScrollArea
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1357657490013158092
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500113262392594035}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7618408009826228945}
-  m_Father: {fileID: 2003209805462120477}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6730368481858056048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500113262392594035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Content: {fileID: 7618408009826228945}
-  m_Horizontal: 0
-  m_Vertical: 1
-  m_MovementType: 1
-  m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
-  m_Viewport: {fileID: 1357657490013158092}
-  m_HorizontalScrollbar: {fileID: 0}
-  m_VerticalScrollbar: {fileID: 0}
-  m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
-  m_HorizontalScrollbarSpacing: 0
-  m_VerticalScrollbarSpacing: 0
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &13327357831410810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500113262392594035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 0, y: 20}
 --- !u!1 &1522486947367873061
 GameObject:
   m_ObjectHideFlags: 0
@@ -3194,6 +3133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &6158139773401959954
@@ -3652,6 +3594,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &5861052431507394379
@@ -3882,42 +3827,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &2233064093014324389
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2003209805462120477}
-  m_Layer: 5
-  m_Name: TchatHistory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2003209805462120477
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2233064093014324389}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1357657490013158092}
-  m_Father: {fileID: 631721813718219823}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -800, y: -230}
-  m_SizeDelta: {x: 300, y: 500}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2283022205053610426
 GameObject:
   m_ObjectHideFlags: 0
@@ -4423,6 +4332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &8287119938453032428
@@ -4920,81 +4832,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &2901676551129460964
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7618408009826228945}
-  - component: {fileID: 432169213432049175}
-  - component: {fileID: 1753158394410254796}
-  m_Layer: 5
-  m_Name: TextList
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7618408009826228945
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2901676551129460964}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1357657490013158092}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &432169213432049175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2901676551129460964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 5
-    m_Right: 5
-    m_Top: 5
-    m_Bottom: 5
-  m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 1
-  m_CellSize: {x: 300, y: 100}
-  m_Spacing: {x: 5, y: 5}
-  m_Constraint: 1
-  m_ConstraintCount: 1
---- !u!114 &1753158394410254796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2901676551129460964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 1
-  m_VerticalFit: 1
 --- !u!1 &3000496279706122719
 GameObject:
   m_ObjectHideFlags: 0
@@ -5181,6 +5018,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &3478361775193918822
@@ -5329,6 +5169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &7922827295821934938
@@ -5765,6 +5608,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &2513384621353516435
@@ -6009,6 +5855,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &3479812658190960933
@@ -6291,6 +6140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &4838921358880371964
@@ -6439,6 +6291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &8327841509008246775
@@ -6571,9 +6426,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 10, y: 50}
+  m_AnchoredPosition: {x: 10, y: 10}
   m_SizeDelta: {x: 300, y: 40}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &4538324773118181521
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7268,6 +7123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &6932033151714660630
@@ -7400,9 +7258,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -540, y: 30}
+  m_AnchoredPosition: {x: -650, y: 10}
   m_SizeDelta: {x: 220, y: 40}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &2271710440765496365
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7585,6 +7443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &8882054860737957986
@@ -8450,6 +8311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &803379620128195701
@@ -8598,6 +8462,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &8708494796562157144
@@ -9148,6 +9015,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &3773740153595726588
@@ -9296,6 +9166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &8454352975088874964
@@ -9526,6 +9399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &2595303780360312775
@@ -10344,6 +10220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &4320317420421682936
@@ -10625,6 +10504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &8138674036347783407
@@ -10773,6 +10655,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &224834833686471391
@@ -11629,6 +11514,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &8757909463413170494
@@ -11829,6 +11717,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &4685001559103385650
@@ -12512,6 +12403,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &7802289705328593202
@@ -12698,6 +12592,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &4962412653077126431
@@ -12846,6 +12743,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f883a7476b7546c4d82dda10b44edb59, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &7724582053573955527
@@ -13431,6 +13331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: f2a34908d40b57e4e8bf93dd742694f5, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &4544988116913813099
@@ -13842,6 +13745,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c972762a7f4b04bb751187d9ee15f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   emojiFamilyToTakeIn: {fileID: 11400000, guid: 2ab1054ea709053438d190abcbb1bd95, type: 2}
   textToSend: {fileID: 9194165883197537858}
 --- !u!222 &6567390570842889226
@@ -14659,6 +14565,108 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5773999600640489123, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
   m_PrefabInstance: {fileID: 5835180837528087405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6549807068928177377
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 631721813718219823}
+    m_Modifications:
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906945734315737156, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+      propertyPath: m_Name
+      value: TchatHistory
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+--- !u!224 &2003209805462120477 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4695357100080520444, guid: 229a6b8f00e752347b131b6c28d8037b, type: 3}
+  m_PrefabInstance: {fileID: 6549807068928177377}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6890632569428652554
 PrefabInstance:

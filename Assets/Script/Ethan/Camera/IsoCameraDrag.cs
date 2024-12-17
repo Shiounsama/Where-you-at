@@ -5,7 +5,7 @@ public class IsoCameraDrag : MonoBehaviour
 {
     public Transform objectToMove;
 
-    private bool isDragging;
+    public bool isDragging;
 
     public float moveSpeed;
 
