@@ -72,7 +72,6 @@ public class PlayerData : NetworkBehaviour
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             ClearOtherTchat();
-            //ClearCanvas();
             activatePlayer(role);
         }
     }
@@ -110,7 +109,7 @@ public class PlayerData : NetworkBehaviour
 
             foreach (TchatPlayer tchat in listTchat)
             {
-                if (tchat.nameOfPlayer == playerName)
+                if (tchat.isLocalPlayer)
                 {
 
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
