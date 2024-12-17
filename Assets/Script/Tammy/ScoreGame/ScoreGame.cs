@@ -45,7 +45,7 @@ public class ScoreGame : NetworkBehaviour
             textObject.transform.SetParent(parentTransform);
 
             Text textComponent = textObject.AddComponent<Text>();
-            textComponent.text = $"{i + 1} - {scores[i].playerName} avec {scores[i].ScoreFinal} mètres";
+            textComponent.text = $"{i + 1} - {scores[i].transform.parent.GetComponentInChildren<PlayerData>().playerName} avec {scores[i].ScoreFinal} mètres";
 
             textComponent.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
             textComponent.fontSize = 24;
