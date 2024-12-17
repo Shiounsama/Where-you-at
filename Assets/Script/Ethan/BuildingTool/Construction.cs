@@ -62,6 +62,11 @@ public class Construction : MonoBehaviour
             actualPrefab.transform.localEulerAngles = new Vector3(0, rotationY, 0);
             actualPrefab.transform.localPosition = spawnPosition;
         }
+
+        if (seed.Instance != null)
+        {
+            seed.Instance.SeedValue++;
+        }
     }
 
     [Button]
