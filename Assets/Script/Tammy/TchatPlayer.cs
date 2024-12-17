@@ -43,7 +43,7 @@ public class TchatPlayer : NetworkBehaviour
     [Command]
     public void CmdSendMessage(string message)
     {
-        TchatManager.Instance.AddMessage(message, nameOfPlayer);
+        TchatManager.Instance.AddMessage(message, transform.parent.GetComponentInChildren<PlayerData>().playerName);
     }
 
     [Command]

@@ -50,10 +50,6 @@ public class PlayerData : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
 
-        if (isLocalPlayer)
-        {
-            ShowCanvas();
-        }
 
     }
 
@@ -76,7 +72,6 @@ public class PlayerData : NetworkBehaviour
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             ClearOtherTchat();
-            ClearCanvas();
             activatePlayer(role);
         }
     }
@@ -114,7 +109,7 @@ public class PlayerData : NetworkBehaviour
 
             foreach (TchatPlayer tchat in listTchat)
             {
-                if (tchat.nameOfPlayer == playerName)
+                if (tchat.isLocalPlayer)
                 {
 
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
@@ -129,7 +124,7 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    public void ShowCanvas()
+    /*public void ShowCanvas()
     {
         if (isLocalPlayer)
         {
@@ -143,7 +138,7 @@ public class PlayerData : NetworkBehaviour
         {
             transform.parent.GetComponentInChildren<Canvas>().enabled = false;
         }
-    }
+    }*/
 
     public void StartGame()
     {
@@ -311,4 +306,5 @@ public class PlayerData : NetworkBehaviour
   
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
     }
+
 }
