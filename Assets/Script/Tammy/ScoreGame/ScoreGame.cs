@@ -9,10 +9,12 @@ public class ScoreGame : NetworkBehaviour
 {
     public List<scoringPlayer> scoreJoueur;
     public Canvas classementCanvas;
-
+    public Transform parentTransform;
     public bool finish = false;
 
-
+    private Button restartButton;
+    public Button restartButtonPrefab;
+    public GameObject BackgroundImage;
 
 
     public void showScore()
@@ -21,6 +23,8 @@ public class ScoreGame : NetworkBehaviour
 
         scoreJoueur = scoreJoueur.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
 
+        //Debug.Log(GetComponent<manager>().nbrJoueur);
+
         AfficherClassement(scoreJoueur);
     }
 
@@ -28,7 +32,7 @@ public class ScoreGame : NetworkBehaviour
     {
         classementCanvas.enabled = true;
 
-        Transform parentTransform = classementCanvas.transform;
+        parentTransform = classementCanvas.transform;
 
         foreach (Transform child in parentTransform)
         {
@@ -41,6 +45,7 @@ public class ScoreGame : NetworkBehaviour
 
         for (int i = 0; i < scores.Count; i++)
         {
+            
             GameObject textObject = new GameObject($"Entry_{i + 1}");
             textObject.transform.SetParent(parentTransform);
 
@@ -59,6 +64,49 @@ public class ScoreGame : NetworkBehaviour
             scores[i].GetComponent<PlayerData>().desactivatePlayer();
             scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
             scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
+
+            BackgroundImage.SetActive(true);
+
+            if (scores.Count == GetComponent<manager>().nbrJoueur)
+            {
+                restartButton = Instantiate(restartButtonPrefab, parentTransform);
+                restartButton.GetComponentInChildren<Text>().text = "Restart";
+                restartButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -scores.Count * 35 - 50);
+
+                restartButton.onClick.AddListener(RestartGame);
+
+                restartButton.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void RestartGame()
+    {
+        DestroyUI();
+        CmdRequestSceneChange();
+    }
+
+    void CmdRequestSceneChange()
+    {
+        
+            Debug.Log("cc c moi ");
+            NetworkManager.singleton.ServerChangeScene("TestCamera");
+        
+    }
+
+    public void DestroyUI()
+    {
+        foreach (Transform child in parentTransform)
+        {
+            if(child.name != "BackgroundImage")
+            Destroy(child.gameObject);
+            else 
+                child.gameObject.SetActive(false);
+        }
+
+        if (restartButton != null)
+        {
+            Destroy(restartButton.gameObject);
         }
     }
 }

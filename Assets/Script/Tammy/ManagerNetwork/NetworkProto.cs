@@ -163,18 +163,6 @@ public class NetworkProto : NetworkManager
         base.ServerChangeScene(newSceneName);
     }
 
-    /*public override void OnServerSceneChanged(string sceneName)
-    {
-        if (sceneName.StartsWith("TestCamera"))
-        {
-            GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
-            NetworkServer.Spawn(playerSpawnSystemInstance);
-
-            GameObject roundSystemInstance = Instantiate(roundSystem);
-            NetworkServer.Spawn(roundSystemInstance);
-        }
-    }*/
-
     public override void OnStopServer()
     {
         RoomPlayers.Clear();

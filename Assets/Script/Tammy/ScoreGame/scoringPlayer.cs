@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using System.Security.Cryptography.X509Certificates;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class scoringPlayer : NetworkBehaviour
 {
@@ -21,11 +20,14 @@ public class scoringPlayer : NetworkBehaviour
     [SyncVar]
     public string playerName;
 
+    public Button ButtonRestart;
+
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
 
+        ButtonRestart.enabled = false;
         ServeurName(GetComponent<PlayerData>().playerName);
         finish = false;
     }
@@ -50,6 +52,8 @@ public class scoringPlayer : NetworkBehaviour
         }
     }
 
+  
+
     [TargetRpc]
     private void TargetShowScoreForPlayer(NetworkConnection target)
     {
@@ -73,8 +77,9 @@ public class scoringPlayer : NetworkBehaviour
         playerName = newName;
     }
 
+    
 
 
-   
+
 
 }
