@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PNJSpawner : MonoBehaviour
@@ -13,15 +14,18 @@ public class PNJSpawner : MonoBehaviour
 
     [Header("Nombre d'entite a faire apparaitre")]
     [SerializeField, Range(0, 150), Tooltip("Le nombre d'entité qui vont spawn")] private int numberToSpawn;
+    [SerializeField] private int PnjPICount;
 
-    [SerializeField] private GameObject[] entitiesSpawnedArray;
+    [SerializeField] private PnjPIFamily PnjPIFamilyData;
+    [SerializeField] private List<GameObject> entitiesSpawnedArray;
+
     private BoxCollider boxCollider;
 
     public void Awake()
     {
         boxCollider = GetComponent<BoxCollider>(); //On recupere le boxCollider 
         spawnRange = new Vector3(length, 1, width); // On sauvegarde la range du spawn dans une variable
-        entitiesSpawnedArray = new GameObject[numberToSpawn]; // On set la taille du tableau en fonction de la variable "numberToSpawn"
+        //entitiesSpawnedArray = new GameObject[numberToSpawn]; // On set la taille du tableau en fonction de la variable "numberToSpawn"
         boxCollider.size = spawnRange; // On set la taille du box collider a la variable "spawnRange"
     }
 
@@ -33,20 +37,43 @@ public class PNJSpawner : MonoBehaviour
 
     public void Start()
     {
-        InstantiatePNJs();
+        InstantiatePNJs(pnjPrefab, numberToSpawn - PnjPICount);
     }
 
-    public void InstantiatePNJs()
+    public void InstantiatePNJs(GameObject prefabToSpawn, int NumberOfEntitiesToSpawn)
     {
-        for (int i = 0; i < numberToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
+        if (NumberOfEntitiesToSpawn <= 0)
         {
-            InstantiateObject(i, pnjPrefab, tagToApply);
+            return;
+        }
+
+        if (PnjPICount > 0)
+        {
+            if (PnjPIFamilyData != null)
+            {
+                for (int i = 0; i < PnjPICount; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
+                {
+                    InstantiateObject(i, PnjPIFamilyData.GetPrefab());
+                }
+
+                for (int i = 0; i < NumberOfEntitiesToSpawn - PnjPICount; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
+                {
+                    InstantiateObject(i, pnjPrefab);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < NumberOfEntitiesToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
+            {
+                InstantiateObject(i, prefabToSpawn);
+            }
         }
     }
 
-    private void InstantiateObject(int i, GameObject objectToInstantiate, string tagToSet)
+    private void InstantiateObject(int i, GameObject objectToInstantiate)
     {
-        if(seed.Instance != null)
+        if (seed.Instance != null)
         {
             Random.InitState(seed.Instance.SeedValue);
         }
@@ -55,8 +82,8 @@ public class PNJSpawner : MonoBehaviour
                         new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
                         transform.position.y,
                         (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
-        entitiesSpawnedArray[i] = actualPlayer; // On Ajoute l'entite creer dans un tableau
-        actualPlayer.transform.tag = tagToSet;
+
+        entitiesSpawnedArray.Add(actualPlayer);
 
         if (seed.Instance != null)
         {
@@ -64,5 +91,5 @@ public class PNJSpawner : MonoBehaviour
         }
     }
 
-  
+
 }
