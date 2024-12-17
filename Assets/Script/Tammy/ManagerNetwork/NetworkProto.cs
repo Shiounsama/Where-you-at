@@ -138,15 +138,19 @@ public class NetworkProto : NetworkManager
 
     public override void ServerChangeScene(string newSceneName)
     {
-        if (SceneManager.GetActiveScene().name == "TestCamera")
+        Debug.Log("PLAY MUSIC OUTRO " + RoomPlayers.Count);
+
+        if (SceneManager.GetActiveScene().name == "Lobby")
         {
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
-
+                Debug.Log("Le nom du joueur est : " );
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(JoueurPrefab);
                 PlayerData playerData = gameplayerInstance.GetComponentInChildren<PlayerData>();
                 playerData.playerName = RoomPlayers[i].DisplayName;
+
+                
 
                 NetworkServer.Destroy(conn.identity.gameObject);
 
