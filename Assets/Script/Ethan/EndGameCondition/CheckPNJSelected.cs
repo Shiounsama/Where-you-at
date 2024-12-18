@@ -19,13 +19,6 @@ public class CheckPNJSelected : NetworkBehaviour
         scoreGame = GameObject.FindObjectOfType<ScoreGame>();
     }
 
-    public void Update()
-    {
-        if (cameraSelection.selectedObject != null && Input.GetKeyDown("v"))
-        {
-            IsGuess();
-        }
-    }
 
 
     public void IsGuessRight(InputAction.CallbackContext context)
@@ -34,27 +27,19 @@ public class CheckPNJSelected : NetworkBehaviour
         {
             if (cameraSelection.selectedObject.gameObject == PlayerData.PNJcible)
             {
-                print("BOUFFE LA MWOUA + FUCK LA SEED + FCK OSCAR + AGATHE EN LELE");
             }
         }
     }
 
     public void IsGuess()
     {
-        if (isLocalPlayer) {
-
-            StartCoroutine(resultat());
+        if (isLocalPlayer)
+        {
+            scoreGame.finish = true;
+            float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+            score.ServeurScore(resultat);
+            cameraSelection.ButtonToValidateCanvas.SetActive(false);
         }
-    
-    }
 
-    public IEnumerator resultat()
-    {
-        float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-        score.ServeurScore(resultat);
-        yield return new WaitForSeconds(0.1f);
-        scoreGame.showScore();
     }
-
-    
 }

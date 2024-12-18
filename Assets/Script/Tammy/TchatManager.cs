@@ -9,15 +9,29 @@ public class TchatManager : NetworkBehaviour
     public GameObject newMessagePrefab;
     public Transform canvasTransform;
     public int messageCount;
-    public List<EmojiFamily> emojiList;
     public static TchatManager Instance;
+
+    public List<ScriptableObject> listOfFamilyToResestValueUsed;
 
     public void Awake()
     {
-        Instance = this; 
-        for (int i = 0; i < emojiList.Count; i++)
+        Instance = this;
+        ResetListOfValueUsedInFamily();
+    }
+
+    public void ResetListOfValueUsedInFamily()
+    {
+        foreach (var item in listOfFamilyToResestValueUsed)
         {
-            emojiList[i].ResetListOfEmoji();
+            if (item is PnjPIFamily PnjFamily)
+            {
+                PnjFamily.ResetListOfPnjPI();
+            }
+
+            if (item is EmojiFamily EmojiFamily)
+            {
+                EmojiFamily.ResetListOfEmoji();
+            }
         }
     }
 

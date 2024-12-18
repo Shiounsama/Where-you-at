@@ -33,13 +33,12 @@ public class PlayerNameInput : MonoBehaviour
 
     public void SetPlayerName(string name)
     {
-        continueButton.interactable = !string.IsNullOrEmpty(name);
+        continueButton.interactable = nameInputField.text.Length >= 2;
     }
 
     public void SavePlayerName()
     {
         DisplayName = nameInputField.text;
-        Debug.Log(DisplayName);
         PlayerPrefs.SetString(PlayerPrefsNameKey, DisplayName);
     }
 }

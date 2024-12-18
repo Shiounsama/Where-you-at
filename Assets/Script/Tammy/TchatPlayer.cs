@@ -32,10 +32,18 @@ public class TchatPlayer : NetworkBehaviour
         }
     }
 
+    public void ClearTchat()
+    {
+        if(isLocalPlayer)
+        {
+            textToSend.text = "";
+        }
+    }
+
     [Command]
     public void CmdSendMessage(string message)
     {
-        TchatManager.Instance.AddMessage(message, nameOfPlayer);
+        TchatManager.Instance.AddMessage(message, transform.parent.GetComponentInChildren<PlayerData>().playerName);
     }
 
     [Command]

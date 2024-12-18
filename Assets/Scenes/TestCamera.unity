@@ -24,9 +24,9 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -425,7 +425,7 @@ Transform:
   m_GameObject: {fileID: 20573739}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 3.5, z: 26}
+  m_LocalPosition: {x: 0, y: 0.65, z: 26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -465,10 +465,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 5
-  width: 57
+  width: 65
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
   tagToApply: pnj
   numberToSpawn: 15
+  PnjPICount: 3
+  PnjPIFamilyData: {fileID: 11400000, guid: b0f255c09062d044dbcd7ad41981ccc0, type: 2}
   entitiesSpawnedArray: []
 --- !u!1 &60279446
 GameObject:
@@ -5610,7 +5612,7 @@ Transform:
   m_GameObject: {fileID: 604779803}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 70, y: 3.5, z: 18}
+  m_LocalPosition: {x: 70, y: 0.65, z: 18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5629,10 +5631,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 5
-  width: 40
+  width: 39
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
   tagToApply: pnj
   numberToSpawn: 10
+  PnjPICount: 3
+  PnjPIFamilyData: {fileID: 11400000, guid: b0f255c09062d044dbcd7ad41981ccc0, type: 2}
   entitiesSpawnedArray: []
 --- !u!65 &604779806
 BoxCollider:
@@ -7379,7 +7383,6 @@ Transform:
   - {fileID: 603965156}
   - {fileID: 1805365439}
   - {fileID: 402982074}
-  - {fileID: 1263387802}
   - {fileID: 128916009}
   - {fileID: 1705988944}
   - {fileID: 1134430360}
@@ -8788,6 +8791,8 @@ MonoBehaviour:
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
   tagToApply: pnj
   numberToSpawn: 20
+  PnjPICount: 3
+  PnjPIFamilyData: {fileID: 11400000, guid: b0f255c09062d044dbcd7ad41981ccc0, type: 2}
   entitiesSpawnedArray: []
 --- !u!65 &1118831751
 BoxCollider:
@@ -10396,120 +10401,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260291104}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
---- !u!1 &1263387801
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1263387802}
-  - component: {fileID: 1263387806}
-  - component: {fileID: 1263387805}
-  - component: {fileID: 1263387804}
-  - component: {fileID: 1263387803}
-  m_Layer: 0
-  m_Name: Maison (83)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1263387802
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263387801}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -124, y: 0, z: 57}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 929038068}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1263387803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263387801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7579e0047658b4d9f1eae3bbe7311a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointInteret: 0
-  ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
-  spawnPosition: {x: 0, y: 0, z: 0}
---- !u!114 &1263387804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263387801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabBuildingType: 3
---- !u!23 &1263387805
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263387801}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 8070a8c2a1b4cc14e978df7dbfe6dbfa, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1263387806
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263387801}
-  m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
 --- !u!1 &1276241547
 GameObject:
   m_ObjectHideFlags: 0
@@ -10651,7 +10542,7 @@ Transform:
   m_GameObject: {fileID: 1279985009}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 70, y: 3.5, z: 53.8}
+  m_LocalPosition: {x: 70, y: 0.65, z: 53.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10674,6 +10565,8 @@ MonoBehaviour:
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
   tagToApply: pnj
   numberToSpawn: 5
+  PnjPICount: 3
+  PnjPIFamilyData: {fileID: 11400000, guid: b0f255c09062d044dbcd7ad41981ccc0, type: 2}
   entitiesSpawnedArray: []
 --- !u!65 &1279985012
 BoxCollider:
@@ -14169,7 +14062,7 @@ Transform:
   m_GameObject: {fileID: 1843492705}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.2, y: 3.5, z: 42.9}
+  m_LocalPosition: {x: 24, y: 0.65, z: 43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14187,11 +14080,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3f91c956f1d4d4ca348af3212705e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 78
+  length: 80
   width: 5
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
   tagToApply: pnj
   numberToSpawn: 25
+  PnjPICount: 3
+  PnjPIFamilyData: {fileID: 11400000, guid: b0f255c09062d044dbcd7ad41981ccc0, type: 2}
   entitiesSpawnedArray: []
 --- !u!65 &1843492708
 BoxCollider:
@@ -15754,7 +15649,7 @@ Transform:
   m_GameObject: {fileID: 1957230391}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.5, y: 3.5, z: 8.1}
+  m_LocalPosition: {x: -9, y: 0.65, z: 8.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15777,6 +15672,8 @@ MonoBehaviour:
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
   tagToApply: pnj
   numberToSpawn: 6
+  PnjPICount: 0
+  PnjPIFamilyData: {fileID: 11400000, guid: b0f255c09062d044dbcd7ad41981ccc0, type: 2}
   entitiesSpawnedArray: []
 --- !u!65 &1957230394
 BoxCollider:
