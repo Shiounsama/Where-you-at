@@ -117,7 +117,6 @@ public class NetworkProto : NetworkManager
         {
             if (!IsReadyToStart()) { return; }
 
-            Debug.Log("Test2");
             ServerChangeScene("TestCamera");
         }
     }
@@ -136,8 +135,6 @@ public class NetworkProto : NetworkManager
 
     public override void ServerChangeScene(string newSceneName)
     {
-        Debug.Log("PLAY MUSIC OUTRO " + RoomPlayers.Count);
-
         if (SceneManager.GetActiveScene().name == "Lobby")
         {
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)

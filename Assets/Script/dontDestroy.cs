@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class dontDestroy : NetworkBehaviour
+public class dontDestroy : MonoBehaviour
 {
     public string playerName;
 
@@ -11,10 +11,5 @@ public class dontDestroy : NetworkBehaviour
     {
         DontDestroyOnLoad(gameObject);
         
-    }
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-        playerName = GetComponentInChildren<PlayerData>().playerName;
     }
 }
