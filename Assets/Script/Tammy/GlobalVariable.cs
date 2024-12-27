@@ -4,5 +4,4 @@ using UnityEngine;
 
 public class GlobalVariable : MonoBehaviour
 { 
-    public int nbrPlayer;
 }
