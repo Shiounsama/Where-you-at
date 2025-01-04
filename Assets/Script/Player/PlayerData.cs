@@ -9,21 +9,19 @@ using UnityEngine.InputSystem;
 public class PlayerData : NetworkBehaviour
 {
     [SyncVar]
-    public string role = null;
+    public Role role = Role.None;
+
     [SyncVar]
     public string playerName;
 
-
     public GameObject PremierJoueurSpawn;
     public GameObject DeuxiemeJoueurSpawn;
-
 
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
     public static GameObject PNJcible { get; private set; }
     public GameObject PNJBESOIN;
-
 
     private void Update()
     {
@@ -38,12 +36,19 @@ public class PlayerData : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
+    }
 
-
+    /// <summary>
+    /// Assigne un nouveau rôle au joueur.
+    /// </summary>
+    /// <param name="newRole">Nouveau rôle à assigner.</param>
+    public void AssignRole(Role newRole)
+    {
+        role = newRole;
     }
 
     [Server]
-    public void SetRole(string newRole)
+    public void ServerSetRole(Role newRole)
     {
         role = newRole;
     }
@@ -57,13 +62,11 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            Debug.Log(playerData.playerName);
-
             PremierJoueurSpawn = GameObject.Find("spawn1");
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             ClearOtherTchat();
-            activatePlayer(role);
+            EnablePlayer(role);
         }
     }
 
@@ -156,7 +159,7 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    public void activatePlayer(string role)
+    public void EnablePlayer(Role role)
     {
         IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
         IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
@@ -166,10 +169,9 @@ public class PlayerData : NetworkBehaviour
 
         Camera camPlayer = this.GetComponent<Camera>();
 
-        if (role == "Camera" || role == "Charlie")
+        if (role == Role.Seeker || role == Role.Charlie)
         {
-            GameObject building = GameObject.Find("monde");
-            Debug.Log(building);
+            GameObject building = GameObject.Find("monde"); 
             building.transform.position = new Vector3(0, 0, 0);
 
             this.GetComponent<PlayerInput>().enabled = false;
@@ -196,7 +198,7 @@ public class PlayerData : NetworkBehaviour
             int randomNumber = Random.Range(0, ListPNJ.Count);
             PNJcible = ListPNJ[randomNumber];
 
-            if (role == "Camera")
+            if (role == Role.Seeker)
             {
                 ObjectsStateSetter(charlieObjects, false);
                 ObjectsStateSetter(seekerObjects, true);
@@ -212,7 +214,7 @@ public class PlayerData : NetworkBehaviour
 
             }
 
-            else if (role == "Charlie")
+            else if (role == Role.Charlie)
             {
                 ObjectsStateSetter(seekerObjects, false);
                 ObjectsStateSetter(charlieObjects, true);
@@ -230,7 +232,7 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    public void desactivatePlayer()
+    public void DisablePlayer()
     {
         IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
         IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
@@ -251,4 +253,11 @@ public class PlayerData : NetworkBehaviour
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
     }
 
+}
+
+public enum Role
+{
+    Seeker,
+    Charlie,
+    None
 }

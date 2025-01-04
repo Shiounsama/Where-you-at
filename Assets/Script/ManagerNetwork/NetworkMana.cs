@@ -119,9 +119,8 @@ public class NetworkMana : NetworkManager
         
 
         if (SceneManager.GetActiveScene().name == "VilleJeu") 
-        {
-            scriptManager.giveRole();
-         
+        { 
+            scriptManager.GiveRole();
         }
     }
 
@@ -131,10 +130,12 @@ public class NetworkMana : NetworkManager
         {
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
+                //Debug.Log("Le nom du joueur est : " );
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(JoueurPrefab);
                 PlayerData playerData = gameplayerInstance.GetComponentInChildren<PlayerData>();
                 playerData.playerName = RoomPlayers[i].DisplayName;
+
                 NetworkServer.Destroy(conn.identity.gameObject);
 
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject);
