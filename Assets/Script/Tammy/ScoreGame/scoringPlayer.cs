@@ -17,15 +17,11 @@ public class scoringPlayer : NetworkBehaviour
     [SyncVar]
     public float ScoreFinal;
 
-    [SyncVar]
-    public string playerName;
-
 
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        ServeurName(GetComponent<PlayerData>().playerName);
         finish = false;
     }
 
@@ -68,11 +64,6 @@ public class scoringPlayer : NetworkBehaviour
 
     }
 
-    [Command]
-    private void ServeurName(string newName)
-    {
-        playerName = newName;
-    }
 
     
 

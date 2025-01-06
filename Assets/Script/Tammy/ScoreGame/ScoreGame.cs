@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 using System.Linq;
 using UnityEngine.UI;
 
-public class ScoreGame : NetworkBehaviour
+public class ScoreGame : MonoBehaviour
 {
     public List<scoringPlayer> scoreJoueur;
     public Canvas classementCanvas;

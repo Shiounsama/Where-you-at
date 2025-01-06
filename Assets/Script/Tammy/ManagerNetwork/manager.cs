@@ -13,12 +13,6 @@ public class manager : NetworkBehaviour
 
     public static manager Instance;
 
-    [SyncVar]
-    public int nbrJoueur = 0;
-
-    [SyncVar]
-    public int nbrJoueurRdy = 0;
-
     public bool InGame;
 
     public void Awake()
@@ -72,5 +66,5 @@ public class manager : NetworkBehaviour
         }
     }
 
-
+ 
 }

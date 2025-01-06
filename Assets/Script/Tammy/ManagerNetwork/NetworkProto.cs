@@ -73,7 +73,6 @@ public class NetworkProto : NetworkManager
 
         }
 
-        scriptManager.nbrJoueur--;
         base.OnServerDisconnect(conn);
 
     }
@@ -87,7 +86,7 @@ public class NetworkProto : NetworkManager
 
     public override void OnClientDisconnect()
     {
-        base.OnClientConnect();
+        base.OnClientDisconnect();
 
         OnClientDisconnected?.Invoke();
     }
@@ -101,13 +100,6 @@ public class NetworkProto : NetworkManager
             roomPlayerInstance.IsLeader = isLeader;
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
-
-            //GameObject player = Instantiate(JoueurPrefab);
-            //PlayerData playerData = player.GetComponentInChildren<PlayerData>();
-           // playerData.name = "Player " + conn.connectionId;
-            //playerData.playerName = "Player " + conn.connectionId;
-
-            scriptManager.nbrJoueur++;
         }
     }
 
@@ -139,19 +131,17 @@ public class NetworkProto : NetworkManager
         {
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
-                Debug.Log("Le nom du joueur est : " );
+                Debug.Log("Le nombre de joueur : " + RoomPlayers.Count );
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(JoueurPrefab);
                 PlayerData playerData = gameplayerInstance.GetComponentInChildren<PlayerData>();
                 playerData.playerName = RoomPlayers[i].DisplayName;
-
-                
-
+                Debug.Log("cc ça va ? " + conn.identity.gameObject);
                 NetworkServer.Destroy(conn.identity.gameObject);
 
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject);
 
-                scriptManager.giveRole();
+                //scriptManager.giveRole();
             }
         }
 
