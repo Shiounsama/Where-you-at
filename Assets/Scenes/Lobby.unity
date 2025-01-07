@@ -181,7 +181,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2835407
+<<<<<<< Updated upstream
+      value: 2773490.8
+=======
+      value: 2853485.5
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -547,6 +551,8 @@ MonoBehaviour:
   scriptPlayer: []
   player: []
   testBuilding: {fileID: 0}
+  nbrJoueur: 0
+  nbrJoueurRdy: 0
   InGame: 0
 --- !u!114 &743056745
 MonoBehaviour:
@@ -626,6 +632,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120badc5df4411f469156cbac12cc13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   scoreJoueur: []
   classementCanvas: {fileID: 2075255518}
   parentTransform: {fileID: 0}
@@ -1002,6 +1011,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83df28d2a0f405d419c36666b7e4b1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   playerName: 
 --- !u!1001 &1378581009
 PrefabInstance:

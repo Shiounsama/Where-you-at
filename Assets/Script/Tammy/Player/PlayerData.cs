@@ -54,10 +54,16 @@ public class PlayerData : NetworkBehaviour
         base.OnStopClient();
     }
 
+<<<<<<< Updated upstream
     public void startScene()
+=======
+    public void StartScene(PlayerData playerData)
+>>>>>>> Stashed changes
     {
         if (isLocalPlayer)
         {
+            Debug.Log(playerData.playerName);
+
             PremierJoueurSpawn = GameObject.Find("spawn1");
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
@@ -168,6 +174,7 @@ public class PlayerData : NetworkBehaviour
         if (role == "Camera" || role == "Charlie")
         {
             GameObject building = GameObject.Find("monde");
+            Debug.Log(building);
             building.transform.position = new Vector3(0, 0, 0);
 
             this.GetComponent<PlayerInput>().enabled = false;
