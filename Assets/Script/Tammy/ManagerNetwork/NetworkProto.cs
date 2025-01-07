@@ -124,12 +124,17 @@ public class NetworkProto : NetworkManager
     public override void OnClientSceneChanged()
     {
         base.OnClientSceneChanged();
-        
 
-        if (SceneManager.GetActiveScene().name == "TestCamera") 
+
+        if (SceneManager.GetActiveScene().name == "TestCamera")
         {
+<<<<<<< Updated upstream
             scriptManager.giveRole();
          
+=======
+            scriptManager.GiveRole();
+
+>>>>>>> Stashed changes
         }
     }
 
@@ -151,7 +156,11 @@ public class NetworkProto : NetworkManager
 
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject);
 
+<<<<<<< Updated upstream
                 scriptManager.giveRole();
+=======
+                //scriptManager.GiveRole();
+>>>>>>> Stashed changes
             }
         }
 
