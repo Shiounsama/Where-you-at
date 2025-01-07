@@ -54,8 +54,6 @@ public class PlayerData : NetworkBehaviour
         base.OnStopClient();
     }
 
-
-
     public void StartScene(PlayerData playerData)
     {
         if (isLocalPlayer)
