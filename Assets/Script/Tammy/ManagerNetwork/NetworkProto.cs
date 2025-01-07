@@ -131,17 +131,13 @@ public class NetworkProto : NetworkManager
         {
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
-                Debug.Log("Le nombre de joueur : " + RoomPlayers.Count );
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(JoueurPrefab);
                 PlayerData playerData = gameplayerInstance.GetComponentInChildren<PlayerData>();
                 playerData.playerName = RoomPlayers[i].DisplayName;
-                Debug.Log("cc ça va ? " + conn.identity.gameObject);
                 NetworkServer.Destroy(conn.identity.gameObject);
 
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject);
-
-                //scriptManager.giveRole();
             }
         }
 

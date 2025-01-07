@@ -31,15 +31,6 @@ public class manager : NetworkBehaviour
         {
             ListPNJ.Add(obj);
         }
-
-       /* int randomNumber = Random.Range(0, ListPNJ.Count);
-
-        scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
-        foreach (PlayerData playerscript in scriptPlayer)
-        {
-            playerscript.PNJcible = ListPNJ[randomNumber];
-        }*/
-        
     }
 
     public IEnumerator startGame()
@@ -61,12 +52,7 @@ public class manager : NetworkBehaviour
 
         foreach (PlayerData playerscript in scriptPlayer)
         {
-<<<<<<< Updated upstream
-            playerscript.startScene();
-
-=======
             playerscript.StartScene(playerscript);
->>>>>>> Stashed changes
         }
     }
 

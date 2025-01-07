@@ -54,11 +54,9 @@ public class PlayerData : NetworkBehaviour
         base.OnStopClient();
     }
 
-<<<<<<< Updated upstream
-    public void startScene()
-=======
+
+
     public void StartScene(PlayerData playerData)
->>>>>>> Stashed changes
     {
         if (isLocalPlayer)
         {
