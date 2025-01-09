@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using Org.BouncyCastle.Asn1.Mozilla;
 
 public class manager : NetworkBehaviour
 {
@@ -12,8 +11,6 @@ public class manager : NetworkBehaviour
     public GameObject testBuilding;
 
     public static manager Instance;
-
-    public bool InGame;
 
     public void Awake()
     {

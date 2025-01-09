@@ -11,9 +11,6 @@ public class Camera360 : MonoBehaviour
     private float rotationX = 0f;
     private float rotationY = 0f;
 
-    public float limiteMinZoom = 1f;
-    public float limiteMaxZoom = 3f;
-
     void Update()
     {
 

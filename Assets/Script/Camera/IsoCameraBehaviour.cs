@@ -71,14 +71,6 @@ public class IsoCameraBehaviour : MonoBehaviour
         }
     }
 
-    public void OnSelectObject(InputAction.CallbackContext action)
-    {
-        //if (action.performed && objectLocked == null)
-        //{
-        //    //TrySelectObject();
-        //}
-    }
-
     public void OnRotateCamera(InputAction.CallbackContext action)
     {
         if (action.performed && isRotating <= 0)
@@ -166,16 +158,6 @@ public class IsoCameraBehaviour : MonoBehaviour
         isDragging = false;
     }
 
-    private void TrySelectObject()
-    {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
-        {
-            //objectLocked = hit.transform;
-            //vcam.m_LookAt = objectLocked;
-        }
-    }
-
     // === Shortcut helper methods ===
 
     private Vector3 GetMouseWorldPosition()
@@ -184,13 +166,4 @@ public class IsoCameraBehaviour : MonoBehaviour
         return mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
     }
 
-    private void ResetCameraRotation()
-    {
-        Quaternion targetRota = Quaternion.Euler(cameraInitialRotation.x, cameraInitialRotation.y, cameraInitialRotation.z);
-
-        if (transform.rotation != targetRota)
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRota, Time.deltaTime * 5);
-        }
-    }
 }
