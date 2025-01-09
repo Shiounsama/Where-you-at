@@ -12,7 +12,6 @@ public class PlayerData : NetworkBehaviour
     public string role = null;
     [SyncVar]
     public string playerName;
-    private MessageSystem message;
 
 
     public GameObject PremierJoueurSpawn;
