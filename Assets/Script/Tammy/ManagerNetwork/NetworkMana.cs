@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 
-public class NetworkProto : NetworkManager
+public class NetworkMana : NetworkManager
 {
     [Scene] [SerializeField] private string menuScene = string.Empty;
 
@@ -109,7 +109,7 @@ public class NetworkProto : NetworkManager
         {
             if (!IsReadyToStart()) { return; }
 
-            ServerChangeScene("TestCamera");
+            ServerChangeScene("VilleJeu");
         }
     }
 
@@ -118,7 +118,7 @@ public class NetworkProto : NetworkManager
         base.OnClientSceneChanged();
         
 
-        if (SceneManager.GetActiveScene().name == "TestCamera") 
+        if (SceneManager.GetActiveScene().name == "VilleJeu") 
         {
             scriptManager.giveRole();
          

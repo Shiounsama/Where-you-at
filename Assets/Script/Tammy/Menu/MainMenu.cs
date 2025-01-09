@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private NetworkProto networkManager = null;
+    [SerializeField] private NetworkMana networkManager = null;
 
     [Header("UI")]
     [SerializeField] private GameObject landingPagePanel = null;

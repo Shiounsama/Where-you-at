@@ -17,7 +17,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public string DisplayName = "Loading...";
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
-    private NetworkProto room;
+    private NetworkMana room;
     private bool isLeader;
 
     public bool IsLeader
@@ -29,12 +29,12 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         }
     }
 
-    private NetworkProto Room
+    private NetworkMana Room
     {
         get
         {
             if (room != null) { return room; }
-            return room = NetworkManager.singleton as NetworkProto;
+            return room = NetworkManager.singleton as NetworkMana;
         }
     }
 

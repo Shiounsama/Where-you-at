@@ -134,7 +134,7 @@ public class PlayerData : NetworkBehaviour
 
     public void StartGame()
     {
-        CmdRequestSceneChange("TestCamera");
+        CmdRequestSceneChange("VilleJeu");
     }
 
     [Command]
