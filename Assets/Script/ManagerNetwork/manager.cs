@@ -49,7 +49,10 @@ public class manager : NetworkBehaviour
 
         foreach (PlayerData playerscript in scriptPlayer)
         {
-            playerscript.StartScene(playerscript);
+            if (playerscript.isLocalPlayer)
+            {
+                playerscript.StartScene(playerscript);
+            }
         }
     }
 
