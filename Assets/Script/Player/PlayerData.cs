@@ -22,7 +22,6 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> charlieObjects;
 
     public static GameObject PNJcible { get; private set; }
-    public GameObject PNJBESOIN;
 
 
     private void Update()
@@ -31,28 +30,20 @@ public class PlayerData : NetworkBehaviour
         {
             frontPNJ();
         }
-
-        PNJBESOIN = PNJcible;
     }
 
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-
-
-    }
-
+    //Permet de syncroniser le role de chaque joueur pour tous le monde
     [Server]
     public void SetRole(string newRole)
     {
         role = newRole;
     }
 
-    public override void OnStopClient()
-    {
-        base.OnStopClient();
-    }
-
+    /// <summary>
+    /// Se lance a partir du manager, cette fonction se fait quand la scène VilleJeu se lance
+    /// récupère les spawn pour les joueurs, spawn1 : joueur caché, spawn2 : joueur chercheur
+    /// Ensuite on enlève tous les autres tchat et on active tous les composant + Ui du joueur en fonction de son role
+    /// </summary>
     public void StartScene(PlayerData playerData)
     {
         if (isLocalPlayer)
@@ -67,43 +58,21 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Fais en sorte que les PNJ soient toujours tourner vers les joueurs
+    /// </summary>
     public void frontPNJ()
     {
         if (isLocalPlayer)
         {
-            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
-            GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
-
-            foreach (GameObject obj in allPNJ)
-            {
-                obj.transform.LookAt(transform.position);
-                Vector3 lockedRotation = obj.transform.eulerAngles;
-                lockedRotation.x = 0;
-                lockedRotation.z = 0;
-                obj.transform.eulerAngles = lockedRotation;
-
-                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
-                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
-                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
-
-            }
-
-            foreach (GameObject obj in allPNJPI)
-            {
-                obj.transform.LookAt(transform.position);
-                Vector3 lockedRotation = obj.transform.eulerAngles;
-                lockedRotation.x = 0;
-                lockedRotation.z = 0;
-                obj.transform.eulerAngles = lockedRotation;
-
-                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
-                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
-                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
-
-            }
+            LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
+            LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
         }
     }
 
+    /// <summary>
+    /// Permet d'avoir que le tchat du joueur local et enleve les autres canvas tchat
+    /// </summary>
     public void ClearOtherTchat()
     {
         if (isLocalPlayer)
@@ -131,6 +100,9 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Change la scene ce qui lance les roles et le changements de UI
+    /// </summary>
     public void StartGame()
     {
         CmdRequestSceneChange("VilleJeu");
@@ -145,6 +117,9 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Change l'état des objets
+    /// </summary>
     public void ObjectsStateSetter(List<GameObject> listOfObjectToChangeState, bool setOnObject)
     {
         if (listOfObjectToChangeState.Count > 0)
@@ -156,6 +131,9 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Active l'UI et les script du joueur
+    /// </summary>
     public void activatePlayer(string role)
     {
         IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
@@ -249,6 +227,21 @@ public class PlayerData : NetworkBehaviour
         camRotaIso.enabled = false;
   
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
+    }
+
+    private void LockPNJ(GameObject[] listePNJ)
+    {
+        foreach (GameObject obj in listePNJ)
+        {
+            obj.transform.LookAt(transform.position);
+            Vector3 lockedRotation = obj.transform.eulerAngles;
+            lockedRotation.x = 0;
+            lockedRotation.z = 0;
+            obj.transform.eulerAngles = lockedRotation;
+
+            Rigidbody objRigid = obj.GetComponent<Rigidbody>();
+            objRigid.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        }
     }
 
 }
