@@ -132,7 +132,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Active l'UI et les script du joueur
+    /// Active l'UI et les script du joueur en fonction de son role
     /// </summary>
     public void activatePlayer(string role)
     {
@@ -208,6 +208,9 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// enlève tous les scripts et UI du joueur pour le reset 
+    /// </summary>
     public void desactivatePlayer()
     {
         IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
@@ -229,6 +232,9 @@ public class PlayerData : NetworkBehaviour
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
     }
 
+    /// <summary>
+    /// Fait front les pnjs de la liste donné vers le joueur
+    /// </summary>
     private void LockPNJ(GameObject[] listePNJ)
     {
         foreach (GameObject obj in listePNJ)

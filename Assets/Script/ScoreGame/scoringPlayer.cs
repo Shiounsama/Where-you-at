@@ -18,7 +18,7 @@ public class scoringPlayer : NetworkBehaviour
     public float ScoreFinal;
 
 
-
+    //Quand le joueur rejoint la partie, finish deviens false
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
@@ -31,6 +31,10 @@ public class scoringPlayer : NetworkBehaviour
         StartCoroutine(resultat(newScore));
     }
 
+    /// <summary>
+    /// Le score du joueur deviens la distance entre lui et le PNJ.
+    /// affiche l'UI du score de tous le monde
+    /// </summary>
     public IEnumerator resultat(float newScore)
     {
         ScoreFinal = newScore;
@@ -45,8 +49,6 @@ public class scoringPlayer : NetworkBehaviour
         }
     }
 
-  
-
     [TargetRpc]
     private void TargetShowScoreForPlayer(NetworkConnection target)
     {
@@ -55,19 +57,4 @@ public class scoringPlayer : NetworkBehaviour
             FindObjectOfType<ScoreGame>().showScore();
         }
     }
-
-    [Command]
-    public void montreScore(float newScore)
-    {
-        ScoreFinal = newScore;
-        finish = true;
-
-    }
-
-
-    
-
-
-
-
 }
