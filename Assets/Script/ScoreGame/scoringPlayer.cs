@@ -52,9 +52,36 @@ public class scoringPlayer : NetworkBehaviour
     [TargetRpc]
     private void TargetShowScoreForPlayer(NetworkConnection target)
     {
+        List<scoringPlayer> scoresPlayer = new List<scoringPlayer>(FindObjectsOfType<scoringPlayer>());
+        List<PlayerData> playerNombre = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        int compteurFinish = 0;
+
         if (FindObjectOfType<ScoreGame>().finish)
         {
             FindObjectOfType<ScoreGame>().showScore();
+        }
+
+        foreach(scoringPlayer player in scoresPlayer)
+        {
+            if(player.finish == true)
+            {
+                compteurFinish++;
+            }
+
+            if(compteurFinish == playerNombre.Count - 1 && playerNombre.Count != 1)
+            {
+                foreach(PlayerData playerData in playerNombre)
+                {
+                    if(playerData.role == "Charlie")
+                    {
+                        playerData.desactivatePlayer();
+                        playerData.ObjectsStateSetter(playerData.seekerObjects, false);
+                        playerData.ObjectsStateSetter(playerData.charlieObjects, false);
+                    }
+                }
+
+                FindObjectOfType<ScoreGame>().showScore();
+            }
         }
     }
 }
