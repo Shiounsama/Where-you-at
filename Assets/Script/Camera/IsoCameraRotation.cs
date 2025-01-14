@@ -30,6 +30,11 @@ public class IsoCameraRotation : MonoBehaviour
         {
             RotateCameraAroundPoint(-90);
         }
+
+        //Plane groundPlane = new Plane(Vector3.up, new Vector3(0, objectToRotate.position.y, 0));
+        //Ray ray = new Ray(camIso.transform.position, camIso.transform.forward);
+        //Debug.Log("La camera tombe la : " + groundPlane.Raycast(ray, out float distanceToPlane));
+
     }
 
     void RotateCameraAroundPoint(int rotateAngle)
@@ -41,6 +46,7 @@ public class IsoCameraRotation : MonoBehaviour
 
         Plane groundPlane = new Plane(Vector3.up, new Vector3(0, objectToRotate.position.y, 0));
         Ray ray = new Ray(cameraPosition, cameraDirection);
+
 
         if (groundPlane.Raycast(ray, out float distanceToPlane))
         {
@@ -85,7 +91,7 @@ public class IsoCameraRotation : MonoBehaviour
 
     }
 
-    /*private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Vector3 cameraPosition = camIso.transform.position;
         Vector3 cameraDirection = camIso.transform.forward;
@@ -101,6 +107,6 @@ public class IsoCameraRotation : MonoBehaviour
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(cameraPosition, intersectionPoint);
         }
-    }*/
+    }
 
 }

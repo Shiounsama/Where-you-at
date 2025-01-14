@@ -30,6 +30,7 @@ public class IsoCameraDrag : MonoBehaviour
             directionToMove = GetMouseWorldPosition() - startDraggingMousePos;
             targetPosition = objectOriginPos + directionToMove;
             targetPosition = new Vector3(targetPosition.x * axisLocker.x, targetPosition.y * axisLocker.y, targetPosition.z * axisLocker.z);
+            Debug.Log("Position du déplacement : " + Vector3.Lerp(objectToMove.position, targetPosition, Time.deltaTime * moveSpeed));
             objectToMove.position = Vector3.Lerp(objectToMove.position, targetPosition, Time.deltaTime * moveSpeed);
         }
     }
@@ -50,9 +51,6 @@ public class IsoCameraDrag : MonoBehaviour
             isDragging = false;
         }
     }
-
-    // == Private Methodes == \\
-    // == Shortcut Methodes == \\
 
     private Vector3 GetMouseWorldPosition()
     {
