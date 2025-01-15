@@ -212,13 +212,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3048900.5
+      value: 3060395.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1441148001267812984, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 371048577}
   m_SourcePrefab: {fileID: 100100000, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+--- !u!1 &371048576 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1441148001267812984, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+  m_PrefabInstance: {fileID: 371048575}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &371048577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371048576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01cda53ed0e3014c91cdfb1606478de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cameraToFreeze: {fileID: 0}
 --- !u!1 &443169869
 GameObject:
   m_ObjectHideFlags: 0
