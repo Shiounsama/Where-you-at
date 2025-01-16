@@ -132,7 +132,8 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Active l'UI et les script du joueur en fonction de son role
+    /// Active l'UI et les script du joueur
+    /// en fonction de son role
     /// </summary>
     public void activatePlayer(string role)
     {
