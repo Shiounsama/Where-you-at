@@ -19,6 +19,8 @@ public class IsoCameraZoom : MonoBehaviour
     public float zoomCooldown;
     private float zoomCooldownValue;
 
+    private bool canZoom;
+
     private void Start()
     {
         cameraIso = GetComponent<Camera>();
@@ -29,8 +31,11 @@ public class IsoCameraZoom : MonoBehaviour
         if (zoomCooldownValue >= 0)
         {
             zoomCooldownValue -= Time.deltaTime;
-            cameraIso.orthographicSize = Mathf.Lerp(cameraIso.orthographicSize, actualSize + zoomSensitivity * -zoomDirection, (zoomSpeed/zoomCooldown) * Time.deltaTime);
-            
+
+            if (canZoom)
+            {
+                cameraIso.orthographicSize = Mathf.Lerp(cameraIso.orthographicSize, actualSize + zoomSensitivity * -zoomDirection, (zoomSpeed / zoomCooldown) * Time.deltaTime);
+            }
             //objectToMove.position = Vector3.Lerp(objectToMove.position, zoomTargetPosition, zoomSpeed * Time.deltaTime);
         }
     }
@@ -45,13 +50,13 @@ public class IsoCameraZoom : MonoBehaviour
             zoomCooldownValue = zoomCooldown;
             zoomDirection = context.ReadValue<float>() / 120;
 
-            if (cameraIso.orthographicSize <= zoomLimit.x)
+            if ((actualSize + zoomSensitivity * -zoomDirection) >= zoomLimit.x && (actualSize + zoomSensitivity * -zoomDirection) <= zoomLimit.y)
             {
-                cameraIso.orthographicSize = zoomLimit.x;
+                canZoom = true;
             }
-            if (cameraIso.orthographicSize >= zoomLimit.y)
+            else
             {
-                cameraIso.orthographicSize = zoomLimit.y;
+                canZoom = false;
             }
             //zoomTargetPosition = objectToMove.position + transform.forward * context.ReadValue<float>() / zoomSensitivity;
         }
