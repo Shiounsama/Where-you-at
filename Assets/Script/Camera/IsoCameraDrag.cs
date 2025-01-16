@@ -22,6 +22,9 @@ public class IsoCameraDrag : MonoBehaviour
 
     private bool canMove = true;
 
+    [SerializeField] private Vector3 minLimits; // Limite minimale (x, y, z)
+    [SerializeField] private Vector3 maxLimits; // Limite maximale (x, y, z)
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -35,7 +38,14 @@ public class IsoCameraDrag : MonoBehaviour
         {
             directionToMove = GetMouseWorldPosition() - startDraggingMousePos;
             targetPosition = objectOriginPos + directionToMove;
-            targetPosition = new Vector3(targetPosition.x * axisLocker.x, targetPosition.y * axisLocker.y, targetPosition.z * axisLocker.z);
+
+            targetPosition = new Vector3(targetPosition.x * axisLocker.x,targetPosition.y * axisLocker.y,targetPosition.z * axisLocker.z);
+
+            targetPosition.x = Mathf.Clamp(targetPosition.x, minLimits.x, maxLimits.x);
+            targetPosition.y = Mathf.Clamp(targetPosition.y, minLimits.y, maxLimits.y);
+            targetPosition.z = Mathf.Clamp(targetPosition.z, minLimits.z, maxLimits.z);
+
+            // Déplacer l'objet
             objectToMove.position = Vector3.Lerp(objectToMove.position, targetPosition, Time.deltaTime * moveSpeed);
         }
     }

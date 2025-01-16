@@ -390,6 +390,8 @@ MonoBehaviour:
   moveSpeed: 20
   camIso: {fileID: 1347594404514216364}
   axisLocker: {x: 1, y: 1, z: 1}
+  minLimits: {x: -40, y: -30, z: -20}
+  maxLimits: {x: 50, y: 12, z: 75}
 --- !u!114 &1331415498431507271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,10 +424,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraIso: {fileID: 0}
+  zoomLimit: {x: 0, y: 20}
   zoomDirection: 0
-  zoomSpeed: 4
-  zoomSensitivity: 2
-  zoomCooldown: 0.25
+  zoomSpeed: 5
+  zoomSensitivity: 0.5
+  zoomCooldown: 0.05
 --- !u!114 &6013026304806549834
 MonoBehaviour:
   m_ObjectHideFlags: 0
