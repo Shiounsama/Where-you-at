@@ -12,6 +12,21 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public ScoreGame scoreGame;
 
+    private SeekerView seekerView
+    {
+        get
+        {
+            if (seekerView == null)
+                seekerView = ViewManager.Instance.GetView<SeekerView>();
+
+            return seekerView;
+        }
+        set
+        {
+            seekerView = value;
+        }
+    }
+
     private void Awake()
     {
         cameraSelection = transform.GetComponent<IsoCameraSelection>();
@@ -38,7 +53,7 @@ public class CheckPNJSelected : NetworkBehaviour
             scoreGame.finished = true;
             float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
             score.ServerScore(resultat);
-            cameraSelection.guessButton.SetActive(false);
+            seekerView.guessButton.gameObject.SetActive(false);
         }
     }
 }

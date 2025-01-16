@@ -1,17 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ViewManager : MonoBehaviour
 {
     public static ViewManager Instance { get; private set; }
 
     [SerializeField] private bool autoInitialize;
-    [SerializeField] private View[] views;
+    [SerializeField] private List<View> views = new List<View>();
     [SerializeField] private View defaultView;
 
     private void Awake()
     {
         if (!Instance)
             Instance = this;
+
+        DontDestroyOnLoad(this);
     }
 
     private void Start()
@@ -56,6 +60,18 @@ public class ViewManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Cache tous les panels héritant de View.
+    /// </summary>
+    /// <param name="args"></param>
+    public void HideAll(object args = null)
+    {
+        foreach (var view in views)
+        {
+            view.Hide();
+        }
+    }
+
+    /// <summary>
     /// Renvoie un script TView héritant de View.
     /// </summary>
     /// <typeparam name="TView">Classe héritant de View.</typeparam>
@@ -72,5 +88,10 @@ public class ViewManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void AddView(View view)
+    {
+        views.Add(view);
     }
 } 

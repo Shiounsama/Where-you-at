@@ -13,8 +13,6 @@ public class TchatPlayer : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         generalTchatManager = FindObjectOfType<TchatManager>();
-
-        
     }
 
     public void SendMessage()
@@ -42,5 +40,4 @@ public class TchatPlayer : NetworkBehaviour
     {
         TchatManager.Instance.AddMessage(message, transform.parent.GetComponentInChildren<PlayerData>().playerName);
     }
-
 }

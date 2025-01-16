@@ -169,7 +169,7 @@ public class PlayerData : NetworkBehaviour
 
         Camera camPlayer = this.GetComponent<Camera>();
 
-        if (role == Role.Seeker || role == Role.Charlie)
+        if (role != Role.None)
         {
             GameObject building = GameObject.Find("monde"); 
             building.transform.position = new Vector3(0, 0, 0);
@@ -200,8 +200,16 @@ public class PlayerData : NetworkBehaviour
 
             if (role == Role.Seeker)
             {
+                Debug.Log("Seeker view");
+                SeekerView seekerView = transform.parent.GetComponentInChildren<SeekerView>(true);
+                ViewManager.Instance.AddView(seekerView);
+                ViewManager.Instance.GetView<SeekerView>().Initialize();
+
                 ObjectsStateSetter(charlieObjects, false);
                 ObjectsStateSetter(seekerObjects, true);
+
+                ViewManager.Instance.Show<SeekerView>();
+
                 camDragIso.enabled = true;
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
@@ -214,10 +222,17 @@ public class PlayerData : NetworkBehaviour
 
             }
 
-            else if (role == Role.Charlie)
+            else if (role == Role.Lost)
             {
-                ObjectsStateSetter(seekerObjects, false);
+                LostView lostView = transform.parent.GetComponentInChildren<LostView>(true);
+                ViewManager.Instance.AddView(lostView);
+                ViewManager.Instance.GetView<SeekerView>().Initialize();
+
                 ObjectsStateSetter(charlieObjects, true);
+                ObjectsStateSetter(seekerObjects, false);
+
+                ViewManager.Instance.Show<LostView>();
+
                 frontPNJ();
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
@@ -258,6 +273,6 @@ public class PlayerData : NetworkBehaviour
 public enum Role
 {
     Seeker,
-    Charlie,
+    Lost,
     None
 }

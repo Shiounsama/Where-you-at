@@ -7,18 +7,27 @@ public class IsoCameraSelection : MonoBehaviour
 
     public LayerMask layerToVerify;
 
-    public GameObject guessButton;
+    private SeekerView _seekerView;
 
-   
+    private void Awake()
+    {
+        _seekerView = ViewManager.Instance.GetView<SeekerView>();
+    }
+
     public void OnObjectSelected(InputAction.CallbackContext context)
     {
+        if (!_seekerView)
+            _seekerView = ViewManager.Instance.GetView<SeekerView>();
+
         if (context.performed)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
             {
                 selectedObject = hit.transform;
-                guessButton.SetActive(true);
+
+                _seekerView.guessButton.gameObject.SetActive(true);
             }
         }
     }
@@ -28,7 +37,7 @@ public class IsoCameraSelection : MonoBehaviour
         if (context.performed)
         {
             selectedObject = null;
-            guessButton.SetActive(false);
+            _seekerView.guessButton.gameObject.SetActive(false);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LeaderboardView : View
 {
@@ -9,6 +10,29 @@ public class LeaderboardView : View
 
     private List<ScoreElement> scoreElements = new List<ScoreElement>();
 
+    [Header("Buttons")]
+    public Button restartButton;
+
+    public override void Initialize()
+    {
+        restartButton.onClick.AddListener(OnClick_RestartButton);
+
+        base.Initialize();
+    }
+
+    #region Button Events
+    /// <summary>
+    /// Efface le leaderboard et cache tous les panels.
+    /// </summary>
+    private void OnClick_RestartButton()
+    {
+        ClearLeaderboard();
+        ViewManager.Instance.HideAll();
+        manager.Instance.NextRound();
+    }
+    #endregion
+
+    #region Score
     /// <summary>
     /// Ajoute un nouveau score au leaderboard.
     /// </summary>
@@ -39,4 +63,5 @@ public class LeaderboardView : View
 
         scoreElements.Clear();
     }
+    #endregion
 }

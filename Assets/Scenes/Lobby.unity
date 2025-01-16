@@ -212,7 +212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3056058.8
+      value: 3370865
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -243,6 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreElementPrefab: {fileID: 4228281338085362560, guid: 74dd967b38f79c442812fc4b211d3727, type: 3}
   scoresLayout: {fileID: 2144195614}
+  restartButton: {fileID: 687974132}
 --- !u!114 &506093231 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2707727528792830603, guid: 03eb1cca29f90794284a1e594137fb6f, type: 3}
@@ -332,6 +333,17 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!114 &687974132 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1973816502360582938, guid: 9d68210fd3369034c88d8506744a0c32, type: 3}
+  m_PrefabInstance: {fileID: 623363757253649102}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,7 +769,7 @@ MonoBehaviour:
   autoInitialize: 0
   views:
   - {fileID: 443169873}
-  defaultView: {fileID: 443169873}
+  defaultView: {fileID: 0}
 --- !u!4 &802846458
 Transform:
   m_ObjectHideFlags: 0
