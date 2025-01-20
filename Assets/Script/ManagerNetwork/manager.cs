@@ -7,8 +7,8 @@ public class manager : NetworkBehaviour
 {
 
     public List<PlayerData> scriptPlayer;
+    // Liste les joueurs grâce aux script Player data
     public List<GameObject> player;
-    public GameObject testBuilding;
 
     public static manager Instance;
 
@@ -17,7 +17,9 @@ public class manager : NetworkBehaviour
         Instance = this;
         
     }
-
+    /// <summary>
+    /// Selectionne tous les joueurs dans la partie et donne à une personne le rôle charlie
+    /// </summary>
     public void giveRole()
     {
         StartCoroutine(startGame());

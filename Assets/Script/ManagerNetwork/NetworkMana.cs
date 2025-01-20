@@ -13,22 +13,25 @@ public class NetworkMana : NetworkManager
     [Header ("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
 
-
-
+    //Le minimum de joueurs pour que le bouton start se débloque
     [SerializeField] private int minPlayers = 1;
+
     public GameObject JoueurPrefab;
 
     public manager scriptManager;
 
     public seed seedScript;
 
+    //Event pour la connection et deconnection des joueurs
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
 
     public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
 
 
-
+    /// <summary>
+    /// se lance quand on créer le lobby et host le serveur, crée une seed et fait spawn le lobby
+    /// </summary>
     public override void OnStartServer()
     {
         seedScript.SeedValue = UnityEngine.Random.Range(0, 90000);
@@ -36,6 +39,10 @@ public class NetworkMana : NetworkManager
 
     }
 
+
+    /// <summary>
+    /// Se lance quand une personne lance le jeu, permet au joueur d'avoir une identité
+    /// </summary>
     public override void OnStartClient()
     {
         var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
@@ -46,9 +53,12 @@ public class NetworkMana : NetworkManager
         }
     }
 
+    /// <summary>
+    /// Se lance quand une personne se connecte au serveur, s'il y a 5 personne dans le lobby ou si la scene n'est pas le lobby, le déconnecte
+    /// </summary>
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
-        if (numPlayers >= maxConnections)
+        if (numPlayers > 5)
         {
             conn.Disconnect();
             return;
@@ -61,6 +71,9 @@ public class NetworkMana : NetworkManager
         }
     }
 
+    /// <summary>
+    /// Quand la personne se déconnecte du serveur, remets le readyState et le fait quitter
+    /// </summary>
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         if (conn.identity != null)
@@ -91,6 +104,9 @@ public class NetworkMana : NetworkManager
         OnClientDisconnected?.Invoke();
     }
 
+    /// <summary>
+    /// Quand le premier joueur rejoint, il devient l'host, les autres sont juste instancier
+    /// </summary>
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         if (SceneManager.GetActiveScene().name == "Lobby")
@@ -124,7 +140,9 @@ public class NetworkMana : NetworkManager
          
         }
     }
-
+    /// <summary>
+    /// Change la scène et créer le joueur avec la camera
+    /// </summary>
     public override void ServerChangeScene(string newSceneName)
     {
         if (SceneManager.GetActiveScene().name == "Lobby")

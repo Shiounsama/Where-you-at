@@ -13,8 +13,10 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[5];
     [SerializeField] private Button startGameButton = null;
 
+    //Mets loading... au nom jusqu'a que le joueur en mette un, Quand le joueur change le nom, lance la fonction HandleDisplayNameChanged
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";
+    //Lance la fonction HandleReaduStatusChanged quand l'état change
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
     private NetworkMana room;
@@ -41,7 +43,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public override void OnStartAuthority()
     {
         CmdSetDisplayName(PlayerNameInput.DisplayName);
-        //List<PlayerData> playerData = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         lobbyUI.SetActive(true);
     }
 
