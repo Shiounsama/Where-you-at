@@ -46,18 +46,22 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         lobbyUI.SetActive(true);
     }
 
+    /// <summary>
+    /// Quand le joueur est ajouté à un client, l'ajoute dans le lobby et mets a jour son affichage
+    /// </summary>
     public override void OnStartClient()
     {
-        Room.RoomPlayers.Add(this);
-
-        UpdateDisplay();
+        Room.RoomPlayers.Add(this); 
+        UpdateDisplay(); 
     }
 
+    /// <summary>
+    /// Quand le joueur est enlevé du client, retire le joueur de la liste et mets a jour l'affichage du lobby
+    /// </summary>
     public override void OnStopClient()
     {
-        Room.RoomPlayers.Remove(this);
-
-        UpdateDisplay();
+        Room.RoomPlayers.Remove(this); 
+        UpdateDisplay(); 
     }
 
     public void HandleReadyStatusChanged(bool oldValue, bool newValue) => UpdateDisplay();
@@ -66,30 +70,29 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     private void UpdateDisplay()
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer) 
         {
             foreach (var player in Room.RoomPlayers)
             {
-                if (player.isLocalPlayer)
+                if (player.isLocalPlayer) 
                 {
                     player.UpdateDisplay();
                     break;
                 }
             }
-
             return;
         }
 
         for (int i = 0; i < playerNameTexts.Length; i++)
         {
-            playerNameTexts[i].text = "Waiting For Player...";
-            playerReadyTexts[i].text = string.Empty;
+            playerNameTexts[i].text = "Waiting For Player..."; 
+            playerReadyTexts[i].text = string.Empty; 
         }
 
         for (int i = 0; i < Room.RoomPlayers.Count; i++)
         {
             playerNameTexts[i].text = Room.RoomPlayers[i].DisplayName;
-            playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ?
+            playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ? 
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
         }
@@ -97,29 +100,27 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public void HandleReadyToStart(bool readyToStart)
     {
-        if (!isLeader) { return; }
-        startGameButton.interactable = readyToStart;
+        if (!isLeader) { return; } 
+        startGameButton.interactable = readyToStart; 
     }
 
     [Command]
     private void CmdSetDisplayName(string displayName)
     {
-        DisplayName = displayName;
+        DisplayName = displayName; 
     }
 
     [Command]
     public void CmdReadyUp()
     {
-        IsReady = !IsReady;
-
-        Room.NotifyPlayersOfReadyState();
+        IsReady = !IsReady; 
+        Room.NotifyPlayersOfReadyState(); 
     }
 
     [Command]
     public void CmdStartGame()
     {
         if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
-        Room.StartGame();   
-
+        Room.StartGame(); 
     }
 }

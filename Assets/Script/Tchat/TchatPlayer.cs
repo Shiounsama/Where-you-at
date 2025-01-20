@@ -9,14 +9,16 @@ public class TchatPlayer : NetworkBehaviour
 
     public TchatManager generalTchatManager;
 
+    //Attrape le script tchatManager quand il arrive dans le lobby
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
         generalTchatManager = FindObjectOfType<TchatManager>();
-
-        
     }
 
+    /// <summary>
+    /// attrape le message écrit et grace au tchatManager l'envoie a tous le monde 
+    /// </summary>
     public void SendMessage()
     {
         if (isLocalPlayer)

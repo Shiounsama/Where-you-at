@@ -40,6 +40,11 @@ public class TchatManager : NetworkBehaviour
         base.OnStartServer();
     }
 
+    /// <summary>
+    /// Ajoute le message dans le tchat, seul le serveur envoie le message a tous le monde
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="sender"></param>
     [Server]
     public void AddMessage(string message, string sender)
     {
@@ -57,6 +62,9 @@ public class TchatManager : NetworkBehaviour
         actualMessage.GetComponent<TextMeshProUGUI>().text = fullMessage;
     }
 
+    /// <summary>
+    /// Enleve les messages du tchat de tous les joueurs
+    /// </summary>
     public void clearTchat()
     {
         messageCount = 0;

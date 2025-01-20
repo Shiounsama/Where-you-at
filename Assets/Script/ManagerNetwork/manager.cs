@@ -12,6 +12,7 @@ public class manager : NetworkBehaviour
 
     public static manager Instance;
 
+    public bool VuDuHaut = false;
     public void Awake()
     {
         Instance = this;
@@ -44,8 +45,11 @@ public class manager : NetworkBehaviour
 
         }
 
-        int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().role = "Charlie";
+        if (VuDuHaut == false)
+        {
+            int nbrRandom = Random.Range(0, player.Count);
+            player[nbrRandom].GetComponent<PlayerData>().role = "Charlie";
+        }
 
         yield return new WaitForSeconds(2f);
 

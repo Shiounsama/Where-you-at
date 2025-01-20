@@ -15,9 +15,8 @@ public class JoinLobbyMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        NetworkMana.OnClientConnected += HandleClientConnected ;
+        NetworkMana.OnClientConnected += HandleClientConnected;
         NetworkMana.OnClientDisconnected += HandleClientDisconnected;
-
     }
 
     private void OnDisable()
@@ -26,11 +25,15 @@ public class JoinLobbyMenu : MonoBehaviour
         NetworkMana.OnClientDisconnected -= HandleClientDisconnected;
     }
 
+    /// <summary>
+    /// Quand on appuie sur le bouton rejoindre, prends l'adresse IP rentré et l'utilise pour se connecter au serveur
+    /// On évite le multiclick en désactivant le bouton et on active la nouvelle UI
+    /// </summary>
     public void JoinLobby()
     {
         string ipAddress = ipAddressInputField.text;
-
         networkManager.networkAddress = ipAddress;
+
         networkManager.StartClient();
 
         gameObject.SetActive(false);
@@ -39,6 +42,7 @@ public class JoinLobbyMenu : MonoBehaviour
         joinButton.interactable = false;
     }
 
+    
     private void HandleClientConnected()
     {
         joinButton.interactable = true;

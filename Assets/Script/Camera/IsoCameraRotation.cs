@@ -30,6 +30,16 @@ public class IsoCameraRotation : MonoBehaviour
         {
             RotateCameraAroundPoint(-90);
         }
+
+        Plane groundPlane = new Plane(Vector3.up, new Vector3(0, objectToRotate.position.y, 0));
+        Ray ray = new Ray(camIso.transform.position, camIso.transform.forward);
+        float enter;
+
+        if (groundPlane.Raycast(ray, out enter))
+        {
+            Vector3 hitPoint = ray.GetPoint(enter); 
+        }
+
     }
 
     void RotateCameraAroundPoint(int rotateAngle)
@@ -41,6 +51,7 @@ public class IsoCameraRotation : MonoBehaviour
 
         Plane groundPlane = new Plane(Vector3.up, new Vector3(0, objectToRotate.position.y, 0));
         Ray ray = new Ray(cameraPosition, cameraDirection);
+
 
         if (groundPlane.Raycast(ray, out float distanceToPlane))
         {

@@ -18,7 +18,7 @@ public class scoringPlayer : NetworkBehaviour
     public float ScoreFinal;
 
 
-
+    //Quand le joueur rejoint la partie, finish deviens false
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
@@ -31,6 +31,10 @@ public class scoringPlayer : NetworkBehaviour
         StartCoroutine(resultat(newScore));
     }
 
+    /// <summary>
+    /// Le score du joueur deviens la distance entre lui et le PNJ.
+    /// affiche l'UI du score de tous le monde
+    /// </summary>
     public IEnumerator resultat(float newScore)
     {
         ScoreFinal = newScore;
@@ -45,29 +49,39 @@ public class scoringPlayer : NetworkBehaviour
         }
     }
 
-  
-
     [TargetRpc]
     private void TargetShowScoreForPlayer(NetworkConnection target)
     {
+        List<scoringPlayer> scoresPlayer = new List<scoringPlayer>(FindObjectsOfType<scoringPlayer>());
+        List<PlayerData> playerNombre = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        int compteurFinish = 0;
+
         if (FindObjectOfType<ScoreGame>().finish)
         {
             FindObjectOfType<ScoreGame>().showScore();
         }
+
+        foreach(scoringPlayer player in scoresPlayer)
+        {
+            if(player.finish == true)
+            {
+                compteurFinish++;
+            }
+
+            if(compteurFinish == playerNombre.Count - 1 && playerNombre.Count != 1)
+            {
+                foreach(PlayerData playerData in playerNombre)
+                {
+                    if(playerData.role == "Charlie")
+                    {
+                        playerData.desactivatePlayer();
+                        playerData.ObjectsStateSetter(playerData.seekerObjects, false);
+                        playerData.ObjectsStateSetter(playerData.charlieObjects, false);
+                    }
+                }
+
+                FindObjectOfType<ScoreGame>().showScore();
+            }
+        }
     }
-
-    [Command]
-    public void montreScore(float newScore)
-    {
-        ScoreFinal = newScore;
-        finish = true;
-
-    }
-
-
-    
-
-
-
-
 }

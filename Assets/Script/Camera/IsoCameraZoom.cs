@@ -9,6 +9,8 @@ public class IsoCameraZoom : MonoBehaviour
     //private Vector3 directionToMove;
     //private Vector3 zoomTargetPosition;
 
+    public Vector2 zoomLimit;
+
     public float zoomDirection;
     public float zoomSpeed;
     public float zoomSensitivity;
@@ -28,10 +30,7 @@ public class IsoCameraZoom : MonoBehaviour
         {
             zoomCooldownValue -= Time.deltaTime;
             cameraIso.orthographicSize = Mathf.Lerp(cameraIso.orthographicSize, actualSize + zoomSensitivity * -zoomDirection, (zoomSpeed/zoomCooldown) * Time.deltaTime);
-            if (cameraIso.orthographicSize <= 1)
-            {
-                cameraIso.orthographicSize = 1;
-            }
+            
             //objectToMove.position = Vector3.Lerp(objectToMove.position, zoomTargetPosition, zoomSpeed * Time.deltaTime);
         }
     }
@@ -45,6 +44,15 @@ public class IsoCameraZoom : MonoBehaviour
             actualSize = cameraIso.orthographicSize;
             zoomCooldownValue = zoomCooldown;
             zoomDirection = context.ReadValue<float>() / 120;
+
+            if (cameraIso.orthographicSize <= zoomLimit.x)
+            {
+                cameraIso.orthographicSize = zoomLimit.x;
+            }
+            if (cameraIso.orthographicSize >= zoomLimit.y)
+            {
+                cameraIso.orthographicSize = zoomLimit.y;
+            }
             //zoomTargetPosition = objectToMove.position + transform.forward * context.ReadValue<float>() / zoomSensitivity;
         }
     }

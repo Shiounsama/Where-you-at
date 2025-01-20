@@ -17,7 +17,10 @@ public class ScoreGame : MonoBehaviour
 
     
 
-
+    /// <summary>
+    /// Récupère dans ne liste tous les joueurs avec un script scoringPlayer
+    /// tri la list avec tous les joueurs qui ont validé leurs choix puis tri la liste du plus proche au plus loin
+    /// </summary>
     public void showScore()
     {
         scoreJoueur = new List<scoringPlayer>(FindObjectsOfType<scoringPlayer>());
@@ -25,6 +28,7 @@ public class ScoreGame : MonoBehaviour
 
         AfficherClassement(scoreJoueur);
     }
+
 
     void AfficherClassement(List<scoringPlayer> scores)
     {

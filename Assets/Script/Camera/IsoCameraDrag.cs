@@ -9,6 +9,8 @@ public class IsoCameraDrag : MonoBehaviour
 
     public float moveSpeed;
 
+    public Camera camIso;
+
     private Vector3 startDraggingMousePos;
     private Vector3 cameraPosOrigin;
     private Vector3 directionToMove;
@@ -18,6 +20,11 @@ public class IsoCameraDrag : MonoBehaviour
 
     private Camera mainCamera;
 
+    private bool canMove = true;
+
+    [SerializeField] private Vector3 minLimits; // Limite minimale (x, y, z)
+    [SerializeField] private Vector3 maxLimits; // Limite maximale (x, y, z)
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -25,16 +32,25 @@ public class IsoCameraDrag : MonoBehaviour
 
     private void Update()
     {
+        CheckRayIntersection();
+
         if (isDragging)
         {
             directionToMove = GetMouseWorldPosition() - startDraggingMousePos;
             targetPosition = objectOriginPos + directionToMove;
-            targetPosition = new Vector3(targetPosition.x * axisLocker.x, targetPosition.y * axisLocker.y, targetPosition.z * axisLocker.z);
+
+            targetPosition = new Vector3(targetPosition.x * axisLocker.x,targetPosition.y * axisLocker.y,targetPosition.z * axisLocker.z);
+
+            targetPosition.x = Mathf.Clamp(targetPosition.x, minLimits.x, maxLimits.x);
+            targetPosition.y = Mathf.Clamp(targetPosition.y, minLimits.y, maxLimits.y);
+            targetPosition.z = Mathf.Clamp(targetPosition.z, minLimits.z, maxLimits.z);
+
+            // Déplacer l'objet
             objectToMove.position = Vector3.Lerp(objectToMove.position, targetPosition, Time.deltaTime * moveSpeed);
         }
     }
 
-    // == Public Methodes == \\
+    // == Public Methods == \\
 
     public void OnDragAction(InputAction.CallbackContext context)
     {
@@ -51,12 +67,51 @@ public class IsoCameraDrag : MonoBehaviour
         }
     }
 
-    // == Private Methodes == \\
-    // == Shortcut Methodes == \\
-
     private Vector3 GetMouseWorldPosition()
     {
-        // Convert mouse screen position to world position
         return mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
+    }
+
+    private void CheckRayIntersection()
+    {
+        if (camIso == null || objectToMove == null) return;
+
+        Vector3 cameraPosition = camIso.transform.position;
+        Vector3 cameraDirection = camIso.transform.forward;
+        Plane groundPlane = new Plane(Vector3.up, new Vector3(0, objectToMove.position.y, 0));
+        Ray ray = new Ray(cameraPosition, cameraDirection);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            canMove = true;
+        }
+        else
+        {
+            canMove = false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (camIso == null || objectToMove == null) return;
+
+        Vector3 cameraPosition = camIso.transform.position;
+        Vector3 cameraDirection = camIso.transform.forward;
+
+        Ray ray = new Ray(cameraPosition, cameraDirection);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(cameraPosition, hitInfo.point);
+
+            Gizmos.color = canMove ? Color.green : Color.red;
+            Gizmos.DrawSphere(hitInfo.point, 0.2f);
+        }
+        else
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(cameraPosition, cameraPosition + cameraDirection * 100f);
+        }
     }
 }
