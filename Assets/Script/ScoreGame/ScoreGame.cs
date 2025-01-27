@@ -15,13 +15,11 @@ public class ScoreGame : MonoBehaviour
     public Button restartButtonPrefab;
     public GameObject BackgroundImage;
 
-    
-
     /// <summary>
     /// Récupère dans ne liste tous les joueurs avec un script scoringPlayer
     /// tri la list avec tous les joueurs qui ont validé leurs choix puis tri la liste du plus proche au plus loin
     /// </summary>
-    public void showScore()
+    public void ShowScore()
     {
         playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         playersScores = playersScores.Where(score => score.finished).OrderBy(scoreJoueur => scoreJoueur.finalScore).ToList();
