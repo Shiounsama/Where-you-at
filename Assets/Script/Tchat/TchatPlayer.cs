@@ -44,5 +44,4 @@ public class TchatPlayer : NetworkBehaviour
     {
         TchatManager.Instance.AddMessage(message, transform.parent.GetComponentInChildren<PlayerData>().playerName);
     }
-
 }
