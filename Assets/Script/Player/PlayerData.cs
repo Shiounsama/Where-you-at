@@ -9,20 +9,18 @@ using UnityEngine.InputSystem;
 public class PlayerData : NetworkBehaviour
 {
     [SyncVar]
-    public string role = null;
+    public Role role = Role.None;
+
     [SyncVar]
     public string playerName;
 
-
     public GameObject PremierJoueurSpawn;
     public GameObject DeuxiemeJoueurSpawn;
-
 
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
     public static GameObject PNJcible { get; private set; }
-
 
     private void Update()
     {
@@ -32,9 +30,26 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    //Permet de syncroniser le role de chaque joueur pour tous le monde
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+    }
+
+    /// <summary>
+    /// Assigne un nouveau rôle au joueur.
+    /// </summary>
+    /// <param name="newRole">Nouveau rôle à assigner.</param>
+    public void AssignRole(Role newRole)
+    {
+        role = newRole;
+    }
+
+    /// <summary>
+    /// Permet de syncroniser le role de chaque joueur pour tous le monde.
+    /// </summary>
+    /// <param name="newRole"></param>
     [Server]
-    public void SetRole(string newRole)
+    public void ServerSetRole(Role newRole)
     {
         role = newRole;
     }
@@ -48,13 +63,11 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            Debug.Log(playerData.playerName);
-
             PremierJoueurSpawn = GameObject.Find("spawn1");
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             ClearOtherTchat();
-            activatePlayer(role);
+            EnablePlayer(role);
         }
     }
 
@@ -65,8 +78,38 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
-            LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+            GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
+
+            foreach (GameObject obj in allPNJ)
+            {
+                obj.transform.LookAt(transform.position);
+                Vector3 lockedRotation = obj.transform.eulerAngles;
+                lockedRotation.x = 0;
+                lockedRotation.z = 0;
+                obj.transform.eulerAngles = lockedRotation;
+
+                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
+                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
+                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
+
+            }
+
+            foreach (GameObject obj in allPNJPI)
+            {
+                obj.transform.LookAt(transform.position);
+                Vector3 lockedRotation = obj.transform.eulerAngles;
+                lockedRotation.x = 0;
+                lockedRotation.z = 0;
+                obj.transform.eulerAngles = lockedRotation;
+
+                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
+                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
+                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
+
+                LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
+                LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
+            }
         }
     }
 
@@ -135,7 +178,7 @@ public class PlayerData : NetworkBehaviour
     /// Active l'UI et les script du joueur
     /// en fonction de son role
     /// </summary>
-    public void activatePlayer(string role)
+    public void EnablePlayer(Role role)
     {
         IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
         IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
@@ -145,10 +188,9 @@ public class PlayerData : NetworkBehaviour
 
         Camera camPlayer = this.GetComponent<Camera>();
 
-        if (role == "Camera" || role == "Charlie")
+        if (role != Role.None)
         {
-            GameObject building = GameObject.Find("monde");
-            Debug.Log(building);
+            GameObject building = GameObject.Find("monde"); 
             building.transform.position = new Vector3(0, 0, 0);
 
             this.GetComponent<PlayerInput>().enabled = false;
@@ -175,10 +217,18 @@ public class PlayerData : NetworkBehaviour
             int randomNumber = Random.Range(0, ListPNJ.Count);
             PNJcible = ListPNJ[randomNumber];
 
-            if (role == "Camera")
+            if (role == Role.Seeker)
             {
+                Debug.Log("Seeker view");
+                SeekerView seekerView = transform.parent.GetComponentInChildren<SeekerView>(true);
+                ViewManager.Instance.AddView(seekerView);
+                ViewManager.Instance.GetView<SeekerView>().Initialize();
+
                 ObjectsStateSetter(charlieObjects, false);
                 ObjectsStateSetter(seekerObjects, true);
+
+                ViewManager.Instance.Show<SeekerView>();
+
                 camDragIso.enabled = true;
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
@@ -191,10 +241,17 @@ public class PlayerData : NetworkBehaviour
 
             }
 
-            else if (role == "Charlie")
+            else if (role == Role.Lost)
             {
-                ObjectsStateSetter(seekerObjects, false);
+                LostView lostView = transform.parent.GetComponentInChildren<LostView>(true);
+                ViewManager.Instance.AddView(lostView);
+                ViewManager.Instance.GetView<SeekerView>().Initialize();
+
                 ObjectsStateSetter(charlieObjects, true);
+                ObjectsStateSetter(seekerObjects, false);
+
+                ViewManager.Instance.Show<LostView>();
+
                 frontPNJ();
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
@@ -212,7 +269,7 @@ public class PlayerData : NetworkBehaviour
     /// <summary>
     /// enlève tous les scripts et UI du joueur pour le reset 
     /// </summary>
-    public void desactivatePlayer()
+    public void DisablePlayer()
     {
         IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
         IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();

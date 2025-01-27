@@ -8,14 +8,29 @@ public class CheckPNJSelected : NetworkBehaviour
 {
     public IsoCameraSelection cameraSelection;
 
-    public scoringPlayer score;
+    public PlayerScoring score;
 
     public ScoreGame scoreGame;
+
+    private SeekerView seekerView
+    {
+        get
+        {
+            if (seekerView == null)
+                seekerView = ViewManager.Instance.GetView<SeekerView>();
+
+            return seekerView;
+        }
+        set
+        {
+            seekerView = value;
+        }
+    }
 
     private void Awake()
     {
         cameraSelection = transform.GetComponent<IsoCameraSelection>();
-        score = this.GetComponent<scoringPlayer>();
+        score = this.GetComponent<PlayerScoring>();
         scoreGame = GameObject.FindObjectOfType<ScoreGame>();
     }
 
@@ -35,11 +50,10 @@ public class CheckPNJSelected : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            scoreGame.finish = true;
+            scoreGame.finished = true;
             float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-            score.ServeurScore(resultat);
-            cameraSelection.ButtonToValidateCanvas.SetActive(false);
+            score.ServerScore(resultat);
+            seekerView.guessButton.gameObject.SetActive(false);
         }
-
     }
 }

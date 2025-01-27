@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class ScoreGame : MonoBehaviour
 {
-    public List<scoringPlayer> scoreJoueur;
+    public List<PlayerScoring> playersScores;
     public Canvas classementCanvas;
     public Transform parentTransform;
-    public bool finish = false;
+    public bool finished = false;
 
     private Button restartButton;
     public Button restartButtonPrefab;
@@ -23,14 +23,13 @@ public class ScoreGame : MonoBehaviour
     /// </summary>
     public void showScore()
     {
-        scoreJoueur = new List<scoringPlayer>(FindObjectsOfType<scoringPlayer>());
-        scoreJoueur = scoreJoueur.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
+        playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        playersScores = playersScores.Where(score => score.finished).OrderBy(scoreJoueur => scoreJoueur.finalScore).ToList();
 
-        AfficherClassement(scoreJoueur);
+        ShowLeaderboard(playersScores);
     }
 
-
-    void AfficherClassement(List<scoringPlayer> scores)
+    private void ShowLeaderboard(List<PlayerScoring> scores)
     {
         classementCanvas.enabled = true;
 
@@ -44,33 +43,20 @@ public class ScoreGame : MonoBehaviour
             }
         }
 
+        LeaderboardView leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
+
+        ViewManager.Instance.Show<LeaderboardView>();
 
         for (int i = 0; i < scores.Count; i++)
         {
-            
-            GameObject textObject = new GameObject($"Entry_{i + 1}");
-            textObject.transform.SetParent(parentTransform);
+            PlayerData currentPlayerData = scores[i].GetComponent<PlayerData>();
+            PlayerScoring currentPlayerScoring = playersScores[i];
 
-            Text textComponent = textObject.AddComponent<Text>();
-            textComponent.text = $"{i + 1} - {scores[i].transform.parent.GetComponentInChildren<PlayerData>().playerName} avec {scores[i].ScoreFinal} mètres";
+            leaderboardView.AddScore(currentPlayerScoring);
 
-            textComponent.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
-            textComponent.fontSize = 24;
-            textComponent.color = Color.black;
-            textComponent.alignment = TextAnchor.MiddleCenter;
-
-            RectTransform rectTransform = textObject.GetComponent<RectTransform>();
-            rectTransform.sizeDelta = new Vector2(400, 30);
-            rectTransform.anchoredPosition = new Vector2(0, -i * 35);
-
-            scores[i].GetComponent<PlayerData>().desactivatePlayer();
-            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
-            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
-
-            BackgroundImage.SetActive(true);
-
+            currentPlayerData.DisablePlayer();
+            currentPlayerData.ObjectsStateSetter(currentPlayerData.seekerObjects, false);
+            currentPlayerData.ObjectsStateSetter(currentPlayerData.charlieObjects, false);
         }
     }
-
-    
 }
