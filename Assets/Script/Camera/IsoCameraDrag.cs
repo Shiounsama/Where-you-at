@@ -80,7 +80,7 @@ public class IsoCameraDrag : MonoBehaviour
         Vector3 cameraDirection = camIso.transform.forward;
         Ray ray = new Ray(cameraPosition, cameraDirection);
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, ~0, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity))
         {
             if (hitInfo.collider.CompareTag("Map") || hitInfo.collider.CompareTag("spawner"))
             {
