@@ -17,6 +17,8 @@ public class IsoCameraRotation : MonoBehaviour
     public Camera camIso;
     public float transitionDuration = 1.0f;
 
+    public static int cameraPositionRotation = 0;
+
     private bool isTransitioning = false;
 
     private void Update()

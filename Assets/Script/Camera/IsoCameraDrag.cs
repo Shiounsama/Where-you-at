@@ -20,14 +20,17 @@ public class IsoCameraDrag : MonoBehaviour
 
     private Camera mainCamera;
 
-    private bool canMove = true;
+    public bool canMove = true;
 
-    [SerializeField] private Vector3 minLimits; // Limite minimale (x, y, z)
-    [SerializeField] private Vector3 maxLimits; // Limite maximale (x, y, z)
+    [SerializeField] private Vector3 minLimits; 
+    [SerializeField] private Vector3 maxLimits;
+
+    public Vector3 lastValidPosition;
 
     private void Start()
     {
         mainCamera = Camera.main;
+        lastValidPosition = objectToMove.position;
     }
 
     private void Update()
@@ -39,13 +42,12 @@ public class IsoCameraDrag : MonoBehaviour
             directionToMove = GetMouseWorldPosition() - startDraggingMousePos;
             targetPosition = objectOriginPos + directionToMove;
 
-            targetPosition = new Vector3(targetPosition.x * axisLocker.x,targetPosition.y * axisLocker.y,targetPosition.z * axisLocker.z);
+            targetPosition = new Vector3(targetPosition.x * axisLocker.x, targetPosition.y * axisLocker.y, targetPosition.z * axisLocker.z);
 
             targetPosition.x = Mathf.Clamp(targetPosition.x, minLimits.x, maxLimits.x);
             targetPosition.y = Mathf.Clamp(targetPosition.y, minLimits.y, maxLimits.y);
             targetPosition.z = Mathf.Clamp(targetPosition.z, minLimits.z, maxLimits.z);
 
-            // Déplacer l'objet
             objectToMove.position = Vector3.Lerp(objectToMove.position, targetPosition, Time.deltaTime * moveSpeed);
         }
     }
@@ -74,20 +76,30 @@ public class IsoCameraDrag : MonoBehaviour
 
     private void CheckRayIntersection()
     {
-        if (camIso == null || objectToMove == null) return;
-
         Vector3 cameraPosition = camIso.transform.position;
         Vector3 cameraDirection = camIso.transform.forward;
-        Plane groundPlane = new Plane(Vector3.up, new Vector3(0, objectToMove.position.y, 0));
         Ray ray = new Ray(cameraPosition, cameraDirection);
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, ~0, QueryTriggerInteraction.Ignore))
         {
-            canMove = true;
+            if (hitInfo.collider.CompareTag("Map") || hitInfo.collider.CompareTag("spawner"))
+            {
+                canMove = true;
+                lastValidPosition = objectToMove.position;
+            }
+            else
+            {
+                canMove = false;
+            }
         }
         else
         {
             canMove = false;
+        }
+
+        if (!canMove)
+        {
+            objectToMove.position = lastValidPosition;
         }
     }
 
