@@ -12,6 +12,8 @@ public class manager : NetworkBehaviour
 
     public static manager Instance;
 
+    public bool VuDuHaut;
+
     [SyncVar]
     public int nbrJoueur = 0;
 
@@ -87,7 +89,7 @@ public class manager : NetworkBehaviour
         if (VuDuHaut == false)
         {
             int nbrRandom = Random.Range(0, player.Count);
-            player[nbrRandom].GetComponent<PlayerData>().role = "Charlie";
+            player[nbrRandom].GetComponent<PlayerData>().role = Role.Lost;
         }
 
         SetCharlieRoleQueue();

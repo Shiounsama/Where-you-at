@@ -28,18 +28,17 @@ public class scoringPlayer : NetworkBehaviour
     [Command]
     public void ServeurScore(float newScore)
     {
-        StartCoroutine(resultat(newScore));
+        StartCoroutine(Result(newScore));
     }
 
     /// <summary>
     /// Le score du joueur deviens la distance entre lui et le PNJ.
     /// affiche l'UI du score de tous le monde
     /// </summary>
-    public IEnumerator resultat(float newScore)
+    public IEnumerator Result(float newScore)
     {
         ScoreFinal = newScore;
         finish = true;
-
 
         yield return new WaitForSeconds(0.1f);
 
@@ -56,31 +55,31 @@ public class scoringPlayer : NetworkBehaviour
         List<PlayerData> playerNombre = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         int compteurFinish = 0;
 
-        if (FindObjectOfType<ScoreGame>().finish)
+        if (FindObjectOfType<ScoreGame>().finished)
         {
-            FindObjectOfType<ScoreGame>().showScore();
+            FindObjectOfType<ScoreGame>().ShowScore();
         }
 
-        foreach(scoringPlayer player in scoresPlayer)
+        foreach (scoringPlayer player in scoresPlayer)
         {
-            if(player.finish == true)
+            if (player.finish == true)
             {
                 compteurFinish++;
             }
 
-            if(compteurFinish == playerNombre.Count - 1 && playerNombre.Count != 1)
+            if (compteurFinish == playerNombre.Count - 1 && playerNombre.Count != 1)
             {
                 foreach(PlayerData playerData in playerNombre)
                 {
-                    if(playerData.role == "Charlie")
+                    if (playerData.role == Role.Lost)
                     {
-                        playerData.desactivatePlayer();
+                        playerData.DisablePlayer();
                         playerData.ObjectsStateSetter(playerData.seekerObjects, false);
                         playerData.ObjectsStateSetter(playerData.charlieObjects, false);
                     }
                 }
 
-                FindObjectOfType<ScoreGame>().showScore();
+                FindObjectOfType<ScoreGame>().ShowScore();
             }
         }
     }
