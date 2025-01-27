@@ -45,7 +45,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Permet de syncroniser le role de chaque joueur pour tous le monde.
+    /// Permet de synchroniser le rôle de chaque joueur pour tout le monde.
     /// </summary>
     /// <param name="newRole"></param>
     [Server]
@@ -161,7 +161,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Change l'état des objets
+    /// Change l'état des objets.
     /// </summary>
     public void ObjectsStateSetter(List<GameObject> listOfObjectToChangeState, bool setOnObject)
     {
@@ -213,7 +213,7 @@ public class PlayerData : NetworkBehaviour
             {
                 ListPNJ.Add(obj);
             }
-
+            
             int randomNumber = Random.Range(0, ListPNJ.Count);
             PNJcible = ListPNJ[randomNumber];
 
@@ -245,7 +245,7 @@ public class PlayerData : NetworkBehaviour
             {
                 LostView lostView = transform.parent.GetComponentInChildren<LostView>(true);
                 ViewManager.Instance.AddView(lostView);
-                ViewManager.Instance.GetView<SeekerView>().Initialize();
+                ViewManager.Instance.GetView<LostView>().Initialize();
 
                 ObjectsStateSetter(charlieObjects, true);
                 ObjectsStateSetter(seekerObjects, false);

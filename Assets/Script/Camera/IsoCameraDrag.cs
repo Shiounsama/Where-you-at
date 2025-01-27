@@ -28,6 +28,7 @@ public class IsoCameraDrag : MonoBehaviour
     {
         mainCamera = Camera.main;
         lastValidPosition = objectToMove.position; // Initialiser à la position de départ
+        camIso = mainCamera.GetComponent<Camera>();
     }
 
     private void Update()

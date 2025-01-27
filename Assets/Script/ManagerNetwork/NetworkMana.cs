@@ -8,12 +8,13 @@ using System.Linq;
 
 public class NetworkMana : NetworkManager
 {
+    [Scene][SerializeField] private string lobbyScene;
+    [Scene][SerializeField] private string mainScene;
+
     [Scene] [SerializeField] private string menuScene = string.Empty;
 
     [Header ("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
-
-
 
     [SerializeField] private int minPlayers = 1;
     public GameObject JoueurPrefab;
@@ -30,8 +31,8 @@ public class NetworkMana : NetworkManager
     public override void OnStartServer()
     {
         seedScript.SeedValue = UnityEngine.Random.Range(0, 90000);
-        spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
+        spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
     }
 
     public override void OnStartClient()
@@ -40,6 +41,8 @@ public class NetworkMana : NetworkManager
 
         foreach (var prefab in spawnablePrefabs)
         {
+            Debug.Log($"Spawnable prefab: {prefab.name}");
+
             NetworkClient.RegisterPrefab(prefab);
         }
     }
@@ -52,7 +55,7 @@ public class NetworkMana : NetworkManager
             return;
         }
 
-        if(SceneManager.GetActiveScene().name != "Lobby")
+        if(SceneManager.GetActiveScene().path != lobbyScene)
         {
             conn.Disconnect();
             return;
@@ -72,7 +75,6 @@ public class NetworkMana : NetworkManager
         }
 
         base.OnServerDisconnect(conn);
-
     }
 
     public override void OnClientConnect()
@@ -91,10 +93,14 @@ public class NetworkMana : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        if (SceneManager.GetActiveScene().name == "Lobby")
+        Debug.Log($"Active scene: {SceneManager.GetActiveScene().path}");
+        Debug.Log($"Lobby scene: {lobbyScene}");
+
+        if (SceneManager.GetActiveScene().path == lobbyScene)
         {
             bool isLeader = RoomPlayers.Count == 0;
             NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
+            Debug.Log("Instantiation of room player lobby.");
             roomPlayerInstance.IsLeader = isLeader;
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
@@ -103,11 +109,11 @@ public class NetworkMana : NetworkManager
 
     public void StartGame()
     {
-        if (SceneManager.GetActiveScene().name == "Lobby")
+        if (SceneManager.GetActiveScene().path == lobbyScene)
         {
             if (!IsReadyToStart()) { return; }
 
-            ServerChangeScene("VilleJeu");
+            ServerChangeScene(mainScene);
         }
     }
 
@@ -116,7 +122,7 @@ public class NetworkMana : NetworkManager
         base.OnClientSceneChanged();
         
 
-        if (SceneManager.GetActiveScene().name == "VilleJeu") 
+        if (SceneManager.GetActiveScene().path == mainScene) 
         { 
             scriptManager.GiveRole();
         }
@@ -126,7 +132,7 @@ public class NetworkMana : NetworkManager
     {
         ViewManager.Instance.Initialize();
 
-        if (SceneManager.GetActiveScene().name == "Lobby")
+        if (SceneManager.GetActiveScene().path == lobbyScene)
         {
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
