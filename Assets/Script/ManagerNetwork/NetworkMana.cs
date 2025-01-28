@@ -8,6 +8,8 @@ using System.Linq;
 
 public class NetworkMana : NetworkManager
 {
+    public static NetworkMana Instance;
+
     [Scene][SerializeField] private string lobbyScene;
     [Scene][SerializeField] private string mainScene;
 
@@ -27,6 +29,12 @@ public class NetworkMana : NetworkManager
     public static event Action OnClientDisconnected;
 
     public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
+
+    public override void Awake()
+    {
+        if (!Instance)
+            Instance = this;
+    }
 
     public override void OnStartServer()
     {

@@ -7,38 +7,33 @@ using UnityEngine.UI;
 
 public class PlayerNameInput : MonoBehaviour
 {
-    [Header("UI")]
-    [SerializeField] private TMP_InputField nameInputField = null;
-    [SerializeField] private Button continueButton = null;
-
     public static string DisplayName { get; private set; }
-
     private const string PlayerPrefsNameKey = "PlayerName";
+
+    private NameInputView _nameInputView;
 
     private void Start()
     {
-        SetUpInputField();
+        _nameInputView = ViewManager.Instance.GetView<NameInputView>();
+
+        SetInputDefaultName();
     }
 
-    private void SetUpInputField()
+    /// <summary>
+    /// Applique le nom par défaut à l'input field.
+    /// </summary>
+    private void SetInputDefaultName()
     {
         if (!PlayerPrefs.HasKey(PlayerPrefsNameKey)) { return; }
 
         string defaultName = PlayerPrefs.GetString(PlayerPrefsNameKey);
 
-        nameInputField.text = defaultName;
-
-        SetPlayerName(defaultName);
+        _nameInputView.SetupInputField(defaultName);
     }
 
-    public void SetPlayerName(string name)
+    public void SavePlayerName(string playerName)
     {
-        continueButton.interactable = nameInputField.text.Length >= 2;
-    }
-
-    public void SavePlayerName()
-    {
-        DisplayName = nameInputField.text;
+        DisplayName = playerName;
         PlayerPrefs.SetString(PlayerPrefsNameKey, DisplayName);
     }
 }
