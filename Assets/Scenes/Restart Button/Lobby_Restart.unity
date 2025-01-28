@@ -212,7 +212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3370865
+      value: 3913272.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -542,6 +542,7 @@ MonoBehaviour:
   scriptPlayer: []
   player: []
   testBuilding: {fileID: 0}
+  VuDuHaut: 0
   nbrJoueur: 0
   nbrJoueurRdy: 0
   InGame: 0
@@ -580,7 +581,7 @@ MonoBehaviour:
   autoStartServerBuild: 0
   autoConnectClientBuild: 0
   offlineScene: 
-  onlineScene: Assets/Scenes/Lobby.unity
+  onlineScene: Assets/Scenes/Restart Button/Lobby_Restart.unity
   transport: {fileID: 743056739}
   networkAddress: localhost
   maxConnections: 5
@@ -606,6 +607,8 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
+  lobbyScene: Assets/Scenes/Restart Button/Lobby_Restart.unity
+  mainScene: Assets/Scenes/Restart Button/VilleJeu_Restart.unity
   menuScene: 
   roomPlayerPrefab: {fileID: 6083990786491023519, guid: a6202d7cc3c7a7b4786c915dffdc47b1, type: 3}
   minPlayers: 1
@@ -779,7 +782,7 @@ Transform:
   m_GameObject: {fileID: 802846456}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 205.32495, y: 160.88445, z: -1.5357089}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1871,7 +1874,7 @@ SceneRoots:
   - {fileID: 760234345}
   - {fileID: 63411368}
   - {fileID: 1335414160}
-  - {fileID: 743056741}
-  - {fileID: 2049762979}
   - {fileID: 1378581009}
+  - {fileID: 2049762979}
+  - {fileID: 743056741}
   - {fileID: 802846458}
