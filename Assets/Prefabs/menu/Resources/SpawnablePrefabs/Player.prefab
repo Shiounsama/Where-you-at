@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4689662853712564538}
-  - {fileID: 7652800969108707727}
+  - {fileID: 1326521131962934129}
   - {fileID: 1925573271345057472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 2735963669
+  _assetId: 2385170023
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
@@ -77,7 +77,6 @@ GameObject:
   - component: {fileID: 4689662853712564538}
   - component: {fileID: 1347594404514216364}
   - component: {fileID: 4465647715096171259}
-  - component: {fileID: 1808463024530652050}
   - component: {fileID: 9196251228806759180}
   - component: {fileID: 4617556730504382486}
   - component: {fileID: 6890939613314767505}
@@ -175,32 +174,14 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  role: 
+  role: 0
   playerName: 
   PremierJoueurSpawn: {fileID: 0}
   DeuxiemeJoueurSpawn: {fileID: 0}
   seekerObjects:
-  - {fileID: 1814803264221922803}
+  - {fileID: 0}
   charlieObjects:
   - {fileID: 5977802680650240070}
---- !u!114 &1808463024530652050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5971760027535294172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4ef68d2225fda944a7c939c20704998, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  victoire: 0
-  finish: 0
-  ScoreFinal: 0
 --- !u!81 &9196251228806759180
 AudioListener:
   m_ObjectHideFlags: 0
@@ -350,10 +331,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ea4e8e81-5051-4529-b671-e77699bc017e
     m_ActionName: Keyboard & Mouse/SendMessage[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 83722aae-5000-4cd2-ba8d-54cb7e2e2399
-    m_ActionName: Keyboard & Mouse/CheckPNJ[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Keyboard & Mouse
@@ -422,6 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraIso: {fileID: 0}
+  zoomLimit: {x: 0, y: 0}
   zoomDirection: 0
   zoomSpeed: 4
   zoomSensitivity: 2
@@ -442,7 +420,6 @@ MonoBehaviour:
   layerToVerify:
     serializedVersion: 2
     m_Bits: 8
-  ButtonToValidateCanvas: {fileID: 5472850563750029761}
 --- !u!114 &4746901686026315967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,19 +507,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
---- !u!1 &1814803264221922803 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2575875852434506772, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
-  m_PrefabInstance: {fileID: 4219908605055812071}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5472850563750029761 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8170470991062542374, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
-  m_PrefabInstance: {fileID: 4219908605055812071}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7652800969108707727 stripped
+--- !u!4 &1326521131962934129 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5810792971884959848, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2952284877736927894, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
   m_PrefabInstance: {fileID: 4219908605055812071}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5390665904944923477

@@ -212,7 +212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3078265
+      value: 3105017
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -579,6 +579,10 @@ MonoBehaviour:
   player: []
   testBuilding: {fileID: 0}
   VuDuHaut: 1
+  nbrJoueur: 0
+  nbrJoueurRdy: 0
+  InGame: 0
+  gameRounds: 6
 --- !u!114 &743056745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,10 +661,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120badc5df4411f469156cbac12cc13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreJoueur: []
+  playersScores: []
   classementCanvas: {fileID: 2075255518}
   parentTransform: {fileID: 0}
-  finish: 0
+  finished: 0
   restartButtonPrefab: {fileID: 477279996826844835, guid: 1a5731b8023f8dd4f8c0d808dc025f07, type: 3}
   BackgroundImage: {fileID: 443169869}
 --- !u!1 &743862977 stripped
