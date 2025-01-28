@@ -31,6 +31,7 @@ public class IsoCameraDrag : MonoBehaviour
     {
         mainCamera = Camera.main;
         lastValidPosition = objectToMove.position;
+        camIso = GetComponent<Camera>();
     }
 
     private void Update()
