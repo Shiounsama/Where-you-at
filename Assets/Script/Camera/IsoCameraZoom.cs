@@ -11,9 +11,9 @@ public class IsoCameraZoom : MonoBehaviour
 
     public Vector2 zoomLimit;
 
-    public float zoomDirection;
     public float zoomSpeed;
     public float zoomSensitivity;
+    private float zoomDirection;
     private float actualSize;
 
     public float zoomCooldown;
