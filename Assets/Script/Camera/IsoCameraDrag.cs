@@ -16,7 +16,7 @@ public class IsoCameraDrag : MonoBehaviour
     private Vector3 directionToMove;
     private Vector3 objectOriginPos;
     private Vector3 targetPosition;
-    [SerializeField, Tooltip("0 ou 1 RIEN D'AUTRE sinon ça part en couillasses")] private Vector3 axisLocker;
+    [SerializeField, Tooltip("0 ou 1 RIEN D'AUTRE sinon Ã§a part en couillasses")] private Vector3 axisLocker;
 
     private Camera mainCamera;
 
