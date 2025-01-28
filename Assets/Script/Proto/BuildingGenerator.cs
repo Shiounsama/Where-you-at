@@ -22,7 +22,7 @@ public class BuildingGenerator : NetworkBehaviour
     {
         GenerateRoom();
         manager Manager = GetComponent<manager>();
-        Manager.testBuilding = buildingGenerated;
+        //Manager.testBuilding = buildingGenerated;
 
     }
 

@@ -16,19 +16,21 @@ public class IsoCameraDrag : MonoBehaviour
     private Vector3 directionToMove;
     private Vector3 objectOriginPos;
     private Vector3 targetPosition;
-
-    [SerializeField, Tooltip("0 ou 1 RIEN D'AUTRE sinon ça part en couillasses")]
-    private Vector3 axisLocker;
+    [SerializeField, Tooltip("0 ou 1 RIEN D'AUTRE sinon Ã§a part en couillasses")] private Vector3 axisLocker;
 
     private Camera mainCamera;
 
-    private Vector3 lastValidPosition; // Dernière position valide touchée par le Raycast
+    public bool canMove = true;
+
+    [SerializeField] private Vector3 minLimits; 
+    [SerializeField] private Vector3 maxLimits;
+
+    public Vector3 lastValidPosition;
 
     private void Start()
     {
         mainCamera = Camera.main;
-        lastValidPosition = objectToMove.position; // Initialiser à la position de départ
-        camIso = mainCamera.GetComponent<Camera>();
+        lastValidPosition = objectToMove.position;
     }
 
     private void Update()
@@ -40,29 +42,17 @@ public class IsoCameraDrag : MonoBehaviour
             directionToMove = GetMouseWorldPosition() - startDraggingMousePos;
             targetPosition = objectOriginPos + directionToMove;
 
-            // Bloquer les axes si nécessaire
-            targetPosition = new Vector3(
-                targetPosition.x * axisLocker.x,
-                targetPosition.y * axisLocker.y,
-                targetPosition.z * axisLocker.z
-            );
+            targetPosition = new Vector3(targetPosition.x * axisLocker.x, targetPosition.y * axisLocker.y, targetPosition.z * axisLocker.z);
 
-            // Si le Raycast touche un point valide, mettez à jour la dernière position valide
-            if (Physics.Raycast(camIso.transform.position, camIso.transform.forward, out RaycastHit hitInfo))
-            {
-                if (hitInfo.collider != null )
-                {
-                    lastValidPosition = hitInfo.point;
-                }
-            }
+            targetPosition.x = Mathf.Clamp(targetPosition.x, minLimits.x, maxLimits.x);
+            targetPosition.y = Mathf.Clamp(targetPosition.y, minLimits.y, maxLimits.y);
+            targetPosition.z = Mathf.Clamp(targetPosition.z, minLimits.z, maxLimits.z);
 
-            // Projeter la position cible sur la dernière position valide
-            targetPosition = ProjectOntoValidArea(targetPosition, lastValidPosition);
-
-            // Appliquer le mouvement
             objectToMove.position = Vector3.Lerp(objectToMove.position, targetPosition, Time.deltaTime * moveSpeed);
         }
     }
+
+    // == Public Methods == \\
 
     public void OnDragAction(InputAction.CallbackContext context)
     {
@@ -86,36 +76,31 @@ public class IsoCameraDrag : MonoBehaviour
 
     private void CheckRayIntersection()
     {
-        if (camIso == null || objectToMove == null) return;
-
         Vector3 cameraPosition = camIso.transform.position;
         Vector3 cameraDirection = camIso.transform.forward;
-
         Ray ray = new Ray(cameraPosition, cameraDirection);
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity))
         {
-            if (hitInfo.collider != null && hitInfo.collider.CompareTag("Map"))
+            if (hitInfo.collider.CompareTag("Map") || hitInfo.collider.CompareTag("spawner"))
             {
-                // Met à jour la dernière position valide
-                lastValidPosition = hitInfo.point;
+                canMove = true;
+                lastValidPosition = objectToMove.position;
+            }
+            else
+            {
+                canMove = false;
             }
         }
-    }
-
-    private Vector3 ProjectOntoValidArea(Vector3 target, Vector3 fallback)
-    {
-        // Si le Raycast est valide, renvoyer directement la position cible.
-        if (Physics.Raycast(camIso.transform.position, camIso.transform.forward, out RaycastHit hitInfo))
+        else
         {
-            if (hitInfo.collider != null && hitInfo.collider.CompareTag("Map"))
-            {
-                return target;
-            }
+            canMove = false;
         }
 
-        // Si le Raycast est invalide, projeter la position sur la dernière position valide.
-        return fallback;
+        if (!canMove)
+        {
+            objectToMove.position = lastValidPosition;
+        }
     }
 
     private void OnDrawGizmos()
@@ -132,7 +117,7 @@ public class IsoCameraDrag : MonoBehaviour
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(cameraPosition, hitInfo.point);
 
-            Gizmos.color = Color.green;
+            Gizmos.color = canMove ? Color.green : Color.red;
             Gizmos.DrawSphere(hitInfo.point, 0.2f);
         }
         else
