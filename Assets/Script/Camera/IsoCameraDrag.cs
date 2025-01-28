@@ -45,10 +45,6 @@ public class IsoCameraDrag : MonoBehaviour
 
             targetPosition = new Vector3(targetPosition.x * axisLocker.x, targetPosition.y * axisLocker.y, targetPosition.z * axisLocker.z);
 
-            targetPosition.x = Mathf.Clamp(targetPosition.x, minLimits.x, maxLimits.x);
-            targetPosition.y = Mathf.Clamp(targetPosition.y, minLimits.y, maxLimits.y);
-            targetPosition.z = Mathf.Clamp(targetPosition.z, minLimits.z, maxLimits.z);
-
             objectToMove.position = Vector3.Lerp(objectToMove.position, targetPosition, Time.deltaTime * moveSpeed);
         }
     }
