@@ -45,7 +45,7 @@ public class LeaderboardView : View
         scoreElements.Add(scoreElement);
 
         int placement = 0;
-        string playerName = playerScoring.transform.parent.GetComponentInChildren<PlayerData>().playerName;
+        string playerName = playerScoring.GetComponent<PlayerData>().playerName;
         float distance = playerScoring.finalScore;
 
         scoreElement.UpdateScoreText(placement, playerName, distance);

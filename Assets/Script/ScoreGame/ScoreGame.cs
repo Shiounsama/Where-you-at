@@ -16,8 +16,8 @@ public class ScoreGame : MonoBehaviour
     public GameObject BackgroundImage;
 
     /// <summary>
-    /// Récupère dans ne liste tous les joueurs avec un script scoringPlayer
-    /// tri la list avec tous les joueurs qui ont validé leurs choix puis tri la liste du plus proche au plus loin
+    /// Récupère dans une liste tous les joueurs avec un script scoringPlayer
+    /// trie la liste avec tous les joueurs qui ont validé leurs choix puis trie la liste du plus proche au plus loin.
     /// </summary>
     public void ShowScore()
     {
@@ -29,17 +29,17 @@ public class ScoreGame : MonoBehaviour
 
     private void ShowLeaderboard(List<PlayerScoring> scores)
     {
-        classementCanvas.enabled = true;
+        //classementCanvas.enabled = true;
 
-        parentTransform = classementCanvas.transform;
+        //parentTransform = classementCanvas.transform;
 
-        foreach (Transform child in parentTransform)
-        {
-            if (child.GetComponent<Text>() != null)
-            {
-                Destroy(child.gameObject);
-            }
-        }
+        //foreach (Transform child in parentTransform)
+        //{
+        //    if (child.GetComponent<Text>() != null)
+        //    {
+        //        Destroy(child.gameObject);
+        //    }
+        //}
 
         LeaderboardView leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
 

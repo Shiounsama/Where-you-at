@@ -21,7 +21,9 @@ public class PlayerScoring : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        ServerSetPlayerName(GetComponent<PlayerData>().playerName);
+
+        ServerSetPlayerName(GetComponentInParent<PlayerData>().playerName);
+
         finished = false;
     }
 
@@ -80,6 +82,8 @@ public class PlayerScoring : NetworkBehaviour
     [Command]
     private void ServerSetPlayerName(string newName)
     {
+        Debug.Log($"Server set player name: {playerName}");
+
         playerName = newName;
     }
 }

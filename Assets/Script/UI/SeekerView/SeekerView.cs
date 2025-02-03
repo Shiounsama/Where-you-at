@@ -25,7 +25,7 @@ public class SeekerView : View
 
     private void OnClick_GuessButton()
     {
-        //Nothing
+        GetComponentInParent<CheckPNJSelected>().IsGuess();
     }
     #endregion
 }

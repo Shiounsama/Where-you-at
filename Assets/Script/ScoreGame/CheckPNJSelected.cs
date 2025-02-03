@@ -12,26 +12,28 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public ScoreGame scoreGame;
 
+    private SeekerView _seekerView;
+
     private SeekerView seekerView
     {
         get
         {
-            if (seekerView == null)
-                seekerView = ViewManager.Instance.GetView<SeekerView>();
+            if (_seekerView == null)
+                _seekerView = ViewManager.Instance.GetView<SeekerView>();
 
-            return seekerView;
+            return _seekerView;
         }
         set
         {
-            seekerView = value;
+            _seekerView = value;
         }
     }
 
     private void Awake()
     {
-        cameraSelection = transform.GetComponent<IsoCameraSelection>();
-        score = this.GetComponent<PlayerScoring>();
-        scoreGame = GameObject.FindObjectOfType<ScoreGame>();
+        cameraSelection = GetComponentInChildren<IsoCameraSelection>();
+        score = GetComponentInChildren<PlayerScoring>();
+        scoreGame = FindObjectOfType<ScoreGame>();
     }
 
 
