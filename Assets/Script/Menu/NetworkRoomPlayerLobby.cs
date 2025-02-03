@@ -42,7 +42,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        CmdSetDisplayName(PlayerNameInput.DisplayName);
+        CmdSetDisplayName(NamesInput.DisplayName);
         lobbyUI.SetActive(true);
     }
 
@@ -83,11 +83,16 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             return;
         }
 
-        for (int i = 0; i < playerNameTexts.Length; i++)
+        foreach (PlayerStatus playerStatus in FindObjectsByType<PlayerStatus>(FindObjectsSortMode.None))
         {
-            playerNameTexts[i].text = "Waiting For Player..."; 
-            playerReadyTexts[i].text = string.Empty; 
+            playerStatus.enabled = true;
         }
+
+        //for (int i = 0; i < playerNameTexts.Length; i++)
+        //{
+        //    playerNameTexts[i].text = "Waiting For Player..."; 
+        //    playerReadyTexts[i].text = string.Empty; 
+        //}
 
         for (int i = 0; i < Room.RoomPlayers.Count; i++)
         {

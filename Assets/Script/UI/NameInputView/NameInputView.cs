@@ -9,11 +9,11 @@ public class NameInputView : View
     [SerializeField] private Button confirmNameButton;
     [SerializeField] private TMP_InputField nameInputField;
 
-    private PlayerNameInput _playerNameInput;
+    private NamesInput _namesInput;
 
     private void Awake()
     {
-        _playerNameInput = GetComponent<PlayerNameInput>();
+        _namesInput = GetComponent<NamesInput>();
     }
 
     public override void Initialize()
@@ -41,16 +41,16 @@ public class NameInputView : View
         SetPlayerName(defaultName);
     }
 
-    public void SetPlayerName(string name)
+    public void SetPlayerName(string playerName)
     {
-        Debug.Log(name);
+        Debug.Log($"Player name: {playerName}");
 
         confirmNameButton.interactable = nameInputField.text.Length >= 2;
     }
 
     public void SavePlayerName()
     {
-        _playerNameInput.SavePlayerName(nameInputField.text);
+        _namesInput.SavePlayerName(nameInputField.text);
     }
     #endregion
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class PlayerNameInput : MonoBehaviour
+public class NamesInput : MonoBehaviour
 {
     public static string DisplayName { get; private set; }
     private const string PlayerPrefsNameKey = "PlayerName";
@@ -27,6 +27,7 @@ public class PlayerNameInput : MonoBehaviour
         if (!PlayerPrefs.HasKey(PlayerPrefsNameKey)) { return; }
 
         string defaultName = PlayerPrefs.GetString(PlayerPrefsNameKey);
+        //Debug.Log($"Default name: {defaultName}");
 
         _nameInputView.SetupInputField(defaultName);
     }
