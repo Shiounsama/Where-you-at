@@ -37,7 +37,7 @@ public class PNJSpawner : MonoBehaviour
 
     public void Start()
     {
-        InstantiatePNJs(pnjPrefab, numberToSpawn - PnjPICount);
+        InstantiatePNJs(pnjPrefab, numberToSpawn);
     }
 
     public void InstantiatePNJs(GameObject prefabToSpawn, int NumberOfEntitiesToSpawn)
@@ -52,7 +52,7 @@ public class PNJSpawner : MonoBehaviour
             if (PnjPIFamilyData != null)
             {
                 for (int i = 0; i < PnjPICount; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
-                {
+                {              
                     InstantiateObject(i, PnjPIFamilyData.GetPrefab());
                 }
 
@@ -84,6 +84,8 @@ public class PNJSpawner : MonoBehaviour
                         (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
 
         entitiesSpawnedArray.Add(actualPlayer);
+
+        PnjPIFamilyData.ResetListOfPnjPI();
 
         if (seed.Instance != null)
         {
