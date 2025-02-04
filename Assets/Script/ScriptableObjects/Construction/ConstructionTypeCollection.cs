@@ -4,58 +4,88 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "My Asset/ConstructionType")]
 public class ConstructionTypeCollection : ScriptableObject
 {
-    [SerializeField] private List<GameObject> prefabs = new();
+    [System.Serializable]
+    public class PrefabLimit
+    {
+        public GameObject prefab;
+        public TypeOfConstruction type;
+        public int maxSpawn = int.MaxValue; // Par défaut, pas de limite
+    }
 
-    // Utilisation d'un dictionnaire pour classer les prefabs par type lors de l'initialisation
-    private Dictionary<TypeOfConstruction, List<GameObject>> prefabsByType;
+    [SerializeField] private List<PrefabLimit> prefabLimits = new();
+
+    private Dictionary<TypeOfConstruction, List<PrefabLimit>> prefabsByType;
+    private Dictionary<GameObject, int> prefabSpawnCounts = new(); // Compteur par prefab individuel
+
+    private void InitializePrefabs()
+    {
+        if (prefabsByType != null) return; // Évite de réinitialiser plusieurs fois
+
+        prefabsByType = new Dictionary<TypeOfConstruction, List<PrefabLimit>>();
+
+        foreach (PrefabLimit prefabLimit in prefabLimits)
+        {
+            if (!prefabsByType.ContainsKey(prefabLimit.type))
+            {
+                prefabsByType[prefabLimit.type] = new List<PrefabLimit>();
+            }
+            prefabsByType[prefabLimit.type].Add(prefabLimit);
+            prefabSpawnCounts[prefabLimit.prefab] = 0; // Initialisation du compteur pour chaque prefab
+        }
+    }
 
     public GameObject GetPrefab(TypeOfConstruction typeToGet)
     {
-        //Random.InitState(seed.Instance.SeedValue);
-        // Initialisation du dictionnaire
-        prefabsByType = new Dictionary<TypeOfConstruction, List<GameObject>>();
+        InitializePrefabs();
 
-        foreach (GameObject prefab in prefabs)
-        {
-            // Vérifie si le prefab possède le composant ConstructionType
-            ConstructionType constructionType = prefab.GetComponent<ConstructionType>();
-            if (constructionType != null)
-            {
-                TypeOfConstruction type = constructionType.prefabBuildingType;
-
-                // Ajoute le prefab dans la liste correspondant à son type
-                if (!prefabsByType.ContainsKey(type))
-                {
-                    prefabsByType[type] = new List<GameObject>();
-                }
-                prefabsByType[type].Add(prefab);
-            }
-            else
-            {
-                Debug.LogWarning($"Prefab {prefab.name} n'a pas de composant ConstructionType attaché.");
-            }
-        }
-        // Vérifie si le type demandé existe dans le dictionnaire
         if (prefabsByType.ContainsKey(typeToGet))
         {
-            List<GameObject> list = prefabsByType[typeToGet];
+            List<PrefabLimit> PrefabDispo = new List<PrefabLimit>();
 
-            // Vérifie que la liste n'est pas vide avant de retourner un prefab aléatoire
-            if (list.Count > 0)
+            foreach (PrefabLimit prefabLimit in prefabsByType[typeToGet])
             {
-                return list[Random.Range(0, list.Count)];
+                if (prefabSpawnCounts[prefabLimit.prefab] < prefabLimit.maxSpawn)
+                {
+                    PrefabDispo.Add(prefabLimit);
+                }
             }
-            else
+
+            if (PrefabDispo.Count > 0)
             {
-                Debug.LogWarning($"Aucun prefab disponible pour le type {typeToGet}.");
+                PrefabLimit selectedPrefabLimit = PrefabDispo[Random.Range(0, PrefabDispo.Count)];
+                prefabSpawnCounts[selectedPrefabLimit.prefab]++; // Incrémenter le compteur de ce prefab
+                return selectedPrefabLimit.prefab;
             }
         }
-        else
-        {
-            Debug.LogWarning($"Type de construction {typeToGet} non trouvé dans le dictionnaire.");
-        }
 
-        // Retourne null si aucun prefab n'est trouvé
-        return null;
+        return null; 
     }
+
+    public void DecreaseSpawnCount(GameObject prefab)
+    {
+        if (prefabSpawnCounts.ContainsKey(prefab) && prefabSpawnCounts[prefab] > 0)
+        {
+            prefabSpawnCounts[prefab]--;
+        }
+    }
+
+    public void ResetSpawnCounts()
+    {
+        if (prefabSpawnCounts != null)
+        {
+            List<GameObject> keys = new List<GameObject>(prefabSpawnCounts.Keys);
+            foreach (GameObject key in keys)
+            {
+                prefabSpawnCounts[key] = 0;
+            }
+        }
+    }
+
+    public void ResetPrefabLibrary()
+    {
+        prefabsByType = null; 
+        prefabSpawnCounts.Clear(); 
+        InitializePrefabs(); 
+    }
+
 }

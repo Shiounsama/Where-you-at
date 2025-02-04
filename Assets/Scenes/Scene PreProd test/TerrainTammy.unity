@@ -662,6 +662,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139678424}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!1 &162975217
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 162975218}
+  - component: {fileID: 162975219}
+  m_Layer: 0
+  m_Name: house layout 1(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &162975218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162975217}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 794158979}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &162975219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162975217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 3
 --- !u!1 &198000099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,6 +1139,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250302596}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!1 &259475865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 259475866}
+  - component: {fileID: 259475867}
+  m_Layer: 0
+  m_Name: house layout 1(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &259475866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259475865}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 456709948}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &259475867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259475865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 3
 --- !u!1 &300254691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,6 +1385,7 @@ GameObject:
   - component: {fileID: 338127855}
   - component: {fileID: 338127854}
   - component: {fileID: 338127853}
+  - component: {fileID: 338127857}
   m_Layer: 0
   m_Name: Maison (61)
   m_TagString: Untagged
@@ -1314,7 +1405,8 @@ Transform:
   m_LocalPosition: {x: 42, y: 0, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1402865401}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &338127853
@@ -1396,6 +1488,64 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338127851}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &338127857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338127851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
+--- !u!1 &339042671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339042672}
+  - component: {fileID: 339042673}
+  m_Layer: 0
+  m_Name: house layout 1(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &339042672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339042671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2030707562}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &339042673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339042671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 3
 --- !u!1 &363999109
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,6 +2378,7 @@ GameObject:
   - component: {fileID: 456709951}
   - component: {fileID: 456709950}
   - component: {fileID: 456709949}
+  - component: {fileID: 456709953}
   m_Layer: 0
   m_Name: Maison (92)
   m_TagString: Untagged
@@ -2247,7 +2398,8 @@ Transform:
   m_LocalPosition: {x: 42, y: 0, z: 22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 259475866}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &456709949
@@ -2329,6 +2481,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456709947}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &456709953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456709947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &468548313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2443,6 +2608,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468548313}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!1 &475458050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 475458051}
+  - component: {fileID: 475458052}
+  m_Layer: 0
+  m_Name: ferris wheel(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475458051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475458050}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1813648047}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &475458052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475458050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 1
 --- !u!1 &479809362
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3340,7 @@ GameObject:
   - component: {fileID: 539769399}
   - component: {fileID: 539769398}
   - component: {fileID: 539769397}
+  - component: {fileID: 539769401}
   m_Layer: 0
   m_Name: Maison (99)
   m_TagString: Untagged
@@ -3149,7 +3360,8 @@ Transform:
   m_LocalPosition: {x: 42, y: 0, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1286682218}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &539769397
@@ -3231,6 +3443,64 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539769395}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &539769401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539769395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
+--- !u!1 &572203071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 572203072}
+  - component: {fileID: 572203073}
+  m_Layer: 0
+  m_Name: house layout 1(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &572203072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572203071}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 942654997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &572203073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572203071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 3
 --- !u!1 &573593363
 GameObject:
   m_ObjectHideFlags: 0
@@ -5224,6 +5494,7 @@ GameObject:
   - component: {fileID: 790716341}
   - component: {fileID: 790716340}
   - component: {fileID: 790716339}
+  - component: {fileID: 790716343}
   m_Layer: 0
   m_Name: Maison (38)
   m_TagString: Untagged
@@ -5325,6 +5596,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790716337}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &790716343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790716337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &794158978
 GameObject:
   m_ObjectHideFlags: 0
@@ -5338,6 +5622,7 @@ GameObject:
   - component: {fileID: 794158982}
   - component: {fileID: 794158981}
   - component: {fileID: 794158980}
+  - component: {fileID: 794158984}
   m_Layer: 0
   m_Name: Maison (80)
   m_TagString: Untagged
@@ -5357,7 +5642,8 @@ Transform:
   m_LocalPosition: {x: 77, y: 0, z: 22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 162975218}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &794158980
@@ -5439,6 +5725,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794158978}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &794158984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794158978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &813402942
 GameObject:
   m_ObjectHideFlags: 0
@@ -6316,7 +6615,7 @@ Transform:
   m_GameObject: {fileID: 906562957}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42.4, y: 3.5, z: 1}
+  m_LocalPosition: {x: 44.5, y: 0.65, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6355,12 +6654,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3f91c956f1d4d4ca348af3212705e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 85
+  length: 80
   width: 5
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
   tagToApply: pnj
-  numberToSpawn: 20
-  PnjPICount: 3
+  numberToSpawn: 30
+  PnjPICount: 5
   PnjPIFamilyData: {fileID: 11400000, guid: b0f255c09062d044dbcd7ad41981ccc0, type: 2}
   entitiesSpawnedArray: []
 --- !u!1 &912010719
@@ -6832,6 +7131,7 @@ GameObject:
   - component: {fileID: 942655000}
   - component: {fileID: 942654999}
   - component: {fileID: 942654998}
+  - component: {fileID: 942655002}
   m_Layer: 0
   m_Name: Maison (28)
   m_TagString: Untagged
@@ -6851,7 +7151,8 @@ Transform:
   m_LocalPosition: {x: 77, y: 0, z: 29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 572203072}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &942654998
@@ -6933,6 +7234,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942654996}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &942655002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942654996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &950132910
 GameObject:
   m_ObjectHideFlags: 0
@@ -7652,7 +7966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabBuildingType: 1
+  prefabBuildingType: 4
 --- !u!23 &1008611146
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8460,6 +8774,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071065614}
   m_Mesh: {fileID: -2432090755550338912, guid: e66f6c1131fe52348a5cc0ab8421b0d3, type: 3}
+--- !u!1 &1071417014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071417015}
+  - component: {fileID: 1071417016}
+  m_Layer: 0
+  m_Name: house layout 1(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1071417015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071417014}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2065325863}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1071417016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071417014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 3
 --- !u!1 &1077668155
 GameObject:
   m_ObjectHideFlags: 0
@@ -9773,6 +10132,7 @@ GameObject:
   - component: {fileID: 1281327086}
   - component: {fileID: 1281327085}
   - component: {fileID: 1281327084}
+  - component: {fileID: 1281327088}
   m_Layer: 0
   m_Name: Maison (60)
   m_TagString: Untagged
@@ -9792,7 +10152,8 @@ Transform:
   m_LocalPosition: {x: 35, y: 0, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1712367252}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1281327084
@@ -9823,7 +10184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabBuildingType: 3
+  prefabBuildingType: 4
 --- !u!23 &1281327086
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9874,6 +10235,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1281327082}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &1281327088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281327082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &1281517642
 GameObject:
   m_ObjectHideFlags: 0
@@ -9912,6 +10286,51 @@ Transform:
   - {fileID: 1446694710}
   m_Father: {fileID: 958628980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1286682217
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1286682218}
+  - component: {fileID: 1286682219}
+  m_Layer: 0
+  m_Name: pharmacy mix(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1286682218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286682217}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 539769396}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1286682219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286682217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 4
 --- !u!1 &1293850777
 GameObject:
   m_ObjectHideFlags: 0
@@ -10801,7 +11220,7 @@ MonoBehaviour:
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
   tagToApply: pnj
   numberToSpawn: 15
-  PnjPICount: 3
+  PnjPICount: 0
   PnjPIFamilyData: {fileID: 11400000, guid: b0f255c09062d044dbcd7ad41981ccc0, type: 2}
   entitiesSpawnedArray: []
 --- !u!1 &1382927313
@@ -10931,6 +11350,7 @@ GameObject:
   - component: {fileID: 1383430027}
   - component: {fileID: 1383430026}
   - component: {fileID: 1383430025}
+  - component: {fileID: 1383430029}
   m_Layer: 0
   m_Name: Maison (21)
   m_TagString: Untagged
@@ -10967,7 +11387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointInteret: 0
   ConstructionTypeCollection: {fileID: 11400000, guid: 43fe9d9cf9992d84c9626f90944398a4, type: 2}
-  rotationY: 0
+  rotationY: 180
   spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1383430026
 MonoBehaviour:
@@ -10981,7 +11401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabBuildingType: 6
+  prefabBuildingType: 1
 --- !u!23 &1383430027
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11032,6 +11452,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383430023}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &1383430029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383430023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &1390546302
 GameObject:
   m_ObjectHideFlags: 0
@@ -11095,7 +11528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabBuildingType: 3
+  prefabBuildingType: 1
 --- !u!23 &1390546306
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11146,6 +11579,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390546302}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!1 &1402865400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1402865401}
+  - component: {fileID: 1402865402}
+  m_Layer: 0
+  m_Name: house layout 1(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1402865401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402865400}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 338127852}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1402865402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402865400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 3
 --- !u!1 &1408588451
 GameObject:
   m_ObjectHideFlags: 0
@@ -12048,6 +12526,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499153330}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!1 &1502711079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1502711080}
+  - component: {fileID: 1502711081}
+  m_Layer: 0
+  m_Name: ferris wheel(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1502711080
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502711079}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1793812636}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1502711081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502711079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 1
 --- !u!1 &1525391479
 GameObject:
   m_ObjectHideFlags: 0
@@ -12229,6 +12752,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545140853}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!1 &1545313248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1545313249}
+  - component: {fileID: 1545313250}
+  m_Layer: 0
+  m_Name: ferris wheel(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1545313249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545313248}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1844068055}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1545313250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545313248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 1
 --- !u!1 &1545830027
 GameObject:
   m_ObjectHideFlags: 0
@@ -13587,6 +14155,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710646927}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!1 &1712367251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1712367252}
+  - component: {fileID: 1712367253}
+  m_Layer: 0
+  m_Name: pharmacy mix(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1712367252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712367251}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1281327083}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1712367253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712367251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 4
 --- !u!1 &1712681902
 GameObject:
   m_ObjectHideFlags: 0
@@ -14151,6 +14764,7 @@ GameObject:
   - component: {fileID: 1793812639}
   - component: {fileID: 1793812638}
   - component: {fileID: 1793812637}
+  - component: {fileID: 1793812641}
   m_Layer: 0
   m_Name: Maison (57)
   m_TagString: Untagged
@@ -14170,7 +14784,8 @@ Transform:
   m_LocalPosition: {x: 14, y: 0, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1502711080}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1793812637
@@ -14252,6 +14867,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793812635}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &1793812641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793812635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &1796148580
 GameObject:
   m_ObjectHideFlags: 0
@@ -14567,6 +15195,7 @@ GameObject:
   - component: {fileID: 1813648050}
   - component: {fileID: 1813648049}
   - component: {fileID: 1813648048}
+  - component: {fileID: 1813648052}
   m_Layer: 0
   m_Name: Maison (44)
   m_TagString: Untagged
@@ -14586,7 +15215,8 @@ Transform:
   m_LocalPosition: {x: -7, y: 0, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 475458051}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1813648048
@@ -14668,6 +15298,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813648046}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &1813648052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813648046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &1828139453
 GameObject:
   m_ObjectHideFlags: 0
@@ -14809,7 +15452,7 @@ Transform:
   m_GameObject: {fileID: 1839661018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 0.65, z: 8.1}
+  m_LocalPosition: {x: -9.6, y: 0.65, z: 8.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14848,7 +15491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3f91c956f1d4d4ca348af3212705e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 16
+  length: 15
   width: 5
   pnjPrefab: {fileID: 41437293004538200, guid: 8ebff37514c490f4d8fb0c368b234295, type: 3}
   tagToApply: pnj
@@ -14869,6 +15512,7 @@ GameObject:
   - component: {fileID: 1844068058}
   - component: {fileID: 1844068057}
   - component: {fileID: 1844068056}
+  - component: {fileID: 1844068060}
   m_Layer: 0
   m_Name: Maison (37)
   m_TagString: Untagged
@@ -14888,7 +15532,8 @@ Transform:
   m_LocalPosition: {x: 21, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1545313249}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1844068056
@@ -14970,6 +15615,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1844068054}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &1844068060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844068054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &1854433796
 GameObject:
   m_ObjectHideFlags: 0
@@ -16061,6 +16719,7 @@ GameObject:
   - component: {fileID: 2030707565}
   - component: {fileID: 2030707564}
   - component: {fileID: 2030707563}
+  - component: {fileID: 2030707567}
   m_Layer: 0
   m_Name: Maison (91)
   m_TagString: Untagged
@@ -16080,7 +16739,8 @@ Transform:
   m_LocalPosition: {x: 49, y: 0, z: 22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 339042672}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2030707563
@@ -16162,6 +16822,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030707561}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &2030707567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030707561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &2043481312
 GameObject:
   m_ObjectHideFlags: 0
@@ -16289,6 +16962,7 @@ GameObject:
   - component: {fileID: 2065325866}
   - component: {fileID: 2065325865}
   - component: {fileID: 2065325864}
+  - component: {fileID: 2065325868}
   m_Layer: 0
   m_Name: Maison (39)
   m_TagString: Untagged
@@ -16308,7 +16982,8 @@ Transform:
   m_LocalPosition: {x: 7, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1071417015}
   m_Father: {fileID: 1360398932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2065325864
@@ -16390,6 +17065,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065325862}
   m_Mesh: {fileID: -2432090755550338912, guid: 5fe9afeaa58754444a827d96a214f4aa, type: 3}
+--- !u!114 &2065325868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065325862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c9446c03cf8f942a8a4955d7effe68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBuildingType: 0
 --- !u!1 &2084885155
 GameObject:
   m_ObjectHideFlags: 0

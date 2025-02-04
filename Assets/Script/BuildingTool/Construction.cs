@@ -15,18 +15,16 @@ public class Construction : MonoBehaviour
 
     public void Awake()
     {
+        if (Application.isPlaying && ConstructionTypeCollection != null)
+        {
+            ConstructionTypeCollection.ResetSpawnCounts();
+            ConstructionTypeCollection.ResetPrefabLibrary(); // Ajoute cette ligne
+        }
+
         pointInteretManager = transform.parent.GetComponent<PointInteretManager>();
         pointInteretManager.constructionList.Add(transform.GetComponent<Construction>());
 
-        if (transform.GetComponent<Construction>() != null)
-        {
-            constructionType = GetComponent<ConstructionType>();
-        }
-        else
-        {
-            gameObject.AddComponent(typeof(ConstructionType));
-            constructionType = GetComponent<ConstructionType>();
-        }
+        constructionType = GetComponent<ConstructionType>() ?? gameObject.AddComponent<ConstructionType>();
     }
 
     public void Start()
@@ -50,15 +48,18 @@ public class Construction : MonoBehaviour
 
         if (transform.childCount > 0)
         {
-            for (int i = transform.childCount; i > 0; --i)
+            for (int i = transform.childCount - 1; i >= 0; --i)
             {
-                DestroyImmediate(transform.GetChild(0).gameObject);
+                var child = transform.GetChild(i).gameObject;
+                ConstructionTypeCollection.DecreaseSpawnCount(child);
+                DestroyImmediate(child);
             }
         }
 
-        if (transform.childCount == 0)
+        GameObject prefabToSpawn = ConstructionTypeCollection.GetPrefab(typeToSpawn);
+        if (prefabToSpawn != null)
         {
-            GameObject actualPrefab = Instantiate(ConstructionTypeCollection.GetPrefab(typeToSpawn), transform.position, Quaternion.identity, transform);
+            GameObject actualPrefab = Instantiate(prefabToSpawn, transform.position, Quaternion.identity, transform);
             actualPrefab.transform.localEulerAngles = new Vector3(0, rotationY, 0);
             actualPrefab.transform.localPosition = spawnPosition;
         }
@@ -70,45 +71,15 @@ public class Construction : MonoBehaviour
     }
 
     [Button]
-    public void CreatePrefab()
-    {
-        if (!Application.isPlaying)
-        {
-            if (constructionType != null)
-            {
-                constructionType = GetComponent<ConstructionType>();
-            }
-            else
-            {
-                gameObject.AddComponent(typeof(ConstructionType));
-                constructionType = GetComponent<ConstructionType>();
-            }
-        }
-
-        if (transform.childCount > 0)
-        {
-            for (int i = transform.childCount; i > 0; --i)
-            {
-                DestroyImmediate(this.transform.GetChild(0).gameObject);
-            }
-        }
-
-        if (transform.childCount == 0)
-        {
-            GameObject actualPrefab = Instantiate(ConstructionTypeCollection.GetPrefab(constructionType.prefabBuildingType), transform.position, Quaternion.identity, transform);
-            actualPrefab.transform.localEulerAngles = new Vector3(0, rotationY, 0);
-            actualPrefab.transform.localPosition = spawnPosition;
-        }
-    }
-
-    [Button]
     public void DeletePrefab()
     {
         if (transform.childCount > 0)
         {
-            for (int i = this.transform.childCount; i > 0; --i)
+            for (int i = transform.childCount - 1; i >= 0; --i)
             {
-                DestroyImmediate(this.transform.GetChild(0).gameObject);
+                var child = transform.GetChild(i).gameObject;
+                ConstructionTypeCollection.DecreaseSpawnCount(child);
+                DestroyImmediate(child);
             }
         }
     }
