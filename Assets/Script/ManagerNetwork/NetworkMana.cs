@@ -144,7 +144,6 @@ public class NetworkMana : NetworkManager
         {
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
-                Debug.Log("Le nom du joueur est : " );
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(JoueurPrefab);
                 PlayerData playerData = gameplayerInstance.GetComponentInChildren<PlayerData>();

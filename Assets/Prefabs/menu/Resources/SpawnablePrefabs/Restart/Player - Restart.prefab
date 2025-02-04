@@ -144,7 +144,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -368,6 +368,10 @@ MonoBehaviour:
   moveSpeed: 20
   camIso: {fileID: 0}
   axisLocker: {x: 1, y: 1, z: 1}
+  canMove: 1
+  minLimits: {x: 0, y: 0, z: 0}
+  maxLimits: {x: 0, y: 0, z: 0}
+  lastValidPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1331415498431507271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,8 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraIso: {fileID: 0}
-  zoomLimit: {x: 0, y: 0}
-  zoomDirection: 0
+  zoomLimit: {x: 2, y: 9}
   zoomSpeed: 4
   zoomSensitivity: 2
   zoomCooldown: 0.25
