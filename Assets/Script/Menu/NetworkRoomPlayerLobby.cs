@@ -7,27 +7,28 @@ using UnityEngine.UI;
 
 public class NetworkRoomPlayerLobby : NetworkBehaviour
 {
-    [Header("UI")]
-    [SerializeField] private GameObject lobbyUI = null;
-    [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[5];
-    [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[5];
-    [SerializeField] private Button startGameButton = null;
-
-    //Mets loading... au nom jusqu'a que le joueur en mette un, Quand le joueur change le nom, lance la fonction HandleDisplayNameChanged
+    // Met "loading..." au nom jusqu'à ce que le joueur en mette un.
+    // Lorsque le joueur change le nom, lance la fonction HandleDisplayNameChanged.
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";
-    //Lance la fonction HandleReaduStatusChanged quand l'état change
+
+    // Lance la fonction HandleReadyStatusChanged lorsque l'état change.
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
+
     public bool IsReady = false;
-    private NetworkMana room;
-    private bool isLeader;
+
+    private bool _isLeader;
+
+    private NetworkMana _room;
+    private LobbyView _lobbyView;
 
     public bool IsLeader
     {
         set
         {
-            isLeader = value;
-            startGameButton.gameObject.SetActive(value);
+            _isLeader = value;
+
+            _lobbyView.HandleStartGameButton(_isLeader);
         }
     }
 
@@ -35,33 +36,40 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         get
         {
-            if (room != null) { return room; }
-            return room = NetworkManager.singleton as NetworkMana;
+            if (_room != null) { return _room; }
+
+            return _room = NetworkManager.singleton as NetworkMana;
         }
+    }
+
+    private void Awake()
+    {
+        _lobbyView = ViewManager.Instance.GetView<LobbyView>();
     }
 
     public override void OnStartAuthority()
     {
         CmdSetDisplayName(NamesInput.DisplayName);
-        lobbyUI.SetActive(true);
     }
 
     /// <summary>
-    /// Quand le joueur est ajouté à un client, l'ajoute dans le lobby et mets a jour son affichage
+    /// Quand le joueur est ajouté à un client, l'ajoute dans le lobby et met à jour son affichage.
     /// </summary>
     public override void OnStartClient()
     {
-        Room.RoomPlayers.Add(this); 
-        UpdateDisplay(); 
+        Room.RoomPlayers.Add(this);
+        
+        UpdateDisplay();
     }
 
     /// <summary>
-    /// Quand le joueur est enlevé du client, retire le joueur de la liste et mets a jour l'affichage du lobby
+    /// Quand le joueur est enlevé du client, retire le joueur de la liste et met à jour l'affichage du lobby.
     /// </summary>
     public override void OnStopClient()
     {
-        Room.RoomPlayers.Remove(this); 
-        UpdateDisplay(); 
+        Room.RoomPlayers.Remove(this);
+        
+        UpdateDisplay();
     }
 
     public void HandleReadyStatusChanged(bool oldValue, bool newValue) => UpdateDisplay();
@@ -77,36 +85,28 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
                 if (player.isLocalPlayer) 
                 {
                     player.UpdateDisplay();
+
                     break;
                 }
             }
+
             return;
         }
 
-        foreach (PlayerStatus playerStatus in FindObjectsByType<PlayerStatus>(FindObjectsSortMode.None))
-        {
-            playerStatus.enabled = true;
-        }
-
-        //for (int i = 0; i < playerNameTexts.Length; i++)
-        //{
-        //    playerNameTexts[i].text = "Waiting For Player..."; 
-        //    playerReadyTexts[i].text = string.Empty; 
-        //}
-
         for (int i = 0; i < Room.RoomPlayers.Count; i++)
         {
-            playerNameTexts[i].text = Room.RoomPlayers[i].DisplayName;
-            playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ? 
-                "<color=green>Ready</color>" :
-                "<color=red>Not Ready</color>";
+            string displayName = Room.RoomPlayers[i].DisplayName;
+            bool isReady = Room.RoomPlayers[i].IsReady;
+
+            _lobbyView.UpdatePlayerStatus(i, displayName, isReady);
         }
     }
 
     public void HandleReadyToStart(bool readyToStart)
     {
-        if (!isLeader) { return; } 
-        startGameButton.interactable = readyToStart; 
+        if (!_isLeader) { return; } 
+        
+        _lobbyView.HandleReadyToStart(readyToStart);
     }
 
     [Command]
@@ -126,6 +126,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public void CmdStartGame()
     {
         if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
+
         Room.StartGame(); 
     }
 }
