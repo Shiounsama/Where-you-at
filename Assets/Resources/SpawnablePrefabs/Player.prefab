@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 5817665984477566024}
   - component: {fileID: -6956644373225284508}
   - component: {fileID: 4134133865067781918}
+  - component: {fileID: 2636359294456138695}
+  - component: {fileID: 8191281009694760695}
+  - component: {fileID: 5284582141068114091}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -66,6 +69,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: 
+--- !u!114 &2636359294456138695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620388920761478827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa20d6a6725976a42b99812cdbcf9c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cameraSelection: {fileID: 6013026304806549834}
+  score: {fileID: 0}
+  scoreGame: {fileID: 0}
+--- !u!114 &8191281009694760695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620388920761478827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466517d0269c20b498d4324dcf31679f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  role: 0
+  playerName: 
+  PremierJoueurSpawn: {fileID: 0}
+  DeuxiemeJoueurSpawn: {fileID: 0}
+  seekerObjects:
+  - {fileID: 629989771964275183}
+  charlieObjects:
+  - {fileID: 5977802680650240070}
+--- !u!114 &5284582141068114091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620388920761478827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16318785957b4724381776bd7306552a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  victory: 0
+  finished: 0
+  finalScore: 0
+  playerName: 
 --- !u!1 &5971760027535294172
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +139,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4689662853712564538}
   - component: {fileID: 1347594404514216364}
-  - component: {fileID: 4465647715096171259}
   - component: {fileID: 9196251228806759180}
   - component: {fileID: 4617556730504382486}
   - component: {fileID: 6890939613314767505}
@@ -85,7 +147,6 @@ GameObject:
   - component: {fileID: 1331415498431507271}
   - component: {fileID: 1682726955131857155}
   - component: {fileID: 6013026304806549834}
-  - component: {fileID: 4746901686026315967}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -159,29 +220,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &4465647715096171259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5971760027535294172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 466517d0269c20b498d4324dcf31679f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  role: 0
-  playerName: 
-  PremierJoueurSpawn: {fileID: 0}
-  DeuxiemeJoueurSpawn: {fileID: 0}
-  seekerObjects:
-  - {fileID: 0}
-  charlieObjects:
-  - {fileID: 5977802680650240070}
 --- !u!81 &9196251228806759180
 AudioListener:
   m_ObjectHideFlags: 0
@@ -367,6 +405,10 @@ MonoBehaviour:
   moveSpeed: 20
   camIso: {fileID: 1347594404514216364}
   axisLocker: {x: 1, y: 1, z: 1}
+  canMove: 1
+  minLimits: {x: 0, y: 0, z: 0}
+  maxLimits: {x: 0, y: 0, z: 0}
+  lastValidPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1331415498431507271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +442,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraIso: {fileID: 0}
   zoomLimit: {x: 0, y: 15}
-  zoomDirection: 0
   zoomSpeed: 4
   zoomSensitivity: 2
   zoomCooldown: 0.25
@@ -420,24 +461,6 @@ MonoBehaviour:
   layerToVerify:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &4746901686026315967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5971760027535294172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa20d6a6725976a42b99812cdbcf9c5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  cameraSelection: {fileID: 6013026304806549834}
-  score: {fileID: 0}
-  scoreGame: {fileID: 0}
 --- !u!1001 &4219908605055812071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -446,10 +469,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5817665984477566024}
     m_Modifications:
-    - target: {fileID: 2063322196602054123, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 4746901686026315967}
     - target: {fileID: 2575875852434506772, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
       propertyPath: m_Name
       value: Seeker 1 TChat
@@ -507,6 +526,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
+--- !u!1 &629989771964275183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3615841675747268616, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
+  m_PrefabInstance: {fileID: 4219908605055812071}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1326521131962934129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2952284877736927894, guid: e2b31e63be17cbf4495fd68437c21ffc, type: 3}
