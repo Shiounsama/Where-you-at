@@ -129,7 +129,6 @@ public class NetworkMana : NetworkManager
     public override void OnClientSceneChanged()
     {
         base.OnClientSceneChanged();
-        
 
         if (SceneManager.GetActiveScene().path == mainScene) 
         { 
