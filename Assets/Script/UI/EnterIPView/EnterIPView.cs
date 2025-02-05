@@ -38,8 +38,6 @@ public class EnterIPView : View
         _lobbyJoining.JoinLobby(ipAddress);
 
         joinButton.interactable = false;
-
-        ViewManager.Instance.HideAll();
     }
 
     /// <summary>
@@ -49,7 +47,7 @@ public class EnterIPView : View
     {
         joinButton.interactable = true;
 
-        ViewManager.Instance.HideAll();
+        ViewManager.Instance.Show<LobbyView>();
     }
 
     /// <summary>

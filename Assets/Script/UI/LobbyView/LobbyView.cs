@@ -13,12 +13,9 @@ public class LobbyView : View
     [SerializeField] private Color notReadyColor;
 
     private PlayerStatus[] _playerStatuses;
-    private NetworkRoomPlayerLobby _networkRoomPlayerLobby;
 
     private void Awake()
     {
-        _networkRoomPlayerLobby = FindFirstObjectByType<NetworkRoomPlayerLobby>();
-
         _playerStatuses = GetComponentsInChildren<PlayerStatus>();
     }
 
@@ -33,12 +30,18 @@ public class LobbyView : View
     #region Button events
     private void OnClick_ReadyButton()
     {
-        _networkRoomPlayerLobby.CmdReadyUp();
+        foreach (NetworkRoomPlayerLobby player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            player.HandleReady();
+        }
     }
 
     private void OnClick_StartGameButton()
     {
-        _networkRoomPlayerLobby.CmdStartGame();
+        foreach (NetworkRoomPlayerLobby player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            player.CmdStartGame();
+        }
     }
     #endregion
 
@@ -56,13 +59,16 @@ public class LobbyView : View
     public void HandleReadyToStart(bool isReady)
     {
         startGameButton.interactable = isReady;
+    }
 
+    public void HandleReadyButton(bool isReady)
+    {
         readyButton.GetComponent<Image>().color = isReady ? notReadyColor : readyColor;
         readyButton.GetComponentInChildren<TextMeshProUGUI>().text = isReady ? "Not ready" : "Ready";
     }
 
-    public void HandleStartGameButton(bool enable)
+    public void DestroyStartGameButton()
     {
-        startGameButton.gameObject.SetActive(enable);
+        Destroy(startGameButton.gameObject);
     }
 }

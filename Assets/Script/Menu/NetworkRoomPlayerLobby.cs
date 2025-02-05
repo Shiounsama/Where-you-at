@@ -24,11 +24,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public bool IsLeader
     {
+        get
+        {
+            return _isLeader;
+        }
         set
         {
             _isLeader = value;
-
-            _lobbyView.HandleStartGameButton(_isLeader);
         }
     }
 
@@ -58,7 +60,24 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public override void OnStartClient()
     {
         Room.RoomPlayers.Add(this);
-        
+
+        Debug.Log("OnStartClient");
+
+        bool hasLeader = false;
+
+        foreach (var player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (player.IsLeader)
+            {
+                hasLeader = true;
+            }
+        }
+
+        if (!hasLeader)
+        {
+            _lobbyView.DestroyStartGameButton();
+        }
+
         UpdateDisplay();
     }
 
@@ -109,6 +128,16 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         _lobbyView.HandleReadyToStart(readyToStart);
     }
 
+    public void HandleReady()
+    {
+        if (!isLocalPlayer)
+            return;
+
+        CmdReadyUp();
+
+        _lobbyView.HandleReadyButton(!IsReady);
+    }
+
     [Command]
     private void CmdSetDisplayName(string displayName)
     {
@@ -119,7 +148,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public void CmdReadyUp()
     {
         IsReady = !IsReady; 
-        Room.NotifyPlayersOfReadyState(); 
+        Room.NotifyPlayersOfReadyState();
     }
 
     [Command]
