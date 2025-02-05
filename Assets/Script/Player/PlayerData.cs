@@ -188,6 +188,8 @@ public class PlayerData : NetworkBehaviour
 
         Camera camPlayer = GetComponentInChildren<Camera>();
 
+        ViewManager.Instance.UpdateViewsList();
+
         if (role != Role.None)
         {
             GameObject building = GameObject.Find("monde"); 
@@ -209,6 +211,7 @@ public class PlayerData : NetworkBehaviour
 
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
             List<GameObject> ListPNJ = new List<GameObject>();
+
             foreach (GameObject obj in allPNJ)
             {
                 ListPNJ.Add(obj);

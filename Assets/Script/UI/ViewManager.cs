@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -88,6 +89,16 @@ public class ViewManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Met à jour la liste des Views afin d'éviter que des Views qui n'existent plus soient présents.
+    /// </summary>
+    public void UpdateViewsList()
+    {
+        views.Clear();
+
+        views = FindObjectsByType<View>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
     }
 
     public void AddView(View view)
