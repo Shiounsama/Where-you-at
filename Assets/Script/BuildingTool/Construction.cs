@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(ConstructionType))]
 public class Construction : MonoBehaviour
@@ -18,7 +19,7 @@ public class Construction : MonoBehaviour
         if (Application.isPlaying && ConstructionTypeCollection != null)
         {
             ConstructionTypeCollection.ResetSpawnCounts();
-            ConstructionTypeCollection.ResetPrefabLibrary(); // Ajoute cette ligne
+            ConstructionTypeCollection.ResetPrefabLibrary(); 
         }
 
         pointInteretManager = transform.parent.GetComponent<PointInteretManager>();
@@ -62,12 +63,68 @@ public class Construction : MonoBehaviour
             GameObject actualPrefab = Instantiate(prefabToSpawn, transform.position, Quaternion.identity, transform);
             actualPrefab.transform.localEulerAngles = new Vector3(0, rotationY, 0);
             actualPrefab.transform.localPosition = spawnPosition;
+
+            ConstructionType prefabConstructionType = actualPrefab.GetComponent<ConstructionType>();
+            ConstructionType solParent = GetComponent<ConstructionType>();
+
+            solParent.prefabBuildingName = prefabConstructionType.prefabBuildingName;
         }
 
         if (seed.Instance != null)
         {
             seed.Instance.SeedValue++;
         }
+    }
+
+    public List<NameOfConstruction> checkvoisin()
+    {
+        List<NameOfConstruction> neighboringNames = new();
+        Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
+
+        foreach (var direction in directions)
+        {
+            Vector3 checkPosition = transform.position + direction + Vector3.up * 5;
+
+            if (Physics.Raycast(checkPosition, Vector3.down, out RaycastHit hit, 10f))
+            {
+                Construction neighborConstruction = hit.collider.GetComponent<Construction>();
+                if (neighborConstruction != null)
+                {
+                    ConstructionType neighborType = neighborConstruction.GetComponent<ConstructionType>();
+                    if (neighborType != null)
+                    {
+                        neighboringNames.Add(neighborType.prefabBuildingName);
+                        foreach (var affinityRule in ConstructionTypeCollection.affinityRules)
+                        {
+                            if (neighborType.prefabBuildingName == affinityRule.sourceName)
+                            {
+                                if (Random.value <= affinityRule.affinityChance)
+                                {
+                                    ReplaceWithPrefab(affinityRule.targetName);
+                                    return neighboringNames; 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return neighboringNames;
+    }
+
+    public void ReplaceWithPrefab(NameOfConstruction targetConstruction)
+    {
+        TypeOfConstruction typeToSpawn = TypeOfConstruction.None;
+
+        switch (targetConstruction)
+        {
+            case NameOfConstruction.Cimetiere:
+                typeToSpawn = TypeOfConstruction.PointInteret;
+                break;
+        }
+
+        SpawnPrefab(typeToSpawn);
     }
 
     [Button]
@@ -83,4 +140,44 @@ public class Construction : MonoBehaviour
             }
         }
     }
+
+   /* private void OnDrawGizmos()
+    {
+        // Longueur de la case (assure-toi que ça correspond à la taille de tes cases dans la grille)
+        float cellSize = 7.0f;
+
+        // Directions pour vérifier les cases adjacentes (haut, bas, gauche, droite)
+        Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
+
+        foreach (var direction in directions)
+        {
+            Vector3 checkPosition = transform.position + direction * cellSize;
+
+            Vector3 rayStart = checkPosition + Vector3.up * 5;
+            Vector3 rayEnd = rayStart + Vector3.down * 7f;  
+
+            RaycastHit hit;
+            if (Physics.Raycast(rayStart, Vector3.down, out hit, 10f))
+            {
+                // Si un voisin est détecté, dessine le rayon en vert et marque le point d'impact
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(rayStart, hit.point);
+                Gizmos.DrawSphere(hit.point, 0.2f);  // Petit point pour visualiser où le rayon a touché
+
+                // Vérifie si l'objet touché est une construction
+                Construction neighborConstruction = hit.collider.GetComponent<Construction>();
+                if (neighborConstruction != null)
+                {
+                    ConstructionType neighborType = neighborConstruction.GetComponent<ConstructionType>();
+                    Debug.Log("Voisin détecté : " + neighborType.prefabBuildingType + " à " + hit.collider.gameObject.name);
+                }
+            }
+            else
+            {
+                // Si aucun voisin, dessine le rayon en rouge
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(rayStart, rayEnd);
+            }
+        }
+    }*/
 }

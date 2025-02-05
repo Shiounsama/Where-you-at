@@ -9,17 +9,27 @@ public class ConstructionTypeCollection : ScriptableObject
     {
         public GameObject prefab;
         public TypeOfConstruction type;
+        public NameOfConstruction name;
         public int maxSpawn = int.MaxValue; // Par défaut, pas de limite
     }
 
+    [System.Serializable]
+    public class AffinityRule
+    {
+        public NameOfConstruction sourceName;  
+        public NameOfConstruction targetName;  
+        [Range(0, 1)] public float affinityChance;  
+    }
+
+    [SerializeField] public List<AffinityRule> affinityRules = new();
     [SerializeField] private List<PrefabLimit> prefabLimits = new();
 
     private Dictionary<TypeOfConstruction, List<PrefabLimit>> prefabsByType;
-    private Dictionary<GameObject, int> prefabSpawnCounts = new(); // Compteur par prefab individuel
+    private Dictionary<GameObject, int> prefabSpawnCounts = new();
 
     private void InitializePrefabs()
     {
-        if (prefabsByType != null) return; // Évite de réinitialiser plusieurs fois
+        if (prefabsByType != null) return; 
 
         prefabsByType = new Dictionary<TypeOfConstruction, List<PrefabLimit>>();
 
@@ -30,7 +40,7 @@ public class ConstructionTypeCollection : ScriptableObject
                 prefabsByType[prefabLimit.type] = new List<PrefabLimit>();
             }
             prefabsByType[prefabLimit.type].Add(prefabLimit);
-            prefabSpawnCounts[prefabLimit.prefab] = 0; // Initialisation du compteur pour chaque prefab
+            prefabSpawnCounts[prefabLimit.prefab] = 0; 
         }
     }
 
