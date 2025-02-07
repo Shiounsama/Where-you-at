@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 [RequireComponent(typeof(ConstructionType))]
 public class Construction : MonoBehaviour
@@ -13,6 +14,7 @@ public class Construction : MonoBehaviour
 
     public float rotationY;
     public Vector3 spawnPosition;
+    public int cellSize = 7;
 
     public void Awake()
     {
@@ -30,16 +32,7 @@ public class Construction : MonoBehaviour
 
     public void Start()
     {
-        if (pointInteret == true)
-        {
-            SpawnPrefab(TypeOfConstruction.PointInteret);
-        }
-        else
-        {
-            SpawnPrefab(constructionType.prefabBuildingType);
-        }
-
-        
+        StartCoroutine(spawnVille());
     }
 
     public void SpawnPrefab(TypeOfConstruction typeToSpawn)
@@ -72,37 +65,40 @@ public class Construction : MonoBehaviour
         {
             seed.Instance.SeedValue++;
         }
-
-        checkvoisin();
+        
     }
 
-    public List<NameOfConstruction> checkvoisin()
+    public NameOfConstruction checkvoisin()
     {
-        List<NameOfConstruction> neighboringNames = new();
+        NameOfConstruction neighboringNames = new();
         Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
         foreach (var direction in directions)
         {
-            Vector3 checkPosition = transform.position + direction + Vector3.up * 5;
-            
-            if (Physics.Raycast(checkPosition, Vector3.down, out RaycastHit hit, 10f)) //Fais un raycast pour regarder les voisins
+            Vector3 checkPosition = transform.position + direction * cellSize;
+            Vector3 rayStart = checkPosition + Vector3.up * 5;
+            Vector3 rayEnd = rayStart + Vector3.down * 7f;
+
+            if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 10f)) //Fais un raycast pour regarder les voisins
             {
                 Construction neighborConstruction = hit.collider.GetComponent<Construction>();
                 if (neighborConstruction != null) //Si le voisin a un collider + le script Construction
                 {
-                    Debug.Log("Il y a un Construciton");
+                    
                     ConstructionType neighborType = neighborConstruction.GetComponent<ConstructionType>();
                     if (neighborType != null) //Si le voisin a le composant ConstructionType
                     {
-                        Debug.Log("Il y a un Construciton type");
-                        neighboringNames.Add(neighborType.prefabBuildingName);
+                        neighboringNames = neighborType.prefabBuildingName;
                         foreach (var affinityRule in ConstructionTypeCollection.affinityRules) //Regarde la liste de toute les affinités pour faire le spawn si la chance est bonne
                         {
-                            Debug.Log("Il y a une affinité");
+                            Debug.Log("Nom du voisin : " + neighborType.prefabBuildingName + " nom de la source affinity : " + affinityRule.sourceName);
                             if (neighborType.prefabBuildingName == affinityRule.sourceName)
                             {
+                                Debug.Log("Salut moi c'est : " + this.name);
                                 if (Random.value <= affinityRule.affinityChance)
                                 {
-                                    return neighboringNames; 
+                                    ReplacePrefab(affinityRule.targetName);
+                                    
+                                    return neighboringNames;
                                 }
                             }
                         }
@@ -114,6 +110,34 @@ public class Construction : MonoBehaviour
         return neighboringNames;
     }
 
+    public void ReplacePrefab(NameOfConstruction nameToSpawn)
+    {
+        if (transform.childCount > 0)
+        {
+            for (int i = transform.childCount - 1; i >= 0; --i)
+            {
+                var child = transform.GetChild(i).gameObject;
+                ConstructionTypeCollection.DecreaseSpawnCount(child);
+                DestroyImmediate(child);
+            }
+        }
+
+        GameObject prefabToSpawn = ConstructionTypeCollection.GetPrefabByName(nameToSpawn);
+        if (prefabToSpawn != null)
+        {
+            GameObject actualPrefab = Instantiate(prefabToSpawn, transform.position, Quaternion.identity, transform);
+            actualPrefab.transform.localEulerAngles = new Vector3(0, rotationY, 0);
+            actualPrefab.transform.localPosition = spawnPosition;
+            this.GetComponent<ConstructionType>().prefabBuildingName = actualPrefab.GetComponent<ConstructionType>().prefabBuildingName;
+        }
+    }
+
+    public IEnumerator spawnVille()
+    {
+        SpawnPrefab(constructionType.prefabBuildingType);
+        yield return new WaitForSeconds(0.01f);
+        checkvoisin();
+    }
 
     [Button]
     public void DeletePrefab()
@@ -131,10 +155,7 @@ public class Construction : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // Longueur de la case (assure-toi que ça correspond à la taille de tes cases dans la grille)
         float cellSize = 7.0f;
-
-        // Directions pour vérifier les cases adjacentes (haut, bas, gauche, droite)
         Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
 
         foreach (var direction in directions)
@@ -147,12 +168,10 @@ public class Construction : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(rayStart, Vector3.down, out hit, 10f))
             {
-                // Si un voisin est détecté, dessine le rayon en vert et marque le point d'impact
                 Gizmos.color = Color.green;
                 Gizmos.DrawLine(rayStart, hit.point);
-                Gizmos.DrawSphere(hit.point, 0.2f);  // Petit point pour visualiser où le rayon a touché
+                Gizmos.DrawSphere(hit.point, 0.2f); 
 
-                // Vérifie si l'objet touché est une construction
                 Construction neighborConstruction = hit.collider.GetComponent<Construction>();
                 if (neighborConstruction != null)
                 {
@@ -161,7 +180,6 @@ public class Construction : MonoBehaviour
             }
             else
             {
-                // Si aucun voisin, dessine le rayon en rouge
                 Gizmos.color = Color.red;
                 Gizmos.DrawLine(rayStart, rayEnd);
             }
