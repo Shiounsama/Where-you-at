@@ -15,7 +15,8 @@ public enum NameOfConstruction
     None,
     Eglise,
     Cimetiere,
-    roue
+    roue,
+    magasin
 }
 public class ConstructionType : MonoBehaviour
 {

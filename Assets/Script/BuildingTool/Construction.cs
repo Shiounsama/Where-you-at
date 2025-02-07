@@ -38,6 +38,8 @@ public class Construction : MonoBehaviour
         {
             SpawnPrefab(constructionType.prefabBuildingType);
         }
+
+        
     }
 
     public void SpawnPrefab(TypeOfConstruction typeToSpawn)
@@ -63,44 +65,43 @@ public class Construction : MonoBehaviour
             GameObject actualPrefab = Instantiate(prefabToSpawn, transform.position, Quaternion.identity, transform);
             actualPrefab.transform.localEulerAngles = new Vector3(0, rotationY, 0);
             actualPrefab.transform.localPosition = spawnPosition;
-
-            ConstructionType prefabConstructionType = actualPrefab.GetComponent<ConstructionType>();
-            ConstructionType solParent = GetComponent<ConstructionType>();
-
-            solParent.prefabBuildingName = prefabConstructionType.prefabBuildingName;
+            this.GetComponent<ConstructionType>().prefabBuildingName = actualPrefab.GetComponent<ConstructionType>().prefabBuildingName;
         }
 
         if (seed.Instance != null)
         {
             seed.Instance.SeedValue++;
         }
+
+        checkvoisin();
     }
 
     public List<NameOfConstruction> checkvoisin()
     {
         List<NameOfConstruction> neighboringNames = new();
         Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
-
         foreach (var direction in directions)
         {
             Vector3 checkPosition = transform.position + direction + Vector3.up * 5;
-
-            if (Physics.Raycast(checkPosition, Vector3.down, out RaycastHit hit, 10f))
+            
+            if (Physics.Raycast(checkPosition, Vector3.down, out RaycastHit hit, 10f)) //Fais un raycast pour regarder les voisins
             {
                 Construction neighborConstruction = hit.collider.GetComponent<Construction>();
-                if (neighborConstruction != null)
+                if (neighborConstruction != null) //Si le voisin a un collider + le script Construction
                 {
+                    Debug.Log("Il y a un Construciton");
                     ConstructionType neighborType = neighborConstruction.GetComponent<ConstructionType>();
-                    if (neighborType != null)
+                    if (neighborType != null) //Si le voisin a le composant ConstructionType
                     {
+                        Debug.Log("Il y a un Construciton type");
                         neighboringNames.Add(neighborType.prefabBuildingName);
-                        foreach (var affinityRule in ConstructionTypeCollection.affinityRules)
+                        foreach (var affinityRule in ConstructionTypeCollection.affinityRules) //Regarde la liste de toute les affinités pour faire le spawn si la chance est bonne
                         {
+                            Debug.Log("Il y a une affinité");
                             if (neighborType.prefabBuildingName == affinityRule.sourceName)
                             {
                                 if (Random.value <= affinityRule.affinityChance)
                                 {
-                                    ReplaceWithPrefab(affinityRule.targetName);
                                     return neighboringNames; 
                                 }
                             }
@@ -113,19 +114,6 @@ public class Construction : MonoBehaviour
         return neighboringNames;
     }
 
-    public void ReplaceWithPrefab(NameOfConstruction targetConstruction)
-    {
-        TypeOfConstruction typeToSpawn = TypeOfConstruction.None;
-
-        switch (targetConstruction)
-        {
-            case NameOfConstruction.Cimetiere:
-                typeToSpawn = TypeOfConstruction.PointInteret;
-                break;
-        }
-
-        SpawnPrefab(typeToSpawn);
-    }
 
     [Button]
     public void DeletePrefab()
@@ -141,7 +129,7 @@ public class Construction : MonoBehaviour
         }
     }
 
-   /* private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         // Longueur de la case (assure-toi que ça correspond à la taille de tes cases dans la grille)
         float cellSize = 7.0f;
@@ -154,7 +142,7 @@ public class Construction : MonoBehaviour
             Vector3 checkPosition = transform.position + direction * cellSize;
 
             Vector3 rayStart = checkPosition + Vector3.up * 5;
-            Vector3 rayEnd = rayStart + Vector3.down * 7f;  
+            Vector3 rayEnd = rayStart + Vector3.down * 7f;
 
             RaycastHit hit;
             if (Physics.Raycast(rayStart, Vector3.down, out hit, 10f))
@@ -169,7 +157,6 @@ public class Construction : MonoBehaviour
                 if (neighborConstruction != null)
                 {
                     ConstructionType neighborType = neighborConstruction.GetComponent<ConstructionType>();
-                    Debug.Log("Voisin détecté : " + neighborType.prefabBuildingType + " à " + hit.collider.gameObject.name);
                 }
             }
             else
@@ -179,5 +166,5 @@ public class Construction : MonoBehaviour
                 Gizmos.DrawLine(rayStart, rayEnd);
             }
         }
-    }*/
+    }
 }
