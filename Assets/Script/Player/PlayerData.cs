@@ -180,20 +180,22 @@ public class PlayerData : NetworkBehaviour
     /// </summary>
     public void EnablePlayer(Role role)
     {
-        IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
-        IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
-        IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
+        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
 
-        Camera360 cam360 = this.GetComponent<Camera360>();
+        Camera360 cam360 = GetComponentInChildren<Camera360>();
 
-        Camera camPlayer = this.GetComponent<Camera>();
+        Camera camPlayer = GetComponentInChildren<Camera>();
+
+        ViewManager.Instance.UpdateViewsList();
 
         if (role != Role.None)
         {
             GameObject building = GameObject.Find("monde"); 
             building.transform.position = new Vector3(0, 0, 0);
 
-            this.GetComponent<PlayerInput>().enabled = false;
+            GetComponentInChildren<PlayerInput>().enabled = false;
 
             cam360.enabled = false;
 
@@ -209,6 +211,7 @@ public class PlayerData : NetworkBehaviour
 
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
             List<GameObject> ListPNJ = new List<GameObject>();
+
             foreach (GameObject obj in allPNJ)
             {
                 ListPNJ.Add(obj);
@@ -219,8 +222,7 @@ public class PlayerData : NetworkBehaviour
 
             if (role == Role.Seeker)
             {
-                Debug.Log("Seeker view");
-                SeekerView seekerView = transform.parent.GetComponentInChildren<SeekerView>(true);
+                SeekerView seekerView = GetComponentInChildren<SeekerView>(true);
                 ViewManager.Instance.AddView(seekerView);
                 ViewManager.Instance.GetView<SeekerView>().Initialize();
 
@@ -233,17 +235,16 @@ public class PlayerData : NetworkBehaviour
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
 
-                this.GetComponent<PlayerInput>().enabled = true;
+                GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
 
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
 
             }
-
             else if (role == Role.Lost)
             {
-                LostView lostView = transform.parent.GetComponentInChildren<LostView>(true);
+                LostView lostView = GetComponentInChildren<LostView>(true);
                 ViewManager.Instance.AddView(lostView);
                 ViewManager.Instance.GetView<LostView>().Initialize();
 
@@ -271,13 +272,13 @@ public class PlayerData : NetworkBehaviour
     /// </summary>
     public void DisablePlayer()
     {
-        IsoCameraDrag camDragIso = this.GetComponent<IsoCameraDrag>();
-        IsoCameraRotation camRotaIso = this.GetComponent<IsoCameraRotation>();
-        IsoCameraZoom camZoomIso = this.GetComponent<IsoCameraZoom>();
+        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
         TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
-        Camera360 cam360 = this.GetComponent<Camera360>();
+        Camera360 cam360 = GetComponentInChildren<Camera360>();
 
-        this.GetComponent<PlayerInput>().enabled = false;
+        GetComponentInChildren<PlayerInput>().enabled = false;
 
         cam360.enabled = false;
 

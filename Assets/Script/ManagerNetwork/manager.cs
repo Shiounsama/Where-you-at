@@ -93,6 +93,7 @@ public class manager : NetworkBehaviour
         }
 
         SetCharlieRoleQueue();
+        GiveNextRoles();
         
         yield return new WaitForSeconds(2f);
         

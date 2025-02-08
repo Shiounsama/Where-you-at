@@ -7,17 +7,11 @@ using UnityEngine.UI;
 public class ScoreGame : MonoBehaviour
 {
     public List<PlayerScoring> playersScores;
-    public Canvas classementCanvas;
-    public Transform parentTransform;
     public bool finished = false;
 
-    private Button restartButton;
-    public Button restartButtonPrefab;
-    public GameObject BackgroundImage;
-
     /// <summary>
-    /// Récupère dans ne liste tous les joueurs avec un script scoringPlayer
-    /// tri la list avec tous les joueurs qui ont validé leurs choix puis tri la liste du plus proche au plus loin
+    /// Récupère dans une liste tous les joueurs avec un script scoringPlayer
+    /// trie la liste avec tous les joueurs qui ont validé leurs choix puis trie la liste du plus proche au plus loin.
     /// </summary>
     public void ShowScore()
     {
@@ -29,18 +23,6 @@ public class ScoreGame : MonoBehaviour
 
     private void ShowLeaderboard(List<PlayerScoring> scores)
     {
-        classementCanvas.enabled = true;
-
-        parentTransform = classementCanvas.transform;
-
-        foreach (Transform child in parentTransform)
-        {
-            if (child.GetComponent<Text>() != null)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-
         LeaderboardView leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
 
         ViewManager.Instance.Show<LeaderboardView>();

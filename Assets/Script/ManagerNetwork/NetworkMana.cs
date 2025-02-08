@@ -8,16 +8,17 @@ using System.Linq;
 
 public class NetworkMana : NetworkManager
 {
+    public static NetworkMana Instance;
+
     [Scene][SerializeField] private string lobbyScene;
     [Scene][SerializeField] private string mainScene;
 
-    [Scene] [SerializeField] private string menuScene = string.Empty;
+    [Scene][SerializeField] private string menuScene = string.Empty;
 
     [Header ("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
 
     [SerializeField] private int minPlayers = 1;
-    public GameObject JoueurPrefab;
 
     public manager scriptManager;
 
@@ -27,6 +28,12 @@ public class NetworkMana : NetworkManager
     public static event Action OnClientDisconnected;
 
     public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
+
+    public override void Awake()
+    {
+        if (!Instance)
+            Instance = this;
+    }
 
     public override void OnStartServer()
     {
@@ -104,6 +111,8 @@ public class NetworkMana : NetworkManager
             roomPlayerInstance.IsLeader = isLeader;
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
+
+            ViewManager.Instance.Show<LobbyView>();
         }
     }
 
@@ -113,14 +122,13 @@ public class NetworkMana : NetworkManager
         {
             if (!IsReadyToStart()) { return; }
 
-            ServerChangeScene("VilleJeu");
+            ServerChangeScene(mainScene);
         }
     }
 
     public override void OnClientSceneChanged()
     {
         base.OnClientSceneChanged();
-        
 
         if (SceneManager.GetActiveScene().path == mainScene) 
         { 
@@ -137,7 +145,7 @@ public class NetworkMana : NetworkManager
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
                 var conn = RoomPlayers[i].connectionToClient;
-                var gameplayerInstance = Instantiate(JoueurPrefab);
+                var gameplayerInstance = Instantiate(playerPrefab);
                 PlayerData playerData = gameplayerInstance.GetComponentInChildren<PlayerData>();
                 playerData.playerName = RoomPlayers[i].DisplayName;
 
@@ -153,6 +161,7 @@ public class NetworkMana : NetworkManager
     public override void OnStopServer()
     {
         RoomPlayers.Clear();
+
         base.OnStopServer();
     }
 
