@@ -10,7 +10,7 @@ public class ConstructionTypeCollection : ScriptableObject
         public GameObject prefab;
         public TypeOfConstruction type;
         public NameOfConstruction name;
-        public int maxSpawn = int.MaxValue; // Par défaut, pas de limite
+        public int maxSpawn = int.MaxValue;
     }
 
     [System.Serializable]
@@ -21,6 +21,14 @@ public class ConstructionTypeCollection : ScriptableObject
         [Range(0, 1)] public float affinityChance;  
     }
 
+    [System.Serializable]
+    public class ExclusionRule
+    {
+        public NameOfConstruction sourceName;  
+        public NameOfConstruction excludedName; 
+    }
+
+    [SerializeField] public List<ExclusionRule> exclusionRules = new();
     [SerializeField] public List<AffinityRule> affinityRules = new();
     [SerializeField] private List<PrefabLimit> prefabLimits = new();
 
@@ -53,6 +61,36 @@ public class ConstructionTypeCollection : ScriptableObject
         }
     }
 
+    public bool CanSpawn(NameOfConstruction nameToSpawn)
+    {
+        InitializePrefabs();
+
+        foreach (var exclusionRule in exclusionRules)
+        {
+            if (IsPrefabSpawned(exclusionRule.sourceName) && exclusionRule.excludedName == nameToSpawn)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool IsPrefabSpawned(NameOfConstruction name)
+    {
+        if (prefabsByName.ContainsKey(name))
+        {
+            foreach (var prefabLimit in prefabsByName[name])
+            {
+                if (prefabSpawnCounts[prefabLimit.prefab] > 0)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public GameObject GetPrefab(TypeOfConstruction typeToGet)
     {
         InitializePrefabs();
@@ -63,7 +101,7 @@ public class ConstructionTypeCollection : ScriptableObject
 
             foreach (PrefabLimit prefabLimit in prefabsByType[typeToGet])
             {
-                if (prefabSpawnCounts[prefabLimit.prefab] < prefabLimit.maxSpawn)
+                if (prefabSpawnCounts[prefabLimit.prefab] < prefabLimit.maxSpawn && CanSpawn(prefabLimit.name))
                 {
                     PrefabDispo.Add(prefabLimit);
                 }
@@ -72,19 +110,19 @@ public class ConstructionTypeCollection : ScriptableObject
             if (PrefabDispo.Count > 0)
             {
                 PrefabLimit selectedPrefabLimit = PrefabDispo[Random.Range(0, PrefabDispo.Count)];
-                prefabSpawnCounts[selectedPrefabLimit.prefab]++; 
+                prefabSpawnCounts[selectedPrefabLimit.prefab]++;
                 return selectedPrefabLimit.prefab;
             }
         }
 
-        return null; 
+        return null;
     }
 
     public GameObject GetPrefabByName(NameOfConstruction nameToGet)
     {
         InitializePrefabs();
 
-        if (prefabsByName.ContainsKey(nameToGet))
+        if (prefabsByName.ContainsKey(nameToGet) && CanSpawn(nameToGet))
         {
             List<PrefabLimit> PrefabDispo = new List<PrefabLimit>();
 
@@ -96,8 +134,12 @@ public class ConstructionTypeCollection : ScriptableObject
                 }
             }
 
-            PrefabLimit selectedPrefabLimit = PrefabDispo[0];
-            return selectedPrefabLimit.prefab;
+            if (PrefabDispo.Count > 0)
+            {
+                PrefabLimit selectedPrefabLimit = PrefabDispo[0];
+                prefabSpawnCounts[selectedPrefabLimit.prefab]++;
+                return selectedPrefabLimit.prefab;
+            }
         }
 
         return null;

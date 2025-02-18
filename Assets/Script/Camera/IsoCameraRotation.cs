@@ -21,14 +21,16 @@ public class IsoCameraRotation : MonoBehaviour
 
     private bool isTransitioning = false;
 
+    public IsoCameraDrag CamDrag;
+
     private void Update()
     {
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("q") && CamDrag.isDragging == false)
         {
             RotateCameraAroundPoint(90);
         }
 
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown("e") && CamDrag.isDragging == false)
         {
             RotateCameraAroundPoint(-90);
         }

@@ -20,7 +20,6 @@ public class IsoCameraDrag : MonoBehaviour
 
     private Camera mainCamera;
 
-    public bool canMove = true;
 
     [SerializeField] private Vector3 minLimits; 
     [SerializeField] private Vector3 maxLimits;
@@ -36,7 +35,7 @@ public class IsoCameraDrag : MonoBehaviour
 
     private void Update()
     {
-        CheckRayIntersection();
+        //CheckRayIntersection();
 
         if (isDragging)
         {
@@ -55,6 +54,7 @@ public class IsoCameraDrag : MonoBehaviour
     {
         if (context.performed)
         {
+            lastValidPosition = objectToMove.position;
             isDragging = true;
             startDraggingMousePos = GetMouseWorldPosition();
             cameraPosOrigin = transform.position;
@@ -63,15 +63,15 @@ public class IsoCameraDrag : MonoBehaviour
         if (context.canceled)
         {
             isDragging = false;
+
+            if (!IsOnValidSurface())
+            {
+                objectToMove.position = lastValidPosition;
+            }
         }
     }
 
-    private Vector3 GetMouseWorldPosition()
-    {
-        return mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
-    }
-
-    private void CheckRayIntersection()
+    private bool IsOnValidSurface()
     {
         Vector3 cameraPosition = camIso.transform.position;
         Vector3 cameraDirection = camIso.transform.forward;
@@ -81,26 +81,39 @@ public class IsoCameraDrag : MonoBehaviour
         {
             if (hitInfo.collider.CompareTag("Map") || hitInfo.collider.CompareTag("spawner"))
             {
-                canMove = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Vector3 GetMouseWorldPosition()
+    {
+        return mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
+    }
+
+    /*private void CheckRayIntersection()
+    {
+        Vector3 cameraPosition = camIso.transform.position;
+        Vector3 cameraDirection = camIso.transform.forward;
+        Ray ray = new Ray(cameraPosition, cameraDirection);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity))
+        {
+            if (hitInfo.collider.CompareTag("Map") || hitInfo.collider.CompareTag("spawner"))
+            {
                 lastValidPosition = objectToMove.position;
             }
             else
             {
-                canMove = false;
+                objectToMove.position = lastValidPosition;
             }
         }
-        else
-        {
-            canMove = false;
-        }
 
-        if (!canMove)
-        {
-            objectToMove.position = lastValidPosition;
-        }
-    }
+            
+    }*/
 
-    private void OnDrawGizmos()
+/*    private void OnDrawGizmos()
     {
         if (camIso == null || objectToMove == null) return;
 
@@ -114,7 +127,6 @@ public class IsoCameraDrag : MonoBehaviour
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(cameraPosition, hitInfo.point);
 
-            Gizmos.color = canMove ? Color.green : Color.red;
             Gizmos.DrawSphere(hitInfo.point, 0.2f);
         }
         else
@@ -122,5 +134,5 @@ public class IsoCameraDrag : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(cameraPosition, cameraPosition + cameraDirection * 100f);
         }
-    }
+    }*/
 }
