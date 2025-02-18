@@ -12,7 +12,9 @@ namespace SoundDesign
 
         public SoundBankSO SoundBank { get { return soundBank; } }
 
-        [SerializeField] private AudioSource m_audioSource;
+        [SerializeField] private AudioSource audioSourcePrefab;
+
+        private AudioSource m_audioSource;
 
         private void Awake()
         {
@@ -20,11 +22,16 @@ namespace SoundDesign
 
             if (!Instance)
                 Instance = this;
+
+            m_audioSource = GetComponent<AudioSource>();
+
+            m_audioSource.clip = soundBank.backgroundMusic;
+            m_audioSource.Play();
         }
 
-        public void PlaySFXClip(AudioClip clip, float volume, Transform spawnTransform = null)
+        public void PlaySFXClip(AudioClip clip, Transform spawnTransform, float volume = 1f)
         {
-            AudioSource audioSource = Instantiate(m_audioSource, spawnTransform.position, Quaternion.identity);
+            AudioSource audioSource = Instantiate(audioSourcePrefab, spawnTransform.position, Quaternion.identity);
 
             audioSource.clip = clip;
             audioSource.volume = volume;

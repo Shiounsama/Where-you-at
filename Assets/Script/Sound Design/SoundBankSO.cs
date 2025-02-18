@@ -17,7 +17,7 @@ namespace SoundDesign
 
         public AudioClip textTypingClip;
 
-        public AudioClip pnjClickClip;
+        public AudioClip pnjPingClip;
 
         [Header("Music")]
         public AudioClip backgroundMusic;
