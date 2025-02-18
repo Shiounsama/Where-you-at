@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Ping Map",
-                    "type": "Button",
-                    "id": "4f077d06-e275-481c-9f06-3d54558406c2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "MoveWorld",
                     "type": "Button",
                     "id": "22647cfe-ab13-4e08-b793-e13a64369f6b",
@@ -49,6 +40,24 @@
                     "processors": "",
                     "interactions": "MultiTap(tapDelay=0.15)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "UnselectObject",
+                    "type": "Button",
+                    "id": "97cfc4c1-bc23-489d-82a7-6b37ed9acd9f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SendMessage",
+                    "type": "Button",
+                    "id": "ea4e8e81-5051-4529-b671-e77699bc017e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -60,17 +69,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "ZoomCamera",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "45dff7a5-6693-42c1-a6d1-2d4247b5f0cb",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Ping Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -126,6 +124,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectObject",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b0522d0-62fe-4e9b-9864-2281d6477b5c",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SendMessage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f66cb4a2-1327-42bf-b283-64764db177ef",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UnselectObject",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

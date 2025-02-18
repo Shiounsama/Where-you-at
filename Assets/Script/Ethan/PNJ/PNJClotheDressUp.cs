@@ -3,26 +3,47 @@ using UnityEngine;
 public class PNJClothe : MonoBehaviour
 {
     [Header("CollectionOfClotheAppliedToOurPNJ")]
-    [SerializeField] private ClotheData headClothe;
-    [SerializeField] private ClotheData expressionClothe;
-    [SerializeField] private ClotheData chestClothe;
-    [SerializeField] private ClotheData legsClothe;
-    [SerializeField] private ClotheData feetsClothe;
+    public ClotheCollection frontHairClothe;
+    public ClotheCollection backHairClothe;
+    public ClotheCollection eyesClothe;
+    public ClotheCollection plusClothe;
+    public ClotheCollection mouthClothe;
+    public ClotheCollection hautClothe;
+    public ClotheCollection basClothe;
+    public ClotheCollection shoesClothe;
 
     [Header("BodyPartOfOurPNJ")]
-    [SerializeField] private SpriteRenderer headClotheImage;
-    [SerializeField] private SpriteRenderer expressionClotheImage;
-    [SerializeField] private SpriteRenderer chestClotheImage;
-    [SerializeField] private SpriteRenderer legsClotheImage;
-    [SerializeField] private SpriteRenderer feetsClotheImage;
+    public SpriteRenderer frontHairClotheImage;
+    public SpriteRenderer backHairClotheImage;
+    public SpriteRenderer eyesClotheImage;
+    public SpriteRenderer plusClotheImage;
+    public SpriteRenderer mouthClotheImage;
+    public SpriteRenderer hautClotheImage;
+    public SpriteRenderer basClotheImage;
+    public SpriteRenderer shoesClotheImage;
 
-    private void Start()
+    public void Start()
     {
-        GenerateRandomClothe(headClotheImage, headClothe);
+        if (seed.Instance != null)
+        {
+            seed.Instance.SeedValue++;
+        }
+        GenerateRandomClothe(frontHairClotheImage, frontHairClothe);
+        GenerateRandomClothe(backHairClotheImage, backHairClothe);
+        GenerateRandomClothe(eyesClotheImage, eyesClothe);
+        GenerateRandomClothe(plusClotheImage, plusClothe);
+        GenerateRandomClothe(mouthClotheImage, mouthClothe);
+        GenerateRandomClothe(hautClotheImage, hautClothe);
+        GenerateRandomClothe(basClotheImage, basClothe);
+        GenerateRandomClothe(shoesClotheImage, shoesClothe);
     }
 
-    private void GenerateRandomClothe(SpriteRenderer bodyPartImage, ClotheData bodyPartCollection)
+    private void GenerateRandomClothe(SpriteRenderer bodyPartImage, ClotheCollection bodyPartCollection)
     {
-        bodyPartImage.sprite = bodyPartCollection.clotheList[Random.Range(0, bodyPartCollection.clotheList.Count)].sprite;
+        if (bodyPartCollection.clotheList.Count <= 0)
+        {
+            return;
+        }
+        bodyPartImage.sprite = bodyPartCollection.ReturnRandomClothe();
     }
 }
