@@ -16,6 +16,8 @@ public class Construction : MonoBehaviour
     public Vector3 spawnPosition;
     public int cellSize = 7;
 
+    public bool canSpawnNext = true;
+
     public void Awake()
     {
         if (Application.isPlaying && ConstructionTypeCollection != null)
@@ -81,23 +83,20 @@ public class Construction : MonoBehaviour
             if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 10f)) //Fais un raycast pour regarder les voisins
             {
                 Construction neighborConstruction = hit.collider.GetComponent<Construction>();
-                if (neighborConstruction != null) //Si le voisin a un collider + le script Construction
+                if (neighborConstruction != null && neighborConstruction.canSpawnNext == true) //Si le voisin a un collider + le script Construction
                 {
-                    
                     ConstructionType neighborType = neighborConstruction.GetComponent<ConstructionType>();
                     if (neighborType != null) //Si le voisin a le composant ConstructionType
                     {
                         neighboringNames = neighborType.prefabBuildingName;
                         foreach (var affinityRule in ConstructionTypeCollection.affinityRules) //Regarde la liste de toute les affinités pour faire le spawn si la chance est bonne
                         {
-                            Debug.Log("Nom du voisin : " + neighborType.prefabBuildingName + " nom de la source affinity : " + affinityRule.sourceName);
                             if (neighborType.prefabBuildingName == affinityRule.sourceName)
                             {
-                                Debug.Log("Salut moi c'est : " + this.name);
                                 if (Random.value <= affinityRule.affinityChance)
                                 {
                                     ReplacePrefab(affinityRule.targetName);
-                                    
+                                    neighborConstruction.canSpawnNext = false;
                                     return neighboringNames;
                                 }
                             }
@@ -162,19 +161,21 @@ public class Construction : MonoBehaviour
         {
             Vector3 checkPosition = transform.position + direction * cellSize;
 
-            Vector3 rayStart = checkPosition + Vector3.up * 5;
-            Vector3 rayEnd = rayStart + Vector3.down * 7f;
+            Vector3 rayStart = checkPosition + Vector3.up * 8;
+            Vector3 rayEnd = rayStart + Vector3.down * 10f;
 
             RaycastHit hit;
-            if (Physics.Raycast(rayStart, Vector3.down, out hit, 10f))
+            if (Physics.Raycast(rayStart, Vector3.down, out hit, 15f))
             {
-                Gizmos.color = Color.green;
+                Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(rayStart, hit.point);
-                Gizmos.DrawSphere(hit.point, 0.2f); 
 
                 Construction neighborConstruction = hit.collider.GetComponent<Construction>();
                 if (neighborConstruction != null)
                 {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(rayStart, hit.point);
+                    Gizmos.DrawSphere(hit.point, 0.2f);
                     ConstructionType neighborType = neighborConstruction.GetComponent<ConstructionType>();
                 }
             }
