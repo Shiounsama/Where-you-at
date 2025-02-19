@@ -126,20 +126,18 @@ public class PlayerData : NetworkBehaviour
 
             tchatGeneral.clearTchat();
 
-            foreach (TchatPlayer tchat in listTchat)
+            /*foreach (TchatPlayer tchat in listTchat)
             {
                 if (tchat.isLocalPlayer)
                 {
-
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
 
                 }
                 else
                 {
-
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = false;
                 }
-            }
+            }*/
         }
     }
 
