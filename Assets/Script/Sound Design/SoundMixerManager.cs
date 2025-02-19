@@ -7,21 +7,31 @@ namespace SoundDesign
 {
     public class SoundMixerManager : MonoBehaviour
     {
-        [SerializeField] private AudioMixer m_audioMixer;
+        public static SoundMixerManager Instance;
+
+        public AudioMixer AudioMixer { get; private set; }
+
+        private void Awake()
+        {
+            if (!Instance)
+                Instance = this;
+
+            AudioMixer = Resources.Load("Sound Design/MainMixer") as AudioMixer;
+        }
 
         public void SetMasterVolume(float level)
         {
-            m_audioMixer.SetFloat("masterVolume", Mathf.Log10(level) * 20f);
+            AudioMixer.SetFloat("masterVolume", Mathf.Log10(level) * 20f);
         }
 
         public void SetSFXVolume(float level)
         {
-            m_audioMixer.SetFloat("sfxVolume", Mathf.Log10(level) * 20f);
+            AudioMixer.SetFloat("sfxVolume", Mathf.Log10(level) * 20f);
         }
 
         public void SetMusicVolume(float level)
         {
-            m_audioMixer.SetFloat("musicVolume", Mathf.Log10(level) * 20f);
+            AudioMixer.SetFloat("musicVolume", Mathf.Log10(level) * 20f);
         }
     }
 }
