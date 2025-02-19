@@ -111,6 +111,21 @@ public class manager : NetworkBehaviour
         }
     }
 
+    public PlayerData GetLocalPlayerData()
+    {
+        foreach (PlayerData playerscript in scriptPlayer)
+        {
+            if (playerscript.isLocalPlayer)
+            {
+                Debug.Log(playerscript);
+                return playerscript;
+
+            }
+        }
+
+        return null;
+    }
+
     /// <summary>
     /// Passe à la prochaine manche du jeu.
     /// </summary>
