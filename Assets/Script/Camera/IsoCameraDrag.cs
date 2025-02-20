@@ -113,7 +113,7 @@ public class IsoCameraDrag : MonoBehaviour
             
     }*/
 
-/*    private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         if (camIso == null || objectToMove == null) return;
 
@@ -134,5 +134,5 @@ public class IsoCameraDrag : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(cameraPosition, cameraPosition + cameraDirection * 100f);
         }
-    }*/
+    }
 }
