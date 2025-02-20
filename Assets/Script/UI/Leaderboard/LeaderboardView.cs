@@ -47,7 +47,7 @@ public class LeaderboardView : View
         int placement = 0;
         string playerName = playerScoring.GetComponent<PlayerData>().playerName;
         float distance = playerScoring.finalScore;
-
+        Debug.Log("Je suis appeler");
         scoreElement.UpdateScoreText(placement, playerName, distance);
     }
 

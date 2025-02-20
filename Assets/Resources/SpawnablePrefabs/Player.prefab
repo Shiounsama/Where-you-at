@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 1023364209447254201}
   - component: {fileID: 1442475729549407068}
   - component: {fileID: 218688681835275930}
-  - component: {fileID: 4334125032488059851}
   - component: {fileID: 4168562127232418044}
   m_Layer: 0
   m_Name: Main Camera
@@ -165,7 +164,7 @@ Transform:
   m_GameObject: {fileID: 690513810465107549}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08715578, y: -0, z: -0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 1.48, z: -3.29}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -463,24 +462,6 @@ MonoBehaviour:
   layerToVerify:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &4334125032488059851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690513810465107549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa20d6a6725976a42b99812cdbcf9c5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  cameraSelection: {fileID: 218688681835275930}
-  score: {fileID: 0}
-  scoreGame: {fileID: 0}
 --- !u!114 &4168562127232418044
 MonoBehaviour:
   m_ObjectHideFlags: 0
