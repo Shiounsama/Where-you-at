@@ -21,5 +21,8 @@ namespace SoundDesign
 
         [Header("Music")]
         public AudioClip backgroundMusic;
+
+        [Header("Interest points")]
+        public AudioClip ferrisWheelMusic;
     }
 }
