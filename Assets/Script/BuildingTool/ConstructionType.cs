@@ -16,6 +16,9 @@ public enum NameOfConstruction
     Eglise,
     Cimetiere,
     roue,
+    carrousel,
+    hopital,
+    fastfood,
     magasin,
     maison,
     immeuble
