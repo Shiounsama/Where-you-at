@@ -132,9 +132,20 @@ public class manager : NetworkBehaviour
     /// </summary>
     public void NextRound()
     {
+        foreach (PlayerData playerscript in scriptPlayer)
+        {
+            if (playerscript.isLocalPlayer)
+            {
+                playerscript.StartGame();
+
+            }
+        }
+
         GiveNextRoles();
 
         PlayersStartScene();
+
+        
     }
 
     /// <summary>

@@ -63,4 +63,5 @@ public class LeaderboardView : View
         scoreElements.Clear();
     }
     #endregion
+
 }
