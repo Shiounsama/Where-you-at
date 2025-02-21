@@ -489,9 +489,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5817665984477566024}
     m_Modifications:
+    - target: {fileID: 631721813718219823, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 631721813718219823, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2575875852434506772, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_Name
       value: Seeker 1 TChat
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575875852434506772, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5810792971884959848, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_LocalPosition.x
@@ -533,6 +545,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6455111428547907958, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -556,10 +572,194 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5817665984477566024}
     m_Modifications:
+    - target: {fileID: 431073823462973815, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 528542922885727518, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 560935842563833640, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 566469362614932444, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 648566036106440861, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 725281681530504083, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 749714986500671536, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 783581932796155947, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 1169476671994265685, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 1262459832822674035, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 1314663773828319693, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 1323230758772498814, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 1445514430313473646, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 1452134906591331853, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 1475819285077740422, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 1598437663501636181, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
     - target: {fileID: 1745731761184461587, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_Name
       value: Lost TChat
       objectReference: {fileID: 0}
+    - target: {fileID: 2030560505002370332, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 2074283423485772528, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 2418272308326407715, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 2559911889303308923, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 2571231010425563672, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 2583534145855653872, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 2710948107322377659, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 2737247466111511816, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 2748479776488652293, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 2854006293725203491, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 3128016592226651782, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 3138911398364572010, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 3488459442551681886, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 3493992515624066986, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 3527556218825329000, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 3628454444834860289, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 4445352537831378917, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 4451283226769720390, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 4513042317936606443, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 4829361202677386893, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 4851133366472481579, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 4964991601604488282, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 4971357132023933574, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 5023265741121229361, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 5136516179337353258, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 5242188247607211583, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 5272020859742876571, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 5366135495640955340, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 5426159694969140367, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 5677612942726197679, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
     - target: {fileID: 5797958616058105237, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -600,6 +800,94 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6032903242452139102, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 6035189680403589451, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 6140665222726918441, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 6369827593788112115, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 6558245303758892386, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 6819531915141053119, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 7104887116266532191, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 7212667382244978728, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 7233038586984293693, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 7566750413471397577, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 7827878575994265876, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 8054559560122495109, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 8136092528401732700, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 8221214328162934343, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 8306492323991494700, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 8405107930139509499, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 8427104978120234845, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 8749167720357019097, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 9001622747625175289, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 9068543763560822202, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: emojiFamilyToTakeIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 9117638902302588909, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+    - target: {fileID: 9159856702251711049, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

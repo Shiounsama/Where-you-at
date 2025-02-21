@@ -3,14 +3,15 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FreezeDragMovement : NetworkBehaviour, IEndDragHandler, IBeginDragHandler
+public class FreezeDragMovement : NetworkBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Transform cameraToFreeze;
     private bool isIso;
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        cameraToFreeze = Camera.main.transform;
+        print("Oui je drag");
+        cameraToFreeze = manager.Instance.player[0].transform.Find("Main Camera").transform;
 
         if (cameraToFreeze != null)
         {
@@ -26,7 +27,7 @@ public class FreezeDragMovement : NetworkBehaviour, IEndDragHandler, IBeginDragH
             }
         }
     }
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData)
     {
         if (cameraToFreeze != null)
         {
