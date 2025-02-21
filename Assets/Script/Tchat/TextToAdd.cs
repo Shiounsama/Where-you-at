@@ -3,7 +3,12 @@ using UnityEngine;
 
 public class TextToAdd : MonoBehaviour
 {
-    public TextZoneInstantiator Instantiator;
+    private TextZoneInstantiator Instantiator;
+
+    private void Start()
+    {
+        Instantiator = GetComponentInParent<TextZoneInstantiator>();
+    }
 
     public void AddText()
     {

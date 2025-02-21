@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class TextZoneInstantiator : MonoBehaviour
 {
+    public List<GameObject> objectToChangeStatus;
+
     public List<EmojiFamily> familyQuestionToShow = new List<EmojiFamily>();
 
     private List<TextMeshProUGUI> allTextToModify = new List<TextMeshProUGUI>();
 
     public List<string> questionConstructed = new List<string>();
 
+    public TextMeshProUGUI textToModify;
+
     public GameObject sendButton;
 
-    public int whichFamilyStateIndex;
+    private int whichFamilyStateIndex;
 
     private void Awake()
     {
@@ -33,10 +37,23 @@ public class TextZoneInstantiator : MonoBehaviour
         }
     }
 
+    public void UpdateTextToSend()
+    {
+        textToModify.text = "";
+        if(questionConstructed.Count > 0)
+        {
+            for (int i = 0; i < questionConstructed.Count; i++)
+            {
+                textToModify.text += questionConstructed[i];
+            }
+        }
+    }
+
     public void IncreaseFamilyIndex()
     {
         if (CanIncrease())
         {
+            UpdateTextToSend();
             whichFamilyStateIndex++;
             ResetCurrentQuestion();
         }
@@ -54,9 +71,17 @@ public class TextZoneInstantiator : MonoBehaviour
             {
                 questionConstructed.RemoveAt(questionConstructed.Count - 1);
             }
+            UpdateTextToSend();
             whichFamilyStateIndex--;
             ResetCurrentQuestion();
             sendButton.SetActive(false);
+        }
+        else
+        {
+            for (int i = 0; i < objectToChangeStatus.Count; i++)
+            {
+                objectToChangeStatus[i].SetActive(true);
+            }
         }
     }
 
