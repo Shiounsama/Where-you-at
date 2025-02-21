@@ -10,6 +10,5 @@ public class dontDestroy : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        
     }
 }

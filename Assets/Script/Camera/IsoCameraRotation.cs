@@ -21,14 +21,16 @@ public class IsoCameraRotation : MonoBehaviour
 
     private bool isTransitioning = false;
 
+    public IsoCameraDrag CamDrag;
+
     private void Update()
     {
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("q") && CamDrag.isDragging == false)
         {
             RotateCameraAroundPoint(90);
         }
 
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown("e") && CamDrag.isDragging == false)
         {
             RotateCameraAroundPoint(-90);
         }
@@ -79,8 +81,10 @@ public class IsoCameraRotation : MonoBehaviour
         Vector3 startPosition = cam.transform.position;
 
         float elapsedTime = 0f;
+
         while (elapsedTime < transitionDuration)
         {
+
             cam.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / transitionDuration);
 
             cam.transform.rotation = Quaternion.LookRotation(lookAtPoint - cam.transform.position);

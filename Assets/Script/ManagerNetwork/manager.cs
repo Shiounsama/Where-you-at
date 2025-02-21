@@ -107,8 +107,24 @@ public class manager : NetworkBehaviour
             if (playerscript.isLocalPlayer)
             {
                 playerscript.StartScene(playerscript);
+                
             }
         }
+    }
+
+    public PlayerData GetLocalPlayerData()
+    {
+        foreach (PlayerData playerscript in scriptPlayer)
+        {
+            if (playerscript.isLocalPlayer)
+            {
+                Debug.Log(playerscript);
+                return playerscript;
+
+            }
+        }
+
+        return null;
     }
 
     /// <summary>
@@ -132,6 +148,7 @@ public class manager : NetworkBehaviour
         }
 
         charlieRoleQueue[0].GetComponent<PlayerData>().AssignRole(Role.Lost);
+
         charlieRoleQueue.RemoveAt(0);
     }
 }

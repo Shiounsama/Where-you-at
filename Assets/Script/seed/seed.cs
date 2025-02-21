@@ -13,6 +13,8 @@ public class seed : NetworkBehaviour
     public void Awake()
     {
         Instance = this;
+
+        SeedValue = Random.Range(0, 500);
     }
 
 

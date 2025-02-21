@@ -83,7 +83,7 @@ public class PlayerData : NetworkBehaviour
 
             foreach (GameObject obj in allPNJ)
             {
-                obj.transform.LookAt(transform.position);
+                obj.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
                 Vector3 lockedRotation = obj.transform.eulerAngles;
                 lockedRotation.x = 0;
                 lockedRotation.z = 0;
@@ -97,7 +97,7 @@ public class PlayerData : NetworkBehaviour
 
             foreach (GameObject obj in allPNJPI)
             {
-                obj.transform.LookAt(transform.position);
+                obj.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
                 Vector3 lockedRotation = obj.transform.eulerAngles;
                 lockedRotation.x = 0;
                 lockedRotation.z = 0;
@@ -107,9 +107,11 @@ public class PlayerData : NetworkBehaviour
                 objRigid.constraints = RigidbodyConstraints.FreezePositionX;
                 objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
 
-                LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
-                LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
+                
             }
+
+            LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
+            LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
         }
     }
 
@@ -130,13 +132,11 @@ public class PlayerData : NetworkBehaviour
             {
                 if (tchat.isLocalPlayer)
                 {
-
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
 
                 }
                 else
                 {
-
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = false;
                 }
             }
@@ -298,10 +298,11 @@ public class PlayerData : NetworkBehaviour
     {
         foreach (GameObject obj in listePNJ)
         {
-            obj.transform.LookAt(transform.position);
+            obj.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
             Vector3 lockedRotation = obj.transform.eulerAngles;
             lockedRotation.x = 0;
             lockedRotation.z = 0;
+            obj.transform.eulerAngles = lockedRotation;
             obj.transform.eulerAngles = lockedRotation;
 
             Rigidbody objRigid = obj.GetComponent<Rigidbody>();

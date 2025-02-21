@@ -7,6 +7,8 @@ public class TchatPlayer : NetworkBehaviour
 {
     public TMP_InputField textToSend;
 
+    public GameObject player;
+
     public TchatManager generalTchatManager;
 
     //Attrape le script tchatManager quand il arrive dans le lobby
