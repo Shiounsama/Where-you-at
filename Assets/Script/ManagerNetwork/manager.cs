@@ -158,7 +158,7 @@ public class manager : NetworkBehaviour
             playerScript.AssignRole(Role.Seeker);
         }
 
-        charlieRoleQueue[0].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        charlieRoleQueue[0].GetComponent<PlayerData>().AssignRole(Role.Seeker);
 
         charlieRoleQueue.RemoveAt(0);
     }
