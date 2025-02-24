@@ -142,10 +142,7 @@ public class manager : NetworkBehaviour
         }
 
         GiveNextRoles();
-
         PlayersStartScene();
-
-        
     }
 
     /// <summary>

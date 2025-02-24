@@ -67,7 +67,7 @@ public class PlayerData : NetworkBehaviour
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             ClearOtherTchat();
-            EnablePlayer(role);
+            EnablePlayer(role);    
         }
     }
 
@@ -240,6 +240,8 @@ public class PlayerData : NetworkBehaviour
 
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
+                //camPlayer.transform.position = new Vector3(0, 0, 0);
+                //camPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
 
             }
             else if (role == Role.Lost)
@@ -262,6 +264,9 @@ public class PlayerData : NetworkBehaviour
 
                 transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
                 transform.rotation = PNJcible.transform.rotation;
+
+                //camPlayer.transform.position = new Vector3(0, 0, 0);
+                //camPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
                 Destroy(PNJcible);
             }
         }
