@@ -238,10 +238,12 @@ public class PlayerData : NetworkBehaviour
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
 
+                bool test = false;
+
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
-                //camPlayer.transform.position = new Vector3(0, 0, 0);
-                //camPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
+                camPlayer.transform.localPosition = Vector3.zero;
+                camPlayer.transform.localRotation = Quaternion.identity;
 
             }
             else if (role == Role.Lost)
@@ -265,8 +267,8 @@ public class PlayerData : NetworkBehaviour
                 transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
                 transform.rotation = PNJcible.transform.rotation;
 
-                //camPlayer.transform.position = new Vector3(0, 0, 0);
-                //camPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
+                camPlayer.transform.localPosition = Vector3.zero;
+                camPlayer.transform.localRotation = Quaternion.identity;
                 Destroy(PNJcible);
             }
         }
