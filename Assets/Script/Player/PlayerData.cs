@@ -238,8 +238,6 @@ public class PlayerData : NetworkBehaviour
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
 
-                bool test = false;
-
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 camPlayer.transform.localPosition = Vector3.zero;

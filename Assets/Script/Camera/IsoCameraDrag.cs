@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,6 +46,11 @@ public class IsoCameraDrag : MonoBehaviour
             targetPosition = new Vector3(targetPosition.x * axisLocker.x, targetPosition.y * axisLocker.y, targetPosition.z * axisLocker.z);
 
             objectToMove.position = Vector3.Lerp(objectToMove.position, targetPosition, Time.deltaTime * moveSpeed);
+
+            if (IsOnValidSurface())
+            {
+                lastValidPosition = objectToMove.position;
+            }
         }
     }
 
@@ -54,19 +60,19 @@ public class IsoCameraDrag : MonoBehaviour
     {
         if (context.performed)
         {
-            lastValidPosition = objectToMove.position;
             isDragging = true;
             startDraggingMousePos = GetMouseWorldPosition();
             cameraPosOrigin = transform.position;
             objectOriginPos = objectToMove.position;
         }
+
         if (context.canceled)
         {
             isDragging = false;
 
             if (!IsOnValidSurface())
             {
-                objectToMove.position = lastValidPosition;
+                StartCoroutine(MoveToLastValidPosition(objectToMove, lastValidPosition, 0.1f));
             }
         }
     }
@@ -92,6 +98,22 @@ public class IsoCameraDrag : MonoBehaviour
         return mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
     }
 
+    IEnumerator MoveToLastValidPosition(Transform obj, Vector3 targetPos, float duration)
+    {
+        float elapsed = 0f;
+        Vector3 startPos = obj.position;
+
+        while (elapsed < duration)
+        {
+            obj.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        obj.position = targetPos; 
+    }
+
+     
     /*private void CheckRayIntersection()
     {
         Vector3 cameraPosition = camIso.transform.position;
