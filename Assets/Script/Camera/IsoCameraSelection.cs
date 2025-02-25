@@ -17,7 +17,7 @@ public class IsoCameraSelection : MonoBehaviour
     public void OnObjectSelected(InputAction.CallbackContext context)
     {
         if (!_seekerView)
-            _seekerView = ViewManager.Instance.GetView<SeekerView>();
+            _seekerView = ViewManager.Instance.defaultView as SeekerView;
 
         if (context.performed)
         {
