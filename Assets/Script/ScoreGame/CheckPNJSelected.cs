@@ -50,6 +50,8 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public void IsGuess()
     {
+        Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
+
         if (isLocalPlayer)
         {
             scoreGame.finished = true;

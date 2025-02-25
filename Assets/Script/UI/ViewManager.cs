@@ -9,7 +9,7 @@ public class ViewManager : MonoBehaviour
 
     [SerializeField] private bool autoInitialize;
     [SerializeField] private List<View> views = new List<View>();
-    [SerializeField] private View defaultView;
+    public View defaultView;
 
     private void Awake()
     {
@@ -104,5 +104,12 @@ public class ViewManager : MonoBehaviour
     public void AddView(View view)
     {
         views.Add(view);
+    }
+
+    public void RemoveView(View view)
+    {
+        views.Remove(view);
+
+        Debug.Log("Removed a view");
     }
 } 
