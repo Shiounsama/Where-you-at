@@ -29,7 +29,7 @@ public class PNJSpawner : MonoBehaviour
         boxCollider.size = spawnRange; // On set la taille du box collider a la variable "spawnRange"
     }
 
-    public void OnDrawGizmosSelected() //Gizmos qui permet de visualiser dans l'editor la taille de la box
+    public void OnDrawGizmos() //Gizmos qui permet de visualiser dans l'editor la taille de la box
     {
         Gizmos.color = Color.blue; // Bleu parce que bleu = ciel = liberte et liberte = pas de travail :))))))
         Gizmos.DrawWireCube(transform.position, new Vector3(length, 1, width));
