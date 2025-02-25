@@ -11,6 +11,7 @@ public class SeekerView : View
 
     public override void Initialize()
     {
+        if (IsInitialized) return;
         openingQuestionButton.onClick.AddListener(OnClick_OpeningQuestionButton);
         guessButton.onClick.AddListener(OnClick_GuessButton);
 
