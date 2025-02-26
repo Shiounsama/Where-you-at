@@ -42,6 +42,18 @@ public class PlayerData : NetworkBehaviour
     public void AssignRole(Role newRole)
     {
         role = newRole;
+
+        if (!isLocalPlayer)
+            return;
+
+        if (role == Role.Seeker)
+        {
+            ViewManager.Instance.defaultView = GetComponentInChildren<SeekerView>(true);
+        }
+        else if (role == Role.Lost)
+        {
+            ViewManager.Instance.defaultView = GetComponentInChildren<LostView>(true);
+        }
     }
 
     /// <summary>
@@ -224,7 +236,7 @@ public class PlayerData : NetworkBehaviour
             {
                 SeekerView seekerView = GetComponentInChildren<SeekerView>(true);
                 ViewManager.Instance.AddView(seekerView);
-                ViewManager.Instance.GetView<SeekerView>().Initialize();
+                //ViewManager.Instance.GetView<SeekerView>().Initialize();
 
                 ObjectsStateSetter(charlieObjects, false);
                 ObjectsStateSetter(seekerObjects, true);
@@ -248,7 +260,7 @@ public class PlayerData : NetworkBehaviour
             {
                 LostView lostView = GetComponentInChildren<LostView>(true);
                 ViewManager.Instance.AddView(lostView);
-                ViewManager.Instance.GetView<LostView>().Initialize();
+                //ViewManager.Instance.GetView<LostView>().Initialize();
 
                 ObjectsStateSetter(charlieObjects, true);
                 ObjectsStateSetter(seekerObjects, false);
@@ -269,6 +281,8 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localRotation = Quaternion.identity;
                 Destroy(PNJcible);
             }
+
+            ViewManager.Instance.Initialize();
         }
     }
 

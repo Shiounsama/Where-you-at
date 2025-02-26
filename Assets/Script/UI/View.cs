@@ -6,6 +6,9 @@ public abstract class View : MonoBehaviour
 
     public virtual void Initialize()
     {
+        if (IsInitialized)
+            return;
+
         IsInitialized = true;
     }
 
