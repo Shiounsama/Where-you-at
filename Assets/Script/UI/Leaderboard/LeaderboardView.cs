@@ -64,4 +64,11 @@ public class LeaderboardView : View
     }
     #endregion
 
+    /// <summary>
+    /// Désactive le bouton Restart pour le joueur
+    /// </summary>
+    public void DisableRestartButton()
+    {
+        restartButton.gameObject.SetActive(false);
+    }
 }

@@ -52,12 +52,27 @@ public class CheckPNJSelected : NetworkBehaviour
     {
         Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
 
-        if (isLocalPlayer)
+        CmdSetGameFinished();
+
+        scoreGame.finished = true;
+        float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+        score.CmdScore(resultat);
+        seekerView.guessButton.gameObject.SetActive(false);
+    }
+
+    [Command]
+    private void CmdSetGameFinished()
+    {
+        foreach (NetworkConnection conn in NetworkServer.connections.Values)
         {
-            scoreGame.finished = true;
-            float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-            score.ServerScore(resultat);
-            seekerView.guessButton.gameObject.SetActive(false);
+            TargetSetGameFinished(conn);
         }
+    }
+
+    [TargetRpc]
+    private void TargetSetGameFinished(NetworkConnection conn)
+    {
+        scoreGame.finished = true;
+        Debug.Log($"Score game finished: {scoreGame.finished}");
     }
 }
