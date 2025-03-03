@@ -97,7 +97,7 @@ public class PNJSpawner : MonoBehaviour
                                    objectToInstantiate.transform.localScale / 2,
                                    Quaternion.identity);
 
-            validPosition = colliders.Length == 0;
+            validPosition = colliders.Length == 1;
             nombreEssai++;
             
         } 
