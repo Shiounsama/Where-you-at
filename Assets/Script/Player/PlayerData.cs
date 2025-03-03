@@ -271,9 +271,6 @@ public class PlayerData : NetworkBehaviour
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
 
-                transform.position = PremierJoueurSpawn.transform.position;
-                transform.rotation = PremierJoueurSpawn.transform.rotation;
-
                 transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
                 transform.rotation = PNJcible.transform.rotation;
 

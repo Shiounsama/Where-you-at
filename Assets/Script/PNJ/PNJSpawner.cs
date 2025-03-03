@@ -21,6 +21,9 @@ public class PNJSpawner : MonoBehaviour
 
     private BoxCollider boxCollider;
 
+    private Vector3 spawnPosition;
+
+
     public void Awake()
     {
         boxCollider = GetComponent<BoxCollider>(); //On recupere le boxCollider 
@@ -73,23 +76,46 @@ public class PNJSpawner : MonoBehaviour
 
     private void InstantiateObject(int i, GameObject objectToInstantiate)
     {
+         int nombreDeSpawnMax = 10;
+         int nombreEssai = 0;
+         bool validPosition = false;
+         
+
         if (seed.Instance != null)
         {
             Random.InitState(seed.Instance.SeedValue);
         }
 
-        GameObject actualPlayer = Instantiate(objectToInstantiate, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
-                        new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
-                        transform.position.y,
-                        (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
-
-        entitiesSpawnedArray.Add(actualPlayer);
-
-        PnjPIFamilyData.ResetListOfPnjPI();
-
-        if (seed.Instance != null)
+        while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
-            seed.Instance.SeedValue++;
+            spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
+                            transform.position.y,
+                            Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));
+
+            Collider[] colliders = Physics.OverlapBox(
+                                   spawnPosition,
+                                   objectToInstantiate.transform.localScale / 2,
+                                   Quaternion.identity);
+
+            validPosition = colliders.Length == 0;
+            nombreEssai++;
+            
+        } 
+
+        if (validPosition)
+        {
+            GameObject actualPlayer = Instantiate(objectToInstantiate, 
+                        spawnPosition,
+                        Quaternion.identity, transform);
+
+            entitiesSpawnedArray.Add(actualPlayer);
+
+            PnjPIFamilyData.ResetListOfPnjPI();
+
+            if (seed.Instance != null)
+            {
+                seed.Instance.SeedValue++;
+            }
         }
     }
 

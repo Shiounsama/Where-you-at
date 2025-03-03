@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2219028382353797455}
   - component: {fileID: 1515684374111895184}
+  - component: {fileID: 3419422152505854107}
   - component: {fileID: 2634903942962314681}
   - component: {fileID: 8076428109773290024}
   m_Layer: 3
@@ -63,6 +64,26 @@ MonoBehaviour:
   hautClotheImage: {fileID: 4158604396939556499}
   basClotheImage: {fileID: 1645383854959424209}
   shoesClotheImage: {fileID: 8979055522013444572}
+--- !u!114 &3419422152505854107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41437293004538200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119ed5cefef0a4e48ab55830f75a31c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emojiPNJ:
+  - {fileID: 2065733690, guid: 1a25c0aa4c1c65446ac5de9e6b4aad94, type: 3}
+  - {fileID: 2045576334, guid: 1a25c0aa4c1c65446ac5de9e6b4aad94, type: 3}
+  - {fileID: -360620222, guid: 1a25c0aa4c1c65446ac5de9e6b4aad94, type: 3}
+  - {fileID: -2122143497, guid: 1a25c0aa4c1c65446ac5de9e6b4aad94, type: 3}
+  prefabEmoji: {fileID: 3009270449227669503, guid: b5aeb58646573f742996d3f897b212a2, type: 3}
+  spawnPoint: {fileID: 0}
+  positionEmoji: {x: 1.5, y: 2.5, z: 0}
 --- !u!136 &2634903942962314681
 CapsuleCollider:
   m_ObjectHideFlags: 0
