@@ -42,6 +42,18 @@ public class PlayerData : NetworkBehaviour
     public void AssignRole(Role newRole)
     {
         role = newRole;
+
+        if (!isLocalPlayer)
+            return;
+
+        if (role == Role.Seeker)
+        {
+            ViewManager.Instance.defaultView = GetComponentInChildren<SeekerView>(true);
+        }
+        else if (role == Role.Lost)
+        {
+            ViewManager.Instance.defaultView = GetComponentInChildren<LostView>(true);
+        }
     }
 
     /// <summary>
@@ -67,7 +79,7 @@ public class PlayerData : NetworkBehaviour
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             ClearOtherTchat();
-            EnablePlayer(role);
+            EnablePlayer(role);    
         }
     }
 
@@ -224,7 +236,7 @@ public class PlayerData : NetworkBehaviour
             {
                 SeekerView seekerView = GetComponentInChildren<SeekerView>(true);
                 ViewManager.Instance.AddView(seekerView);
-                ViewManager.Instance.GetView<SeekerView>().Initialize();
+                //ViewManager.Instance.GetView<SeekerView>().Initialize();
 
                 ObjectsStateSetter(charlieObjects, false);
                 ObjectsStateSetter(seekerObjects, true);
@@ -240,13 +252,15 @@ public class PlayerData : NetworkBehaviour
 
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
+                camPlayer.transform.localPosition = Vector3.zero;
+                camPlayer.transform.localRotation = Quaternion.identity;
 
             }
             else if (role == Role.Lost)
             {
                 LostView lostView = GetComponentInChildren<LostView>(true);
                 ViewManager.Instance.AddView(lostView);
-                ViewManager.Instance.GetView<LostView>().Initialize();
+                //ViewManager.Instance.GetView<LostView>().Initialize();
 
                 ObjectsStateSetter(charlieObjects, true);
                 ObjectsStateSetter(seekerObjects, false);
@@ -257,13 +271,15 @@ public class PlayerData : NetworkBehaviour
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
 
-                transform.position = PremierJoueurSpawn.transform.position;
-                transform.rotation = PremierJoueurSpawn.transform.rotation;
-
                 transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
                 transform.rotation = PNJcible.transform.rotation;
+
+                camPlayer.transform.localPosition = Vector3.zero;
+                camPlayer.transform.localRotation = Quaternion.identity;
                 Destroy(PNJcible);
             }
+
+            ViewManager.Instance.Initialize();
         }
     }
 

@@ -132,9 +132,20 @@ public class manager : NetworkBehaviour
     /// </summary>
     public void NextRound()
     {
-        GiveNextRoles();
+        /*foreach (PlayerData playerscript in scriptPlayer)
+        {
+            if (playerscript.isLocalPlayer)
+            if (playerscript.isLocalPlayer)
+            {
+                playerscript.StartGame();
 
-        PlayersStartScene();
+            }
+        }
+
+        GiveNextRoles();
+        PlayersStartScene();*/
+
+        StartCoroutine(roundlaunch());
     }
 
     /// <summary>
@@ -151,4 +162,21 @@ public class manager : NetworkBehaviour
 
         charlieRoleQueue.RemoveAt(0);
     }
+
+    IEnumerator roundlaunch() 
+    {
+        foreach (PlayerData playerscript in scriptPlayer)
+        {
+            if (playerscript.isLocalPlayer)
+            {
+                playerscript.StartGame();
+
+            }
+        }
+
+        GiveNextRoles();
+        yield return new WaitForSeconds(0.2f);
+        PlayersStartScene();
+    }
+
 }

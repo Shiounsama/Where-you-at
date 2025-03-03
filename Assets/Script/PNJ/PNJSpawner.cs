@@ -21,6 +21,9 @@ public class PNJSpawner : MonoBehaviour
 
     private BoxCollider boxCollider;
 
+    private Vector3 spawnPosition;
+
+
     public void Awake()
     {
         boxCollider = GetComponent<BoxCollider>(); //On recupere le boxCollider 
@@ -29,7 +32,7 @@ public class PNJSpawner : MonoBehaviour
         boxCollider.size = spawnRange; // On set la taille du box collider a la variable "spawnRange"
     }
 
-    public void OnDrawGizmosSelected() //Gizmos qui permet de visualiser dans l'editor la taille de la box
+    public void OnDrawGizmos() //Gizmos qui permet de visualiser dans l'editor la taille de la box
     {
         Gizmos.color = Color.blue; // Bleu parce que bleu = ciel = liberte et liberte = pas de travail :))))))
         Gizmos.DrawWireCube(transform.position, new Vector3(length, 1, width));
@@ -73,23 +76,46 @@ public class PNJSpawner : MonoBehaviour
 
     private void InstantiateObject(int i, GameObject objectToInstantiate)
     {
+         int nombreDeSpawnMax = 10;
+         int nombreEssai = 0;
+         bool validPosition = false;
+         
+
         if (seed.Instance != null)
         {
             Random.InitState(seed.Instance.SeedValue);
         }
 
-        GameObject actualPlayer = Instantiate(objectToInstantiate, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
-                        new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
-                        transform.position.y,
-                        (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
-
-        entitiesSpawnedArray.Add(actualPlayer);
-
-        PnjPIFamilyData.ResetListOfPnjPI();
-
-        if (seed.Instance != null)
+        while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
-            seed.Instance.SeedValue++;
+            spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
+                            transform.position.y,
+                            Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));
+
+            Collider[] colliders = Physics.OverlapBox(
+                                   spawnPosition,
+                                   objectToInstantiate.transform.localScale / 2,
+                                   Quaternion.identity);
+
+            validPosition = colliders.Length == 1;
+            nombreEssai++;
+            
+        } 
+
+        if (validPosition)
+        {
+            GameObject actualPlayer = Instantiate(objectToInstantiate, 
+                        spawnPosition,
+                        Quaternion.identity, transform);
+
+            entitiesSpawnedArray.Add(actualPlayer);
+
+            PnjPIFamilyData.ResetListOfPnjPI();
+
+            if (seed.Instance != null)
+            {
+                seed.Instance.SeedValue++;
+            }
         }
     }
 

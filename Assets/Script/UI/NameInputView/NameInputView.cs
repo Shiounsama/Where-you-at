@@ -43,8 +43,6 @@ public class NameInputView : View
 
     public void SetPlayerName(string playerName)
     {
-        Debug.Log($"Player name: {playerName}");
-
         confirmNameButton.interactable = nameInputField.text.Length >= 2;
     }
 
