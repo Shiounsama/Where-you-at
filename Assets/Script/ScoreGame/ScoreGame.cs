@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using Mirror;
 
-public class ScoreGame : MonoBehaviour
+public class ScoreGame : NetworkBehaviour
 {
     public List<PlayerScoring> playersScores;
     public bool finished = false;
@@ -26,6 +27,9 @@ public class ScoreGame : MonoBehaviour
         LeaderboardView leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
 
         ViewManager.Instance.Show<LeaderboardView>();
+
+        if (NetworkServer.connections.Count <= 0)
+            leaderboardView.DisableRestartButton();
 
         for (int i = 0; i < scores.Count; i++)
         {

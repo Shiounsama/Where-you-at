@@ -62,6 +62,8 @@ public class PlayerScoring : NetworkBehaviour
     [TargetRpc]
     private void TargetShowScore(NetworkConnection player)
     {
+        Debug.Log("TargetShowScore");
+
         if (FindObjectOfType<ScoreGame>().finished)
         {
             FindObjectOfType<ScoreGame>().ShowScore();
