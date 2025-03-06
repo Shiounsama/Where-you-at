@@ -5,43 +5,59 @@ using DG.Tweening;
 
 public class CarMove : MonoBehaviour
 {
-    public List<Transform> pointsDirection;
-    public float temps = 5f; 
+    public List<Transform> positionPoint;
+    public float speed = 5f; 
     public bool loop = true; 
+    private int pointActuel = 0;
 
     private void Start()
     {
-        MoveAlongPath();
+        if (positionPoint.Count > 0)
+        {
+            MoveToNextPoint();
+        }
     }
 
-    private void MoveAlongPath()
+    private void MoveToNextPoint()
     {
-        Vector3[] pathPositions = new Vector3[pointsDirection.Count];
-        for (int i = 0; i < pointsDirection.Count; i++)
-        {
-            pathPositions[i] = pointsDirection[i].position;
-        }
-
         iTween.MoveTo(gameObject, iTween.Hash(
-            "path", pathPositions,
-            "time", temps,
+            "position", positionPoint[pointActuel].position,
+            "speed", speed,
             "orienttopath", true,
             "easetype", iTween.EaseType.linear,
-            "looptype", loop 
+            "oncomplete", "OnReachPoint"
         ));
+    }
+
+    private void OnReachPoint()
+    {
+        pointActuel++;
+
+        if (pointActuel >= positionPoint.Count)
+        {
+            if (loop)
+            {
+                pointActuel = 0;
+            }
+            else
+            {
+                return;
+            }
+        }
+        MoveToNextPoint();
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        for (int i = 0; i < pointsDirection.Count - 1; i++)
+        for (int i = 0; i < positionPoint.Count - 1; i++)
         {
-            Gizmos.DrawLine(pointsDirection[i].position, pointsDirection[i + 1].position);
+            Gizmos.DrawLine(positionPoint[i].position, positionPoint[i + 1].position);
         }
 
-        if (loop && pointsDirection.Count > 1)
+        if (loop && positionPoint.Count > 1)
         {
-            Gizmos.DrawLine(pointsDirection[pointsDirection.Count - 1].position, pointsDirection[0].position);
+            Gizmos.DrawLine(positionPoint[positionPoint.Count - 1].position, positionPoint[0].position);
         }
     }
 }
