@@ -20,13 +20,18 @@ public class LeaderboardView : View
         base.Initialize();
     }
 
+    private void OnEnable()
+    {
+        Debug.Log("Leaderboard OnEnable");
+        ClearLeaderboard();
+    }
+
     #region Button Events
     /// <summary>
     /// Efface le leaderboard et cache tous les panels.
     /// </summary>
     private void OnClick_RestartButton()
     {
-        ClearLeaderboard();
         ViewManager.Instance.HideAll();
         manager.Instance.NextRound();
     }
@@ -64,4 +69,11 @@ public class LeaderboardView : View
     }
     #endregion
 
+    /// <summary>
+    /// Désactive le bouton Restart pour le joueur
+    /// </summary>
+    public void DisableRestartButton()
+    {
+        restartButton.gameObject.SetActive(false);
+    }
 }
