@@ -11,7 +11,7 @@ public class IsoCameraSelection : MonoBehaviour
 
     private void Awake()
     {
-        _seekerView = ViewManager.Instance.GetView<SeekerView>();
+       // _seekerView = ViewManager.Instance.GetView<SeekerView>();
     }
 
     public void OnObjectSelected(InputAction.CallbackContext context)
