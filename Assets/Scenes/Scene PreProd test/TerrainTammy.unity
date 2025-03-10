@@ -8979,7 +8979,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &953712073
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9039,7 +9039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &958628979
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26642,6 +26642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 620388920761478827, guid: 0be36c64833f735468022aef5423b719, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 631038455401883563, guid: 0be36c64833f735468022aef5423b719, type: 3}
       propertyPath: camIso
       value: 
@@ -30826,6 +30830,7 @@ GameObject:
   - component: {fileID: 968045274025178045}
   - component: {fileID: 2717956805319068407}
   - component: {fileID: 1485525358752378467}
+  - component: {fileID: 8347737960289542279}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -30833,6 +30838,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &8347737960289542279
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347737960289542278}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: 10e10e7c83ebb10488504fb417d89491, type: 3}
 --- !u!4 &8482409323636386458
 Transform:
   m_ObjectHideFlags: 0
