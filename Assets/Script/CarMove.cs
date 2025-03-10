@@ -1,50 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class CarMove : MonoBehaviour
 {
     public List<Transform> positionPoint;
-    public float speed = 5f; 
-    public bool loop = true; 
+    public float speed = 5f;
+    public float rotationSpeed = 5f;
+    public bool loop = true;
     private int pointActuel = 0;
 
-    private void Start()
+    private void Update()
     {
-        if (positionPoint.Count > 0)
+        Transform targetPoint = positionPoint[pointActuel];
+        transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
+
+        Vector3 direction = (targetPoint.position - transform.position).normalized;
+        if (direction != Vector3.zero)
         {
-            MoveToNextPoint();
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
-    }
 
-    private void MoveToNextPoint()
-    {
-        iTween.MoveTo(gameObject, iTween.Hash(
-            "position", positionPoint[pointActuel].position,
-            "speed", speed,
-            "orienttopath", true,
-            "easetype", iTween.EaseType.linear,
-            "oncomplete", "OnReachPoint"
-        ));
-    }
-
-    private void OnReachPoint()
-    {
-        pointActuel++;
-
-        if (pointActuel >= positionPoint.Count)
+        if (Vector3.Distance(transform.position, targetPoint.position) < 0.1f)
         {
-            if (loop)
+            pointActuel++;
+            if (pointActuel >= positionPoint.Count)
             {
-                pointActuel = 0;
-            }
-            else
-            {
-                return;
+                if (loop)
+                {
+                    pointActuel = 0;
+                }
+                else
+                {
+                    enabled = false;
+                }
             }
         }
-        MoveToNextPoint();
     }
 
     private void OnDrawGizmos()
