@@ -2,23 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class test
+{
+    public GameObject objectToChangeState;
+    public bool stateToTake;
+}
+
 public class ChangeStateOfObjects : MonoBehaviour
 {
-    public List<GameObject> objectToChangeState;
+    public List<test> objectsToModify;
 
-    public void Activate()
+    public void ChangeState()
     {
-        foreach(GameObject obj in objectToChangeState)
+        foreach (test obj in objectsToModify)
         {
-            obj.SetActive(true);
+            obj.objectToChangeState.SetActive(obj.stateToTake);
         }
     }
 
-    public void Deactivate()
+    public void Backward()
     {
-        foreach(GameObject obj in objectToChangeState)
+        foreach (test obj in objectsToModify)
         {
-            obj.SetActive(false);
+            obj.objectToChangeState.SetActive(!obj.stateToTake);
         }
     }
 }
