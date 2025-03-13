@@ -3,14 +3,14 @@ using UnityEngine;
 public class PNJClothe : MonoBehaviour
 {
     [Header("CollectionOfClotheAppliedToOurPNJ")]
-    public ClotheCollection frontHairClothe;
-    public ClotheCollection backHairClothe;
+    public ClotheCollection[] frontHairClothe;
+    public ClotheCollection[] backHairClothe;
     public ClotheCollection eyesClothe;
     public ClotheCollection plusClothe;
     public ClotheCollection mouthClothe;
-    public ClotheCollection hautClothe;
-    public ClotheCollection basClothe;
-    public ClotheCollection shoesClothe;
+    public ClotheCollection[] hautClothe;
+    public ClotheCollection[] basClothe;
+    public ClotheCollection[] shoesClothe;
 
     [Header("BodyPartOfOurPNJ")]
     public SpriteRenderer frontHairClotheImage;
@@ -24,26 +24,60 @@ public class PNJClothe : MonoBehaviour
 
     public void Start()
     {
-        if (seed.Instance != null)
-        {
-            seed.Instance.SeedValue++;
-        }
-        GenerateRandomClothe(frontHairClotheImage, frontHairClothe);
-        GenerateRandomClothe(backHairClotheImage, backHairClothe);
-        GenerateRandomClothe(eyesClotheImage, eyesClothe);
-        GenerateRandomClothe(plusClotheImage, plusClothe);
-        GenerateRandomClothe(mouthClotheImage, mouthClothe);
-        GenerateRandomClothe(hautClotheImage, hautClothe);
-        GenerateRandomClothe(basClotheImage, basClothe);
-        GenerateRandomClothe(shoesClotheImage, shoesClothe);
+        choseHair();
+        chooseExpression(eyesClothe, eyesClotheImage);
+        chooseExpression(plusClothe, plusClotheImage);
+        chooseExpression(mouthClothe, mouthClotheImage);
+        chooseClothe(hautClothe, hautClotheImage);
+        chooseClothe(basClothe, basClotheImage);
+        chooseClothe(shoesClothe, shoesClotheImage);
     }
 
-    private void GenerateRandomClothe(SpriteRenderer bodyPartImage, ClotheCollection bodyPartCollection)
+    public void chooseClothe(ClotheCollection[] allCollection, SpriteRenderer spriteRenderer)
     {
-        if (bodyPartCollection.clotheList.Count <= 0)
+        int randomNumberListClothe = Random.Range(0, allCollection.Length);
+        int randomNumberClothe = Random.Range(0, allCollection[randomNumberListClothe].clotheList.Count);
+        Sprite spriteClothe = allCollection[randomNumberListClothe].ReturnRandomClothe(randomNumberClothe);
+
+        spriteRenderer.sprite = spriteClothe;
+    }
+
+    public void chooseExpression(ClotheCollection allCollection, SpriteRenderer spriteRenderer)
+    {
+        int randomNumberListClothe = 0 ;
+
+        if (allCollection == plusClothe)
         {
-            return;
+            randomNumberListClothe = Random.Range(0, allCollection.clotheList.Count+1);
+            if(randomNumberListClothe == allCollection.clotheList.Count)
+            {
+                spriteRenderer.sprite = null;
+                return;
+            }
         }
-        bodyPartImage.sprite = bodyPartCollection.ReturnRandomClothe();
+
+        else
+        {
+            randomNumberListClothe = Random.Range(0, allCollection.clotheList.Count);
+        }
+
+        Sprite spriteClothe = allCollection.ReturnRandomClothe(randomNumberListClothe);
+
+        spriteRenderer.sprite = spriteClothe;
+    }
+
+    public void choseHair()
+    {
+        int randomNumberListFrontHair = Random.Range(0, frontHairClothe.Length);
+        int randomNumberListBackHair = Random.Range(0, backHairClothe.Length);
+
+        int randomNumberHair = Random.Range(0, frontHairClothe[randomNumberListFrontHair].clotheList.Count);
+
+        Sprite spriteFrontHair = frontHairClothe[randomNumberListFrontHair].ReturnRandomClothe(randomNumberHair);
+        Sprite spriteBackHair = backHairClothe[randomNumberListBackHair].ReturnRandomClothe(randomNumberHair);
+
+
+        frontHairClotheImage.sprite = spriteFrontHair;
+        backHairClotheImage.sprite = spriteBackHair;
     }
 }
