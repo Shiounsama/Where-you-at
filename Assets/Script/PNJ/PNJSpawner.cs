@@ -14,7 +14,7 @@ public class PNJSpawner : MonoBehaviour
 
     [Header("Nombre d'entite a faire apparaitre")]
     [SerializeField, Range(0, 150), Tooltip("Le nombre d'entité qui vont spawn")] private int numberToSpawn;
-    [SerializeField] private int PnjPICount;
+    //[SerializeField] private int PnjPICount;
 
     [SerializeField] private PnjPIFamily PnjPIFamilyData;
     [SerializeField] private List<GameObject> entitiesSpawnedArray;
@@ -50,31 +50,31 @@ public class PNJSpawner : MonoBehaviour
             return;
         }
 
-        if (PnjPICount > 0)
+        /*if (PnjPICount > 0)
         {
             if (PnjPIFamilyData != null)
             {
                 for (int i = 0; i < PnjPICount; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
                 {              
-                    InstantiateObject(i, PnjPIFamilyData.GetPrefab());
+                    InstantiateObject(PnjPIFamilyData.GetPrefab());
                 }
 
                 for (int i = 0; i < NumberOfEntitiesToSpawn - PnjPICount; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
                 {
-                    InstantiateObject(i, pnjPrefab);
+                    InstantiateObject(pnjPrefab);
                 }
             }
-        }
-        else
-        {
+        }*/
+        //else
+       // {
             for (int i = 0; i < NumberOfEntitiesToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
             {
-                InstantiateObject(i, prefabToSpawn);
+                InstantiateObject(prefabToSpawn);
             }
-        }
+       // }
     }
 
-    private void InstantiateObject(int i, GameObject objectToInstantiate)
+    public void InstantiateObject(GameObject objectToInstantiate)
     {
          int nombreDeSpawnMax = 10;
          int nombreEssai = 0;

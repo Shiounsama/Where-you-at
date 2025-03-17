@@ -123,6 +123,7 @@ public class PlayerData : NetworkBehaviour
             }
 
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
+            
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
         }
     }
