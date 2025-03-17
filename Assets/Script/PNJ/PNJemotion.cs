@@ -6,9 +6,12 @@ public class PNJemotion : MonoBehaviour
 {
     public List<Sprite> emojiPNJ; 
     public GameObject prefabEmoji; 
+    public Transform spawnPoint;
+    public Vector3 positionEmoji;
 
     void Start()
     {
+        spawnPoint = GetComponent<Transform>();
         StartCoroutine(emojispawn());
     }
 
@@ -25,11 +28,13 @@ public class PNJemotion : MonoBehaviour
 
     void createEmojiPNJ()
     {
-        prefabEmoji.SetActive(true);
-        SpriteRenderer spriteRenderer = prefabEmoji.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        GameObject emoji = Instantiate(prefabEmoji, spawnPoint.position, Quaternion.identity, transform);
+        emoji.transform.localPosition = new Vector3(1.5f, 2.5f, 0);
+        emoji.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        SpriteRenderer spriteRenderer = emoji.transform.GetChild(0).GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = emojiPNJ[Random.Range(0, emojiPNJ.Count)];
 
-        StartCoroutine(animEmojiPNJ(prefabEmoji));
+        StartCoroutine(animEmojiPNJ(emoji));
     }
 
     IEnumerator animEmojiPNJ(GameObject emoji)
@@ -48,7 +53,7 @@ public class PNJemotion : MonoBehaviour
             yield return null;
         }
 
-        emoji.SetActive(false);
+        Destroy(emoji);
     }
 }
 

@@ -3,11 +3,18 @@ using UnityEngine;
 
 public class TextToAdd : MonoBehaviour
 {
-    public TextZoneInstantiator Instantiator;
+    private TextZoneInstantiator Instantiator;
+
+    private void Start()
+    {
+        Instantiator = GetComponentInParent<TextZoneInstantiator>();
+    }
 
     public void AddText()
     {
-        Instantiator.questionConstructed.Add(transform.GetComponentInChildren<TextMeshProUGUI>().text);
-        Instantiator.UpdateTextToSend();
+        if (Instantiator.questionConstructed.Count < Instantiator.familyQuestionToShow.Count)
+        {
+            Instantiator.questionConstructed.Add(transform.GetComponentInChildren<TextMeshProUGUI>().text);
+        }
     }
 }
