@@ -1,32 +1,43 @@
+using Mirror;
 using TMPro;
 using UnityEngine;
-using Mirror;
 
 public class EmojiButton : MonoBehaviour
 {
+    public takeEmoji takeEmoji;
+
     public EmojiFamily emojiFamilyToTakeIn;
 
     public TMP_InputField textToSend;
 
     private TextMeshProUGUI textToChangeToEmoji;
 
-    private void Start()
+    private void OnEnable()
     {
+        takeEmoji = GetComponentInParent<takeEmoji>();
+
+        textToSend = takeEmoji.textToSend;
+
         textToChangeToEmoji = GetComponentInChildren<TextMeshProUGUI>();
 
-        if(isQuestion())
+        if (isQuestion())
         {
             textToChangeToEmoji.text = emojiFamilyToTakeIn.GetEmoji(false);
         }
+
         else
         {
             textToChangeToEmoji.text = "<sprite name=" + emojiFamilyToTakeIn.GetEmoji(true) + ">";
         }
     }
 
+    public void Start()
+    {
+    }
+
     public void OnButtonPressed()
     {
-        if(!isQuestion())
+        if (!isQuestion())
         {
             textToSend.text += textToChangeToEmoji.text + " ";
         }
