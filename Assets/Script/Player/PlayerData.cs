@@ -204,7 +204,7 @@ public class PlayerData : NetworkBehaviour
 
         if (role != Role.None)
         {
-            GameObject building = GameObject.Find("monde"); 
+            GameObject building = GameObject.Find("VilleELP"); 
             building.transform.position = new Vector3(0, 0, 0);
 
             GetComponentInChildren<PlayerInput>().enabled = false;
