@@ -11,6 +11,8 @@ public class PNJClothe : MonoBehaviour
     public ClotheCollection[] hautClothe;
     public ClotheCollection[] basClothe;
     public ClotheCollection[] shoesClothe;
+    public ClotheCollection[] corpsClothe;
+    public ClotheCollection[] teteClothe;
 
     [Header("BodyPartOfOurPNJ")]
     public SpriteRenderer frontHairClotheImage;
@@ -21,16 +23,20 @@ public class PNJClothe : MonoBehaviour
     public SpriteRenderer hautClotheImage;
     public SpriteRenderer basClotheImage;
     public SpriteRenderer shoesClotheImage;
+    public SpriteRenderer corpsClotheImage;
+    public SpriteRenderer teteClotheImage;
 
     public void Start()
     {
         choseHair();
+        choseCorps();
         chooseExpression(eyesClothe, eyesClotheImage);
         chooseExpression(plusClothe, plusClotheImage);
         chooseExpression(mouthClothe, mouthClotheImage);
         chooseClothe(hautClothe, hautClotheImage);
         chooseClothe(basClothe, basClotheImage);
         chooseClothe(shoesClothe, shoesClotheImage);
+        chooseClothe(corpsClothe, corpsClotheImage);
     }
 
     public void chooseClothe(ClotheCollection[] allCollection, SpriteRenderer spriteRenderer)
@@ -79,5 +85,20 @@ public class PNJClothe : MonoBehaviour
 
         frontHairClotheImage.sprite = spriteFrontHair;
         backHairClotheImage.sprite = spriteBackHair;
+    }
+
+    public void choseCorps()
+    {
+        int randomNumberListCorps = Random.Range(0, corpsClothe.Length);
+        int randomNumberListTete = Random.Range(0, teteClothe.Length);
+
+        int randomNumberHair = Random.Range(0, corpsClothe[randomNumberListCorps].clotheList.Count);
+
+        Sprite spriteCorps = corpsClothe[randomNumberListCorps].ReturnRandomClothe(randomNumberHair);
+        Sprite spriteTete = teteClothe[randomNumberListTete].ReturnRandomClothe(randomNumberHair);
+
+
+        frontHairClotheImage.sprite = spriteCorps;
+        backHairClotheImage.sprite = spriteTete;
     }
 }
