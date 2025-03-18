@@ -36,7 +36,7 @@ public class ScoreGame : NetworkBehaviour
             PlayerData currentPlayerData = scores[i].GetComponent<PlayerData>();
             PlayerScoring currentPlayerScoring = playersScores[i];
 
-            leaderboardView.AddScore(currentPlayerScoring);
+            leaderboardView.AddScore(currentPlayerScoring, i + 1);
 
             currentPlayerData.DisablePlayer();
             currentPlayerData.ObjectsStateSetter(currentPlayerData.seekerObjects, false);
