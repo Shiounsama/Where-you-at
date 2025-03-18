@@ -83,17 +83,14 @@ public class manager : NetworkBehaviour
         foreach (PlayerData playerScript in scriptPlayer)
         {
             player.Add(playerScript.gameObject);
-            playerScript.role = Role.Seeker;
+            playerScript.AssignRole(Role.Seeker);
         }
 
-        if (VuDuHaut == false)
-        {
-            int nbrRandom = Random.Range(0, player.Count);
-            player[nbrRandom].GetComponent<PlayerData>().role = Role.Lost;
-        }
+        int nbrRandom = Random.Range(0, player.Count);
+        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
 
-        SetCharlieRoleQueue();
-        GiveNextRoles();
+        //SetCharlieRoleQueue();
+        //GiveNextRoles();
         
         yield return new WaitForSeconds(2f);
         
@@ -174,8 +171,10 @@ public class manager : NetworkBehaviour
             }
         }
 
-        GiveNextRoles();
+        //GiveNextRoles();
+
         yield return new WaitForSeconds(0.2f);
+
         PlayersStartScene();
     }
 

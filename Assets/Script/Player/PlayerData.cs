@@ -43,6 +43,8 @@ public class PlayerData : NetworkBehaviour
     {
         role = newRole;
 
+        GetComponent<PlayerScoring>().finished = false;
+
         if (!isLocalPlayer)
             return;
 

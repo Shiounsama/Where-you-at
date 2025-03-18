@@ -20,13 +20,18 @@ public class LeaderboardView : View
         base.Initialize();
     }
 
+    private void OnEnable()
+    {
+        //Debug.Log("Leaderboard OnEnable");
+        ClearLeaderboard();
+    }
+
     #region Button Events
     /// <summary>
     /// Efface le leaderboard et cache tous les panels.
     /// </summary>
     private void OnClick_RestartButton()
     {
-        ClearLeaderboard();
         ViewManager.Instance.HideAll();
         manager.Instance.NextRound();
     }
@@ -37,14 +42,13 @@ public class LeaderboardView : View
     /// Ajoute un nouveau score au leaderboard.
     /// </summary>
     /// <param name="playerScoring">Classe qui gère le score du joueur.</param>
-    public void AddScore(PlayerScoring playerScoring)
+    public void AddScore(PlayerScoring playerScoring, int placement)
     {
         GameObject newScore = GameObject.Instantiate(scoreElementPrefab, scoresLayout);
 
         ScoreElement scoreElement = newScore.GetComponent<ScoreElement>();
         scoreElements.Add(scoreElement);
 
-        int placement = 0;
         string playerName = playerScoring.GetComponent<PlayerData>().playerName;
         float distance = playerScoring.finalScore;
         scoreElement.UpdateScoreText(placement, playerName, distance);

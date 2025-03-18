@@ -32,7 +32,7 @@ public class PlayerScoring : NetworkBehaviour
     /// </summary>
     /// <param name="newScore">Nouveau score du joueur.</param>
     [Command]
-    public void ServerScore(float newScore)
+    public void CmdScore(float newScore)
     {
         StartCoroutine(ScoreCoroutine(newScore));
     }
