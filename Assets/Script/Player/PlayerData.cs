@@ -228,8 +228,8 @@ public class PlayerData : NetworkBehaviour
             
             int randomNumber = Random.Range(0, allPNJ.Length);
             Debug.Log("JE SUIS ENERVEE " + randomNumber);
+            Debug.Log("POURQUOI " + allPNJ.Length);
             PNJcible = allPNJ[randomNumber];
-            PNJcible.tag = "PNJCIBLE";
 
             if (role == Role.Seeker)
             {

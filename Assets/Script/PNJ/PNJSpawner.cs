@@ -99,6 +99,10 @@ public class PNJSpawner : MonoBehaviour
 
             validPosition = colliders.Length == 1;
             nombreEssai++;
+            if (nombreEssai == 10)
+            {
+                Debug.Log("PNJ. MORT.");
+            }
             
         } 
 
