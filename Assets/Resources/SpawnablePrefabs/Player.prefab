@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2636359294456138695}
   - component: {fileID: 8191281009694760695}
   - component: {fileID: 5284582141068114091}
+  - component: {fileID: 3605825858785897536}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -129,6 +130,24 @@ MonoBehaviour:
   finished: 0
   finalScore: 0
   playerName: 
+--- !u!114 &3605825858785897536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620388920761478827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6611719d0957a6e41902f377d7e0f7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEmoji: 15
+  thisCamera: {fileID: 5738567190263072539}
+  emojiList: []
+  buttonPrefab: {fileID: 4472684352700073080, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
+  textToSend: {fileID: 2510146120311744023}
+  EmojiMenu: {fileID: 1447225417605431187}
 --- !u!1 &690513810465107549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,6 +1310,10 @@ PrefabInstance:
       propertyPath: emojiFamilyToTakeIn
       value: 
       objectReference: {fileID: 11400000, guid: 09c2c73f933087d4fb736662839586be, type: 2}
+    - target: {fileID: 4847659972319681097, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: cameraToFreeze
+      value: 
+      objectReference: {fileID: 8799083869644219184}
     - target: {fileID: 4851133366472481579, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: emojiFamilyToTakeIn
       value: 
@@ -1976,11 +1999,27 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+--- !u!224 &1447225417605431187 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3217283169830232043, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+  m_PrefabInstance: {fileID: 4085756785826947192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2344567739409970027 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1745731761184461587, guid: c6a3b853580310747ba3488154d5adae, type: 3}
   m_PrefabInstance: {fileID: 4085756785826947192}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2510146120311744023 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1902298871197517423, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+  m_PrefabInstance: {fileID: 4085756785826947192}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7549715787503922669 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5797958616058105237, guid: c6a3b853580310747ba3488154d5adae, type: 3}
