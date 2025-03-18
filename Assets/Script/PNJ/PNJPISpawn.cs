@@ -9,16 +9,22 @@ public class PNJPISpawn : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(spawnPIPNJ());
+       StartCoroutine(spawnPIPNJ());
     }
 
     IEnumerator spawnPIPNJ()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
         for (int i = 0; i <= nombrePNJPI; i++)
         {
             GameObject[] AllPNJ = GameObject.FindGameObjectsWithTag("pnj");
             int randomNumber = Random.Range(0, AllPNJ.Length);
+
+            while(AllPNJ[randomNumber].tag == "PNJCIBLE")
+            {
+                randomNumber = Random.Range(0, AllPNJ.Length);
+            }
+
             GameObject placementPNJ = AllPNJ[randomNumber];
             Destroy(placementPNJ);
             PNJSpawner uwu = placementPNJ.GetComponentInParent<PNJSpawner>();

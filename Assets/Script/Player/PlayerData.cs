@@ -225,15 +225,11 @@ public class PlayerData : NetworkBehaviour
             camPlayer.enabled = true;
 
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
-            List<GameObject> ListPNJ = new List<GameObject>();
-
-            foreach (GameObject obj in allPNJ)
-            {
-                ListPNJ.Add(obj);
-            }
             
-            int randomNumber = Random.Range(0, ListPNJ.Count);
-            PNJcible = ListPNJ[randomNumber];
+            int randomNumber = Random.Range(0, allPNJ.Length);
+            Debug.Log("JE SUIS ENERVEE " + randomNumber);
+            PNJcible = allPNJ[randomNumber];
+            PNJcible.tag = "PNJCIBLE";
 
             if (role == Role.Seeker)
             {
@@ -249,6 +245,8 @@ public class PlayerData : NetworkBehaviour
                 camDragIso.enabled = true;
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
+
+                Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
 
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
@@ -274,6 +272,7 @@ public class PlayerData : NetworkBehaviour
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
 
+                Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
                 transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
                 transform.rotation = PNJcible.transform.rotation;
 
