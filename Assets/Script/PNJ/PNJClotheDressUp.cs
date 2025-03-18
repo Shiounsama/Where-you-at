@@ -29,14 +29,13 @@ public class PNJClothe : MonoBehaviour
     public void Start()
     {
         choseHair();
-        choseCorps();
+        //choseCorps();
         chooseExpression(eyesClothe, eyesClotheImage);
         chooseExpression(plusClothe, plusClotheImage);
         chooseExpression(mouthClothe, mouthClotheImage);
         chooseClothe(hautClothe, hautClotheImage);
         chooseClothe(basClothe, basClotheImage);
         chooseClothe(shoesClothe, shoesClotheImage);
-        chooseClothe(corpsClothe, corpsClotheImage);
     }
 
     public void chooseClothe(ClotheCollection[] allCollection, SpriteRenderer spriteRenderer)
