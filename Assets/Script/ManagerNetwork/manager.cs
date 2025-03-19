@@ -148,24 +148,31 @@ public class manager : NetworkBehaviour
     /// <summary>
     /// Assigne les prochains rôles des joueurs selon l'ordre prédéfini.
     /// </summary>
-    public void GiveNextRoles()
+    IEnumerator roundlaunch()
     {
-        foreach (PlayerData playerScript in scriptPlayer)
+        
+
+        foreach (PlayerData playerscript in scriptPlayer)
         {
-            playerScript.AssignRole(Role.Seeker);
+            if (playerscript.isLocalPlayer)
+            {
+                playerscript.RpcStartGame();
+            }
+            
         }
 
-        charlieRoleQueue[0].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        yield return new WaitForSeconds(0.2f);
 
-        charlieRoleQueue.RemoveAt(0);
+        PlayersStartScene();
     }
 
-    IEnumerator roundlaunch() 
+    /*IEnumerator roundlaunch() 
     {
         foreach (PlayerData playerscript in scriptPlayer)
         {
             if (playerscript.isLocalPlayer)
             {
+                Debug.Log("Je suis le test");
                 playerscript.StartGame();
 
             }
@@ -176,6 +183,6 @@ public class manager : NetworkBehaviour
         yield return new WaitForSeconds(0.2f);
 
         PlayersStartScene();
-    }
+    }*/
 
 }

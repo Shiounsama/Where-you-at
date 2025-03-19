@@ -15,6 +15,7 @@ public class LeaderboardView : View
 
     public override void Initialize()
     {
+        restartButton.onClick.RemoveListener(OnClick_RestartButton); 
         restartButton.onClick.AddListener(OnClick_RestartButton);
 
         base.Initialize();
@@ -34,6 +35,8 @@ public class LeaderboardView : View
     {
         ViewManager.Instance.HideAll();
         manager.Instance.NextRound();
+        Debug.Log("je me trouve dans le restart Button");
+
     }
     #endregion
 
@@ -50,6 +53,7 @@ public class LeaderboardView : View
         scoreElements.Add(scoreElement);
 
         string playerName = playerScoring.GetComponent<PlayerData>().playerName;
+        
         float distance = playerScoring.finalScore;
         scoreElement.UpdateScoreText(placement, playerName, distance);
     }

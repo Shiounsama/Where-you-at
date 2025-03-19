@@ -80,8 +80,16 @@ public class PlayerData : NetworkBehaviour
             PremierJoueurSpawn = GameObject.Find("spawn1");
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+
+            int randomNumber = Random.Range(0, allPNJ.Length);
+            Debug.Log("J'aime Mae " + allPNJ.Length);
+            Debug.Log("GENRE FORT FORT  " + randomNumber);
+
+
             ClearOtherTchat();
             EnablePlayer(role);    
+
         }
     }
 
@@ -198,6 +206,8 @@ public class PlayerData : NetworkBehaviour
         IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
         IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
         IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+        IsoCameraSelection camSelectedIso = GetComponentInChildren<IsoCameraSelection>();
+
 
         Camera360 cam360 = GetComponentInChildren<Camera360>();
 
@@ -209,7 +219,7 @@ public class PlayerData : NetworkBehaviour
         {
             GameObject building = GameObject.Find("VilleELP"); 
             building.transform.position = new Vector3(0, 0, 0);
-
+            //Debug.Log("je me trouve dans le playerData EnablePlayer");
             GetComponentInChildren<PlayerInput>().enabled = false;
 
             cam360.enabled = false;
@@ -222,14 +232,19 @@ public class PlayerData : NetworkBehaviour
             camRotaIso.enabled = false;
             camRotaIso.objectToRotate = building.transform;
 
+            camSelectedIso.OnObjectUnselected();
+
             camPlayer.enabled = true;
 
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
-            
+
             int randomNumber = Random.Range(0, allPNJ.Length);
-            Debug.Log("JE SUIS ENERVEE " + randomNumber);
-            Debug.Log("POURQUOI " + allPNJ.Length);
+            //Debug.Log("JE SUIS ENERVEE " + randomNumber);
+            //Debug.Log("POURQUOI " + allPNJ.Length);
             PNJcible = allPNJ[randomNumber];
+            
+            
+            
 
             if (role == Role.Seeker)
             {
@@ -246,7 +261,8 @@ public class PlayerData : NetworkBehaviour
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
 
-                Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
+
+                //Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
 
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
@@ -278,7 +294,7 @@ public class PlayerData : NetworkBehaviour
 
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
-                Destroy(PNJcible);
+                //Destroy(PNJcible);
             }
 
             ViewManager.Instance.Initialize();
@@ -326,6 +342,12 @@ public class PlayerData : NetworkBehaviour
             Rigidbody objRigid = obj.GetComponent<Rigidbody>();
             objRigid.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         }
+    }
+
+    [ClientRpc]
+    public void RpcStartGame()
+    {
+        StartGame(); // Exécuté sur tous les clients
     }
 
 }
