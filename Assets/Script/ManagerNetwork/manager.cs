@@ -33,6 +33,17 @@ public class manager : NetworkBehaviour
             Instance = this;
     }
 
+    bool IsEveryoneActive()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            if (conn.identity == null || !conn.identity.gameObject.activeInHierarchy)
+            {
+                return false; // Un joueur n'est pas actif
+            }
+        }
+        return true; // Tous les joueurs sont actifs
+    }
     /// <summary>
     /// Définit l'ordre d'attribution du rôle de Charlie à chaque joueur.
     /// </summary>

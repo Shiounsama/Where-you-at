@@ -20,7 +20,7 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
-    public static GameObject PNJcible { get; private set; }
+    public static GameObject PNJcible { get; set; }
 
     private void Update()
     {
@@ -83,8 +83,6 @@ public class PlayerData : NetworkBehaviour
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
 
             int randomNumber = Random.Range(0, allPNJ.Length);
-            Debug.Log("J'aime Mae " + allPNJ.Length);
-            Debug.Log("GENRE FORT FORT  " + randomNumber);
 
 
             ClearOtherTchat();
@@ -219,7 +217,6 @@ public class PlayerData : NetworkBehaviour
         {
             GameObject building = GameObject.Find("VilleELP"); 
             building.transform.position = new Vector3(0, 0, 0);
-            //Debug.Log("je me trouve dans le playerData EnablePlayer");
             GetComponentInChildren<PlayerInput>().enabled = false;
 
             cam360.enabled = false;
@@ -236,15 +233,7 @@ public class PlayerData : NetworkBehaviour
 
             camPlayer.enabled = true;
 
-            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
-
-            int randomNumber = Random.Range(0, allPNJ.Length);
-            //Debug.Log("JE SUIS ENERVEE " + randomNumber);
-            //Debug.Log("POURQUOI " + allPNJ.Length);
-            PNJcible = allPNJ[randomNumber];
-            
-            
-            
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");         
 
             if (role == Role.Seeker)
             {
@@ -260,9 +249,6 @@ public class PlayerData : NetworkBehaviour
                 camDragIso.enabled = true;
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
-
-
-                //Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
 
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;

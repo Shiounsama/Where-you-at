@@ -23,6 +23,8 @@ public class PNJSpawner : MonoBehaviour
 
     private Vector3 spawnPosition;
 
+    
+
 
     public void Awake()
     {
@@ -71,7 +73,24 @@ public class PNJSpawner : MonoBehaviour
             {
                 InstantiateObject(prefabToSpawn);
             }
-       // }
+
+        int compteurPNJ = 0;
+        List<PNJSpawner> allPNJ = new List<PNJSpawner>(FindObjectsOfType<PNJSpawner>());
+
+
+        foreach (PNJSpawner PNJscript in allPNJ)
+        {
+             compteurPNJ += PNJscript.numberToSpawn;
+        }
+
+        GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
+
+        if (compteurPNJ == PNJ.Length)
+        {
+            int randomNumber = Random.Range(0, PNJ.Length);
+            PlayerData.PNJcible = PNJ[randomNumber];
+        }
+        // }
     }
 
     public void InstantiateObject(GameObject objectToInstantiate)

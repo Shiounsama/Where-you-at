@@ -35,8 +35,6 @@ public class LeaderboardView : View
     {
         ViewManager.Instance.HideAll();
         manager.Instance.NextRound();
-        Debug.Log("je me trouve dans le restart Button");
-
     }
     #endregion
 
