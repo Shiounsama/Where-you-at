@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SoundDesign
 {
+    [RequireComponent(typeof(AudioSource))]
     public class SoundFXManager : MonoBehaviour
     {
         public static SoundFXManager Instance;

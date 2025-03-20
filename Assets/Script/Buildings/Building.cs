@@ -16,14 +16,17 @@ public abstract class Building : MonoBehaviour
 
     private IEnumerator Start()
     {
+        Debug.Log("Start Building");
+
         _soundBank = SoundFXManager.Instance.SoundBank;
 
         m_audioSource = GetComponent<AudioSource>();
         InitializeAudioSource();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         
         localPlayerCam = manager.Instance.GetLocalPlayerData().GetComponentInChildren<Camera>();
+        Debug.Log(localPlayerCam);
         SetAmbientSound();
     }
 

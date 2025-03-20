@@ -45,9 +45,6 @@ public class PlayerData : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        if (isLocalPlayer)
-            GetComponentInChildren<AudioListener>().enabled = true;
-
         base.OnStartLocalPlayer();
     }
 
@@ -102,8 +99,9 @@ public class PlayerData : NetworkBehaviour
 
 
             ClearOtherTchat();
-            EnablePlayer(role);    
+            EnablePlayer(role);
 
+            GetComponentInChildren<AudioListener>().enabled = true;
         }
     }
 
