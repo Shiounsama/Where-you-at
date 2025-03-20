@@ -32,6 +32,9 @@ public class PlayerData : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        if (isLocalPlayer)
+            GetComponentInChildren<AudioListener>().enabled = true;
+
         base.OnStartLocalPlayer();
     }
 
@@ -211,6 +214,8 @@ public class PlayerData : NetworkBehaviour
 
         Camera camPlayer = GetComponentInChildren<Camera>();
 
+        AudioListener audioListener = camPlayer.GetComponent<AudioListener>();
+
         ViewManager.Instance.UpdateViewsList();
 
         if (role != Role.None)
@@ -233,7 +238,11 @@ public class PlayerData : NetworkBehaviour
 
             camPlayer.enabled = true;
 
+
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");         
+
+            audioListener.enabled = false;
+            
 
             if (role == Role.Seeker)
             {
