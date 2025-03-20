@@ -13,7 +13,10 @@ public class PlayerScoring : NetworkBehaviour
     public bool finished;
 
     [SyncVar]
-    public float finalScore;
+    public float ScoreRound;
+
+    [SyncVar]
+    public float ScoreFinal;
 
     [SyncVar]
     public string playerName;
@@ -44,7 +47,7 @@ public class PlayerScoring : NetworkBehaviour
     /// <returns></returns>
     public IEnumerator ScoreCoroutine(float newScore)
     {
-        finalScore = newScore;
+        ScoreRound = newScore;
         finished = true;
 
         yield return new WaitForSeconds(0.1f);
@@ -73,7 +76,7 @@ public class PlayerScoring : NetworkBehaviour
     [Command]
     public void ShowScore(float newScore)
     {
-        finalScore = newScore;
+        ScoreRound = newScore;
         finished = true;
     }
 

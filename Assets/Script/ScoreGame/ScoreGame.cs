@@ -17,7 +17,7 @@ public class ScoreGame : NetworkBehaviour
     public void ShowScore()
     {
         playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        playersScores = playersScores.Where(score => score.finished).OrderBy(scoreJoueur => scoreJoueur.finalScore).ToList();
+        playersScores = playersScores.Where(score => score.finished).OrderBy(scoreJoueur => scoreJoueur.ScoreRound).ToList();
 
         ShowLeaderboard(playersScores);
     }
