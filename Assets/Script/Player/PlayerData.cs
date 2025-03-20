@@ -32,6 +32,9 @@ public class PlayerData : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        if (isLocalPlayer)
+            GetComponentInChildren<AudioListener>().enabled = true;
+
         base.OnStartLocalPlayer();
     }
 
@@ -202,6 +205,8 @@ public class PlayerData : NetworkBehaviour
 
         Camera camPlayer = GetComponentInChildren<Camera>();
 
+        AudioListener audioListener = camPlayer.GetComponent<AudioListener>();
+
         ViewManager.Instance.UpdateViewsList();
 
         if (role != Role.None)
@@ -222,6 +227,8 @@ public class PlayerData : NetworkBehaviour
             camRotaIso.objectToRotate = building.transform;
 
             camPlayer.enabled = true;
+
+            audioListener.enabled = false;
 
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
             List<GameObject> ListPNJ = new List<GameObject>();
