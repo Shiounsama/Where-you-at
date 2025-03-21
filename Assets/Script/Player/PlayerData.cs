@@ -1,9 +1,6 @@
-using Cinemachine;
 using Mirror;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PlayerData : NetworkBehaviour
@@ -272,7 +269,6 @@ public class PlayerData : NetworkBehaviour
 
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
-
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 camPlayer.transform.localPosition = Vector3.zero;
@@ -294,7 +290,7 @@ public class PlayerData : NetworkBehaviour
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
 
-                Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
+                //Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
                 transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
                 transform.rotation = PNJcible.transform.rotation;
 

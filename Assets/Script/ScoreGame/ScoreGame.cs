@@ -8,7 +8,13 @@ using Mirror;
 public class ScoreGame : NetworkBehaviour
 {
     public List<PlayerScoring> playersScores;
+    [SyncVar(hook = nameof(OnGameFinished))]
     public bool finished = false;
+
+    private void Awake()
+    {
+        playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>(true));
+    }
 
     /// <summary>
     /// Récupère dans une liste tous les joueurs avec un script scoringPlayer
@@ -16,10 +22,60 @@ public class ScoreGame : NetworkBehaviour
     /// </summary>
     public void ShowScore()
     {
-        playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        if (playersScores.Count < 1)
+        {
+            playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>(true));
+        }
+
         playersScores = playersScores.Where(score => score.finished).OrderBy(scoreJoueur => scoreJoueur.ScoreRound).ToList();
 
         ShowLeaderboard(playersScores);
+    }
+
+    [Command]
+    public void CmdSetGameFinished(bool isFinished)
+    {
+        finished = isFinished;
+    }
+
+    public bool HasEveryoneFinished()
+    {
+        if (playersScores.Count < 1)
+        {
+            playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>(true));
+        }
+
+        foreach (var scoring in FindObjectsOfType<PlayerScoring>())
+        {
+            Debug.Log($"Player scorings: {playersScores.Count}");
+            PlayerData currentPlayerData = scoring.GetComponent<PlayerData>();
+
+            //Debug.Log($"Scoring: {scoring};");
+            //Debug.Log($"Finished: {scoring.finished};");
+            //Debug.Log($"Role: {currentPlayerData.role}");
+
+            if (currentPlayerData.role == Role.Seeker && scoring.finished == false)
+            {
+                Debug.Log($"Finished: {scoring.finished};");
+                Debug.Log($"Role: {currentPlayerData.role}");
+                Debug.Log("HasEveryoneFinished: false");
+                return false;
+            }
+        }
+
+        Debug.Log("HasEveryoneFinished: true");
+        return true;
+    }
+
+    private void OnGameFinished(bool oldBool, bool newBool)
+    {
+        if (newBool == true && oldBool == false)
+        {
+            foreach (var playerScore in FindObjectsOfType<PlayerScoring>())
+            {
+                playerScore.CmdSetFinished(true);
+            }
+        }
     }
 
     private void ShowLeaderboard(List<PlayerScoring> scores)
