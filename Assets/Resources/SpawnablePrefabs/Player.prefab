@@ -128,7 +128,8 @@ MonoBehaviour:
   syncInterval: 0
   victory: 0
   finished: 0
-  finalScore: 0
+  ScoreRound: 0
+  ScoreFinal: 0
   playerName: 
 --- !u!114 &3605825858785897536
 MonoBehaviour:
@@ -166,7 +167,6 @@ GameObject:
   - component: {fileID: 1023364209447254201}
   - component: {fileID: 1442475729549407068}
   - component: {fileID: 218688681835275930}
-  - component: {fileID: 4168562127232418044}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -484,25 +484,6 @@ MonoBehaviour:
   layerToVerify:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &4168562127232418044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690513810465107549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16318785957b4724381776bd7306552a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  victory: 0
-  finished: 0
-  finalScore: 0
-  playerName: 
 --- !u!1001 &2154224445062008688
 PrefabInstance:
   m_ObjectHideFlags: 0

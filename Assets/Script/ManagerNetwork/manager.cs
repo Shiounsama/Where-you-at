@@ -114,8 +114,7 @@ public class manager : NetworkBehaviour
         {
             if (playerscript.isLocalPlayer)
             {
-                playerscript.StartScene(playerscript);
-                
+                playerscript.StartScene(playerscript);   
             }
         }
     }
@@ -127,8 +126,8 @@ public class manager : NetworkBehaviour
             if (playerscript.isLocalPlayer)
             {
                 Debug.Log(playerscript);
-                return playerscript;
 
+                return playerscript;
             }
         }
 

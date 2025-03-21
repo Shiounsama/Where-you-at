@@ -21,7 +21,7 @@ public class CheckPNJSelected : NetworkBehaviour
             if (_seekerView == null)
                 _seekerView = ViewManager.Instance.GetView<SeekerView>();
 
-            return _seekerView;
+            return _seekerView; 
         }
         set
         {
@@ -50,29 +50,31 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public void IsGuess()
     {
+        StartCoroutine(GuessCoroutine());
+    }
+
+    private IEnumerator GuessCoroutine()
+    {
         Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
 
-        CmdSetGameFinished();
-
-        scoreGame.finished = true;
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-        score.CmdScore(resultat);
+        score.SetScore(resultat);
+        score.CmdSetFinished(true);
+
+        yield return new WaitForSeconds(.1f);
+
+        if (scoreGame.HasEveryoneFinished())
+        {
+            Debug.Log(scoreGame);
+            CmdSetGameFinished(true);
+        }
+
         seekerView.guessButton.gameObject.SetActive(false);
     }
 
     [Command]
-    private void CmdSetGameFinished()
+    public void CmdSetGameFinished(bool isFinished)
     {
-        foreach (NetworkConnection conn in NetworkServer.connections.Values)
-        {
-            TargetSetGameFinished(conn);
-        }
-    }
-
-    [TargetRpc]
-    private void TargetSetGameFinished(NetworkConnection conn)
-    {
-        scoreGame.finished = true;
-        Debug.Log($"Score game finished: {scoreGame.finished}");
+        scoreGame.finished = isFinished;
     }
 }

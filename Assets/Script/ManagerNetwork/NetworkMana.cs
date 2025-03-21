@@ -48,7 +48,7 @@ public class NetworkMana : NetworkManager
 
         foreach (var prefab in spawnablePrefabs)
         {
-            Debug.Log($"Spawnable prefab: {prefab.name}");
+            //Debug.Log($"Spawnable prefab: {prefab.name}");
 
             NetworkClient.RegisterPrefab(prefab);
         }
@@ -100,14 +100,14 @@ public class NetworkMana : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        Debug.Log($"Active scene: {SceneManager.GetActiveScene().path}");
-        Debug.Log($"Lobby scene: {lobbyScene}");
+        //Debug.Log($"Active scene: {SceneManager.GetActiveScene().path}");
+        //Debug.Log($"Lobby scene: {lobbyScene}");
 
         if (SceneManager.GetActiveScene().path == lobbyScene)
         {
             bool isLeader = RoomPlayers.Count == 0;
             NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
-            Debug.Log("Instantiation of room player lobby.");
+            //Debug.Log("Instantiation of room player lobby.");
             roomPlayerInstance.IsLeader = isLeader;
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);

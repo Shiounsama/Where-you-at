@@ -2,14 +2,13 @@ using System.Collections;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerScoring : NetworkBehaviour
 {
-    private Score score;
-
     public bool victory;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnFinishChanged))]
     public bool finished;
 
     [SyncVar]
@@ -30,54 +29,37 @@ public class PlayerScoring : NetworkBehaviour
         finished = false;
     }
 
-    /// <summary>
-    /// Demande au serveur de mettre à jour le score du joueur.
-    /// </summary>
-    /// <param name="newScore">Nouveau score du joueur.</param>
     [Command]
-    public void CmdScore(float newScore)
+    public void CmdSetFinished(bool isFinished)
     {
-        StartCoroutine(ScoreCoroutine(newScore));
+        finished = isFinished;
     }
 
-    /// <summary>
-    /// Coroutine qui met à jour le score du joueur.
-    /// </summary>
-    /// <param name="newScore">Nouveau score du joueur.</param>
-    /// <returns></returns>
-    public IEnumerator ScoreCoroutine(float newScore)
+    private void OnFinishChanged(bool oldBool, bool newBool)
     {
-        ScoreRound = newScore;
-        finished = true;
+        if (!isLocalPlayer) return;
 
-        yield return new WaitForSeconds(0.1f);
+        Debug.Log("OnFinishChanged");
 
-        foreach (var conn in NetworkServer.connections.Values)
+        if (newBool == true && oldBool == false)
         {
-            TargetShowScore(conn);
-        }
-    }
-
-    /// <summary>
-    /// Affiche le score du joueur sur son propre Canvas.
-    /// </summary>
-    /// <param name="player">Joueur cible.</param>
-    [TargetRpc]
-    private void TargetShowScore(NetworkConnection player)
-    {
-        Debug.Log("TargetShowScore");
-
-        if (FindObjectOfType<ScoreGame>().finished)
-        {
-            FindObjectOfType<ScoreGame>().ShowScore();
+            FindObjectOfType<ScoreGame>().ShowScore(); 
         }
     }
 
     [Command]
-    public void ShowScore(float newScore)
+    public void CmdSetGameFinished(bool isFinished)
+    {
+        finished = isFinished;
+    }
+
+    /// <summary>
+    /// Définit le score actuel du joueur.
+    /// </summary>
+    /// <param name="newScore"></param>
+    public void SetScore(float newScore)
     {
         ScoreRound = newScore;
-        finished = true;
     }
 
     /// <summary>
@@ -90,18 +72,5 @@ public class PlayerScoring : NetworkBehaviour
         Debug.Log($"Server set player name: {playerName}");
 
         playerName = newName;
-    }
-}
-
-[Serializable]
-public class Score
-{
-    public int time;
-    public int distance;
-
-    public Score(int time, int distance)
-    {
-        this.time = time;
-        this.distance = distance;
     }
 }
