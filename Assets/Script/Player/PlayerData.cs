@@ -27,6 +27,14 @@ public class PlayerData : NetworkBehaviour
         if (isLocalPlayer)
         {
             frontPNJ();
+            if (role == Role.Seeker)
+            {
+                if(transform.position == new Vector3(0, 0, 0))
+                {
+                    transform.position = DeuxiemeJoueurSpawn.transform.position;
+                    transform.rotation = DeuxiemeJoueurSpawn.transform.rotation; 
+                }
+            }
         }
     }
 
@@ -208,7 +216,7 @@ public class PlayerData : NetworkBehaviour
         IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
         IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
         IsoCameraSelection camSelectedIso = GetComponentInChildren<IsoCameraSelection>();
-
+        IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
 
         Camera360 cam360 = GetComponentInChildren<Camera360>();
 
@@ -238,6 +246,8 @@ public class PlayerData : NetworkBehaviour
 
             camPlayer.enabled = true;
 
+            Xray.enabled = false;
+
 
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");         
 
@@ -258,11 +268,10 @@ public class PlayerData : NetworkBehaviour
                 camDragIso.enabled = true;
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
+                Xray.enabled = true;
 
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
-
-                Debug.Log("Je fais un test sur la position " + DeuxiemeJoueurSpawn.transform.position);
 
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
@@ -308,6 +317,7 @@ public class PlayerData : NetworkBehaviour
         IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
         TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
         Camera360 cam360 = GetComponentInChildren<Camera360>();
+        IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
 
         GetComponentInChildren<PlayerInput>().enabled = false;
 
@@ -318,6 +328,8 @@ public class PlayerData : NetworkBehaviour
         camZoomIso.enabled = false;
 
         camRotaIso.enabled = false;
+
+        Xray.enabled = false;
   
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
     }
