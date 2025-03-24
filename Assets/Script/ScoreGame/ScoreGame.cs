@@ -49,15 +49,15 @@ public class ScoreGame : NetworkBehaviour
             textObject.transform.SetParent(parentTransform);
 
             Text textComponent = textObject.AddComponent<Text>();
-            textComponent.text = $"{i + 1} - {scores[i].transform.parent.GetComponentInChildren<PlayerData>().playerName} avec {scores[i].ScoreFinal} mètres";
+            textComponent.text = $"{i + 1} - {scores[i].transform.GetComponent<PlayerData>().playerName} avec {scores[i].ScoreFinal} mètres";
 
             textComponent.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
-            textComponent.fontSize = 24;
+            textComponent.fontSize = 48;
             textComponent.color = Color.black;
             textComponent.alignment = TextAnchor.MiddleCenter;
 
             RectTransform rectTransform = textObject.GetComponent<RectTransform>();
-            rectTransform.sizeDelta = new Vector2(400, 30);
+            rectTransform.sizeDelta = new Vector2(600, 60);
             rectTransform.anchoredPosition = new Vector2(0, -i * 35);
 
             scores[i].GetComponent<PlayerData>().DisablePlayer();

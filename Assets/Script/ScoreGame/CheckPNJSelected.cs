@@ -14,7 +14,7 @@ public class CheckPNJSelected : NetworkBehaviour
 
     private void Awake()
     {
-        cameraSelection = transform.GetComponent<IsoCameraSelection>();
+        cameraSelection = transform.GetComponentInChildren<IsoCameraSelection>();
         score = this.GetComponent<PlayerScoring>();
         scoreGame = GameObject.FindObjectOfType<ScoreGame>();
     }
@@ -36,6 +36,9 @@ public class CheckPNJSelected : NetworkBehaviour
         if (isLocalPlayer)
         {
             scoreGame.finish = true;
+            //Debug.Log("Erreur de selected " + cameraSelection.selectedObject.gameObject.transform.position);
+            Debug.Log("Erreur de PNJcible " + PlayerData.PNJcible.transform.position);
+
             float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
             score.ServeurScore(resultat);
             cameraSelection.OnObjectUnselected();
