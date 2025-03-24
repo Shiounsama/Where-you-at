@@ -55,7 +55,7 @@ public class manager : NetworkBehaviour
         }
 
         int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().role = "Charlie";
+        player[nbrRandom].GetComponent<PlayerData>().role = "Camera";
         
         yield return new WaitForSeconds(0.2f);
 
