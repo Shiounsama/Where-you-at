@@ -9,7 +9,8 @@ public class PNJPISpawn : MonoBehaviour
 
     void Start()
     {
-            StartCoroutine(spawnPIPNJ());
+        Random.InitState(seed.Instance.SeedValue);
+        StartCoroutine(spawnPIPNJ());
     }
 
     IEnumerator spawnPIPNJ()
@@ -32,7 +33,7 @@ public class PNJPISpawn : MonoBehaviour
            
             PNJSpawner uwu = placementPNJ.GetComponentInParent<PNJSpawner>();
             Destroy(placementPNJ);
-            uwu.InstantiateObject(PnjPIFamilyData.GetPrefab());    
+            //uwu.InstantiateObject(PnjPIFamilyData.GetPrefab());    
         }
         
     }

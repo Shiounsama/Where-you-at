@@ -115,12 +115,12 @@ public class PNJSpawner : MonoBehaviour
 
             if (objectToInstantiate.tag == "pnj pi")
             {
-                Debug.Log("TU ES PROCHE " + spawnPosition + "test de test " + seed.Instance.SeedValue);
+                
             }
 
             Collider[] colliders = Physics.OverlapBox(
                                    spawnPosition,
-                                   objectToInstantiate.transform.localScale / 2,
+                                   objectToInstantiate.transform.localScale / 1.5f,
                                    Quaternion.identity);
 
             validPosition = colliders.Length == 1;
