@@ -112,6 +112,7 @@ public class NetworkMana : NetworkManager
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
 
+            ViewManager.Instance.UpdateViewsList();
             ViewManager.Instance.Show<LobbyView>();
         }
     }

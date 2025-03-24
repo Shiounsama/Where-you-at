@@ -16,7 +16,7 @@ public abstract class Building : MonoBehaviour
 
     private IEnumerator Start()
     {
-        Debug.Log("Start Building");
+        //Debug.Log("Start Building");
 
         _soundBank = SoundFXManager.Instance.SoundBank;
 
@@ -26,7 +26,7 @@ public abstract class Building : MonoBehaviour
         yield return new WaitForSeconds(3f);
         
         localPlayerCam = manager.Instance.GetLocalPlayerData().GetComponentInChildren<Camera>();
-        Debug.Log(localPlayerCam);
+        //Debug.Log(localPlayerCam);
         SetAmbientSound();
     }
 

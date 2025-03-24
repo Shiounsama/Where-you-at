@@ -101,8 +101,18 @@ public class PlayerData : NetworkBehaviour
             ClearOtherTchat();
             EnablePlayer(role);
 
-            GetComponentInChildren<AudioListener>().enabled = true;
+            foreach (NetworkConnection conn in NetworkServer.connections.Values)
+            {
+                TargetEnableAudioListener(conn);
+            }
         }
+    }
+
+    [TargetRpc]
+    private void TargetEnableAudioListener(NetworkConnection conn)
+    {
+        manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled = true;
+        Debug.Log($"Local AudioListener enabled: {manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled}");
     }
 
     /// <summary>

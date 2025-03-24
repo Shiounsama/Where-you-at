@@ -27,6 +27,8 @@ namespace SoundDesign
             m_audioSource = GetComponent<AudioSource>();
 
             m_audioSource.clip = soundBank.backgroundMusic;
+            m_audioSource.loop = true;
+            m_audioSource.playOnAwake = true;
             m_audioSource.Play();
         }
 
