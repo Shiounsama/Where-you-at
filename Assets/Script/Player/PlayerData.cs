@@ -32,6 +32,14 @@ public class PlayerData : NetworkBehaviour
                     transform.rotation = DeuxiemeJoueurSpawn.transform.rotation; 
                 }
             }
+            if (role == Role.Lost)
+            {
+                if (transform.position == new Vector3(0, 0, 0))
+                {
+                    transform.position = PNJcible.transform.position;
+                }
+            }
+
         }
     }
 
@@ -219,6 +227,8 @@ public class PlayerData : NetworkBehaviour
 
         Camera camPlayer = GetComponentInChildren<Camera>();
 
+        takeEmoji emojiScript = GetComponent<takeEmoji>();
+
         AudioListener audioListener = camPlayer.GetComponent<AudioListener>();
 
         ViewManager.Instance.UpdateViewsList();
@@ -243,8 +253,9 @@ public class PlayerData : NetworkBehaviour
 
             camPlayer.enabled = true;
 
-            Xray.enabled = false;
+            emojiScript.enabled = false;
 
+            Xray.enabled = false;
 
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");         
 
@@ -266,6 +277,7 @@ public class PlayerData : NetworkBehaviour
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
                 Xray.enabled = true;
+                emojiScript.enabled = false;
 
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
@@ -273,6 +285,9 @@ public class PlayerData : NetworkBehaviour
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
+
+                //PNJcible.SetActive(true);
+
 
             }
             else if (role == Role.Lost)
@@ -289,6 +304,7 @@ public class PlayerData : NetworkBehaviour
                 frontPNJ();
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
+                emojiScript.enabled = true;
 
                 //Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
                 transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
@@ -353,6 +369,15 @@ public class PlayerData : NetworkBehaviour
     public void RpcStartGame()
     {
         StartGame(); // Exécuté sur tous les clients
+    }
+
+    public void destroyPNJ()
+    {
+        if (isLocalPlayer)
+        {
+            if (role == Role.Lost)
+                Destroy(PNJcible);
+        }
     }
 
 }

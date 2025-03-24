@@ -9,7 +9,7 @@ public class PNJPISpawn : MonoBehaviour
 
     void Start()
     {
-       StartCoroutine(spawnPIPNJ());
+            StartCoroutine(spawnPIPNJ());
     }
 
     IEnumerator spawnPIPNJ()
@@ -20,14 +20,18 @@ public class PNJPISpawn : MonoBehaviour
             GameObject[] AllPNJ = GameObject.FindGameObjectsWithTag("pnj");
             int randomNumber = Random.Range(0, AllPNJ.Length);
 
-            while(AllPNJ[randomNumber].tag == "PNJCIBLE")
+            Debug.Log("Les nombre aléatoire dans la coroutine : " + randomNumber);
+            Debug.Log("Les AllPNJ dans la coroutine : " + AllPNJ.Length);
+
+            while (AllPNJ[randomNumber].gameObject == PlayerData.PNJcible.gameObject)
             {
                 randomNumber = Random.Range(0, AllPNJ.Length);
             }
 
             GameObject placementPNJ = AllPNJ[randomNumber];
-            Destroy(placementPNJ);
+           
             PNJSpawner uwu = placementPNJ.GetComponentInParent<PNJSpawner>();
+            Destroy(placementPNJ);
             uwu.InstantiateObject(PnjPIFamilyData.GetPrefab());    
         }
         
