@@ -99,6 +99,7 @@ public class PNJSpawner : MonoBehaviour
          int nombreEssai = 0;
          bool validPosition = false;
          
+        
 
         if (seed.Instance != null)
         {
@@ -107,9 +108,15 @@ public class PNJSpawner : MonoBehaviour
 
         while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
+
             spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
                             transform.position.y,
                             Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));
+
+            if (objectToInstantiate.tag == "pnj pi")
+            {
+                Debug.Log("TU ES PROCHE " + spawnPosition + "test de test " + seed.Instance.SeedValue);
+            }
 
             Collider[] colliders = Physics.OverlapBox(
                                    spawnPosition,
@@ -118,6 +125,7 @@ public class PNJSpawner : MonoBehaviour
 
             validPosition = colliders.Length == 1;
             nombreEssai++;
+
             if (nombreEssai == 10)
             {
                 Debug.Log("PNJ. MORT.");
@@ -130,6 +138,8 @@ public class PNJSpawner : MonoBehaviour
             GameObject actualPlayer = Instantiate(objectToInstantiate, 
                         spawnPosition,
                         Quaternion.identity, transform);
+
+            
 
             entitiesSpawnedArray.Add(actualPlayer);
 

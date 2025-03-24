@@ -10,6 +10,8 @@ public class ScoreGame : NetworkBehaviour
     public List<PlayerScoring> scoreJoueur;
     public Canvas classementCanvas;
     public Transform parentTransform;
+
+    [SyncVar]
     public bool finish = false;
 
     private Button restartButton;
