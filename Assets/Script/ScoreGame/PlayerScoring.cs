@@ -6,71 +6,61 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerScoring : NetworkBehaviour
 {
-    public bool victory;
+    private int ScoreTemps;
+    private int ScoreDistance;
 
-    [SyncVar(hook = nameof(OnFinishChanged))]
-    public bool finished;
+    public bool victoire;
 
     [SyncVar]
-    public float ScoreRound;
+    public bool finish;
 
     [SyncVar]
     public float ScoreFinal;
 
-    [SyncVar]
-    public string playerName;
+
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-
-        ServerSetPlayerName(GetComponentInParent<PlayerData>().playerName);
-
-        finished = false;
+        finish = false;
     }
 
     [Command]
-    public void CmdSetFinished(bool isFinished)
+    public void ServeurScore(float newScore)
     {
-        finished = isFinished;
+        StartCoroutine(resultat(newScore));
     }
 
-    private void OnFinishChanged(bool oldBool, bool newBool)
+    public IEnumerator resultat(float newScore)
     {
-        if (!isLocalPlayer) return;
+        ScoreFinal = newScore;
+        finish = true;
 
-        Debug.Log("OnFinishChanged");
 
-        if (newBool == true && oldBool == false)
+        yield return new WaitForSeconds(0.1f);
+
+        foreach (var conn in NetworkServer.connections.Values)
         {
-            FindObjectOfType<ScoreGame>().ShowScore(); 
+            TargetShowScoreForPlayer(conn);
+        }
+    }
+
+
+
+    [TargetRpc]
+    private void TargetShowScoreForPlayer(NetworkConnection target)
+    {
+        if (FindObjectOfType<ScoreGame>().finish)
+        {
+            FindObjectOfType<ScoreGame>().showScore();
         }
     }
 
     [Command]
-    public void CmdSetGameFinished(bool isFinished)
+    public void montreScore(float newScore)
     {
-        finished = isFinished;
-    }
+        ScoreFinal = newScore;
+        finish = true;
 
-    /// <summary>
-    /// Définit le score actuel du joueur.
-    /// </summary>
-    /// <param name="newScore"></param>
-    public void SetScore(float newScore)
-    {
-        ScoreRound = newScore;
-    }
-
-    /// <summary>
-    /// Demande au serveur de mettre à jour le nom du joueur.
-    /// </summary>
-    /// <param name="newName">Nouveau nom du joueur.</param>
-    [Command]
-    private void ServerSetPlayerName(string newName)
-    {
-        Debug.Log($"Server set player name: {playerName}");
-
-        playerName = newName;
     }
 }

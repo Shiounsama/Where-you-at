@@ -2807,22 +2807,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7474149608355594195, guid: 9d68210fd3369034c88d8506744a0c32, type: 3}
   m_PrefabInstance: {fileID: 1090385376}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1090385378 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1973816502360582938, guid: 9d68210fd3369034c88d8506744a0c32, type: 3}
-  m_PrefabInstance: {fileID: 1090385376}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &1090385379 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 551060666510460901, guid: 9d68210fd3369034c88d8506744a0c32, type: 3}
-  m_PrefabInstance: {fileID: 1090385376}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1090385380 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2183146388625476804, guid: 9d68210fd3369034c88d8506744a0c32, type: 3}
@@ -2840,9 +2824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e2780bce54ac84e85cce3460db3cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreElementPrefab: {fileID: 4228281338085362560, guid: 74dd967b38f79c442812fc4b211d3727, type: 3}
-  scoresLayout: {fileID: 1090385379}
-  restartButton: {fileID: 1090385378}
 --- !u!1 &1130783582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3594,8 +3575,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  playersScores: []
-  finished: 0
+  scoreJoueur: []
+  classementCanvas: {fileID: 0}
+  parentTransform: {fileID: 0}
+  finish: 0
+  restartButtonPrefab: {fileID: 0}
+  BackgroundImage: {fileID: 0}
 --- !u!114 &1307747225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4311,7 +4296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5249717
+      value: 5251953
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

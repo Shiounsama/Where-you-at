@@ -7,96 +7,65 @@ using Mirror;
 
 public class ScoreGame : NetworkBehaviour
 {
-    public List<PlayerScoring> playersScores;
-    [SyncVar(hook = nameof(OnGameFinished))]
-    public bool finished = false;
+    public List<PlayerScoring> scoreJoueur;
+    public Canvas classementCanvas;
+    public Transform parentTransform;
+    public bool finish = false;
 
-    private void Awake()
+    private Button restartButton;
+    public Button restartButtonPrefab;
+    public GameObject BackgroundImage;
+
+
+
+
+    public void showScore()
     {
-        playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>(true));
+        scoreJoueur = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        scoreJoueur = scoreJoueur.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
+
+        AfficherClassement(scoreJoueur);
     }
 
-    /// <summary>
-    /// Récupère dans une liste tous les joueurs avec un script scoringPlayer
-    /// trie la liste avec tous les joueurs qui ont validé leurs choix puis trie la liste du plus proche au plus loin.
-    /// </summary>
-    public void ShowScore()
+    void AfficherClassement(List<PlayerScoring> scores)
     {
-        if (playersScores.Count < 1)
+        classementCanvas.enabled = true;
+
+        parentTransform = classementCanvas.transform;
+
+        foreach (Transform child in parentTransform)
         {
-            playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>(true));
-        }
-
-        playersScores = playersScores.Where(score => score.finished).OrderBy(scoreJoueur => scoreJoueur.ScoreRound).ToList();
-
-        ShowLeaderboard(playersScores);
-    }
-
-    [Command]
-    public void CmdSetGameFinished(bool isFinished)
-    {
-        finished = isFinished;
-    }
-
-    public bool HasEveryoneFinished()
-    {
-        if (playersScores.Count < 1)
-        {
-            playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>(true));
-        }
-
-        foreach (var scoring in FindObjectsOfType<PlayerScoring>())
-        {
-            Debug.Log($"Player scorings: {playersScores.Count}");
-            PlayerData currentPlayerData = scoring.GetComponent<PlayerData>();
-
-            //Debug.Log($"Scoring: {scoring};");
-            //Debug.Log($"Finished: {scoring.finished};");
-            //Debug.Log($"Role: {currentPlayerData.role}");
-
-            if (currentPlayerData.role == Role.Seeker && scoring.finished == false)
+            if (child.GetComponent<Text>() != null)
             {
-                Debug.Log($"Finished: {scoring.finished};");
-                Debug.Log($"Role: {currentPlayerData.role}");
-                Debug.Log("HasEveryoneFinished: false");
-                return false;
+                Destroy(child.gameObject);
             }
         }
 
-        Debug.Log("HasEveryoneFinished: true");
-        return true;
-    }
-
-    private void OnGameFinished(bool oldBool, bool newBool)
-    {
-        if (newBool == true && oldBool == false)
-        {
-            foreach (var playerScore in FindObjectsOfType<PlayerScoring>())
-            {
-                playerScore.CmdSetFinished(true);
-            }
-        }
-    }
-
-    private void ShowLeaderboard(List<PlayerScoring> scores)
-    {
-        LeaderboardView leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
-
-        ViewManager.Instance.Show<LeaderboardView>();
-
-        if (NetworkServer.connections.Count <= 0)
-            leaderboardView.DisableRestartButton();
 
         for (int i = 0; i < scores.Count; i++)
         {
-            PlayerData currentPlayerData = scores[i].GetComponent<PlayerData>();
-            PlayerScoring currentPlayerScoring = playersScores[i];
 
-            leaderboardView.AddScore(currentPlayerScoring, i + 1);
+            GameObject textObject = new GameObject($"Entry_{i + 1}");
+            textObject.transform.SetParent(parentTransform);
 
-            currentPlayerData.DisablePlayer();
-            currentPlayerData.ObjectsStateSetter(currentPlayerData.seekerObjects, false);
-            currentPlayerData.ObjectsStateSetter(currentPlayerData.charlieObjects, false);
+            Text textComponent = textObject.AddComponent<Text>();
+            textComponent.text = $"{i + 1} - {scores[i].transform.parent.GetComponentInChildren<PlayerData>().playerName} avec {scores[i].ScoreFinal} mètres";
+
+            textComponent.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
+            textComponent.fontSize = 24;
+            textComponent.color = Color.black;
+            textComponent.alignment = TextAnchor.MiddleCenter;
+
+            RectTransform rectTransform = textObject.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = new Vector2(400, 30);
+            rectTransform.anchoredPosition = new Vector2(0, -i * 35);
+
+            scores[i].GetComponent<PlayerData>().DisablePlayer();
+            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
+            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
+
+            BackgroundImage.SetActive(true);
+
         }
     }
 }

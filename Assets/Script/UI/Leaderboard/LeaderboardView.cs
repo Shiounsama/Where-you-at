@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LeaderboardView : View
 {
-    [SerializeField] private GameObject scoreElementPrefab;
+    /*[SerializeField] private GameObject scoreElementPrefab;
     [SerializeField] private Transform scoresLayout;
 
     private List<ScoreElement> scoreElements = new List<ScoreElement>();
@@ -77,5 +77,5 @@ public class LeaderboardView : View
     public void DisableRestartButton()
     {
         restartButton.gameObject.SetActive(false);
-    }
+    }*/
 }

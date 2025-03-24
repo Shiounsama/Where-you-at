@@ -12,28 +12,11 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public ScoreGame scoreGame;
 
-    private SeekerView _seekerView;
-
-    private SeekerView seekerView
-    {
-        get
-        {
-            if (_seekerView == null)
-                _seekerView = ViewManager.Instance.GetView<SeekerView>();
-
-            return _seekerView; 
-        }
-        set
-        {
-            _seekerView = value;
-        }
-    }
-
     private void Awake()
     {
-        cameraSelection = GetComponentInChildren<IsoCameraSelection>();
-        score = GetComponentInChildren<PlayerScoring>();
-        scoreGame = FindObjectOfType<ScoreGame>();
+        cameraSelection = transform.GetComponent<IsoCameraSelection>();
+        score = this.GetComponent<PlayerScoring>();
+        scoreGame = GameObject.FindObjectOfType<ScoreGame>();
     }
 
 
@@ -50,31 +33,13 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public void IsGuess()
     {
-        StartCoroutine(GuessCoroutine());
-    }
-
-    private IEnumerator GuessCoroutine()
-    {
-        Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
-
-        float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-        score.SetScore(resultat);
-        score.CmdSetFinished(true);
-
-        yield return new WaitForSeconds(.1f);
-
-        if (scoreGame.HasEveryoneFinished())
+        if (isLocalPlayer)
         {
-            Debug.Log(scoreGame);
-            CmdSetGameFinished(true);
+            scoreGame.finish = true;
+            float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+            score.ServeurScore(resultat);
+            cameraSelection.OnObjectUnselected();
         }
 
-        seekerView.guessButton.gameObject.SetActive(false);
-    }
-
-    [Command]
-    public void CmdSetGameFinished(bool isFinished)
-    {
-        scoreGame.finished = isFinished;
     }
 }
