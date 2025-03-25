@@ -38,7 +38,7 @@ public class CheckPNJSelected : NetworkBehaviour
             scoreGame.finish = true;
 
             float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-            score.ServeurScore(resultat);
+            score.launchScore(resultat);
             cameraSelection.OnObjectUnselected();
         }
 

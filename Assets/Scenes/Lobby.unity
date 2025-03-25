@@ -2824,6 +2824,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e2780bce54ac84e85cce3460db3cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreElementPrefab: {fileID: 0}
+  scoresLayout: {fileID: 0}
+  restartButton: {fileID: 0}
 --- !u!1 &1130783582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3575,7 +3578,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  scoreJoueur: []
+  playerScores: []
   classementCanvas: {fileID: 1608715762}
   parentTransform: {fileID: 0}
   finish: 0
@@ -4296,7 +4299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5523861
+      value: 5528541
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

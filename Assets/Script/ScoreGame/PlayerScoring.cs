@@ -26,22 +26,16 @@ public class PlayerScoring : NetworkBehaviour
         finish = false;
     }
 
+    public void launchScore(float newScore)
+    {
+        ServeurScore(newScore);
+    }
+
+
     [Command]
     public void ServeurScore(float newScore)
     {
-        StartCoroutine(resultat(newScore));
-        int compteurScore = 0;
-        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        foreach (PlayerScoring score in allScore)
-        {
-            if (score.finish)
-            {
-                compteurScore++;
-            }
-
-        }
-
-        Debug.Log("le test marche pas avec compteurScore = " + compteurScore + " et allScore " + allScore.Count);
+        StartCoroutine(resultat(newScore));     
     }
 
     public IEnumerator resultat(float newScore)

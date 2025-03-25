@@ -56,7 +56,7 @@ public class NetworkMana : NetworkManager
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
-        if (numPlayers >= maxConnections)
+        if (numPlayers >= maxConnections + 3)
         {
             conn.Disconnect();
             return;
