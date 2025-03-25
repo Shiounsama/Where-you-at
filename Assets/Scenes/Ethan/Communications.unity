@@ -378,6 +378,17 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &940953992 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5238412738729209366, guid: 0be36c64833f735468022aef5423b719, type: 3}
+  m_PrefabInstance: {fileID: 1406446915}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bf6d89f5b470a94eb6b31fafd18a7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1128672354
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +482,34 @@ PrefabInstance:
     - target: {fileID: 620388920761478827, guid: 0be36c64833f735468022aef5423b719, type: 3}
       propertyPath: m_Name
       value: Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233573357017689073, guid: 0be36c64833f735468022aef5423b719, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233573357017689073, guid: 0be36c64833f735468022aef5423b719, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233573357017689073, guid: 0be36c64833f735468022aef5423b719, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 940953992}
+    - target: {fileID: 5233573357017689073, guid: 0be36c64833f735468022aef5423b719, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233573357017689073, guid: 0be36c64833f735468022aef5423b719, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: GetAllGameObjectInVision
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233573357017689073, guid: 0be36c64833f735468022aef5423b719, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: IsoCameraXRay, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233573357017689073, guid: 0be36c64833f735468022aef5423b719, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5817665984477566024, guid: 0be36c64833f735468022aef5423b719, type: 3}
       propertyPath: m_LocalPosition.x
