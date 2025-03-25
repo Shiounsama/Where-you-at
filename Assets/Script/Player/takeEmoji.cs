@@ -36,6 +36,7 @@ public class takeEmoji : MonoBehaviour
                     if (hit.collider.CompareTag("emojiRecup"))
                     {
                         Debug.Log("PLOP !");
+                        GetStartedEmoji();
                         Destroy(hit.collider.gameObject);
                         AddEmojiToList("<sprite name=" + hit.collider.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name + ">");
                     }
@@ -54,6 +55,14 @@ public class takeEmoji : MonoBehaviour
                 currentButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = textToAdd;
                 maxEmoji--;
             }
+        }
+    }
+
+    public void GetStartedEmoji()
+    {
+        foreach (Transform child in EmojiMenu)
+        {
+            AddEmojiToList(child.GetComponentInChildren<TextMeshProUGUI>().text);
         }
     }
 }

@@ -17,7 +17,17 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
+    [Header("EndGame")]
+    [SyncVar] public Color color;
+    [SyncVar] public GameObject pnjValide;
+
     public static GameObject PNJcible { get; set; }
+
+
+    public void setPNJvalide(GameObject pnj)
+    {
+        pnjValide = pnj;
+    }
 
     private void Update()
     {
@@ -52,9 +62,9 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Assigne un nouveau rôle au joueur.
+    /// Assigne un nouveau rï¿½le au joueur.
     /// </summary>
-    /// <param name="newRole">Nouveau rôle à assigner.</param>
+    /// <param name="newRole">Nouveau rï¿½le ï¿½ assigner.</param>
     public void AssignRole(Role newRole)
     {
         role = newRole;
@@ -75,7 +85,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Permet de synchroniser le rôle de chaque joueur pour tout le monde.
+    /// Permet de synchroniser le rï¿½le de chaque joueur pour tout le monde.
     /// </summary>
     /// <param name="newRole"></param>
     [Server]
@@ -85,9 +95,9 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Se lance a partir du manager, cette fonction se fait quand la scène VilleJeu se lance
-    /// récupère les spawn pour les joueurs, spawn1 : joueur caché, spawn2 : joueur chercheur
-    /// Ensuite on enlève tous les autres tchat et on active tous les composant + Ui du joueur en fonction de son role
+    /// Se lance a partir du manager, cette fonction se fait quand la scï¿½ne VilleJeu se lance
+    /// rï¿½cupï¿½re les spawn pour les joueurs, spawn1 : joueur cachï¿½, spawn2 : joueur chercheur
+    /// Ensuite on enlï¿½ve tous les autres tchat et on active tous les composant + Ui du joueur en fonction de son role
     /// </summary>
     public void StartScene(PlayerData playerData)
     {
@@ -198,7 +208,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Change l'état des objets.
+    /// Change l'ï¿½tat des objets.
     /// </summary>
     public void ObjectsStateSetter(List<GameObject> listOfObjectToChangeState, bool setOnObject)
     {
@@ -320,7 +330,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// enlève tous les scripts et UI du joueur pour le reset 
+    /// enlï¿½ve tous les scripts et UI du joueur pour le reset 
     /// </summary>
     public void DisablePlayer()
     {
@@ -347,7 +357,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Fait front les pnjs de la liste donné vers le joueur
+    /// Fait front les pnjs de la liste donnï¿½ vers le joueur
     /// </summary>
     private void LockPNJ(GameObject[] listePNJ)
     {
@@ -368,7 +378,7 @@ public class PlayerData : NetworkBehaviour
     [ClientRpc]
     public void RpcStartGame()
     {
-        StartGame(); // Exécuté sur tous les clients
+        StartGame(); // Exï¿½cutï¿½ sur tous les clients
     }
 
     public void destroyPNJ()
