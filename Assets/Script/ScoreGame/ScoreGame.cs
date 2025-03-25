@@ -7,7 +7,7 @@ using Mirror;
 
 public class ScoreGame : NetworkBehaviour
 {
-    public List<PlayerScoring> scoreJoueur;
+    public List<PlayerScoring> playerScores;
     public Canvas classementCanvas;
     public Transform parentTransform;
 
@@ -18,56 +18,77 @@ public class ScoreGame : NetworkBehaviour
     public Button restartButtonPrefab;
     public GameObject BackgroundImage;
 
+    private LeaderboardView _leaderboardView;
 
 
-
-    public void showScore()
+    public void ShowScore()
     {
-        scoreJoueur = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        scoreJoueur = scoreJoueur.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
+        if (!_leaderboardView)
+            _leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
 
-        AfficherClassement(scoreJoueur);
+        playerScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        playerScores = playerScores.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
+
+        ShowLeaderboard(playerScores);
     }
 
-    void AfficherClassement(List<PlayerScoring> scores)
+    /// <summary>
+    /// Initialisation du panel de Leaderboard et affichage de celui-ci.
+    /// </summary>
+    /// <param name="scores">Liste des PlayerScoring des joueurs qui ont fini de jouer, triée dans l'ordre de placement.</param>
+    private void ShowLeaderboard(List<PlayerScoring> scores)
     {
-        classementCanvas.enabled = true;
+        ViewManager.Instance.Show<LeaderboardView>();
+        _leaderboardView.ClearLeaderboard();
 
-        parentTransform = classementCanvas.transform;
-
-        foreach (Transform child in parentTransform)
+        for (int i = 0; i< scores.Count; i++)
         {
-            if (child.GetComponent<Text>() != null)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-
-
-        for (int i = 0; i < scores.Count; i++)
-        {
-
-            GameObject textObject = new GameObject($"Entry_{i + 1}");
-            textObject.transform.SetParent(parentTransform);
-
-            Text textComponent = textObject.AddComponent<Text>();
-            textComponent.text = $"{i + 1} - {scores[i].transform.GetComponent<PlayerData>().playerName} avec {scores[i].ScoreFinal} mètres";
-
-            textComponent.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
-            textComponent.fontSize = 48;
-            textComponent.color = Color.black;
-            textComponent.alignment = TextAnchor.MiddleCenter;
-
-            RectTransform rectTransform = textObject.GetComponent<RectTransform>();
-            rectTransform.sizeDelta = new Vector2(600, 60);
-            rectTransform.anchoredPosition = new Vector2(0, -i * 35);
+            _leaderboardView.AddScore(scores[i], i + 1);
 
             scores[i].GetComponent<PlayerData>().DisablePlayer();
             scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
             scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
-
-            BackgroundImage.SetActive(true);
-
         }
     }
+
+    //void AfficherClassement(List<PlayerScoring> scores)
+    //{
+    //    classementCanvas.enabled = true;
+
+    //    parentTransform = classementCanvas.transform;
+
+    //    foreach (Transform child in parentTransform)
+    //    {
+    //        if (child.GetComponent<Text>() != null)
+    //        {
+    //            Destroy(child.gameObject);
+    //        }
+    //    }
+
+
+    //    for (int i = 0; i < scores.Count; i++)
+    //    {
+
+    //        GameObject textObject = new GameObject($"Entry_{i + 1}");
+    //        textObject.transform.SetParent(parentTransform);
+
+    //        Text textComponent = textObject.AddComponent<Text>();
+    //        textComponent.text = $"{i + 1} - {scores[i].transform.GetComponent<PlayerData>().playerName} avec {scores[i].ScoreFinal} mètres";
+
+    //        textComponent.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
+    //        textComponent.fontSize = 48;
+    //        textComponent.color = Color.black;
+    //        textComponent.alignment = TextAnchor.MiddleCenter;
+
+    //        RectTransform rectTransform = textObject.GetComponent<RectTransform>();
+    //        rectTransform.sizeDelta = new Vector2(600, 60);
+    //        rectTransform.anchoredPosition = new Vector2(0, -i * 35);
+
+    //        scores[i].GetComponent<PlayerData>().DisablePlayer();
+    //        scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
+    //        scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
+
+    //        BackgroundImage.SetActive(true);
+    //    }
+    //}
 }

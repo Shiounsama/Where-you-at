@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using Mirror;
-using System;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerScoring : NetworkBehaviour
 {
@@ -52,7 +50,7 @@ public class PlayerScoring : NetworkBehaviour
     {
         if (FindObjectOfType<ScoreGame>().finish)
         {
-            FindObjectOfType<ScoreGame>().showScore();
+            FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
 

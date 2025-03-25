@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LeaderboardView : View
 {
-    /*[SerializeField] private GameObject scoreElementPrefab;
+    [SerializeField] private GameObject scoreElementPrefab;
     [SerializeField] private Transform scoresLayout;
 
     private List<ScoreElement> scoreElements = new List<ScoreElement>();
@@ -15,7 +15,7 @@ public class LeaderboardView : View
 
     public override void Initialize()
     {
-        restartButton.onClick.RemoveListener(OnClick_RestartButton); 
+        restartButton.onClick.RemoveAllListeners(); 
         restartButton.onClick.AddListener(OnClick_RestartButton);
 
         base.Initialize();
@@ -52,9 +52,8 @@ public class LeaderboardView : View
 
         string playerName = playerScoring.GetComponent<PlayerData>().playerName;
         
-        float distance = playerScoring.ScoreRound;
-        playerScoring.ScoreFinal += distance;
-        scoreElement.UpdateScoreText(placement, playerName, distance, playerScoring.ScoreFinal);
+        float distance = playerScoring.ScoreFinal;
+        scoreElement.UpdateScoreText(placement, playerName, distance);
     }
 
     /// <summary>
@@ -77,5 +76,5 @@ public class LeaderboardView : View
     public void DisableRestartButton()
     {
         restartButton.gameObject.SetActive(false);
-    }*/
+    }
 }
