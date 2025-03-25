@@ -19,9 +19,9 @@ public class ScoreElement : MonoBehaviour
     /// <param name="placement">Placement du joueur.</param>
     /// <param name="playerName">Nom du joueur.</param>
     /// <param name="distance">Distance du guess du joueur.</param>
-    public void UpdateScoreText(int placement, string playerName, float distance, float scoreFinal)
+    public void UpdateScoreText(int placement, string playerName, float distance)
     {
-        string newScoreText = $"{placement} - {playerName} avec {distance} mètres. Score total : {scoreFinal}";
+        string newScoreText = $"{placement} - {playerName} avec {distance} mètres.";
 
         text.text = newScoreText;
     }

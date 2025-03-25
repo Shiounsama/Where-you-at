@@ -65,7 +65,7 @@ public class PlayerScoring : NetworkBehaviour
     {
         if (FindObjectOfType<ScoreGame>().finish)
         {
-            FindObjectOfType<ScoreGame>().showScore();
+            FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
 
