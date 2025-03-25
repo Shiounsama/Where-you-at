@@ -1,11 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PNJSpawner : MonoBehaviour
 {
     [Header("Taille de la zone en largeur et longueur")]
-    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en x")] private float length;
-    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en z")] private float width;
+    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en x")] public float length;
+    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en z")] public float width;
     private Vector3 spawnRange;
 
     [Header("Caracteristique du spawner")]
@@ -22,6 +23,11 @@ public class PNJSpawner : MonoBehaviour
     private BoxCollider boxCollider;
 
     private Vector3 spawnPosition;
+    private int compteurPNJ;
+
+
+
+
 
 
     public void Awake()
@@ -40,6 +46,12 @@ public class PNJSpawner : MonoBehaviour
 
     public void Start()
     {
+        compteurPNJ = 0;
+        List<PNJSpawner> allPNJ = new List<PNJSpawner>(FindObjectsOfType<PNJSpawner>());
+        foreach (PNJSpawner PNJscript in allPNJ)
+        {
+            compteurPNJ += PNJscript.numberToSpawn;
+        }
         InstantiatePNJs(pnjPrefab, numberToSpawn);
     }
 
@@ -50,36 +62,19 @@ public class PNJSpawner : MonoBehaviour
             return;
         }
 
-        /*if (PnjPICount > 0)
+        for (int i = 0; i < NumberOfEntitiesToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
         {
-            if (PnjPIFamilyData != null)
-            {
-                for (int i = 0; i < PnjPICount; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
-                {              
-                    InstantiateObject(PnjPIFamilyData.GetPrefab());
-                }
-
-                for (int i = 0; i < NumberOfEntitiesToSpawn - PnjPICount; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
-                {
-                    InstantiateObject(pnjPrefab);
-                }
-            }
-        }*/
-        //else
-       // {
-            for (int i = 0; i < NumberOfEntitiesToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
-            {
-                InstantiateObject(prefabToSpawn);
-            }
-       // }
+            StartCoroutine(InstantiateObject(prefabToSpawn));
+        } 
     }
 
-    public void InstantiateObject(GameObject objectToInstantiate)
+    IEnumerator InstantiateObject(GameObject objectToInstantiate)
     {
          int nombreDeSpawnMax = 10;
          int nombreEssai = 0;
          bool validPosition = false;
          
+        
 
         if (seed.Instance != null)
         {
@@ -88,17 +83,25 @@ public class PNJSpawner : MonoBehaviour
 
         while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
-            spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
-                            transform.position.y,
-                            Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));
 
-            Collider[] colliders = Physics.OverlapBox(
-                                   spawnPosition,
-                                   objectToInstantiate.transform.localScale / 2,
-                                   Quaternion.identity);
+        spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
+                        transform.position.y,
+                        Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));
 
-            validPosition = colliders.Length == 1;
-            nombreEssai++;
+
+        yield return new WaitForEndOfFrame();
+        Collider[] colliders = Physics.OverlapBox(
+                                spawnPosition,
+                                objectToInstantiate.transform.localScale / 2.5f,
+                                Quaternion.identity);
+
+        validPosition = colliders.Length == 1;
+        nombreEssai++;
+
+        if (nombreEssai == 10)
+        {
+            Debug.Log("PNJ. MORT.");
+        }
             
         } 
 
@@ -108,6 +111,8 @@ public class PNJSpawner : MonoBehaviour
                         spawnPosition,
                         Quaternion.identity, transform);
 
+            
+
             entitiesSpawnedArray.Add(actualPlayer);
 
             PnjPIFamilyData.ResetListOfPnjPI();
@@ -116,8 +121,15 @@ public class PNJSpawner : MonoBehaviour
             {
                 seed.Instance.SeedValue++;
             }
+
+            GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
+
+
+            if (compteurPNJ == PNJ.Length)
+            {
+                int randomNumber = Random.Range(0, PNJ.Length);
+                PlayerData.PNJcible = PNJ[randomNumber];
+            }
         }
     }
-
-
 }
