@@ -33,17 +33,6 @@ public class manager : NetworkBehaviour
             Instance = this;
     }
 
-    bool IsEveryoneActive()
-    {
-        foreach (var conn in NetworkServer.connections.Values)
-        {
-            if (conn.identity == null || !conn.identity.gameObject.activeInHierarchy)
-            {
-                return false; // Un joueur n'est pas actif
-            }
-        }
-        return true; // Tous les joueurs sont actifs
-    }
     /// <summary>
     /// Définit l'ordre d'attribution du rôle de Charlie à chaque joueur.
     /// </summary>
@@ -94,14 +83,17 @@ public class manager : NetworkBehaviour
         foreach (PlayerData playerScript in scriptPlayer)
         {
             player.Add(playerScript.gameObject);
-            playerScript.AssignRole(Role.Seeker);
+            playerScript.role = Role.Seeker;
         }
 
-        int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        if (VuDuHaut == false)
+        {
+            int nbrRandom = Random.Range(0, player.Count);
+            player[nbrRandom].GetComponent<PlayerData>().role = Role.Lost;
+        }
 
-        //SetCharlieRoleQueue();
-        //GiveNextRoles();
+        SetCharlieRoleQueue();
+        GiveNextRoles();
         
         yield return new WaitForSeconds(2f);
         
@@ -114,7 +106,8 @@ public class manager : NetworkBehaviour
         {
             if (playerscript.isLocalPlayer)
             {
-                playerscript.StartScene(playerscript);   
+                playerscript.StartScene(playerscript);
+                
             }
         }
     }
@@ -126,8 +119,8 @@ public class manager : NetworkBehaviour
             if (playerscript.isLocalPlayer)
             {
                 Debug.Log(playerscript);
-
                 return playerscript;
+
             }
         }
 
@@ -158,41 +151,32 @@ public class manager : NetworkBehaviour
     /// <summary>
     /// Assigne les prochains rôles des joueurs selon l'ordre prédéfini.
     /// </summary>
-    IEnumerator roundlaunch()
+    public void GiveNextRoles()
     {
-        
-
-        foreach (PlayerData playerscript in scriptPlayer)
+        foreach (PlayerData playerScript in scriptPlayer)
         {
-            if (playerscript.isLocalPlayer)
-            {
-                playerscript.RpcStartGame();
-            }
-            
+            playerScript.AssignRole(Role.Seeker);
         }
 
-        yield return new WaitForSeconds(0.2f);
+        charlieRoleQueue[0].GetComponent<PlayerData>().AssignRole(Role.Lost);
 
-        PlayersStartScene();
+        charlieRoleQueue.RemoveAt(0);
     }
 
-    /*IEnumerator roundlaunch() 
+    IEnumerator roundlaunch() 
     {
         foreach (PlayerData playerscript in scriptPlayer)
         {
             if (playerscript.isLocalPlayer)
             {
-                Debug.Log("Je suis le test");
                 playerscript.StartGame();
 
             }
         }
 
-        //GiveNextRoles();
-
+        GiveNextRoles();
         yield return new WaitForSeconds(0.2f);
-
         PlayersStartScene();
-    }*/
+    }
 
 }

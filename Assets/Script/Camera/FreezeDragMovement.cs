@@ -10,7 +10,7 @@ public class FreezeDragMovement : NetworkBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //print("Oui je drag");
+        print("Oui je drag");
         cameraToFreeze = manager.Instance.player[0].transform.Find("Main Camera").transform;
 
         if (cameraToFreeze != null)

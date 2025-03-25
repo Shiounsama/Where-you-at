@@ -61,7 +61,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         Room.RoomPlayers.Add(this);
 
-        //Debug.Log("OnStartClient");
+        Debug.Log("OnStartClient");
 
         bool hasLeader = false;
 

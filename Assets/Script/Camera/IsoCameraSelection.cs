@@ -40,14 +40,4 @@ public class IsoCameraSelection : MonoBehaviour
             _seekerView.guessButton.gameObject.SetActive(false);
         }
     }
-
-    public void OnObjectUnselected()
-    {
-        if (selectedObject != null)
-        {
-            selectedObject = null;
-            _seekerView.guessButton.gameObject.SetActive(false);
-        }
-             
-    }
 }
