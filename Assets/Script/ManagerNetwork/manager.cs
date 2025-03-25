@@ -139,9 +139,8 @@ public class manager : NetworkBehaviour
     /// </summary>
     public void NextRound()
     {
-        /*foreach (PlayerData playerscript in scriptPlayer)
+        foreach (PlayerData playerscript in scriptPlayer)
         {
-            if (playerscript.isLocalPlayer)
             if (playerscript.isLocalPlayer)
             {
                 playerscript.StartGame();
@@ -149,8 +148,8 @@ public class manager : NetworkBehaviour
             }
         }
 
-        GiveNextRoles();
-        PlayersStartScene();*/
+        GiveRole();
+        PlayersStartScene();
 
         StartCoroutine(roundlaunch());
     }
