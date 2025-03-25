@@ -4,8 +4,8 @@ using UnityEngine;
 public class PNJSpawner : MonoBehaviour
 {
     [Header("Taille de la zone en largeur et longueur")]
-    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en x")] private float length;
-    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en z")] private float width;
+    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en x")] public float length;
+    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en z")] public float width;
     private Vector3 spawnRange;
 
     [Header("Caracteristique du spawner")]
