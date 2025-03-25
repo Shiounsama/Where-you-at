@@ -33,10 +33,11 @@ public class CheckPNJSelected : NetworkBehaviour
 
     private void Awake()
     {
-        cameraSelection = GetComponentInChildren<IsoCameraSelection>();
-        score = GetComponentInChildren<PlayerScoring>();
-        scoreGame = FindObjectOfType<ScoreGame>();
+
         _playerData = GetComponent<PlayerData>();
+        cameraSelection = transform.GetComponentInChildren<IsoCameraSelection>();
+        score = this.GetComponent<PlayerScoring>();
+        scoreGame = GameObject.FindObjectOfType<ScoreGame>();
     }
 
     public void IsGuessRight(InputAction.CallbackContext context)
