@@ -14,29 +14,12 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public ScoreGame scoreGame;
 
-    private SeekerView _seekerView;
-
-    private SeekerView seekerView
-    {
-        get
-        {
-            if (_seekerView == null)
-                _seekerView = ViewManager.Instance.GetView<SeekerView>();
-
-            return _seekerView;
-        }
-        set
-        {
-            _seekerView = value;
-        }
-    }
-
     private void Awake()
     {
-        cameraSelection = GetComponentInChildren<IsoCameraSelection>();
-        score = GetComponentInChildren<PlayerScoring>();
-        scoreGame = FindObjectOfType<ScoreGame>();
         _playerData = GetComponent<PlayerData>();
+        cameraSelection = transform.GetComponentInChildren<IsoCameraSelection>();
+        score = this.GetComponent<PlayerScoring>();
+        scoreGame = GameObject.FindObjectOfType<ScoreGame>();
     }
 
     public void IsGuessRight(InputAction.CallbackContext context)
@@ -51,11 +34,13 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public void IsGuess()
     {
-        Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
-
-        foreach (var conn in NetworkServer.connections.Values)
+        if (isLocalPlayer)
         {
-            TargetSetGameFinished(conn);
+            scoreGame.finish = true;
+
+            float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+            score.launchScore(resultat);
+            cameraSelection.OnObjectUnselected();
         }
 
         scoreGame.finished = true;
@@ -69,5 +54,6 @@ public class CheckPNJSelected : NetworkBehaviour
     private void TargetSetGameFinished(NetworkConnection conn)
     {
         scoreGame.finished = true;
+
     }
 }

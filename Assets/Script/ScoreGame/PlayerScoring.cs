@@ -2,103 +2,72 @@ using System.Collections;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.SocialPlatforms.Impl;
+using System.Collections.Generic;
 
 public class PlayerScoring : NetworkBehaviour
 {
-    private Score score;
+    private int ScoreTemps;
+    private int ScoreDistance;
 
-    public bool victory;
-
-    [SyncVar]
-    public bool finished;
+    public bool victoire;
 
     [SyncVar]
-    public float finalScore;
+    public bool finish;
 
     [SyncVar]
-    public string playerName;
+    public float ScoreFinal;
+
+
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-
-        ServerSetPlayerName(GetComponentInParent<PlayerData>().playerName);
-
-        finished = false;
+        finish = false;
     }
 
-    /// <summary>
-    /// Demande au serveur de mettre à jour le score du joueur.
-    /// </summary>
-    /// <param name="newScore">Nouveau score du joueur.</param>
+    public void launchScore(float newScore)
+    {
+        ServeurScore(newScore);
+    }
+
+
     [Command]
-    public void ServerScore(float newScore)
+    public void ServeurScore(float newScore)
     {
-        StartCoroutine(ScoreCoroutine(newScore));
+        StartCoroutine(resultat(newScore));     
     }
 
-    /// <summary>
-    /// Coroutine qui met à jour le score du joueur.
-    /// </summary>
-    /// <param name="newScore">Nouveau score du joueur.</param>
-    /// <returns></returns>
-    public IEnumerator ScoreCoroutine(float newScore)
+    public IEnumerator resultat(float newScore)
     {
-        finalScore = newScore;
-        finished = true;
+        ScoreFinal = newScore;
+        finish = true;
+
 
         yield return new WaitForSeconds(0.1f);
 
         foreach (var conn in NetworkServer.connections.Values)
         {
-            TargetShowScore(conn);
+            TargetShowScoreForPlayer(conn);
         }
     }
 
-    /// <summary>
-    /// Affiche le score du joueur sur son propre Canvas.
-    /// </summary>
-    /// <param name="player">Joueur cible.</param>
-    [TargetRpc]
-    private void TargetShowScore(NetworkConnection player)
-    {
-        Debug.Log("TargetShowScore");
 
-        if (FindObjectOfType<ScoreGame>().finished)
+
+    [TargetRpc]
+    private void TargetShowScoreForPlayer(NetworkConnection target)
+    {
+        if (FindObjectOfType<ScoreGame>().finish)
         {
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
 
     [Command]
-    public void ShowScore(float newScore)
+    public void montreScore(float newScore)
     {
-        finalScore = newScore;
-        finished = true;
-    }
+        ScoreFinal = newScore;
+        finish = true;
 
-    /// <summary>
-    /// Demande au serveur de mettre à jour le nom du joueur.
-    /// </summary>
-    /// <param name="newName">Nouveau nom du joueur.</param>
-    [Command]
-    private void ServerSetPlayerName(string newName)
-    {
-        Debug.Log($"Server set player name: {playerName}");
-
-        playerName = newName;
-    }
-}
-
-[Serializable]
-public class Score
-{
-    public int time;
-    public int distance;
-
-    public Score(int time, int distance)
-    {
-        this.time = time;
-        this.distance = distance;
     }
 }
