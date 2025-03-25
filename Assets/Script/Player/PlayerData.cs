@@ -20,7 +20,16 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
+    [Header("EndGame")]
+    [SyncVar] public Color color;
+    [SyncVar] public GameObject pnjValide;
+
     public static GameObject PNJcible { get; private set; }
+
+    public void setPNJvalide(GameObject pnj)
+    {
+        pnjValide = pnj;
+    }
 
     private void Update()
     {
