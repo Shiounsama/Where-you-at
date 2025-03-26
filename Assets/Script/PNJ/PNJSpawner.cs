@@ -70,7 +70,7 @@ public class PNJSpawner : MonoBehaviour
 
     IEnumerator InstantiateObject(GameObject objectToInstantiate)
     {
-         int nombreDeSpawnMax = 10;
+         int nombreDeSpawnMax = 50;
          int nombreEssai = 0;
          bool validPosition = false;
          

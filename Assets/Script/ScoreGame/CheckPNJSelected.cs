@@ -53,10 +53,10 @@ public class CheckPNJSelected : NetworkBehaviour
     {
         Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
 
-        foreach (var conn in NetworkServer.connections.Values)
+        /*foreach (var conn in NetworkServer.connections.Values)
         {
             TargetSetGameFinished(conn);
-        }
+        }*/
 
         scoreGame.finish = true;
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
@@ -65,9 +65,9 @@ public class CheckPNJSelected : NetworkBehaviour
         _playerData.setPNJvalide(cameraSelection.selectedObject.gameObject);
     }
 
-    [TargetRpc]
+    /*[TargetRpc]
     private void TargetSetGameFinished(NetworkConnection conn)
     {
         scoreGame.finish = true;
-    }
+    }*/
 }

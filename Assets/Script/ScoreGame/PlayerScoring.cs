@@ -28,6 +28,19 @@ public class PlayerScoring : NetworkBehaviour
 
     public void launchScore(float newScore)
     {
+        int compteurScore = 0;
+        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        foreach (PlayerScoring score in allScore)
+        {
+            if (score.finish)
+            {
+                compteurScore++;
+            }
+
+        }
+
+        Debug.Log("le test marche pas avec compteurScore = " + compteurScore + " et allScore " + allScore.Count);
+
         ServeurScore(newScore);
     }
 
