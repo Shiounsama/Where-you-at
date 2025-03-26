@@ -45,12 +45,22 @@ namespace SoundDesign
         {
             if (_localPlayerCam)
             {
-                if (_playerData.role == Role.Lost)
-                    return;
+                Vector3 projectedCameraPos = Vector3.zero;
+                float multiplier = 1;
 
-                float projectedCameraDistance = Vector3.Distance(_seekerAudio.projectedCameraPos, transform.position);
-                Debug.Log($"Projected camera distance: {projectedCameraDistance}");
-                m_audioSource.volume = Mathf.InverseLerp(soundDistance, 0, projectedCameraDistance) * Mathf.InverseLerp(8, 2, _localPlayerCam.orthographicSize);
+                if (_playerData.role == Role.Lost)
+                {
+                    projectedCameraPos = _localPlayerCam.transform.position;
+                }
+                else if (_playerData.role == Role.Seeker)
+                {
+                    projectedCameraPos = _seekerAudio.projectedCameraPos;
+                    multiplier = Mathf.InverseLerp(8, 2, _localPlayerCam.orthographicSize);
+                }
+
+                float projectedCameraDistance = Vector3.Distance(projectedCameraPos, transform.position);
+                //Debug.Log($"Projected camera distance: {projectedCameraDistance}");
+                m_audioSource.volume = Mathf.InverseLerp(soundDistance, 0, projectedCameraDistance) * multiplier;
             }
         }
 
