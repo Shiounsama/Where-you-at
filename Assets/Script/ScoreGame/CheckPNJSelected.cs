@@ -1,12 +1,9 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class CheckPNJSelected : NetworkBehaviour
 {
-    private PlayerData _playerData;
+    public PlayerData _playerData;
 
     public IsoCameraSelection cameraSelection;
 
@@ -33,26 +30,23 @@ public class CheckPNJSelected : NetworkBehaviour
 
     private void Awake()
     {
-
         _playerData = GetComponent<PlayerData>();
         cameraSelection = transform.GetComponentInChildren<IsoCameraSelection>();
         score = this.GetComponent<PlayerScoring>();
         scoreGame = GameObject.FindObjectOfType<ScoreGame>();
     }
 
-    public void IsGuessRight(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (cameraSelection.selectedObject.gameObject == PlayerData.PNJcible)
-            {
-            }
-        }
-    }
-
     public void IsGuess()
     {
+        if (isLocalPlayer)
+        {
+            _playerData = GetComponent<PlayerData>();
+            Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer} et {_playerData.playerName}");
+            _playerData.setPNJvalide(cameraSelection.selectedObject.gameObject);
+        }
+
         Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
+
 
         foreach (var conn in NetworkServer.connections.Values)
         {
@@ -63,7 +57,6 @@ public class CheckPNJSelected : NetworkBehaviour
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
         score.ServerScore(resultat);
         seekerView.guessButton.gameObject.SetActive(false);
-        _playerData.setPNJvalide(cameraSelection.selectedObject.gameObject);
     }
 
     [TargetRpc]

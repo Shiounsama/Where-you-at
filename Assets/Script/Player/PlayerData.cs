@@ -1,8 +1,6 @@
 using Mirror;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PlayerData : NetworkBehaviour
@@ -23,10 +21,7 @@ public class PlayerData : NetworkBehaviour
     [SyncVar] public Color color;
     [SyncVar] public GameObject pnjValide;
 
-
     public static GameObject PNJcible { get; set; }
-
-
 
     public void setPNJvalide(GameObject pnj)
     {
@@ -90,7 +85,7 @@ public class PlayerData : NetworkBehaviour
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             ClearOtherTchat();
-            EnablePlayer(role);    
+            EnablePlayer(role);
         }
     }
 
@@ -130,11 +125,11 @@ public class PlayerData : NetworkBehaviour
                 objRigid.constraints = RigidbodyConstraints.FreezePositionX;
                 objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
 
-                
+
             }
 
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
-            
+
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
         }
     }
@@ -216,7 +211,7 @@ public class PlayerData : NetworkBehaviour
 
         if (role != Role.None)
         {
-            GameObject building = GameObject.Find("VilleELP"); 
+            GameObject building = GameObject.Find("VilleELP");
             building.transform.position = new Vector3(0, 0, 0);
 
             GetComponentInChildren<PlayerInput>().enabled = false;
@@ -240,7 +235,7 @@ public class PlayerData : NetworkBehaviour
             {
                 ListPNJ.Add(obj);
             }
-            
+
             int randomNumber = Random.Range(0, ListPNJ.Count);
             PNJcible = ListPNJ[randomNumber];
 
@@ -315,7 +310,7 @@ public class PlayerData : NetworkBehaviour
         camZoomIso.enabled = false;
 
         camRotaIso.enabled = false;
-  
+
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
     }
 
