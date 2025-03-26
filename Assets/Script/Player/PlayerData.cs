@@ -19,19 +19,15 @@ public class PlayerData : NetworkBehaviour
 
     [Header("EndGame")]
     [SyncVar] public Color color;
-    [SyncVar] public GameObject pnjValide;
+    [SyncVar] public NetworkIdentity pnjValide;
 
     public static GameObject PNJcible { get; set; }
 
     [Command]
-    public void setPNJvalide()
+    public void setPNJvalide(NetworkIdentity pnjIdentity)
     {
-        pnjValide = GetComponent<CheckPNJSelected>().cameraSelection.selectedObject.gameObject;
-        color = Color.cyan;
-        Debug.Log("AAAAAAAAAAAAAAh " + pnjValide);
-        Debug.Log("AAAAAAAAAAAAuAAh " + GetComponent<CheckPNJSelected>().cameraSelection.selectedObject.gameObject);
-
-
+        pnjValide = pnjIdentity;
+        Debug.Log("ça marche ? " + pnjValide.gameObject.name);
     }
 
 
