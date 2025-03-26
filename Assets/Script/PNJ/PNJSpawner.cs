@@ -70,7 +70,7 @@ public class PNJSpawner : MonoBehaviour
 
     IEnumerator InstantiateObject(GameObject objectToInstantiate)
     {
-         int nombreDeSpawnMax = 50;
+         int nombreDeSpawnMax = 10;
          int nombreEssai = 0;
          bool validPosition = false;
          
@@ -83,52 +83,49 @@ public class PNJSpawner : MonoBehaviour
 
         while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
-
-        spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
+            yield return new WaitForSeconds(0.01f);
+            spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
                         transform.position.y,
                         Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));
 
 
-        yield return new WaitForEndOfFrame();
-        Collider[] colliders = Physics.OverlapBox(
-                                spawnPosition,
-                                objectToInstantiate.transform.localScale / 2.5f,
-                                Quaternion.identity);
 
-        validPosition = colliders.Length == 1;
-        nombreEssai++;
+            Collider[] colliders = Physics.OverlapBox(
+                                    spawnPosition,
+                                    objectToInstantiate.transform.localScale / 2.5f,
+                                    Quaternion.identity);
 
-        if (nombreEssai == 10)
-        {
-            Debug.Log("PNJ. MORT.");
-        }
-            
-        } 
+            validPosition = colliders.Length == 1;
+            nombreEssai++;
 
-        if (validPosition)
-        {
-            GameObject actualPlayer = Instantiate(objectToInstantiate, 
-                        spawnPosition,
-                        Quaternion.identity, transform);
-
-            
-
-            entitiesSpawnedArray.Add(actualPlayer);
-
-            PnjPIFamilyData.ResetListOfPnjPI();
-
-            if (seed.Instance != null)
+            if (nombreEssai == 10)
             {
-                seed.Instance.SeedValue++;
+                Debug.Log("PNJ. MORT.");
             }
 
-            GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
 
-
-            if (compteurPNJ == PNJ.Length)
+            if (validPosition)
             {
-                int randomNumber = Random.Range(0, PNJ.Length);
-                PlayerData.PNJcible = PNJ[randomNumber];
+                GameObject actualPlayer = Instantiate(objectToInstantiate,
+                            spawnPosition,
+                            Quaternion.identity, transform);
+
+
+
+                entitiesSpawnedArray.Add(actualPlayer);
+
+                PnjPIFamilyData.ResetListOfPnjPI();
+
+                
+
+                GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
+
+
+                if (compteurPNJ == PNJ.Length)
+                {
+                    int randomNumber = Random.Range(0, PNJ.Length);
+                    PlayerData.PNJcible = PNJ[randomNumber];
+                }
             }
         }
     }

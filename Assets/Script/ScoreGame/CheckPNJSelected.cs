@@ -39,35 +39,21 @@ public class CheckPNJSelected : NetworkBehaviour
         _playerData = GetComponent<PlayerData>();
     }
 
-    public void IsGuessRight(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (cameraSelection.selectedObject.gameObject == PlayerData.PNJcible)
-            {
-            }
-        }
-    }
-
     public void IsGuess()
     {
-        Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
 
-        /*foreach (var conn in NetworkServer.connections.Values)
-        {
-            TargetSetGameFinished(conn);
-        }*/
 
+        
         scoreGame.finish = true;
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+        GameObject pnjValide = cameraSelection.selectedObject.transform.gameObject;
         score.ServeurScore(resultat);
+        _playerData.setPNJvalide();
         seekerView.guessButton.gameObject.SetActive(false);
-        _playerData.setPNJvalide(cameraSelection.selectedObject.gameObject);
-    }
 
-    /*[TargetRpc]
-    private void TargetSetGameFinished(NetworkConnection conn)
-    {
-        scoreGame.finish = true;
-    }*/
+
+        Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
+    }
+    
+
 }

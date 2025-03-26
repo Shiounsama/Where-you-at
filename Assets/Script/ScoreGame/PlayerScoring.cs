@@ -7,9 +7,6 @@ using System.Collections.Generic;
 
 public class PlayerScoring : NetworkBehaviour
 {
-    private int ScoreTemps;
-    private int ScoreDistance;
-
     public bool victoire;
 
     [SyncVar]
@@ -74,13 +71,5 @@ public class PlayerScoring : NetworkBehaviour
         {
             FindObjectOfType<ScoreGame>().ShowScore();
         }
-    }
-
-    [Command]
-    public void montreScore(float newScore)
-    {
-        ScoreFinal = newScore;
-        finish = true;
-
     }
 }

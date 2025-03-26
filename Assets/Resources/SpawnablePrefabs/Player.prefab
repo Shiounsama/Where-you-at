@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8191281009694760695}
   - component: {fileID: 5284582141068114091}
   - component: {fileID: 3605825858785897536}
+  - component: {fileID: 5572886670124355198}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -87,6 +88,7 @@ MonoBehaviour:
   syncInterval: 0
   cameraSelection: {fileID: 0}
   score: {fileID: 0}
+  showENDscript: {fileID: 0}
   scoreGame: {fileID: 0}
 --- !u!114 &8191281009694760695
 MonoBehaviour:
@@ -111,6 +113,8 @@ MonoBehaviour:
   - {fileID: 4492919833360321380}
   charlieObjects:
   - {fileID: 2344567739409970027}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  pnjValide: {fileID: 0}
 --- !u!114 &5284582141068114091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +151,23 @@ MonoBehaviour:
   buttonPrefab: {fileID: 4472684352700073080, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
   textToSend: {fileID: 2510146120311744023}
   EmojiMenu: {fileID: 1447225417605431187}
+--- !u!114 &5572886670124355198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620388920761478827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a701698ffbb254087394d8e89a8cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
+  pnjValide: {fileID: 0}
 --- !u!1 &690513810465107549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,6 +1191,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6455111428547907958, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7530977430742183899, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -1388,6 +1413,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5817665984477566024}
     m_Modifications:
+    - target: {fileID: 783581932796155947, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1745731761184461587, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_Name
       value: Lost TChat
@@ -1420,6 +1449,14 @@ PrefabInstance:
       propertyPath: m_spriteAsset
       value: 
       objectReference: {fileID: 11400000, guid: cd346dd4de460594599113998853dc96, type: 2}
+    - target: {fileID: 5148430705991217814, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382393843946962566, guid: c6a3b853580310747ba3488154d5adae, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5797958616058105237, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

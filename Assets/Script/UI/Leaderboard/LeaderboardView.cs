@@ -35,6 +35,7 @@ public class LeaderboardView : View
     {
         ViewManager.Instance.HideAll();
         manager.Instance.NextRound();
+        
     }
     #endregion
 

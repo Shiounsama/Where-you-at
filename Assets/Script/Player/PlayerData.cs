@@ -23,11 +23,17 @@ public class PlayerData : NetworkBehaviour
 
     public static GameObject PNJcible { get; set; }
 
-
-    public void setPNJvalide(GameObject pnj)
+    [Command]
+    public void setPNJvalide()
     {
-        pnjValide = pnj;
+        pnjValide = GetComponent<CheckPNJSelected>().cameraSelection.selectedObject.gameObject;
+        color = Color.cyan;
+        Debug.Log("AAAAAAAAAAAAAAh " + pnjValide);
+        Debug.Log("AAAAAAAAAAAAuAAh " + GetComponent<CheckPNJSelected>().cameraSelection.selectedObject.gameObject);
+
+
     }
+
 
     private void Update()
     {
