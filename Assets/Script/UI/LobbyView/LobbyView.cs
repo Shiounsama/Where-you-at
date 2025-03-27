@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class LobbyView : View
 {
-    [Header("Buttons")]
     [SerializeField] private Button readyButton;
     [SerializeField] private Button startGameButton;
 
@@ -41,6 +40,20 @@ public class LobbyView : View
         foreach (NetworkRoomPlayerLobby player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             player.CmdStartGame();
+        }
+    }
+
+    public override void OnClick_Return()
+    {
+        ViewManager.Instance.Show<NameInputView>();
+
+        if (NetworkMana.Instance.IsHost())
+        {
+            NetworkMana.Instance.StopHost();
+        }
+        else
+        {
+            NetworkMana.Instance.StopClient();
         }
     }
     #endregion

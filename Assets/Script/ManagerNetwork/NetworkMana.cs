@@ -116,6 +116,11 @@ public class NetworkMana : NetworkManager
         }
     }
 
+    public bool IsHost()
+    {
+        return NetworkServer.connections.Count > 0;
+    }
+
     public void StartGame()
     {
         if (SceneManager.GetActiveScene().path == lobbyScene)
