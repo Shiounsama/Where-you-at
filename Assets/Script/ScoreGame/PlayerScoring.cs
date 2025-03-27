@@ -23,29 +23,11 @@ public class PlayerScoring : NetworkBehaviour
         finish = false;
     }
 
-    public void launchScore(float newScore)
-    {
-        int compteurScore = 0;
-        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        foreach (PlayerScoring score in allScore)
-        {
-            if (score.finish)
-            {
-                compteurScore++;
-            }
-
-        }
-
-        Debug.Log("le test marche pas avec compteurScore = " + compteurScore + " et allScore " + allScore.Count);
-
-        ServeurScore(newScore);
-    }
-
 
     [Command]
     public void ServeurScore(float newScore)
     {
-        StartCoroutine(resultat(newScore));     
+        StartCoroutine(resultat(newScore));
     }
 
     public IEnumerator resultat(float newScore)
@@ -59,6 +41,7 @@ public class PlayerScoring : NetworkBehaviour
         foreach (var conn in NetworkServer.connections.Values)
         {
             TargetShowScoreForPlayer(conn);
+            ShowScoreLost(conn);
         }
     }
 
@@ -67,9 +50,42 @@ public class PlayerScoring : NetworkBehaviour
     [TargetRpc]
     private void TargetShowScoreForPlayer(NetworkConnection target)
     {
-        if (FindObjectOfType<ScoreGame>().finish)
+        if (FindObjectOfType<ScoreGame>().finish && GetComponent<PlayerData>().role == Role.Seeker)
         {
             FindObjectOfType<ScoreGame>().ShowScore();
+        }
+    }
+
+    [TargetRpc]
+    private void ShowScoreLost(NetworkConnection target)
+    {
+        int compteurScore = 0;
+        int compteurSeeker = 0;
+
+        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        foreach (PlayerScoring score in allScore)
+        {
+            if (score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                compteurSeeker++;
+            }
+
+            if (score.finish)
+            {
+                compteurScore++;
+            }
+
+            if (compteurSeeker == compteurScore)
+            {
+                score.finish = true;
+            }
+
+        }
+
+        if (compteurSeeker == compteurScore)
+        {
+            FindObjectOfType<ScoreGame>().ShowScore();
+
         }
     }
 }

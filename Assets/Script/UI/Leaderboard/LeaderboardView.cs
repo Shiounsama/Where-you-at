@@ -55,6 +55,26 @@ public class LeaderboardView : View
         
         float distance = playerScoring.ScoreFinal;
         scoreElement.UpdateScoreText(placement, playerName, distance);
+
+        DisableRestartButton();
+
+        int compteurScore = 0;
+        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        foreach (PlayerScoring score in allScore)
+        {
+
+            if (score.finish)
+            {
+                compteurScore++;
+            }
+
+            if (allScore.Count == compteurScore)
+            {
+                AbleRestartButton();
+
+            }
+
+        }
     }
 
     /// <summary>
@@ -77,5 +97,10 @@ public class LeaderboardView : View
     public void DisableRestartButton()
     {
         restartButton.gameObject.SetActive(false);
+    }
+
+    public void AbleRestartButton()
+    {
+        restartButton.gameObject.SetActive(true);
     }
 }

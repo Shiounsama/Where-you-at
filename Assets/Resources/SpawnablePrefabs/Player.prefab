@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8191281009694760695}
   - component: {fileID: 5284582141068114091}
   - component: {fileID: 3605825858785897536}
-  - component: {fileID: 5572886670124355198}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -88,7 +87,6 @@ MonoBehaviour:
   syncInterval: 0
   cameraSelection: {fileID: 0}
   score: {fileID: 0}
-  showENDscript: {fileID: 0}
   scoreGame: {fileID: 0}
 --- !u!114 &8191281009694760695
 MonoBehaviour:
@@ -115,6 +113,7 @@ MonoBehaviour:
   - {fileID: 2344567739409970027}
   color: {r: 0, g: 0, b: 0, a: 0}
   pnjValide: {fileID: 0}
+  pnjValideGameObject: {fileID: 0}
 --- !u!114 &5284582141068114091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,23 +150,6 @@ MonoBehaviour:
   buttonPrefab: {fileID: 4472684352700073080, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
   textToSend: {fileID: 2510146120311744023}
   EmojiMenu: {fileID: 1447225417605431187}
---- !u!114 &5572886670124355198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 620388920761478827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73a701698ffbb254087394d8e89a8cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
-  pnjValide: {fileID: 0}
 --- !u!1 &690513810465107549
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +160,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8799083869644219184}
   - component: {fileID: 5738567190263072539}
-  - component: {fileID: 3508041184774923918}
   - component: {fileID: 4090545452078903826}
   - component: {fileID: 5233573357017689073}
   - component: {fileID: 5651937395973213408}
@@ -186,8 +167,8 @@ GameObject:
   - component: {fileID: 1023364209447254201}
   - component: {fileID: 1442475729549407068}
   - component: {fileID: 218688681835275930}
-  - component: {fileID: 4168562127232418044}
   - component: {fileID: 5238412738729209366}
+  - component: {fileID: 5202107201769941492}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -261,14 +242,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &3508041184774923918
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690513810465107549}
-  m_Enabled: 0
 --- !u!114 &4090545452078903826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,18 +317,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: IsoCameraZoom, Assembly-CSharp
         m_MethodName: OnZoom
         m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5238412738729209366}
-        m_TargetAssemblyTypeName: IsoCameraXRay, Assembly-CSharp
-        m_MethodName: GetAllGameObjectInVision
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -529,24 +490,6 @@ MonoBehaviour:
   layerToVerify:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &4168562127232418044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690513810465107549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16318785957b4724381776bd7306552a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  victoire: 0
-  finish: 0
-  ScoreFinal: 0
 --- !u!114 &5238412738729209366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +507,14 @@ MonoBehaviour:
     m_Bits: 64
   boxSize: {x: 3, y: 3, z: 3}
   minSizeBeforeXRay: 5
+--- !u!81 &5202107201769941492
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690513810465107549}
+  m_Enabled: 0
 --- !u!1 &6611486576829453251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,10 +1142,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6455111428547907958, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7530977430742183899, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -1413,10 +1360,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5817665984477566024}
     m_Modifications:
-    - target: {fileID: 783581932796155947, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1745731761184461587, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_Name
       value: Lost TChat
@@ -1449,14 +1392,6 @@ PrefabInstance:
       propertyPath: m_spriteAsset
       value: 
       objectReference: {fileID: 11400000, guid: cd346dd4de460594599113998853dc96, type: 2}
-    - target: {fileID: 5148430705991217814, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5382393843946962566, guid: c6a3b853580310747ba3488154d5adae, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5797958616058105237, guid: c6a3b853580310747ba3488154d5adae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

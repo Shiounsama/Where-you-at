@@ -20,6 +20,7 @@ public class PlayerData : NetworkBehaviour
     [Header("EndGame")]
     [SyncVar] public Color color;
     [SyncVar] public NetworkIdentity pnjValide;
+    [SyncVar] public GameObject pnjValideGameObject;
 
     public static GameObject PNJcible { get; set; }
 
@@ -27,6 +28,7 @@ public class PlayerData : NetworkBehaviour
     public void setPNJvalide(NetworkIdentity pnjIdentity)
     {
         pnjValide = pnjIdentity;
+        pnjValideGameObject = pnjIdentity.gameObject;
         Debug.Log("ça marche ? " + pnjValide.gameObject.name);
     }
 
