@@ -5,6 +5,7 @@ using Mirror;
 using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
+using DG.Tweening;
 
 public class NetworkMana : NetworkManager
 {
@@ -14,6 +15,10 @@ public class NetworkMana : NetworkManager
     [Scene][SerializeField] private string mainScene;
 
     [Scene][SerializeField] private string menuScene = string.Empty;
+
+    [Header("UI")]
+    [SerializeField] private CanvasGroup fadeImage;
+    [SerializeField] private float fadeDuration = 1f;
 
     [Header ("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
@@ -116,11 +121,16 @@ public class NetworkMana : NetworkManager
         }
     }
 
-    public void StartGame()
+    public IEnumerator StartGame()
     {
         if (SceneManager.GetActiveScene().path == lobbyScene)
         {
-            if (!IsReadyToStart()) { return; }
+            if (!IsReadyToStart())
+                yield break;
+
+            fadeImage.DOFade(1, fadeDuration);
+
+            yield return new WaitForSeconds(fadeDuration);
 
             ServerChangeScene(mainScene);
         }
@@ -131,9 +141,14 @@ public class NetworkMana : NetworkManager
         base.OnClientSceneChanged();
 
         if (SceneManager.GetActiveScene().path == mainScene) 
-        { 
+        {
             scriptManager.GiveRole();
         }
+    }
+
+    public void StartFadeTransition()
+    {
+        fadeImage.DOFade(0, fadeDuration);        
     }
 
     public override void ServerChangeScene(string newSceneName)
