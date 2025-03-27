@@ -69,7 +69,6 @@ public class LobbyView : View
 
     public void DestroyStartGameButton()
     {
-        if (startGameButton)
-            Destroy(startGameButton.gameObject);
+        Destroy(startGameButton.gameObject);
     }
 }

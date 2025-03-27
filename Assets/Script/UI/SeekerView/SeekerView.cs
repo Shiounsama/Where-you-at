@@ -19,7 +19,7 @@ public class SeekerView : View
         openingQuestionButton.onClick.AddListener(OnClick_OpeningQuestionButton);
         guessButton.onClick.AddListener(OnClick_GuessButton);
 
-        //Debug.Log($"Added listener on player {transform.localPosition.y}");
+        Debug.Log($"Added listener on player {transform.localPosition.y}");
     }
 
     #region Button Events

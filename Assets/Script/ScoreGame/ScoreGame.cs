@@ -7,88 +7,40 @@ using Mirror;
 
 public class ScoreGame : NetworkBehaviour
 {
-    public List<PlayerScoring> playerScores;
-    public Canvas classementCanvas;
-    public Transform parentTransform;
-
-    [SyncVar]
-    public bool finish = false;
-
-    private Button restartButton;
-    public Button restartButtonPrefab;
-    public GameObject BackgroundImage;
-
-    private LeaderboardView _leaderboardView;
-
-
-    public void ShowScore()
-    {
-        if (!_leaderboardView)
-            _leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
-
-        playerScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        playerScores = playerScores.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.ScoreFinal).ToList();
-
-        ShowLeaderboard(playerScores);
-    }
+    public List<PlayerScoring> playersScores;
+    public bool finished = false;
 
     /// <summary>
-    /// Initialisation du panel de Leaderboard et affichage de celui-ci.
+    /// Récupère dans une liste tous les joueurs avec un script scoringPlayer
+    /// trie la liste avec tous les joueurs qui ont validé leurs choix puis trie la liste du plus proche au plus loin.
     /// </summary>
-    /// <param name="scores">Liste des PlayerScoring des joueurs qui ont fini de jouer, triée dans l'ordre de placement.</param>
-    private void ShowLeaderboard(List<PlayerScoring> scores)
+    public void ShowScore()
     {
-        ViewManager.Instance.Show<LeaderboardView>();
-        _leaderboardView.ClearLeaderboard();
+        playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        playersScores = playersScores.Where(score => score.finished).OrderBy(scoreJoueur => scoreJoueur.finalScore).ToList();
 
-        for (int i = 0; i< scores.Count; i++)
-        {
-            _leaderboardView.AddScore(scores[i], i + 1);
-
-            scores[i].GetComponent<PlayerData>().DisablePlayer();
-            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
-            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
-        }
+        ShowLeaderboard(playersScores);
     }
 
-    //void AfficherClassement(List<PlayerScoring> scores)
-    //{
-    //    classementCanvas.enabled = true;
+    private void ShowLeaderboard(List<PlayerScoring> scores)
+    {
+        LeaderboardView leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
 
-    //    parentTransform = classementCanvas.transform;
+        ViewManager.Instance.Show<LeaderboardView>();
 
-    //    foreach (Transform child in parentTransform)
-    //    {
-    //        if (child.GetComponent<Text>() != null)
-    //        {
-    //            Destroy(child.gameObject);
-    //        }
-    //    }
+        if (NetworkServer.connections.Count <= 0)
+            leaderboardView.DisableRestartButton();
 
+        for (int i = 0; i < scores.Count; i++)
+        {
+            PlayerData currentPlayerData = scores[i].GetComponent<PlayerData>();
+            PlayerScoring currentPlayerScoring = playersScores[i];
 
-    //    for (int i = 0; i < scores.Count; i++)
-    //    {
+            leaderboardView.AddScore(currentPlayerScoring);
 
-    //        GameObject textObject = new GameObject($"Entry_{i + 1}");
-    //        textObject.transform.SetParent(parentTransform);
-
-    //        Text textComponent = textObject.AddComponent<Text>();
-    //        textComponent.text = $"{i + 1} - {scores[i].transform.GetComponent<PlayerData>().playerName} avec {scores[i].ScoreFinal} mètres";
-
-    //        textComponent.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
-    //        textComponent.fontSize = 48;
-    //        textComponent.color = Color.black;
-    //        textComponent.alignment = TextAnchor.MiddleCenter;
-
-    //        RectTransform rectTransform = textObject.GetComponent<RectTransform>();
-    //        rectTransform.sizeDelta = new Vector2(600, 60);
-    //        rectTransform.anchoredPosition = new Vector2(0, -i * 35);
-
-    //        scores[i].GetComponent<PlayerData>().DisablePlayer();
-    //        scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
-    //        scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
-
-    //        BackgroundImage.SetActive(true);
-    //    }
-    //}
+            currentPlayerData.DisablePlayer();
+            currentPlayerData.ObjectsStateSetter(currentPlayerData.seekerObjects, false);
+            currentPlayerData.ObjectsStateSetter(currentPlayerData.charlieObjects, false);
+        }
+    }
 }
