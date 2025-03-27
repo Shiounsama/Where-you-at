@@ -33,8 +33,19 @@ public class manager : NetworkBehaviour
             Instance = this;
     }
 
+    bool IsEveryoneActive()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            if (conn.identity == null || !conn.identity.gameObject.activeInHierarchy)
+            {
+                return false; // Un joueur n'est pas actif
+            }
+        }
+        return true; // Tous les joueurs sont actifs
+    }
     /// <summary>
-    /// Dï¿½finit l'ordre d'attribution du rï¿½le de Charlie ï¿½ chaque joueur.
+    /// Définit l'ordre d'attribution du rôle de Charlie à chaque joueur.
     /// </summary>
     private void SetCharlieRoleQueue()
     {
@@ -83,15 +94,14 @@ public class manager : NetworkBehaviour
         foreach (PlayerData playerScript in scriptPlayer)
         {
             player.Add(playerScript.gameObject);
-            playerScript.role = Role.Seeker;
+            playerScript.AssignRole(Role.Seeker);
         }
 
         int nbrRandom = Random.Range(0, player.Count);
         player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
 
-
-        SetCharlieRoleQueue();
-        GiveNextRoles();
+        //SetCharlieRoleQueue();
+        //GiveNextRoles();
         
         yield return new WaitForSeconds(2f);
         
@@ -104,8 +114,7 @@ public class manager : NetworkBehaviour
         {
             if (playerscript.isLocalPlayer)
             {
-                playerscript.StartScene(playerscript);
-                
+                playerscript.StartScene(playerscript);   
             }
         }
     }
@@ -117,8 +126,8 @@ public class manager : NetworkBehaviour
             if (playerscript.isLocalPlayer)
             {
                 Debug.Log(playerscript);
-                return playerscript;
 
+                return playerscript;
             }
         }
 
@@ -126,7 +135,7 @@ public class manager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Passe ï¿½ la prochaine manche du jeu.
+    /// Passe à la prochaine manche du jeu.
     /// </summary>
     public void NextRound()
     {
@@ -146,34 +155,43 @@ public class manager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Assigne les prochains rï¿½les des joueurs selon l'ordre prï¿½dï¿½fini.
+    /// Assigne les prochains rôles des joueurs selon l'ordre prédéfini.
     /// </summary>
-    public void GiveNextRoles()
+    IEnumerator roundlaunch()
     {
-        foreach (PlayerData playerScript in scriptPlayer)
+        
+
+        foreach (PlayerData playerscript in scriptPlayer)
         {
-            playerScript.AssignRole(Role.Seeker);
+            if (playerscript.isLocalPlayer)
+            {
+                playerscript.RpcStartGame();
+            }
+            
         }
 
-        charlieRoleQueue[0].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        yield return new WaitForSeconds(0.2f);
 
-        charlieRoleQueue.RemoveAt(0);
+        PlayersStartScene();
     }
 
-    IEnumerator roundlaunch() 
+    /*IEnumerator roundlaunch() 
     {
         foreach (PlayerData playerscript in scriptPlayer)
         {
             if (playerscript.isLocalPlayer)
             {
+                Debug.Log("Je suis le test");
                 playerscript.StartGame();
 
             }
         }
 
-        GiveNextRoles();
+        //GiveNextRoles();
+
         yield return new WaitForSeconds(0.2f);
+
         PlayersStartScene();
-    }
+    }*/
 
 }
