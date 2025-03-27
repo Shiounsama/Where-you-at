@@ -15,7 +15,7 @@ public class NetworkMana : NetworkManager
 
     [Scene][SerializeField] private string menuScene = string.Empty;
 
-    [Header ("Room")]
+    [Header("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
 
     [SerializeField] private int minPlayers = 1;

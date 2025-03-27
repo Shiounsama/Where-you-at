@@ -97,6 +97,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     private void UpdateDisplay()
     {
+        //Debug.Log("UpdateDisplay");
+
         if (!isLocalPlayer) 
         {
             foreach (var player in Room.RoomPlayers)
@@ -118,6 +120,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             bool isReady = Room.RoomPlayers[i].IsReady;
 
             _lobbyView.UpdatePlayerStatus(i, displayName, isReady);
+        }
+
+        for (int i = Room.RoomPlayers.Count; i < 8; i++)
+        {
+            _lobbyView.ResetPlayerStatus(i);
         }
     }
 

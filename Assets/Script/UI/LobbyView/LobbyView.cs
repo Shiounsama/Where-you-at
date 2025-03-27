@@ -60,6 +60,8 @@ public class LobbyView : View
 
     public void UpdatePlayerStatus(int index, string displayName, bool isReady)
     {
+        //Debug.Log("UpdatePlayerStatus");
+
         PlayerStatus currentPlayerStatus = _playerStatuses[index];
 
         currentPlayerStatus.KillCoroutine();
@@ -67,6 +69,14 @@ public class LobbyView : View
         currentPlayerStatus.UpdateReadyText(isReady ?
             "<color=green>Ready</color>" :
             "<color=red>Not Ready</color>");
+    }
+
+    public void ResetPlayerStatus(int index)
+    {
+        if (!_playerStatuses[index].isActiveAndEnabled)
+            return;
+
+        _playerStatuses[index].ResetPlayerStatus();
     }
 
     public void HandleReadyToStart(bool isReady)
