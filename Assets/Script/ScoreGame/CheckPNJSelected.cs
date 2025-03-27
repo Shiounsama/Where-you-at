@@ -43,12 +43,9 @@ public class CheckPNJSelected : NetworkBehaviour
             _playerData = GetComponent<PlayerData>();
             Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer} et {_playerData.playerName}");
             Vector3 testPNJ = cameraSelection.selectedObject.position;
-            
-                _playerData.setPNJvalide(testPNJ);
-            
+
+            _playerData.setPNJvalide(testPNJ);
         }
-
-
 
         Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
 
