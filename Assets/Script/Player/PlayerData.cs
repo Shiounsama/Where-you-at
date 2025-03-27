@@ -28,15 +28,19 @@ public class PlayerData : NetworkBehaviour
     public void setPNJvalide(Vector3 pnj)
     {
         pnjValidePosition = pnj;
+    }
+
+    [Command]
+    public void testPNJ()
+    {
         foreach (var conn in NetworkServer.connections.Values)
         {
-            Debug.Log("GetAllPnjSelected");
-            GetAllPnjSelected(conn);
+            TargetShowScoreForPlayer(conn);
         }
     }
 
     [TargetRpc]
-    private void GetAllPnjSelected(NetworkConnection target)
+    public void TargetShowScoreForPlayer(NetworkConnection target)
     {
         List<PlayerData> allPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         List<GameObject> allPNJ = new List<GameObject>(GameObject.FindGameObjectsWithTag("pnj"));
@@ -45,8 +49,22 @@ public class PlayerData : NetworkBehaviour
         {
             for (int i = 0; i < allPlayer.Count; i++)
             {
-                if(pnj.transform.position == allPlayer[i].pnjValidePosition)
+                Vector3 pnjPosition = pnj.transform.localPosition;
+                Vector3 pnjSelected = allPlayer[i].pnjValidePosition;
+
+                pnjPosition.x = Mathf.RoundToInt(pnjPosition.x);
+                pnjPosition.y = Mathf.RoundToInt(pnjPosition.y);
+                pnjPosition.z = Mathf.RoundToInt(pnjPosition.z);
+
+                pnjSelected.x = Mathf.RoundToInt(pnjSelected.x);
+                pnjSelected.y = Mathf.RoundToInt(pnjSelected.y);
+                pnjSelected.z = Mathf.RoundToInt(pnjSelected.z);
+
+
+                Debug.Log("Je suis dans la boucle");
+                if (pnjPosition == pnjSelected)
                 {
+                    Debug.Log("Trouver le pnj");
                     pnjValide = pnj;
                 }
             }

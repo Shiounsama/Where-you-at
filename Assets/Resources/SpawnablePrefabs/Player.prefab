@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8191281009694760695}
   - component: {fileID: 5284582141068114091}
   - component: {fileID: 3605825858785897536}
-  - component: {fileID: 4298169228356496374}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -114,6 +113,7 @@ MonoBehaviour:
   charlieObjects:
   - {fileID: 2344567739409970027}
   color: {r: 1, g: 0, b: 0, a: 1}
+  pnjValidePosition: {x: 0, y: 0, z: 0}
   pnjValide: {fileID: 0}
 --- !u!114 &5284582141068114091
 MonoBehaviour:
@@ -152,22 +152,6 @@ MonoBehaviour:
   buttonPrefab: {fileID: 4472684352700073080, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
   textToSend: {fileID: 2510146120311744023}
   EmojiMenu: {fileID: 1447225417605431187}
---- !u!123 &4298169228356496374
-LensFlare:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 620388920761478827}
-  m_Enabled: 1
-  m_Flare: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_Brightness: 1
-  m_FadeSpeed: 3
-  m_IgnoreLayers:
-    serializedVersion: 2
-    m_Bits: 6
-  m_Directional: 0
 --- !u!1 &690513810465107549
 GameObject:
   m_ObjectHideFlags: 0
