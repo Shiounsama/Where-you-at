@@ -19,17 +19,44 @@ public class PlayerData : NetworkBehaviour
 
     [Header("EndGame")]
     [SyncVar] public Color color;
-    [SyncVar] public NetworkIdentity pnjValide;
-    [SyncVar] public GameObject pnjValideGameObject;
+    [SyncVar] public Vector3 pnjValidePosition;
+    public GameObject pnjValide;
 
     public static GameObject PNJcible { get; set; }
 
     [Command]
-    public void setPNJvalide(NetworkIdentity pnjIdentity)
+    public void setPNJvalide(Vector3 pnj)
     {
-        pnjValide = pnjIdentity;
-        pnjValideGameObject = pnjIdentity.gameObject;
-        Debug.Log("ça marche ? " + pnjValide.gameObject.name);
+        pnjValidePosition = pnj;
+    }
+
+    [Command]
+    public void testPNJ()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            TargetShowScoreForPlayer(conn);
+        }
+    }
+
+    [TargetRpc]
+    public void TargetShowScoreForPlayer(NetworkConnection target)
+    {
+        List<PlayerData> allPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        List<GameObject> allPNJ = new List<GameObject>(GameObject.FindGameObjectsWithTag("pnj"));
+
+        foreach (GameObject pnj in allPNJ)
+        {
+            for (int i = 0; i < allPlayer.Count; i++)
+            {
+                Debug.Log("Je suis dans la boucle");
+                if (pnj.transform.position == allPlayer[i].pnjValidePosition)
+                {
+                    Debug.Log("Trouver le pnj");
+                    pnjValide = pnj;
+                }
+            }
+        }
     }
 
 

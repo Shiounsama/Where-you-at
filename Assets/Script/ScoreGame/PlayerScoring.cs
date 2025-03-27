@@ -62,7 +62,7 @@ public class PlayerScoring : NetworkBehaviour
         int compteurScore = 0;
         int compteurSeeker = 0;
 
-        Debug.Log("test pour Ethan");
+        
 
 
         List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());

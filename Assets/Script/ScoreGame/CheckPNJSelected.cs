@@ -44,9 +44,17 @@ public class CheckPNJSelected : NetworkBehaviour
         //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
         scoreGame.finish = true;
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-        NetworkIdentity selectedIdentity = cameraSelection.selectedObject.GetComponent<NetworkIdentity>();
         score.ServeurScore(resultat);
-        //_playerData.setPNJvalide(selectedIdentity);
+
+        if (isLocalPlayer)
+        {
+            _playerData = GetComponent<PlayerData>();
+            Vector3 testPNJ = cameraSelection.selectedObject.position;
+            _playerData.setPNJvalide(testPNJ);
+
+        }
+
+        _playerData.testPNJ();
         seekerView.guessButton.gameObject.SetActive(false);
 
 
