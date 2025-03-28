@@ -121,6 +121,11 @@ public class NetworkMana : NetworkManager
         }
     }
 
+    public void DoFadeTransition()
+    {
+        fadeImage.DOFade(1, fadeDuration);
+    }
+
     public IEnumerator StartGame()
     {
         if (SceneManager.GetActiveScene().path == lobbyScene)
@@ -128,7 +133,10 @@ public class NetworkMana : NetworkManager
             if (!IsReadyToStart())
                 yield break;
 
-            fadeImage.DOFade(1, fadeDuration);
+            for (int i = 0; i < RoomPlayers.Count; i++)
+            {
+                RoomPlayers[i].TargetFadeTransition(NetworkServer.connections[i]);
+            }
 
             yield return new WaitForSeconds(fadeDuration);
 

@@ -154,4 +154,10 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         StartCoroutine(Room.StartGame());
     }
+
+    [TargetRpc]
+    public void TargetFadeTransition(NetworkConnection conn)
+    {
+        Room.DoFadeTransition();
+    }
 }
