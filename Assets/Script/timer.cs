@@ -14,6 +14,12 @@ public class timer : NetworkBehaviour
     private Coroutine timerCoroutine;
 
 
+    public IEnumerator sijenemetirepasuneballecestunmiracle()
+    {
+        yield return new WaitForSeconds(0.1f);
+        ServeurTimer();
+    }
+
     [Command]
     public void ServeurTimer()
     {
@@ -28,7 +34,7 @@ public class timer : NetworkBehaviour
     [TargetRpc]
     private void launchCoroutineTimer(NetworkConnection target)
     {
-
+        
         Debug.Log("Dans launchCoroutine");
         if (timerCoroutine != null)
             StopCoroutine(timerCoroutine);
@@ -53,16 +59,18 @@ public class timer : NetworkBehaviour
     }
 
 
-    IEnumerator Timer()
+    public IEnumerator Timer()
     {
+        TMP_Text texteTimer = GetComponentInChildren<TMP_Text>();
         while (tempsjoueur.time > 0)
         {
-
+            
+            texteTimer.enabled = true;
             tempsjoueur.time--;
             yield return new WaitForSeconds(1f);
-            GetComponentInChildren<TMP_Text>().text = string.Format("{0:0}:{1:00}", Mathf.Floor(tempsjoueur.time / 60), tempsjoueur.time % 60);
+            texteTimer.text = string.Format("{0:0}:{1:00}", Mathf.Floor(tempsjoueur.time / 60), tempsjoueur.time % 60);
         }
-
+        texteTimer.enabled = false;
         guessTemps();
     }
 }

@@ -75,7 +75,8 @@ public class PlayerData : NetworkBehaviour
             {
                 if (transform.position == new Vector3(0, 0, 0))
                 {
-                    transform.position = PNJcible.transform.position;
+                    transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
+                    transform.rotation = PNJcible.transform.rotation;
                 }
             }
 
@@ -138,18 +139,16 @@ public class PlayerData : NetworkBehaviour
 
 
             ClearOtherTchat();
-            //EnablePlayer(role);
 
-            timer timerGame = FindAnyObjectByType<timer>();
-            timerGame.ServeurTimer();
-
+            
             NetworkMana.Instance.StartFadeOut();
-            EnablePlayer(role);    
-
+            EnablePlayer(role);
+            
 
             foreach (NetworkConnection conn in NetworkServer.connections.Values)
             {
                 TargetEnableAudioListener(conn);
+                
             }
         }
     }
@@ -315,7 +314,10 @@ public class PlayerData : NetworkBehaviour
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
 
             audioListener.enabled = true;
-            
+
+            timer timerGame = FindAnyObjectByType<timer>();
+            StartCoroutine(timerGame.Timer());
+
 
             if (role == Role.Seeker)
             {
@@ -361,10 +363,6 @@ public class PlayerData : NetworkBehaviour
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
                 emojiScript.enabled = true;
-
-                transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
-                transform.rotation = PNJcible.transform.rotation;
-
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
 
