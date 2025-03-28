@@ -63,10 +63,7 @@ public class Construction : MonoBehaviour
             this.GetComponent<ConstructionType>().prefabBuildingName = actualPrefab.GetComponent<ConstructionType>().prefabBuildingName;
         }
 
-        if (seed.Instance != null)
-        {
-            seed.Instance.SeedValue++;
-        }
+        
         
     }
 

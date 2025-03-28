@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SoundDesign
 {
+    [RequireComponent(typeof(AudioSource))]
     public class SoundFXManager : MonoBehaviour
     {
         public static SoundFXManager Instance;
@@ -26,6 +27,8 @@ namespace SoundDesign
             m_audioSource = GetComponent<AudioSource>();
 
             m_audioSource.clip = soundBank.backgroundMusic;
+            m_audioSource.loop = true;
+            m_audioSource.playOnAwake = true;
             m_audioSource.Play();
         }
 

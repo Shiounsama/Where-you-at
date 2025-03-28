@@ -11,21 +11,26 @@ public class PNJPISpawn : MonoBehaviour
 
     [SerializeField] private List<GameObject> entitiesSpawnedArray;
 
+    public List<GameObject> listOfPnjPI;
+
+    public List<int> listOfValueUsed;
+
+    public bool isAllPnjUsed;
+
     void Start()
     {
-        Random.InitState(seed.Instance.SeedValue);
+        
         StartCoroutine(spawnPIPNJ());
     }
 
     IEnumerator spawnPIPNJ()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(2f);
+        Random.InitState(seed.Instance.SeedValue);
         for (int i = 0; i < nombrePNJPI; i++)
         {
             GameObject[] AllPNJ = GameObject.FindGameObjectsWithTag("pnj");
             int randomNumber = Random.Range(0, AllPNJ.Length);
-
-            //Debug.Log("Les nombre aléatoire dans la coroutine : " + randomNumber);
 
             while (AllPNJ[randomNumber].gameObject == PlayerData.PNJcible.gameObject)
             {
@@ -35,16 +40,15 @@ public class PNJPISpawn : MonoBehaviour
             GameObject placementPNJ = AllPNJ[randomNumber];
            
             PNJSpawner uwu = placementPNJ.GetComponentInParent<PNJSpawner>();
-            //Debug.Log("Les placementPNJ dans la coroutine : " + uwu.name);
             Destroy(placementPNJ);
-            InstantiateObject(PnjPIFamilyData.GetPrefab(), uwu) ;    
+            StartCoroutine( InstantiateObject(GetPrefab(), uwu));    
         }
         
     }
 
-    public void InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
+    IEnumerator InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
     {
-        int nombreDeSpawnMax = 10;
+        int nombreDeSpawnMax = 20;
         int nombreEssai = 0;
         bool validPosition = false;
         
@@ -54,16 +58,10 @@ public class PNJPISpawn : MonoBehaviour
 
         while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
+            yield return new WaitForSeconds(0.01f);
             spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
                             transform.position.y + 1,
-                            Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));
-
-            
-
-            if (objectToInstantiate.tag == "pnj pi")
-            {
-                
-            }
+                            Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));          
 
             Collider[] colliders = Physics.OverlapBox(
                                    spawnPosition,
@@ -74,10 +72,6 @@ public class PNJPISpawn : MonoBehaviour
             validPosition = colliders.Length == 1;
             nombreEssai++;
 
-            if (nombreEssai == 10)
-            {
-                Debug.Log("PNJ. MORT.");
-            }
 
         }
 
@@ -90,13 +84,53 @@ public class PNJPISpawn : MonoBehaviour
 
             entitiesSpawnedArray.Add(actualPlayer);
 
-            PnjPIFamilyData.ResetListOfPnjPI();
+            ResetListOfPnjPI();
 
-            if (seed.Instance != null)
-            {
-                seed.Instance.SeedValue++;
-            }
+            
         }
+    }
+
+    public GameObject GetPrefab()
+    {
+        
+
+        if (listOfPnjPI.Count > 0)
+        {
+            /*int x = Random.Range(0, listOfPnjPI.Count);
+
+            while (listOfValueUsed.Contains(x))
+            {
+                x = Random.Range(0, listOfPnjPI.Count);
+                if (listOfValueUsed.Count >= listOfPnjPI.Count)
+                {
+                    isAllPnjUsed = true;
+
+                    return listOfPnjPI[0].gameObject;
+                }
+            }
+
+            listOfValueUsed.Add(x);
+
+            if (listOfValueUsed.Count <= listOfPnjPI.Count)
+            {
+                return listOfPnjPI[x].gameObject;
+            }
+            return listOfPnjPI[0].gameObject;*/
+
+            
+
+            int x = Random.Range(0, listOfPnjPI.Count);
+
+            return listOfPnjPI[x].gameObject;
+        }
+
+        return null;
+    }
+
+    public void ResetListOfPnjPI()
+    {
+        listOfValueUsed.Clear();
+        isAllPnjUsed = false;
     }
 
 }

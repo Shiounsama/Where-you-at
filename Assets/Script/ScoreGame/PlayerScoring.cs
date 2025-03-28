@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using Mirror;
+using System;
+using UnityEngine.SocialPlatforms.Impl;
+using System.Collections.Generic;
 
 public class PlayerScoring : NetworkBehaviour
 {
-    private int ScoreTemps;
-    private int ScoreDistance;
-
     public bool victoire;
 
     [SyncVar]
@@ -22,6 +22,7 @@ public class PlayerScoring : NetworkBehaviour
         base.OnStartLocalPlayer();
         finish = false;
     }
+
 
     [Command]
     public void ServeurScore(float newScore)
@@ -40,6 +41,7 @@ public class PlayerScoring : NetworkBehaviour
         foreach (var conn in NetworkServer.connections.Values)
         {
             TargetShowScoreForPlayer(conn);
+            ShowScoreLost(conn);
         }
     }
 
@@ -48,17 +50,46 @@ public class PlayerScoring : NetworkBehaviour
     [TargetRpc]
     private void TargetShowScoreForPlayer(NetworkConnection target)
     {
-        if (FindObjectOfType<ScoreGame>().finish)
+        if (FindObjectOfType<ScoreGame>().finish && GetComponent<PlayerData>().role == Role.Seeker)
         {
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
 
-    [Command]
-    public void montreScore(float newScore)
+    [TargetRpc]
+    private void ShowScoreLost(NetworkConnection target)
     {
-        ScoreFinal = newScore;
-        finish = true;
+        int compteurScore = 0;
+        int compteurSeeker = 0;
 
+        
+
+
+        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        foreach (PlayerScoring score in allScore)
+        {
+            if (score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                compteurSeeker++;
+            }
+
+            if (score.finish)
+            {
+                compteurScore++;
+            }
+
+            if (compteurSeeker == compteurScore)
+            {
+                score.finish = true;
+            }
+
+        }
+
+        if (compteurSeeker == compteurScore)
+        {
+            FindObjectOfType<ScoreGame>().ShowScore();
+
+        }
     }
+
 }

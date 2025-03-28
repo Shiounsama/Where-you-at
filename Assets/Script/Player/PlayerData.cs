@@ -17,7 +17,46 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
+    [Header("EndGame")]
+    [SyncVar] public Color color;
+    [SyncVar] public Vector3 pnjValidePosition;
+    public GameObject pnjValide;
+
     public static GameObject PNJcible { get; set; }
+
+    [Command]
+    public void setPNJvalide(Vector3 pnj)
+    {
+        pnjValidePosition = pnj;
+    }
+
+    [Command]
+    public void testPNJ()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            TargetShowScoreForPlayer(conn);
+        }
+    }
+
+    [TargetRpc]
+    public void TargetShowScoreForPlayer(NetworkConnection target)
+    {
+        List<PlayerData> allPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        List<GameObject> allPNJ = new List<GameObject>(GameObject.FindGameObjectsWithTag("pnj"));
+
+        foreach (GameObject pnj in allPNJ)
+        {
+            for (int i = 0; i < allPlayer.Count; i++)
+            {
+                if (pnj.transform.position == allPlayer[i].pnjValidePosition)
+                {
+                    pnjValide = pnj;
+                }
+            }
+        }
+    }
+
 
     private void Update()
     {
@@ -36,7 +75,8 @@ public class PlayerData : NetworkBehaviour
             {
                 if (transform.position == new Vector3(0, 0, 0))
                 {
-                    transform.position = PNJcible.transform.position;
+                    transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
+                    transform.rotation = PNJcible.transform.rotation;
                 }
             }
 
@@ -45,16 +85,13 @@ public class PlayerData : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        if (isLocalPlayer)
-            GetComponentInChildren<AudioListener>().enabled = true;
-
         base.OnStartLocalPlayer();
     }
 
     /// <summary>
-    /// Assigne un nouveau rôle au joueur.
+    /// Assigne un nouveau rï¿½le au joueur.
     /// </summary>
-    /// <param name="newRole">Nouveau rôle à assigner.</param>
+    /// <param name="newRole">Nouveau rï¿½le ï¿½ assigner.</param>
     public void AssignRole(Role newRole)
     {
         role = newRole;
@@ -75,7 +112,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Permet de synchroniser le rôle de chaque joueur pour tout le monde.
+    /// Permet de synchroniser le rï¿½le de chaque joueur pour tout le monde.
     /// </summary>
     /// <param name="newRole"></param>
     [Server]
@@ -85,9 +122,9 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Se lance a partir du manager, cette fonction se fait quand la scène VilleJeu se lance
-    /// récupère les spawn pour les joueurs, spawn1 : joueur caché, spawn2 : joueur chercheur
-    /// Ensuite on enlève tous les autres tchat et on active tous les composant + Ui du joueur en fonction de son role
+    /// Se lance a partir du manager, cette fonction se fait quand la scï¿½ne VilleJeu se lance
+    /// rï¿½cupï¿½re les spawn pour les joueurs, spawn1 : joueur cachï¿½, spawn2 : joueur chercheur
+    /// Ensuite on enlï¿½ve tous les autres tchat et on active tous les composant + Ui du joueur en fonction de son role
     /// </summary>
     public void StartScene(PlayerData playerData)
     {
@@ -102,9 +139,25 @@ public class PlayerData : NetworkBehaviour
 
 
             ClearOtherTchat();
-            EnablePlayer(role);    
 
+            
+            NetworkMana.Instance.StartFadeOut();
+            EnablePlayer(role);
+            
+
+            foreach (NetworkConnection conn in NetworkServer.connections.Values)
+            {
+                TargetEnableAudioListener(conn);
+                
+            }
         }
+    }
+
+    [TargetRpc]
+    private void TargetEnableAudioListener(NetworkConnection conn)
+    {
+        manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled = true;
+        Debug.Log($"Local AudioListener enabled: {manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled}");
     }
 
     /// <summary>
@@ -198,7 +251,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Change l'état des objets.
+    /// Change l'ï¿½tat des objets.
     /// </summary>
     public void ObjectsStateSetter(List<GameObject> listOfObjectToChangeState, bool setOnObject)
     {
@@ -222,6 +275,7 @@ public class PlayerData : NetworkBehaviour
         IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
         IsoCameraSelection camSelectedIso = GetComponentInChildren<IsoCameraSelection>();
         IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
+        SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
 
         Camera360 cam360 = GetComponentInChildren<Camera360>();
 
@@ -257,10 +311,13 @@ public class PlayerData : NetworkBehaviour
 
             Xray.enabled = false;
 
-            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");         
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
 
-            audioListener.enabled = false;
-            
+            audioListener.enabled = true;
+
+            timer timerGame = FindAnyObjectByType<timer>();
+            StartCoroutine(timerGame.Timer());
+
 
             if (role == Role.Seeker)
             {
@@ -288,7 +345,8 @@ public class PlayerData : NetworkBehaviour
 
                 //PNJcible.SetActive(true);
 
-
+                seekerAudio.enabled = true;
+                seekerAudio.cityTransform = building.transform;
             }
             else if (role == Role.Lost)
             {
@@ -305,14 +363,11 @@ public class PlayerData : NetworkBehaviour
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
                 emojiScript.enabled = true;
-
-                //Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
-                transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
-                transform.rotation = PNJcible.transform.rotation;
-
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
-                //Destroy(PNJcible);
+
+                destroyPNJ();
+                seekerAudio.enabled = false;
             }
 
             ViewManager.Instance.Initialize();
@@ -320,7 +375,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// enlève tous les scripts et UI du joueur pour le reset 
+    /// enlï¿½ve tous les scripts et UI du joueur pour le reset 
     /// </summary>
     public void DisablePlayer()
     {
@@ -330,6 +385,7 @@ public class PlayerData : NetworkBehaviour
         TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
         Camera360 cam360 = GetComponentInChildren<Camera360>();
         IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
+        SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
 
         GetComponentInChildren<PlayerInput>().enabled = false;
 
@@ -342,12 +398,14 @@ public class PlayerData : NetworkBehaviour
         camRotaIso.enabled = false;
 
         Xray.enabled = false;
-  
+
+        seekerAudio.enabled = true;
+
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
     }
 
     /// <summary>
-    /// Fait front les pnjs de la liste donné vers le joueur
+    /// Fait front les pnjs de la liste donnï¿½ vers le joueur
     /// </summary>
     private void LockPNJ(GameObject[] listePNJ)
     {
@@ -368,7 +426,7 @@ public class PlayerData : NetworkBehaviour
     [ClientRpc]
     public void RpcStartGame()
     {
-        StartGame(); // Exécuté sur tous les clients
+        StartGame(); // Exï¿½cutï¿½ sur tous les clients
     }
 
     public void destroyPNJ()

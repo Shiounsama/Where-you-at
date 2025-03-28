@@ -49,7 +49,6 @@ public class manager : NetworkBehaviour
     /// </summary>
     private void SetCharlieRoleQueue()
     {
-        Debug.Log("SetCharlieRoleQueue");
 
         charlieRoleQueue = new SyncList<GameObject>();
 
@@ -72,6 +71,7 @@ public class manager : NetworkBehaviour
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
         List<GameObject> ListPNJ = new List<GameObject>();
+
         foreach (GameObject obj in allPNJ)
         {
             ListPNJ.Add(obj);
@@ -103,7 +103,7 @@ public class manager : NetworkBehaviour
         //SetCharlieRoleQueue();
         //GiveNextRoles();
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.1f);
         
         PlayersStartScene();
     }
@@ -125,7 +125,6 @@ public class manager : NetworkBehaviour
         {
             if (playerscript.isLocalPlayer)
             {
-                Debug.Log(playerscript);
 
                 return playerscript;
             }
@@ -139,9 +138,8 @@ public class manager : NetworkBehaviour
     /// </summary>
     public void NextRound()
     {
-        /*foreach (PlayerData playerscript in scriptPlayer)
+        foreach (PlayerData playerscript in scriptPlayer)
         {
-            if (playerscript.isLocalPlayer)
             if (playerscript.isLocalPlayer)
             {
                 playerscript.StartGame();
@@ -149,8 +147,8 @@ public class manager : NetworkBehaviour
             }
         }
 
-        GiveNextRoles();
-        PlayersStartScene();*/
+        GiveRole();
+        PlayersStartScene();
 
         StartCoroutine(roundlaunch());
     }
