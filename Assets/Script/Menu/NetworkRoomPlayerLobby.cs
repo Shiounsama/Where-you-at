@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using Mirror;
-using UnityEngine.UI;
+using UnityEngine;
 
 public class NetworkRoomPlayerLobby : NetworkBehaviour
 {
@@ -87,7 +83,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public override void OnStopClient()
     {
         Room.RoomPlayers.Remove(this);
-        
+
         UpdateDisplay();
     }
 
@@ -97,13 +93,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     private void UpdateDisplay()
     {
-        //Debug.Log("UpdateDisplay");
-
-        if (!isLocalPlayer) 
+        if (!isLocalPlayer)
         {
             foreach (var player in Room.RoomPlayers)
             {
-                if (player.isLocalPlayer) 
+                if (player.isLocalPlayer)
                 {
                     player.UpdateDisplay();
 
@@ -130,8 +124,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public void HandleReadyToStart(bool readyToStart)
     {
-        if (!_isLeader) { return; } 
-        
+        if (!_isLeader) { return; }
+
         _lobbyView.HandleReadyToStart(readyToStart);
     }
 
@@ -148,13 +142,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [Command]
     private void CmdSetDisplayName(string displayName)
     {
-        DisplayName = displayName; 
+        DisplayName = displayName;
     }
 
     [Command]
     public void CmdReadyUp()
     {
-        IsReady = !IsReady; 
+        IsReady = !IsReady;
         Room.NotifyPlayersOfReadyState();
     }
 
@@ -163,6 +157,12 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
 
-        Room.StartGame(); 
+        StartCoroutine(Room.StartGame());
+    }
+
+    [TargetRpc]
+    public void TargetFadeTransition(NetworkConnection conn)
+    {
+        Room.StartFadeIn();
     }
 }
