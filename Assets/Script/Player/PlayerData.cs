@@ -49,10 +49,8 @@ public class PlayerData : NetworkBehaviour
         {
             for (int i = 0; i < allPlayer.Count; i++)
             {
-                Debug.Log("Je suis dans la boucle");
                 if (pnj.transform.position == allPlayer[i].pnjValidePosition)
                 {
-                    Debug.Log("Trouver le pnj");
                     pnjValide = pnj;
                 }
             }
@@ -143,7 +141,10 @@ public class PlayerData : NetworkBehaviour
 
 
             ClearOtherTchat();
-            EnablePlayer(role);    
+            EnablePlayer(role);
+
+            timer timerGame = FindAnyObjectByType<timer>();
+            timerGame.ServeurTimer();
 
         }
     }
@@ -347,13 +348,12 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.orthographic = false;
                 emojiScript.enabled = true;
 
-                //Debug.Log("Le pnj cible est la " + PNJcible.transform.position);
                 transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
                 transform.rotation = PNJcible.transform.rotation;
 
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
-                //Destroy(PNJcible);
+                destroyPNJ();
             }
 
             ViewManager.Instance.Initialize();

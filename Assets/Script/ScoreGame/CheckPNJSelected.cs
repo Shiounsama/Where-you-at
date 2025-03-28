@@ -56,9 +56,6 @@ public class CheckPNJSelected : NetworkBehaviour
 
         _playerData.testPNJ();
         seekerView.guessButton.gameObject.SetActive(false);
-
-
-        Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
     }
     
 

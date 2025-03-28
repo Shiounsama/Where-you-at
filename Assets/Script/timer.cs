@@ -10,24 +10,30 @@ public class timer : NetworkBehaviour
 {
     public timer tempsjoueur;
     public int time = 0;
+    public int timeStart = 180;
+    private Coroutine timerCoroutine;
 
-    [SyncVar]
-    public bool isReady = false;
 
-
-    private void Start()
+    [Command]
+    public void ServeurTimer()
     {
-        List<timer> allTimer = new List<timer>(FindObjectsOfType<timer>());
-        StartCoroutine(Timer());
+        Debug.Log("Dans Serveur Timer");
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            launchCoroutineTimer(conn);
+        }
     }
 
-    private void Update() 
+
+    [TargetRpc]
+    private void launchCoroutineTimer(NetworkConnection target)
     {
-        if (tempsjoueur.time == 0)
-        {
-            //Mettre ici la fonction qui lance le leaderboard
-            guessTemps();   
-        } 
+
+        Debug.Log("Dans launchCoroutine");
+        if (timerCoroutine != null)
+            StopCoroutine(timerCoroutine);
+
+        timerCoroutine = StartCoroutine(Timer());
     }
 
     public void Temps30()
@@ -46,19 +52,17 @@ public class timer : NetworkBehaviour
         
     }
 
-    [Command]
-    public void launchTimer()
-    {
-        isReady = true;
-    }
 
     IEnumerator Timer()
     {
         while (tempsjoueur.time > 0)
         {
+
             tempsjoueur.time--;
             yield return new WaitForSeconds(1f);
-            GetComponent<TMP_Text>().text = string.Format("{0:0}:{1:00}", Mathf.Floor(tempsjoueur.time / 60), tempsjoueur.time % 60);
+            GetComponentInChildren<TMP_Text>().text = string.Format("{0:0}:{1:00}", Mathf.Floor(tempsjoueur.time / 60), tempsjoueur.time % 60);
         }
+
+        guessTemps();
     }
 }

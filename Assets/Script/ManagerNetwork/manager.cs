@@ -49,7 +49,6 @@ public class manager : NetworkBehaviour
     /// </summary>
     private void SetCharlieRoleQueue()
     {
-        Debug.Log("SetCharlieRoleQueue");
 
         charlieRoleQueue = new SyncList<GameObject>();
 
@@ -125,7 +124,6 @@ public class manager : NetworkBehaviour
         {
             if (playerscript.isLocalPlayer)
             {
-                Debug.Log(playerscript);
 
                 return playerscript;
             }
