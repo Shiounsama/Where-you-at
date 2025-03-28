@@ -15,9 +15,9 @@ public class timer : NetworkBehaviour
     public bool isReady = false;
 
 
-    /*private void Start()
+    private void Start()
     {
-        List<timer> allTimer = new List<timer>();
+        List<timer> allTimer = new List<timer>(FindObjectsOfType<timer>());
         StartCoroutine(Timer());
     }
 
@@ -41,8 +41,8 @@ public class timer : NetworkBehaviour
     public void guessTemps()
     {
         
-        tempsjoueur.guess = false;
-        tempsjoueur.canvasTimer.enabled = false;
+        //tempsjoueur.guess = false;
+        //tempsjoueur.canvasTimer.enabled = false;
         
     }
 
@@ -60,5 +60,5 @@ public class timer : NetworkBehaviour
             yield return new WaitForSeconds(1f);
             GetComponent<TMP_Text>().text = string.Format("{0:0}:{1:00}", Mathf.Floor(tempsjoueur.time / 60), tempsjoueur.time % 60);
         }
-    }*/
+    }
 }
