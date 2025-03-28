@@ -111,9 +111,6 @@ MonoBehaviour:
   - {fileID: 4492919833360321380}
   charlieObjects:
   - {fileID: 2344567739409970027}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  pnjValidePosition: {x: 0, y: 0, z: 0}
-  pnjValide: {fileID: 0}
 --- !u!114 &5284582141068114091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +165,7 @@ GameObject:
   - component: {fileID: 1442475729549407068}
   - component: {fileID: 218688681835275930}
   - component: {fileID: 5238412738729209366}
+  - component: {fileID: 6288134951934042583}
   - component: {fileID: 5202107201769941492}
   m_Layer: 0
   m_Name: Main Camera
@@ -507,6 +505,23 @@ MonoBehaviour:
     m_Bits: 64
   boxSize: {x: 3, y: 3, z: 3}
   minSizeBeforeXRay: 5
+--- !u!114 &6288134951934042583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690513810465107549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7dd73a735de31141af42014ad28dfe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectedCameraPos: {x: 0, y: 0, z: 0}
+  cityTransform: {fileID: 0}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!81 &5202107201769941492
 AudioListener:
   m_ObjectHideFlags: 0

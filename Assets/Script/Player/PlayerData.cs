@@ -84,9 +84,6 @@ public class PlayerData : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        if (isLocalPlayer)
-            GetComponentInChildren<AudioListener>().enabled = true;
-
         base.OnStartLocalPlayer();
     }
 
@@ -141,12 +138,27 @@ public class PlayerData : NetworkBehaviour
 
 
             ClearOtherTchat();
-            EnablePlayer(role);
+            //EnablePlayer(role);
 
             timer timerGame = FindAnyObjectByType<timer>();
             timerGame.ServeurTimer();
 
+            NetworkMana.Instance.StartFadeOut();
+            EnablePlayer(role);    
+
+
+            foreach (NetworkConnection conn in NetworkServer.connections.Values)
+            {
+                TargetEnableAudioListener(conn);
+            }
         }
+    }
+
+    [TargetRpc]
+    private void TargetEnableAudioListener(NetworkConnection conn)
+    {
+        manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled = true;
+        Debug.Log($"Local AudioListener enabled: {manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled}");
     }
 
     /// <summary>
@@ -264,6 +276,7 @@ public class PlayerData : NetworkBehaviour
         IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
         IsoCameraSelection camSelectedIso = GetComponentInChildren<IsoCameraSelection>();
         IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
+        SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
 
         Camera360 cam360 = GetComponentInChildren<Camera360>();
 
@@ -299,9 +312,9 @@ public class PlayerData : NetworkBehaviour
 
             Xray.enabled = false;
 
-            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");         
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
 
-            audioListener.enabled = false;
+            audioListener.enabled = true;
             
 
             if (role == Role.Seeker)
@@ -330,7 +343,8 @@ public class PlayerData : NetworkBehaviour
 
                 //PNJcible.SetActive(true);
 
-
+                seekerAudio.enabled = true;
+                seekerAudio.cityTransform = building.transform;
             }
             else if (role == Role.Lost)
             {
@@ -353,7 +367,9 @@ public class PlayerData : NetworkBehaviour
 
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
+
                 destroyPNJ();
+                seekerAudio.enabled = false;
             }
 
             ViewManager.Instance.Initialize();
@@ -371,6 +387,7 @@ public class PlayerData : NetworkBehaviour
         TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
         Camera360 cam360 = GetComponentInChildren<Camera360>();
         IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
+        SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
 
         GetComponentInChildren<PlayerInput>().enabled = false;
 
@@ -383,7 +400,9 @@ public class PlayerData : NetworkBehaviour
         camRotaIso.enabled = false;
 
         Xray.enabled = false;
-  
+
+        seekerAudio.enabled = true;
+
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
     }
 

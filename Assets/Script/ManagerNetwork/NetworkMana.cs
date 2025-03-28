@@ -5,6 +5,7 @@ using Mirror;
 using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
+using DG.Tweening;
 
 public class NetworkMana : NetworkManager
 {
@@ -14,6 +15,11 @@ public class NetworkMana : NetworkManager
     [Scene][SerializeField] private string mainScene;
 
     [Scene][SerializeField] private string menuScene = string.Empty;
+
+    [Header("UI")]
+    [SerializeField] private CanvasGroup fadeImage;
+    [SerializeField] private float fadeDuration = 1f;
+    public static bool IsFading = false;
 
     [Header ("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
@@ -107,15 +113,41 @@ public class NetworkMana : NetworkManager
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
 
+            ViewManager.Instance.UpdateViewsList();
             ViewManager.Instance.Show<LobbyView>();
         }
     }
 
-    public void StartGame()
+    public bool IsHost()
+    {
+        return NetworkServer.connections.Count > 0;
+    }
+
+    public void StartFadeIn()
+    {
+        IsFading = true;
+        fadeImage.DOFade(1, fadeDuration).OnComplete(() => IsFading = false);
+    }
+
+    public void StartFadeOut()
+    {
+        IsFading = true;
+        fadeImage.DOFade(0, fadeDuration).OnComplete(() => IsFading = false);
+    }
+
+    public IEnumerator StartGame()
     {
         if (SceneManager.GetActiveScene().path == lobbyScene)
         {
-            if (!IsReadyToStart()) { return; }
+            if (!IsReadyToStart())
+                yield break;
+
+            for (int i = 0; i < RoomPlayers.Count; i++)
+            {
+                RoomPlayers[i].TargetFadeTransition(NetworkServer.connections[i]);
+            }
+
+            yield return new WaitForSeconds(fadeDuration);
 
             ServerChangeScene(mainScene);
         }
@@ -126,7 +158,7 @@ public class NetworkMana : NetworkManager
         base.OnClientSceneChanged();
 
         if (SceneManager.GetActiveScene().path == mainScene) 
-        { 
+        {
             scriptManager.GiveRole();
         }
     }

@@ -28,5 +28,10 @@ public class HostJoinView : View
     {
         ViewManager.Instance.Show<EnterIPView>();
     }
+
+    public override void OnClick_Return()
+    {
+        ViewManager.Instance.Show<NameInputView>();
+    }
     #endregion
 }

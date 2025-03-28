@@ -71,6 +71,7 @@ public class manager : NetworkBehaviour
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
         List<GameObject> ListPNJ = new List<GameObject>();
+
         foreach (GameObject obj in allPNJ)
         {
             ListPNJ.Add(obj);
@@ -102,7 +103,7 @@ public class manager : NetworkBehaviour
         //SetCharlieRoleQueue();
         //GiveNextRoles();
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.1f);
         
         PlayersStartScene();
     }
