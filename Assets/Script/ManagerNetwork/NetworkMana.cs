@@ -19,6 +19,7 @@ public class NetworkMana : NetworkManager
     [Header("UI")]
     [SerializeField] private CanvasGroup fadeImage;
     [SerializeField] private float fadeDuration = 1f;
+    public static bool IsFading = false;
 
     [Header ("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
@@ -121,9 +122,16 @@ public class NetworkMana : NetworkManager
         }
     }
 
-    public void DoFadeTransition()
+    public void StartFadeIn()
     {
-        fadeImage.DOFade(1, fadeDuration);
+        IsFading = true;
+        fadeImage.DOFade(1, fadeDuration).OnComplete(() => IsFading = false);
+    }
+
+    public void StartFadeOut()
+    {
+        IsFading = true;
+        fadeImage.DOFade(0, fadeDuration).OnComplete(() => IsFading = false);
     }
 
     public IEnumerator StartGame()
@@ -152,11 +160,6 @@ public class NetworkMana : NetworkManager
         {
             scriptManager.GiveRole();
         }
-    }
-
-    public void StartFadeTransition()
-    {
-        fadeImage.DOFade(0, fadeDuration);        
     }
 
     public override void ServerChangeScene(string newSceneName)

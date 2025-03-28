@@ -102,7 +102,7 @@ public class PlayerData : NetworkBehaviour
 
 
             ClearOtherTchat();
-            NetworkMana.Instance.StartFadeTransition();
+            NetworkMana.Instance.StartFadeOut();
             EnablePlayer(role);    
 
         }
