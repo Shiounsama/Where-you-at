@@ -30,6 +30,15 @@ public class PlayerScoring : NetworkBehaviour
         StartCoroutine(resultat(newScore));
     }
 
+    [Command]
+    public void ShowScore()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            ShowScoreTimer(conn);
+        }
+    }
+
     public IEnumerator resultat(float newScore)
     {
         ScoreFinal = newScore;
@@ -46,6 +55,22 @@ public class PlayerScoring : NetworkBehaviour
     }
 
 
+    [TargetRpc]
+    private void ShowScoreTimer(NetworkConnection target)
+    {
+        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+
+        foreach (PlayerScoring score in allScore)
+        {
+            score.finish = true;
+        }
+
+        FindObjectOfType<ScoreGame>().ShowScore();
+
+        
+
+    }
+
 
     [TargetRpc]
     private void TargetShowScoreForPlayer(NetworkConnection target)
@@ -61,9 +86,6 @@ public class PlayerScoring : NetworkBehaviour
     {
         int compteurScore = 0;
         int compteurSeeker = 0;
-
-        
-
 
         List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         foreach (PlayerScoring score in allScore)
