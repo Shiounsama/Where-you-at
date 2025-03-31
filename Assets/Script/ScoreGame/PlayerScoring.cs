@@ -58,7 +58,6 @@ public class PlayerScoring : NetworkBehaviour
         ScoreJoueur = 100 - Distance;
 
         
-
         yield return new WaitForSeconds(0.1f);
 
         foreach (var conn in NetworkServer.connections.Values)
@@ -74,15 +73,27 @@ public class PlayerScoring : NetworkBehaviour
     {
         List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
 
+        float moyenneScore = 0;
+
         foreach (PlayerScoring score in allScore)
         {
             score.finish = true;
+
+            if(score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                if (score.ScoreJoueur > 0)
+                {
+                    moyenneScore += score.ScoreJoueur / (allScore.Count-1);
+                }
+                else
+                    moyenneScore += 100;
+            }
         }
 
+        if (GetComponent<PlayerData>().role == Role.Lost)
+            ScoreJoueur = moyenneScore;
+
         FindObjectOfType<ScoreGame>().ShowScore();
-
-        
-
     }
 
 
@@ -115,6 +126,7 @@ public class PlayerScoring : NetworkBehaviour
     {
         int compteurScore = 0;
         int compteurSeeker = 0;
+        float moyenneScore = 0;
 
         List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         foreach (PlayerScoring score in allScore)
@@ -127,17 +139,26 @@ public class PlayerScoring : NetworkBehaviour
             if (score.finish)
             {
                 compteurScore++;
+                moyenneScore += score.ScoreJoueur / (allScore.Count - 1);
+
             }
 
             if (compteurSeeker == compteurScore)
             {
                 score.finish = true;
-                score.ScoreJoueur = 0;
+                
             }
         }
 
         if (compteurSeeker == compteurScore)
         {
+
+            if (GetComponent<PlayerData>().role == Role.Lost)
+            {
+                ScoreJoueur = moyenneScore + 1;
+            }
+
+            Debug.Log("Moyenne score " + moyenneScore);
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }

@@ -22,6 +22,8 @@ public class PlayerData : NetworkBehaviour
     [SyncVar] public Vector3 pnjValidePosition;
     public GameObject pnjValide;
 
+    private Coroutine timerCoroutine;
+
     public static GameObject PNJcible { get; set; }
 
     [Command]
@@ -316,7 +318,7 @@ public class PlayerData : NetworkBehaviour
             audioListener.enabled = true;
 
             timer timerGame = FindAnyObjectByType<timer>();
-            StartCoroutine(timerGame.Timer());
+            
 
 
             if (role == Role.Seeker)
@@ -370,6 +372,12 @@ public class PlayerData : NetworkBehaviour
                 seekerAudio.enabled = false;
             }
 
+            StartCoroutine(timerGame.Timer());
+
+            if (timerCoroutine != null)
+                StopCoroutine(timerCoroutine);
+
+            timerCoroutine = StartCoroutine(timerGame.Timer());
             ViewManager.Instance.Initialize();
         }
     }
@@ -386,6 +394,8 @@ public class PlayerData : NetworkBehaviour
         Camera360 cam360 = GetComponentInChildren<Camera360>();
         IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
         SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
+        PlayerScoring playerScore= GetComponent<PlayerScoring>();
+        IsoCameraSelection camSelecIso= GetComponent<IsoCameraSelection>();
 
         GetComponentInChildren<PlayerInput>().enabled = false;
 
@@ -402,6 +412,8 @@ public class PlayerData : NetworkBehaviour
         seekerAudio.enabled = true;
 
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
+
+        playerScore.ScoreJoueur = 0;
     }
 
     /// <summary>
