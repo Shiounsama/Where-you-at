@@ -77,9 +77,15 @@ public class PlayerData : NetworkBehaviour
             {
                 if (transform.position == new Vector3(0, 0, 0))
                 {
-                    transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
-                    transform.rotation = PNJcible.transform.rotation;
+                    if (PNJcible != null)
+                    {
+                        transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
+                        transform.rotation = PNJcible.transform.rotation;
+                        destroyPNJ();
+                    }
                 }
+                
+                
             }
 
         }
@@ -287,6 +293,8 @@ public class PlayerData : NetworkBehaviour
 
         AudioListener audioListener = camPlayer.GetComponent<AudioListener>();
 
+        PlayerScoring playerScore = GetComponent<PlayerScoring>();
+
         ViewManager.Instance.UpdateViewsList();
 
         if (role != Role.None)
@@ -318,7 +326,8 @@ public class PlayerData : NetworkBehaviour
             audioListener.enabled = true;
 
             timer timerGame = FindAnyObjectByType<timer>();
-            
+
+            playerScore.ScoreJoueur = 0;
 
 
             if (role == Role.Seeker)
@@ -368,11 +377,9 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
 
-                destroyPNJ();
+                
                 seekerAudio.enabled = false;
             }
-
-            StartCoroutine(timerGame.Timer());
 
             if (timerCoroutine != null)
                 StopCoroutine(timerCoroutine);
@@ -394,7 +401,7 @@ public class PlayerData : NetworkBehaviour
         Camera360 cam360 = GetComponentInChildren<Camera360>();
         IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
         SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
-        PlayerScoring playerScore= GetComponent<PlayerScoring>();
+
         IsoCameraSelection camSelecIso= GetComponent<IsoCameraSelection>();
 
         GetComponentInChildren<PlayerInput>().enabled = false;
@@ -411,9 +418,11 @@ public class PlayerData : NetworkBehaviour
 
         seekerAudio.enabled = true;
 
+        //camSelecIso.OnObjectUnselected();
+
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
-        playerScore.ScoreJoueur = 0;
+        
     }
 
     /// <summary>

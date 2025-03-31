@@ -19,9 +19,23 @@ public class ScoreElement : MonoBehaviour
     /// <param name="placement">Placement du joueur.</param>
     /// <param name="playerName">Nom du joueur.</param>
     /// <param name="distance">Distance du guess du joueur.</param>
-    public void UpdateScoreText(int placement, string playerName, float distance, float Score, float ScoreFinal)
+    public void UpdateScoreText(int placement, string playerName, float distance, float Score, float ScoreFinal, bool IsLost, bool isGuess)
     {
-        string newScoreText = $"{placement} - {playerName} avec {distance} mètres \n Score de la manche : {Score} Score total : {ScoreFinal}.";
+        string newScoreText = string.Empty;
+
+        if (!IsLost && isGuess)
+        {
+            newScoreText = $"{placement} - {playerName} avec {distance} mètres \n Score de la manche : {Score} Score total : {ScoreFinal}.";
+        }
+        else if (!IsLost && !isGuess)
+        {
+
+        }
+
+        else if (IsLost)
+        {
+            newScoreText = $"{placement} - {playerName} était le lost \n Score de la manche : {Score} Score total : {ScoreFinal}.";
+        }
 
         text.text = newScoreText;
     }

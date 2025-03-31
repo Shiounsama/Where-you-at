@@ -32,14 +32,14 @@ public class IsoCameraSelection : MonoBehaviour
         }
     }
 
-    public void OnObjectUnselected(InputAction.CallbackContext context)
+    /*public void OnObjectUnselected(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             selectedObject = null;
             _seekerView.guessButton.gameObject.SetActive(false);
         }
-    }
+    }*/
 
     public void OnObjectUnselected()
     {

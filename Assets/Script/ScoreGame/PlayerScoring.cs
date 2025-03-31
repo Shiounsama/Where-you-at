@@ -4,6 +4,7 @@ using Mirror;
 using System;
 using UnityEngine.SocialPlatforms.Impl;
 using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerScoring : NetworkBehaviour
 {
@@ -23,6 +24,9 @@ public class PlayerScoring : NetworkBehaviour
 
     [SyncVar]
     public float ScoreFinal;
+
+    [SyncVar]
+    public bool IsLost;
 
 
 
@@ -62,8 +66,9 @@ public class PlayerScoring : NetworkBehaviour
 
         foreach (var conn in NetworkServer.connections.Values)
         {
-            TargetShowScoreForPlayer(conn);
-            ShowScoreLost(conn);
+            //TargetShowScoreForPlayer(conn);
+            //ShowScoreLost(conn);
+            TargetHandleScores(conn);
         }
     }
 
@@ -71,33 +76,92 @@ public class PlayerScoring : NetworkBehaviour
     [TargetRpc]
     private void ShowScoreTimer(NetworkConnection target)
     {
-        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+        float totalScore = 0;
 
-        float moyenneScore = 0;
-
-        foreach (PlayerScoring score in allScore)
+        foreach (PlayerScoring score in allScores)
         {
             score.finish = true;
 
-            if(score.GetComponent<PlayerData>().role == Role.Seeker)
+            if (score.GetComponent<PlayerData>().role == Role.Seeker)
             {
-                if (score.ScoreJoueur > 0)
-                {
-                    moyenneScore += score.ScoreJoueur / (allScore.Count-1);
-                }
-                else
-                    moyenneScore += 100;
+                score.IsLost = false;
             }
         }
 
-        if (GetComponent<PlayerData>().role == Role.Lost)
-            ScoreJoueur = moyenneScore;
+        foreach (PlayerScoring score in allScores)
+        {
+            if (score.finish)
+            {
+                int scorePosition = Mathf.Max(0, 60 - allScores.Count(score => score.finish) * 10);
+                totalScore += (score.ScoreJoueur + scorePosition) / (allScores.Count - 1);
+            }
+        }
+
+        foreach (PlayerScoring score in allScores)
+        {
+            if (score.GetComponent<PlayerData>().role == Role.Lost)
+            {
+                score.IsLost = true;
+                score.ScoreJoueur = totalScore;
+                score.ScoreFinal += totalScore;
+            }
+        }
 
         FindObjectOfType<ScoreGame>().ShowScore();
     }
 
 
     [TargetRpc]
+    private void TargetHandleScores(NetworkConnection target)
+    {
+        var scoreGame = FindObjectOfType<ScoreGame>();
+
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        int finishedPlayers = allScores.Count(score => score.finish);
+        int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+        float totalScore = 0;
+
+        foreach (PlayerScoring score in allScores)
+        {
+            if (score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                score.IsLost = false;
+            }
+
+            if (score.finish)
+            {
+                int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
+                totalScore += (score.ScoreJoueur + scorePosition) / (allScores.Count - 1);
+            }
+        }
+
+        if (GetComponent<PlayerData>().role == Role.Seeker)
+        {
+            int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
+            ScoreJoueur += scorePosition;
+            ScoreFinal += ScoreJoueur;
+        }
+
+        if (seekerCount == finishedPlayers)
+        {
+            foreach (PlayerScoring score in allScores)
+            {
+                if (score.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    score.finish = true;
+                    score.IsLost = true;
+                    score.ScoreJoueur = totalScore;
+                    score.ScoreFinal += totalScore;
+                }
+            }
+        }
+
+        scoreGame.ShowScore();
+    }
+
+    /*[TargetRpc]
     private void TargetShowScoreForPlayer(NetworkConnection target)
     {
         if (FindObjectOfType<ScoreGame>().finish && GetComponent<PlayerData>().role == Role.Seeker)
@@ -108,6 +172,11 @@ public class PlayerScoring : NetworkBehaviour
             {
                 if (score.finish)
                     compteurJoueur++;
+
+                if (score.GetComponent<PlayerData>().role == Role.Seeker)
+                {
+                    score.IsLost = false;
+                }
             }
 
             int scorePosition = 60 - compteurJoueur * 10;
@@ -152,15 +221,18 @@ public class PlayerScoring : NetworkBehaviour
 
         if (compteurSeeker == compteurScore)
         {
-
-            if (GetComponent<PlayerData>().role == Role.Lost)
+            foreach (PlayerScoring score in allScore)
             {
-                ScoreJoueur = moyenneScore + 1;
+                if (score.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    score.IsLost = true;
+                    score.ScoreJoueur = moyenneScore;
+                    score.ScoreFinal += moyenneScore;
+                }
             }
-
-            Debug.Log("Moyenne score " + moyenneScore);
+           
             FindObjectOfType<ScoreGame>().ShowScore();
         }
-    }
+    }*/
 
 }

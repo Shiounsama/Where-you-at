@@ -59,8 +59,16 @@ public class LeaderboardView : View
 
         float scoreFinal = playerScoring.ScoreFinal;
 
+        bool isLost = playerScoring.IsLost;
 
-        scoreElement.UpdateScoreText(placement, playerName, distance, Score, scoreFinal);
+        bool isGuess = false; 
+        
+        if(playerScoring.GetComponentInChildren<IsoCameraSelection>().selectedObject != null )
+        {
+            isGuess = true;
+        }
+
+        scoreElement.UpdateScoreText(placement, playerName, distance, Score, scoreFinal, isLost, isGuess);
 
         DisableRestartButton();
 

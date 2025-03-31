@@ -18,7 +18,7 @@ public class timer : NetworkBehaviour
         PlayerScoring score = FindObjectOfType<PlayerScoring>();
         TMP_Text texteTimer = GetComponentInChildren<TMP_Text>();
 
-        timeStart = time;
+        time = timeStart;
         texteTimer.enabled = true;
         while (tempsjoueur.time > 0)
         {
