@@ -13,6 +13,15 @@ public class PlayerScoring : NetworkBehaviour
     public bool finish;
 
     [SyncVar]
+    public float Distance;
+
+    [SyncVar]
+    public int placement;
+
+    [SyncVar]
+    public float ScoreJoueur;
+
+    [SyncVar]
     public float ScoreFinal;
 
 
@@ -21,6 +30,8 @@ public class PlayerScoring : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         finish = false;
+
+        
     }
 
 
@@ -32,9 +43,12 @@ public class PlayerScoring : NetworkBehaviour
 
     public IEnumerator resultat(float newScore)
     {
-        ScoreFinal = newScore;
+        Distance = newScore;
         finish = true;
 
+        ScoreJoueur = 100 - Distance;
+
+        
 
         yield return new WaitForSeconds(0.1f);
 
@@ -52,6 +66,21 @@ public class PlayerScoring : NetworkBehaviour
     {
         if (FindObjectOfType<ScoreGame>().finish && GetComponent<PlayerData>().role == Role.Seeker)
         {
+            int compteurJoueur = 0;
+            List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+            foreach (PlayerScoring score in allScore)
+            {
+                if (score.finish)
+                    compteurJoueur++;
+            }
+
+            int scorePosition = 60 - compteurJoueur * 10;
+            if (scorePosition < 0)
+                scorePosition = 0;
+            
+            ScoreJoueur += scorePosition;
+            ScoreFinal += ScoreJoueur;
+
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
@@ -61,9 +90,6 @@ public class PlayerScoring : NetworkBehaviour
     {
         int compteurScore = 0;
         int compteurSeeker = 0;
-
-        
-
 
         List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         foreach (PlayerScoring score in allScore)
@@ -81,14 +107,13 @@ public class PlayerScoring : NetworkBehaviour
             if (compteurSeeker == compteurScore)
             {
                 score.finish = true;
+                score.ScoreJoueur = 0;
             }
-
         }
 
         if (compteurSeeker == compteurScore)
         {
             FindObjectOfType<ScoreGame>().ShowScore();
-
         }
     }
 }

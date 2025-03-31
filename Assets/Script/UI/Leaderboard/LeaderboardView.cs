@@ -53,13 +53,20 @@ public class LeaderboardView : View
 
         string playerName = playerScoring.GetComponent<PlayerData>().playerName;
         
-        float distance = playerScoring.ScoreFinal;
-        scoreElement.UpdateScoreText(placement, playerName, distance);
+        float distance = playerScoring.Distance;
+
+        float Score = playerScoring.ScoreJoueur;
+
+        float scoreFinal = playerScoring.ScoreFinal;
+
+
+        scoreElement.UpdateScoreText(placement, playerName, distance, Score, scoreFinal);
 
         DisableRestartButton();
 
         int compteurScore = 0;
         List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+
         foreach (PlayerScoring score in allScore)
         {
 
