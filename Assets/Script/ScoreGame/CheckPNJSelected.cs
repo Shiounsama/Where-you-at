@@ -1,12 +1,9 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class CheckPNJSelected : NetworkBehaviour
 {
-    private PlayerData _playerData;
+    public PlayerData _playerData;
 
     public IsoCameraSelection cameraSelection;
 
@@ -33,18 +30,18 @@ public class CheckPNJSelected : NetworkBehaviour
 
     private void Awake()
     {
-        cameraSelection = GetComponentInChildren<IsoCameraSelection>();
-        score = GetComponentInChildren<PlayerScoring>();
-        scoreGame = FindObjectOfType<ScoreGame>();
         _playerData = GetComponent<PlayerData>();
+        cameraSelection = transform.GetComponentInChildren<IsoCameraSelection>();
+        score = this.GetComponent<PlayerScoring>();
+        scoreGame = GameObject.FindObjectOfType<ScoreGame>();
     }
 
     public void IsGuess()
     {
         //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
-        scoreGame.finish = true;
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-        score.ServeurScore(resultat);
+        score.ServerScore(resultat);
+        scoreGame.finished = true;
 
         if (isLocalPlayer)
         {
@@ -56,7 +53,8 @@ public class CheckPNJSelected : NetworkBehaviour
 
         _playerData.testPNJ();
         seekerView.guessButton.gameObject.SetActive(false);
-    }
-    
 
+
+        Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
+    }
 }
