@@ -4,61 +4,30 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using UnityEngine.SocialPlatforms.Impl;
 
 
 public class timer : NetworkBehaviour
 {
     public timer tempsjoueur;
     public int time = 0;
+    public int timeStart = 180;
 
-    [SyncVar]
-    public bool isReady = false;
-
-
-    /*private void Start()
+    public IEnumerator Timer()
     {
-        List<timer> allTimer = new List<timer>();
-        StartCoroutine(Timer());
-    }
+        PlayerScoring score = FindObjectOfType<PlayerScoring>();
+        TMP_Text texteTimer = GetComponentInChildren<TMP_Text>();
 
-    private void Update() 
-    {
-        if (tempsjoueur.time == 0)
-        {
-            //Mettre ici la fonction qui lance le leaderboard
-            guessTemps();   
-        } 
-    }
-
-    public void Temps30()
-    {
-        if (tempsjoueur.time >= 30)
-        {
-            tempsjoueur.time = 30;
-        }
-    }
-
-    public void guessTemps()
-    {
-        
-        tempsjoueur.guess = false;
-        tempsjoueur.canvasTimer.enabled = false;
-        
-    }
-
-    [Command]
-    public void launchTimer()
-    {
-        isReady = true;
-    }
-
-    IEnumerator Timer()
-    {
+        timeStart = time;
+        texteTimer.enabled = true;
         while (tempsjoueur.time > 0)
         {
             tempsjoueur.time--;
             yield return new WaitForSeconds(1f);
-            GetComponent<TMP_Text>().text = string.Format("{0:0}:{1:00}", Mathf.Floor(tempsjoueur.time / 60), tempsjoueur.time % 60);
+            texteTimer.text = string.Format("{0:0}:{1:00}", Mathf.Floor(tempsjoueur.time / 60), tempsjoueur.time % 60);
         }
-    }*/
+
+        texteTimer.enabled = false;
+        score.ShowScore();
+    }
 }

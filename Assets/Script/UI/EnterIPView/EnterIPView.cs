@@ -29,6 +29,11 @@ public class EnterIPView : View
     {
         JoinLobby();
     }
+
+    public override void OnClick_Return()
+    {
+        ViewManager.Instance.Show<HostJoinView>();
+    }
     #endregion
 
     #region Join

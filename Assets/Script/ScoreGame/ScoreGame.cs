@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using Mirror;
+using TMPro;
 
 public class ScoreGame : NetworkBehaviour
 {
@@ -41,6 +42,10 @@ public class ScoreGame : NetworkBehaviour
         ViewManager.Instance.Show<LeaderboardView>();
         _leaderboardView.ClearLeaderboard();
 
+        timer timerScript = FindObjectOfType<timer>();
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+
+
         for (int i = 0; i< scores.Count; i++)
         {
             _leaderboardView.AddScore(scores[i], i + 1);
@@ -48,6 +53,8 @@ public class ScoreGame : NetworkBehaviour
             scores[i].GetComponent<PlayerData>().DisablePlayer();
             scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
             scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
+
+            
         }
     }
 }

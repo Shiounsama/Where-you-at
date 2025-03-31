@@ -41,6 +41,15 @@ public class PlayerScoring : NetworkBehaviour
         StartCoroutine(resultat(newScore));
     }
 
+    [Command]
+    public void ShowScore()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            ShowScoreTimer(conn);
+        }
+    }
+
     public IEnumerator resultat(float newScore)
     {
         Distance = newScore;
@@ -59,6 +68,22 @@ public class PlayerScoring : NetworkBehaviour
         }
     }
 
+
+    [TargetRpc]
+    private void ShowScoreTimer(NetworkConnection target)
+    {
+        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+
+        foreach (PlayerScoring score in allScore)
+        {
+            score.finish = true;
+        }
+
+        FindObjectOfType<ScoreGame>().ShowScore();
+
+        
+
+    }
 
 
     [TargetRpc]
@@ -116,4 +141,5 @@ public class PlayerScoring : NetworkBehaviour
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
+
 }

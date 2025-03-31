@@ -48,7 +48,7 @@ public class PNJPISpawn : MonoBehaviour
 
     IEnumerator InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
     {
-        int nombreDeSpawnMax = 50;
+        int nombreDeSpawnMax = 20;
         int nombreEssai = 0;
         bool validPosition = false;
         
@@ -72,10 +72,6 @@ public class PNJPISpawn : MonoBehaviour
             validPosition = colliders.Length == 1;
             nombreEssai++;
 
-            if (nombreEssai == 10)
-            {
-                Debug.Log("PNJ. MORT.");
-            }
 
         }
 
@@ -124,8 +120,6 @@ public class PNJPISpawn : MonoBehaviour
             
 
             int x = Random.Range(0, listOfPnjPI.Count);
-
-            Debug.Log("je suis dans le get prefab " + x); 
 
             return listOfPnjPI[x].gameObject;
         }

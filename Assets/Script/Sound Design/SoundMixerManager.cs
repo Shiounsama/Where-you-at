@@ -13,6 +13,8 @@ namespace SoundDesign
 
         private void Awake()
         {
+            DontDestroyOnLoad(this);
+
             if (!Instance)
                 Instance = this;
 
