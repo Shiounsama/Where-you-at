@@ -27,6 +27,9 @@ public class PlayerScoring : NetworkBehaviour
 
     [SyncVar]
     public bool IsLost;
+    [SyncVar]
+    public bool IsGuess = false;
+
 
 
 
@@ -80,22 +83,33 @@ public class PlayerScoring : NetworkBehaviour
         int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
         float totalScore = 0;
 
+
+
         foreach (PlayerScoring score in allScores)
         {
             score.finish = true;
 
             if (score.GetComponent<PlayerData>().role == Role.Seeker)
             {
+                if (score.GetComponentInChildren<IsoCameraSelection>().selectedObject != null)
+                {
+                    score.IsGuess = true;
+                }
+
                 score.IsLost = false;
             }
         }
 
         foreach (PlayerScoring score in allScores)
         {
-            if (score.finish)
+            if (score.finish && score.GetComponent<PlayerData>().role == Role.Seeker)
             {
                 int scorePosition = Mathf.Max(0, 60 - allScores.Count(score => score.finish) * 10);
-                totalScore += (score.ScoreJoueur + scorePosition) / (allScores.Count - 1);
+                totalScore += (score.ScoreJoueur + scorePosition) / (seekerCount);
+            }
+            else if (!score.IsGuess && score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                totalScore += 100;
             }
         }
 
@@ -133,7 +147,7 @@ public class PlayerScoring : NetworkBehaviour
             if (score.finish)
             {
                 int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
-                totalScore += (score.ScoreJoueur + scorePosition) / (allScores.Count - 1);
+                totalScore += (score.ScoreJoueur + scorePosition) / (seekerCount);
             }
         }
 

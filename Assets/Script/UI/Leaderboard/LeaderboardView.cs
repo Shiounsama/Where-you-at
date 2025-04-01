@@ -61,12 +61,9 @@ public class LeaderboardView : View
 
         bool isLost = playerScoring.IsLost;
 
-        bool isGuess = false; 
+        bool isGuess = playerScoring.IsGuess; 
         
-        if(playerScoring.GetComponentInChildren<IsoCameraSelection>().selectedObject != null )
-        {
-            isGuess = true;
-        }
+        
 
         scoreElement.UpdateScoreText(placement, playerName, distance, Score, scoreFinal, isLost, isGuess);
 

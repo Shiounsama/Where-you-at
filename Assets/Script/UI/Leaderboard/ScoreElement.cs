@@ -29,7 +29,7 @@ public class ScoreElement : MonoBehaviour
         }
         else if (!IsLost && !isGuess)
         {
-            newScoreText = $"{placement} - {playerName} avec {distance} mètres \n Score de la manche : {Score} Score total : {ScoreFinal}.";
+            newScoreText = $"{placement} - {playerName} n'a pas sélectionner de personnage. \n Score de la manche : {Score} Score total : {ScoreFinal}.";
         }
 
         else if (IsLost)
