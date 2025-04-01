@@ -1,5 +1,6 @@
 using Mirror;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,8 +22,6 @@ public class PlayerData : NetworkBehaviour
     [SyncVar] public Color color;
     [SyncVar] public Vector3 pnjValidePosition;
     public GameObject pnjValide;
-
-    public GameObject textPrefab;
 
     private Coroutine timerCoroutine;
 
@@ -67,11 +66,10 @@ public class PlayerData : NetworkBehaviour
 
                 Debug.Log("Je suis dans la boucle");
                 if (pnjPosition == pnjSelected)
-                    if (pnj.transform.position == allPlayer[i].pnjValidePosition)
-                    {
-                        Debug.Log("Trouver le pnj");
-                        pnjValide = pnj;
-                    }
+                {
+                    Debug.Log("Trouver le pnj");
+                    pnjValide = pnj;
+                }
             }
         }
     }
@@ -80,11 +78,14 @@ public class PlayerData : NetworkBehaviour
     {
         if (pnjValide != null)
         {
-            GameObject text = Instantiate(textPrefab, new Vector3(pnjValide.transform.localPosition.x, pnjValide.transform.localPosition.y + 5f, pnjValide.transform.localPosition.z), Quaternion.identity, pnjValide.transform);
-            text.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
-            text.GetComponent<TextMesh>().text = playerName;
-            text.GetComponent<TextMesh>().color = color;
-            Debug.Log("textExiste" + text.GetComponent<TextMesh>().text);
+            pnjValide.GetComponentInChildren<TextMeshPro>().transform.gameObject.SetActive(true);
+
+            pnjValide.GetComponentInChildren<TextMeshPro>().text = playerName;
+            pnjValide.GetComponentInChildren<TextMeshPro>().color = color;
+
+            pnjValide.GetComponentInChildren<TextMeshPro>().transform.LookAt(GetComponentInChildren<Camera>().transform.position);
+
+            Debug.Log("textExiste" + pnjValide.GetComponentInChildren<TextMeshPro>().text);
         }
         else
         {
@@ -99,10 +100,10 @@ public class PlayerData : NetworkBehaviour
             frontPNJ();
             if (role == Role.Seeker)
             {
-                if(transform.position == new Vector3(0, 0, 0))
+                if (transform.position == new Vector3(0, 0, 0))
                 {
                     transform.position = DeuxiemeJoueurSpawn.transform.position;
-                    transform.rotation = DeuxiemeJoueurSpawn.transform.rotation; 
+                    transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 }
             }
             if (role == Role.Lost)
@@ -116,8 +117,8 @@ public class PlayerData : NetworkBehaviour
                         destroyPNJ();
                     }
                 }
-                
-                
+
+
             }
 
         }
@@ -180,15 +181,15 @@ public class PlayerData : NetworkBehaviour
 
             ClearOtherTchat();
 
-            
+
             NetworkMana.Instance.StartFadeOut();
             EnablePlayer(role);
-            
+
 
             foreach (NetworkConnection conn in NetworkServer.connections.Values)
             {
                 TargetEnableAudioListener(conn);
-                
+
             }
         }
     }
@@ -236,11 +237,11 @@ public class PlayerData : NetworkBehaviour
                 objRigid.constraints = RigidbodyConstraints.FreezePositionX;
                 objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
 
-                
+
             }
 
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
-            
+
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
         }
     }
@@ -331,7 +332,7 @@ public class PlayerData : NetworkBehaviour
 
         if (role != Role.None)
         {
-            GameObject building = GameObject.Find("VilleELP"); 
+            GameObject building = GameObject.Find("VilleELP");
             building.transform.position = new Vector3(0, 0, 0);
             GetComponentInChildren<PlayerInput>().enabled = false;
 
@@ -409,7 +410,7 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
 
-                
+
                 seekerAudio.enabled = false;
             }
 
@@ -434,7 +435,7 @@ public class PlayerData : NetworkBehaviour
         IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
         SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
 
-        IsoCameraSelection camSelecIso= GetComponent<IsoCameraSelection>();
+        IsoCameraSelection camSelecIso = GetComponent<IsoCameraSelection>();
 
         GetComponentInChildren<PlayerInput>().enabled = false;
 
@@ -454,7 +455,7 @@ public class PlayerData : NetworkBehaviour
 
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
-        
+
     }
 
     /// <summary>

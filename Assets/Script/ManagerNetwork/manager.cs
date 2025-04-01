@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System.Linq;
+using DG.Tweening;
 
 public class manager : NetworkBehaviour
 {
@@ -27,6 +28,30 @@ public class manager : NetworkBehaviour
 
     public SyncList<GameObject> charlieRoleQueue = new SyncList<GameObject>();
 
+    public void CamerasDezoom()
+    {
+        foreach (PlayerData player in scriptPlayer)
+        {
+            Camera playerCamera = player.transform.GetComponentInChildren<Camera>();
+
+            playerCamera.transform.localPosition = new Vector3(player.pnjValide.transform.localPosition.x - 10f, playerCamera.transform.localPosition.y, 0);
+
+            playerCamera.transform.LookAt(player.pnjValide.transform.localPosition);
+            playerCamera.transform.localEulerAngles = new Vector3(playerCamera.transform.localEulerAngles.x, 0, 0);
+
+            playerCamera.transform.DOLocalMove(new Vector3(player.pnjValide.transform.localPosition.x - 10f, playerCamera.transform.localPosition.y + 10, 0), 5f);
+        }
+        SpawnTextForPlayers();
+    }
+
+    public void SpawnTextForPlayers()
+    {
+        foreach (PlayerData player in scriptPlayer)
+        {
+            print("CamerasDezoom");
+            player.SpawnText();
+        }
+    }
     public void Awake()
     {
         if (!Instance)

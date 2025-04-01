@@ -68,7 +68,7 @@ public class takeEmoji : MonoBehaviour
     {
         foreach (Transform child in EmojiMenu)
         {
-            AddEmojiToList(child.GetComponentInChildren<TextMeshProUGUI>().text);
+            emojiList.Add(child.GetComponentInChildren<TextMeshProUGUI>().text);
         }
     }
 }
