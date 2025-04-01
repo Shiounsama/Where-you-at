@@ -1,9 +1,13 @@
-using Mirror;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Mirror;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 
 public class CheckPNJSelected : NetworkBehaviour
 {
-    public PlayerData _playerData;
+    private PlayerData _playerData;
 
     public IsoCameraSelection cameraSelection;
 
@@ -30,10 +34,11 @@ public class CheckPNJSelected : NetworkBehaviour
 
     private void Awake()
     {
+        cameraSelection = GetComponentInChildren<IsoCameraSelection>();
+        score = GetComponentInChildren<PlayerScoring>();
+        scoreGame = FindObjectOfType<ScoreGame>();
         _playerData = GetComponent<PlayerData>();
-        cameraSelection = transform.GetComponentInChildren<IsoCameraSelection>();
-        score = this.GetComponent<PlayerScoring>();
-        scoreGame = GameObject.FindObjectOfType<ScoreGame>();
+        
     }
 
     public void IsGuess()
@@ -46,20 +51,28 @@ public class CheckPNJSelected : NetworkBehaviour
         if (isLocalPlayer)
         {
             _playerData = GetComponent<PlayerData>();
-
             Vector3 testPNJ = cameraSelection.selectedObject.position;
-
             _playerData.setPNJvalide(testPNJ);
-
-
+            timer timerScript = FindObjectOfType<timer>();
+            timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+            //manager.Instance.CamerasDezoom();
         }
 
         _playerData.testPNJ();
-
-
         seekerView.guessButton.gameObject.SetActive(false);
 
+        foreach (NetworkConnection conn in NetworkServer.connections.Values)
+        {
+            timerTo30(conn);
+        }
+    }
 
-        Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
+    [TargetRpc]
+    private void timerTo30(NetworkConnection conn)
+    {
+        timer timerScript = FindObjectOfType<timer>();
+
+        if (timerScript.time > 30)
+            timerScript.time = 30;
     }
 }
