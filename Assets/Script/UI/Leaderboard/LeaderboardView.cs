@@ -31,11 +31,7 @@ public class LeaderboardView : View
     /// <summary>
     /// Efface le leaderboard et cache tous les panels.
     /// </summary>
-    private void OnClick_RestartButton()
-    {
-        ViewManager.Instance.HideAll();
-        manager.Instance.NextRound();
-    }
+    private void OnClick_RestartButton() => StartCoroutine(NetworkMana.Instance.RestartGame());
     #endregion
 
     #region Score

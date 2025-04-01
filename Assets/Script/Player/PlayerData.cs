@@ -99,7 +99,7 @@ public class PlayerData : NetworkBehaviour
 
 
             ClearOtherTchat();
-            NetworkMana.Instance.StartFadeOut();
+            ViewManager.Instance.StartFadeOut();
             EnablePlayer(role);    
 
             foreach (NetworkConnection conn in NetworkServer.connections.Values)
@@ -107,6 +107,12 @@ public class PlayerData : NetworkBehaviour
                 TargetEnableAudioListener(conn);
             }
         }
+    }
+
+    [TargetRpc]
+    public void TargetFadeTransition(NetworkConnection conn)
+    {
+        ViewManager.Instance.StartFadeIn();
     }
 
     [TargetRpc]
