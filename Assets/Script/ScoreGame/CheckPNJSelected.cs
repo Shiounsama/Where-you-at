@@ -42,8 +42,8 @@ public class CheckPNJSelected : NetworkBehaviour
     {
         //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-        score.ServerScore(resultat);
-        scoreGame.finished = true;
+        score.ServeurScore(resultat);
+        scoreGame.finish = true;
 
         if (isLocalPlayer)
         {
