@@ -1,9 +1,8 @@
 using System.Collections;
-using Mirror;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using System;
 
 public class takeEmoji : MonoBehaviour
 {
@@ -11,10 +10,6 @@ public class takeEmoji : MonoBehaviour
 
     public Camera thisCamera;
 
-    private void Start()
-    {
-        thisCamera = GetComponentInChildren<Camera>();
-    }
     public List<string> emojiList = new List<string>();
 
     public GameObject buttonPrefab;
@@ -23,7 +18,13 @@ public class takeEmoji : MonoBehaviour
 
     public Transform EmojiMenu;
 
-    void Update()
+    public IEnumerator DelayFunction(float delay, Action callback)
+    {
+        yield return new WaitForSeconds(delay);
+        callback();
+    }
+
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -36,12 +37,17 @@ public class takeEmoji : MonoBehaviour
                     if (hit.collider.CompareTag("emojiRecup"))
                     {
                         Debug.Log("PLOP !");
-                        GetStartedEmoji();
                         Destroy(hit.collider.gameObject);
                         AddEmojiToList("<sprite name=" + hit.collider.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name + ">");
                     }
                 }
         }
+    }
+
+    private void Start()
+    {
+        thisCamera = GetComponentInChildren<Camera>();
+        StartCoroutine(DelayFunction(3f, GetStartedEmoji));
     }
 
     public void AddEmojiToList(string textToAdd)

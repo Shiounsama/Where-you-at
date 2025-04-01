@@ -22,6 +22,8 @@ public class PlayerData : NetworkBehaviour
     [SyncVar] public Vector3 pnjValidePosition;
     public GameObject pnjValide;
 
+    public GameObject textPrefab;
+
     private Coroutine timerCoroutine;
 
     public static GameObject PNJcible { get; set; }
@@ -51,14 +53,44 @@ public class PlayerData : NetworkBehaviour
         {
             for (int i = 0; i < allPlayer.Count; i++)
             {
-                if (pnj.transform.position == allPlayer[i].pnjValidePosition)
-                {
-                    pnjValide = pnj;
-                }
+                Vector3 pnjPosition = pnj.transform.localPosition;
+                Vector3 pnjSelected = allPlayer[i].pnjValidePosition;
+
+                pnjPosition.x = Mathf.RoundToInt(pnjPosition.x);
+                pnjPosition.y = Mathf.RoundToInt(pnjPosition.y);
+                pnjPosition.z = Mathf.RoundToInt(pnjPosition.z);
+
+                pnjSelected.x = Mathf.RoundToInt(pnjSelected.x);
+                pnjSelected.y = Mathf.RoundToInt(pnjSelected.y);
+                pnjSelected.z = Mathf.RoundToInt(pnjSelected.z);
+
+
+                Debug.Log("Je suis dans la boucle");
+                if (pnjPosition == pnjSelected)
+                    if (pnj.transform.position == allPlayer[i].pnjValidePosition)
+                    {
+                        Debug.Log("Trouver le pnj");
+                        pnjValide = pnj;
+                    }
             }
         }
     }
 
+    public void SpawnText()
+    {
+        if (pnjValide != null)
+        {
+            GameObject text = Instantiate(textPrefab, new Vector3(pnjValide.transform.localPosition.x, pnjValide.transform.localPosition.y + 5f, pnjValide.transform.localPosition.z), Quaternion.identity, pnjValide.transform);
+            text.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
+            text.GetComponent<TextMesh>().text = playerName;
+            text.GetComponent<TextMesh>().color = color;
+            Debug.Log("textExiste" + text.GetComponent<TextMesh>().text);
+        }
+        else
+        {
+            print("pnjValide est null");
+        }
+    }
 
     private void Update()
     {
