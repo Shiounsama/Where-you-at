@@ -45,6 +45,7 @@ public class PlayerStatus : MonoBehaviour
     }
 
     private IEnumerator _coroutine;
+    private bool _isCoroutineRunning = false;
 
     private void OnEnable()
     {
@@ -55,6 +56,8 @@ public class PlayerStatus : MonoBehaviour
 
     private IEnumerator WaitingAnimation()
     {
+        _isCoroutineRunning = true;
+
         while (true)
         {
             newNameText = waitingText;
@@ -71,6 +74,22 @@ public class PlayerStatus : MonoBehaviour
     public void KillCoroutine()
     {
         StopCoroutine(_coroutine);
+        _isCoroutineRunning = false;
+    }
+
+    public void ResetPlayerStatus()
+    {
+        //Debug.Log("ResetPlayerStatus");
+
+        if (_isCoroutineRunning)
+            KillCoroutine();
+
+        UpdateNameText("");
+        UpdateReadyText("");
+
+        _coroutine = WaitingAnimation();
+
+        StartCoroutine(_coroutine);
     }
 
     #region TextMeshes

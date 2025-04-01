@@ -85,7 +85,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _playerData: {fileID: 0}
   cameraSelection: {fileID: 0}
   score: {fileID: 0}
   scoreGame: {fileID: 0}
@@ -112,10 +111,6 @@ MonoBehaviour:
   - {fileID: 4492919833360321380}
   charlieObjects:
   - {fileID: 2344567739409970027}
-  color: {r: 1, g: 0, b: 0, a: 1}
-  pnjValidePosition: {x: 0, y: 0, z: 0}
-  pnjValide: {fileID: 0}
-  textPrefab: {fileID: 4343883147717890212, guid: 9f9e16900501ab7469fbd5a98aae11e6, type: 3}
 --- !u!114 &5284582141068114091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,10 +126,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  victory: 0
-  finished: 0
-  finalScore: 0
-  playerName: 
+  victoire: 0
+  finish: 0
+  ScoreFinal: 0
 --- !u!114 &3605825858785897536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6611719d0957a6e41902f377d7e0f7fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEmoji: 5
+  maxEmoji: 10
   thisCamera: {fileID: 5738567190263072539}
   emojiList: []
   buttonPrefab: {fileID: 4472684352700073080, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
@@ -163,7 +157,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8799083869644219184}
   - component: {fileID: 5738567190263072539}
-  - component: {fileID: 3508041184774923918}
   - component: {fileID: 4090545452078903826}
   - component: {fileID: 5233573357017689073}
   - component: {fileID: 5651937395973213408}
@@ -171,8 +164,9 @@ GameObject:
   - component: {fileID: 1023364209447254201}
   - component: {fileID: 1442475729549407068}
   - component: {fileID: 218688681835275930}
-  - component: {fileID: 4168562127232418044}
   - component: {fileID: 5238412738729209366}
+  - component: {fileID: 6288134951934042583}
+  - component: {fileID: 5202107201769941492}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -246,14 +240,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &3508041184774923918
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690513810465107549}
-  m_Enabled: 1
 --- !u!114 &4090545452078903826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,18 +315,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: IsoCameraZoom, Assembly-CSharp
         m_MethodName: OnZoom
         m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5238412738729209366}
-        m_TargetAssemblyTypeName: IsoCameraXRay, Assembly-CSharp
-        m_MethodName: GetAllGameObjectInVision
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -438,7 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 5
   rotationLimitY: 90
-  zoomSpeed: 10
+  zoomSpeed: 30
   minZoom: 20
   maxZoom: 60
 --- !u!114 &631038455401883563
@@ -514,25 +488,6 @@ MonoBehaviour:
   layerToVerify:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &4168562127232418044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690513810465107549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16318785957b4724381776bd7306552a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  victory: 0
-  finished: 0
-  finalScore: 0
-  playerName: 
 --- !u!114 &5238412738729209366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,6 +505,31 @@ MonoBehaviour:
     m_Bits: 64
   boxSize: {x: 3, y: 3, z: 3}
   minSizeBeforeXRay: 5
+--- !u!114 &6288134951934042583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690513810465107549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7dd73a735de31141af42014ad28dfe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectedCameraPos: {x: 0, y: 0, z: 0}
+  cityTransform: {fileID: 0}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!81 &5202107201769941492
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690513810465107549}
+  m_Enabled: 0
 --- !u!1 &6611486576829453251
 GameObject:
   m_ObjectHideFlags: 0

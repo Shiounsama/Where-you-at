@@ -11,7 +11,7 @@ public class IsoCameraSelection : MonoBehaviour
 
     private void Awake()
     {
-        // _seekerView = ViewManager.Instance.GetView<SeekerView>();
+       // _seekerView = ViewManager.Instance.GetView<SeekerView>();
     }
 
     public void OnObjectSelected(InputAction.CallbackContext context)
@@ -32,12 +32,22 @@ public class IsoCameraSelection : MonoBehaviour
         }
     }
 
-    public void OnObjectUnselected(InputAction.CallbackContext context)
+    /*public void OnObjectUnselected(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             selectedObject = null;
             _seekerView.guessButton.gameObject.SetActive(false);
         }
+    }*/
+
+    public void OnObjectUnselected()
+    {
+        if (selectedObject != null)
+        {
+            selectedObject = null;
+            _seekerView.guessButton.gameObject.SetActive(false);
+        }
+             
     }
 }

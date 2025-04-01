@@ -2,103 +2,251 @@ using System.Collections;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.SocialPlatforms.Impl;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerScoring : NetworkBehaviour
 {
-    private Score score;
-
-    public bool victory;
+    public bool victoire;
 
     [SyncVar]
-    public bool finished;
+    public bool finish;
 
     [SyncVar]
-    public float finalScore;
+    public float Distance;
 
     [SyncVar]
-    public string playerName;
+    public int placement;
+
+    [SyncVar]
+    public float ScoreJoueur;
+
+    [SyncVar]
+    public float ScoreFinal;
+
+    [SyncVar]
+    public bool IsLost;
+    [SyncVar]
+    public bool IsGuess = false;
+
+
+
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
+        finish = false;
 
-        ServerSetPlayerName(GetComponentInParent<PlayerData>().playerName);
-
-        finished = false;
+        
     }
 
-    /// <summary>
-    /// Demande au serveur de mettre à jour le score du joueur.
-    /// </summary>
-    /// <param name="newScore">Nouveau score du joueur.</param>
+
     [Command]
-    public void ServerScore(float newScore)
+    public void ServeurScore(float newScore)
     {
-        StartCoroutine(ScoreCoroutine(newScore));
+        StartCoroutine(resultat(newScore));
     }
 
-    /// <summary>
-    /// Coroutine qui met à jour le score du joueur.
-    /// </summary>
-    /// <param name="newScore">Nouveau score du joueur.</param>
-    /// <returns></returns>
-    public IEnumerator ScoreCoroutine(float newScore)
+    [Command]
+    public void ShowScore()
     {
-        finalScore = newScore;
-        finished = true;
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            ShowScoreTimer(conn);
+        }
+    }
 
+    public IEnumerator resultat(float newScore)
+    {
+        Distance = newScore;
+        finish = true;
+
+        ScoreJoueur = 100 - Distance;
+
+        
         yield return new WaitForSeconds(0.1f);
 
         foreach (var conn in NetworkServer.connections.Values)
         {
-            TargetShowScore(conn);
+            //TargetShowScoreForPlayer(conn);
+            //ShowScoreLost(conn);
+            TargetHandleScores(conn);
         }
     }
 
-    /// <summary>
-    /// Affiche le score du joueur sur son propre Canvas.
-    /// </summary>
-    /// <param name="player">Joueur cible.</param>
-    [TargetRpc]
-    private void TargetShowScore(NetworkConnection player)
-    {
-        Debug.Log("TargetShowScore");
 
-        if (FindObjectOfType<ScoreGame>().finished)
+    [TargetRpc]
+    private void ShowScoreTimer(NetworkConnection target)
+    {
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+        float totalScore = 0;
+
+
+
+        foreach (PlayerScoring score in allScores)
         {
+            score.finish = true;
+
+            if (score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                if (score.GetComponentInChildren<IsoCameraSelection>().selectedObject != null)
+                {
+                    score.IsGuess = true;
+                }
+
+                score.IsLost = false;
+            }
+        }
+
+        foreach (PlayerScoring score in allScores)
+        {
+            if (score.finish && score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                int scorePosition = Mathf.Max(0, 60 - allScores.Count(score => score.finish) * 10);
+                totalScore += (score.ScoreJoueur + scorePosition) / (seekerCount);
+            }
+            else if (!score.IsGuess && score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                totalScore += 100;
+            }
+        }
+
+        foreach (PlayerScoring score in allScores)
+        {
+            if (score.GetComponent<PlayerData>().role == Role.Lost)
+            {
+                score.IsLost = true;
+                score.ScoreJoueur = totalScore;
+                score.ScoreFinal += totalScore;
+            }
+        }
+
+        FindObjectOfType<ScoreGame>().ShowScore();
+    }
+
+
+    [TargetRpc]
+    private void TargetHandleScores(NetworkConnection target)
+    {
+        var scoreGame = FindObjectOfType<ScoreGame>();
+
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        int finishedPlayers = allScores.Count(score => score.finish);
+        int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+        float totalScore = 0;
+
+        foreach (PlayerScoring score in allScores)
+        {
+            if (score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                score.IsLost = false;
+            }
+
+            if (score.finish)
+            {
+                int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
+                totalScore += (score.ScoreJoueur + scorePosition) / (seekerCount);
+            }
+        }
+
+        if (GetComponent<PlayerData>().role == Role.Seeker)
+        {
+            int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
+            ScoreJoueur += scorePosition;
+            ScoreFinal += ScoreJoueur;
+        }
+
+        if (seekerCount == finishedPlayers)
+        {
+            foreach (PlayerScoring score in allScores)
+            {
+                if (score.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    score.finish = true;
+                    score.IsLost = true;
+                    score.ScoreJoueur = totalScore;
+                    score.ScoreFinal += totalScore;
+                }
+            }
+        }
+
+        scoreGame.ShowScore();
+    }
+
+    /*[TargetRpc]
+    private void TargetShowScoreForPlayer(NetworkConnection target)
+    {
+        if (FindObjectOfType<ScoreGame>().finish && GetComponent<PlayerData>().role == Role.Seeker)
+        {
+            int compteurJoueur = 0;
+            List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+            foreach (PlayerScoring score in allScore)
+            {
+                if (score.finish)
+                    compteurJoueur++;
+
+                if (score.GetComponent<PlayerData>().role == Role.Seeker)
+                {
+                    score.IsLost = false;
+                }
+            }
+
+            int scorePosition = 60 - compteurJoueur * 10;
+            if (scorePosition < 0)
+                scorePosition = 0;
+            
+            ScoreJoueur += scorePosition;
+            ScoreFinal += ScoreJoueur;
+
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
 
-    [Command]
-    public void ShowScore(float newScore)
+    [TargetRpc]
+    private void ShowScoreLost(NetworkConnection target)
     {
-        finalScore = newScore;
-        finished = true;
-    }
+        int compteurScore = 0;
+        int compteurSeeker = 0;
+        float moyenneScore = 0;
 
-    /// <summary>
-    /// Demande au serveur de mettre à jour le nom du joueur.
-    /// </summary>
-    /// <param name="newName">Nouveau nom du joueur.</param>
-    [Command]
-    private void ServerSetPlayerName(string newName)
-    {
-        Debug.Log($"Server set player name: {playerName}");
+        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        foreach (PlayerScoring score in allScore)
+        {
+            if (score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                compteurSeeker++;
+            }
 
-        playerName = newName;
-    }
-}
+            if (score.finish)
+            {
+                compteurScore++;
+                moyenneScore += score.ScoreJoueur / (allScore.Count - 1);
 
-[Serializable]
-public class Score
-{
-    public int time;
-    public int distance;
+            }
 
-    public Score(int time, int distance)
-    {
-        this.time = time;
-        this.distance = distance;
-    }
+            if (compteurSeeker == compteurScore)
+            {
+                score.finish = true;
+                
+            }
+        }
+
+        if (compteurSeeker == compteurScore)
+        {
+            foreach (PlayerScoring score in allScore)
+            {
+                if (score.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    score.IsLost = true;
+                    score.ScoreJoueur = moyenneScore;
+                    score.ScoreFinal += moyenneScore;
+                }
+            }
+           
+            FindObjectOfType<ScoreGame>().ShowScore();
+        }
+    }*/
+
 }

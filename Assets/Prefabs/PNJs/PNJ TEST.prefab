@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3419422152505854107}
   - component: {fileID: 2634903942962314681}
   - component: {fileID: 8076428109773290024}
+  - component: {fileID: 2572426843885700393}
   m_Layer: 3
   m_Name: PNJ TEST
   m_TagString: pnj
@@ -178,9 +179,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.3
-  m_Height: 5.5
+  m_Height: 5.8151965
   m_Direction: 1
-  m_Center: {x: 0.07, y: -0.33, z: 0}
+  m_Center: {x: 0.06999999, y: -0.17240733, z: 0}
 --- !u!54 &8076428109773290024
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -208,6 +209,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1
+--- !u!114 &2572426843885700393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41437293004538200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3171237858
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &459870660579422176
 GameObject:
   m_ObjectHideFlags: 0

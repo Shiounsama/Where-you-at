@@ -5,6 +5,7 @@ using Mirror;
 using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
+using DG.Tweening;
 
 public class NetworkMana : NetworkManager
 {
@@ -14,6 +15,11 @@ public class NetworkMana : NetworkManager
     [Scene][SerializeField] private string mainScene;
 
     [Scene][SerializeField] private string menuScene = string.Empty;
+
+    [Header("UI")]
+    [SerializeField] private CanvasGroup fadeImage;
+    [SerializeField] private float fadeDuration = 1f;
+    public static bool IsFading = false;
 
     [Header ("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
@@ -48,7 +54,6 @@ public class NetworkMana : NetworkManager
 
         foreach (var prefab in spawnablePrefabs)
         {
-            Debug.Log($"Spawnable prefab: {prefab.name}");
 
             NetworkClient.RegisterPrefab(prefab);
         }
@@ -56,7 +61,7 @@ public class NetworkMana : NetworkManager
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
-        if (numPlayers >= maxConnections)
+        if (numPlayers >= maxConnections + 3)
         {
             conn.Disconnect();
             return;
@@ -100,27 +105,49 @@ public class NetworkMana : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        Debug.Log($"Active scene: {SceneManager.GetActiveScene().path}");
-        Debug.Log($"Lobby scene: {lobbyScene}");
-
         if (SceneManager.GetActiveScene().path == lobbyScene)
         {
             bool isLeader = RoomPlayers.Count == 0;
             NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
-            Debug.Log("Instantiation of room player lobby.");
             roomPlayerInstance.IsLeader = isLeader;
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
 
+            ViewManager.Instance.UpdateViewsList();
             ViewManager.Instance.Show<LobbyView>();
         }
     }
 
-    public void StartGame()
+    public bool IsHost()
+    {
+        return NetworkServer.connections.Count > 0;
+    }
+
+    public void StartFadeIn()
+    {
+        IsFading = true;
+        fadeImage.DOFade(1, fadeDuration).OnComplete(() => IsFading = false);
+    }
+
+    public void StartFadeOut()
+    {
+        IsFading = true;
+        fadeImage.DOFade(0, fadeDuration).OnComplete(() => IsFading = false);
+    }
+
+    public IEnumerator StartGame()
     {
         if (SceneManager.GetActiveScene().path == lobbyScene)
         {
-            if (!IsReadyToStart()) { return; }
+            if (!IsReadyToStart())
+                yield break;
+
+            for (int i = 0; i < RoomPlayers.Count; i++)
+            {
+                RoomPlayers[i].TargetFadeTransition(NetworkServer.connections[i]);
+            }
+
+            yield return new WaitForSeconds(fadeDuration);
 
             ServerChangeScene(mainScene);
         }
@@ -131,7 +158,7 @@ public class NetworkMana : NetworkManager
         base.OnClientSceneChanged();
 
         if (SceneManager.GetActiveScene().path == mainScene) 
-        { 
+        {
             scriptManager.GiveRole();
         }
     }
