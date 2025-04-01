@@ -21,6 +21,7 @@ public class PlayerData : NetworkBehaviour
     [SyncVar] public Color color;
     [SyncVar] public Vector3 pnjValidePosition;
     public GameObject pnjValide;
+    public GameObject textPrefab;
 
     public static GameObject PNJcible { get; set; }
 
@@ -36,6 +37,22 @@ public class PlayerData : NetworkBehaviour
         foreach (var conn in NetworkServer.connections.Values)
         {
             TargetShowScoreForPlayer(conn);
+        }
+    }
+
+    public void SpawnText()
+    {
+        if(pnjValide != null)
+        {
+            GameObject text = Instantiate(textPrefab, new Vector3(pnjValide.transform.localPosition.x, pnjValide.transform.localPosition.y + 5f, pnjValide.transform.localPosition.z), Quaternion.identity, pnjValide.transform);
+            text.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
+            text.GetComponent<TextMesh>().text = playerName;
+            text.GetComponent<TextMesh>().color = color;
+            Debug.Log("textExiste" + text.GetComponent<TextMesh>().text);
+        }
+        else
+        {
+            print("pnjValide est null");
         }
     }
 

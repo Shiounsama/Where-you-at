@@ -1,8 +1,8 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Mirror;
 using System.Linq;
+using UnityEngine;
 
 public class manager : NetworkBehaviour
 {
@@ -33,22 +33,37 @@ public class manager : NetworkBehaviour
             Instance = this;
     }
 
-    bool IsEveryoneActive()
+    public void SpawnTextForPlayers()
     {
-        foreach (var conn in NetworkServer.connections.Values)
+        foreach (PlayerData player in scriptPlayer)
         {
-            if (conn.identity == null || !conn.identity.gameObject.activeInHierarchy)
-            {
-                return false; // Un joueur n'est pas actif
-            }
+            print("CamerasDezoom");
+            player.SpawnText();
         }
-        return true; // Tous les joueurs sont actifs
     }
+
+    public void CamerasDezoom()
+    {
+        //foreach (PlayerData player in scriptPlayer)
+        //{
+        //    Camera playerCamera = player.transform.GetComponentInChildren<Camera>();
+
+        //    playerCamera.transform.localPosition = new Vector3(player.pnjValide.transform.localPosition.x - 10f, playerCamera.transform.localPosition.y, 0);
+
+        //    playerCamera.transform.LookAt(player.pnjValide.transform.localPosition);
+        //    playerCamera.transform.localEulerAngles = new Vector3(playerCamera.transform.localEulerAngles.x, 0, 0);
+
+        //    playerCamera.transform.DOLocalMove(new Vector3(player.pnjValide.transform.localPosition.x - 10f, playerCamera.transform.localPosition.y + 10, 0), 5f);
+        //}
+        SpawnTextForPlayers();
+    }
+
     /// <summary>
-    /// Définit l'ordre d'attribution du rôle de Charlie à chaque joueur.
+    /// Dï¿½finit l'ordre d'attribution du rï¿½le de Charlie ï¿½ chaque joueur.
     /// </summary>
     private void SetCharlieRoleQueue()
     {
+        Debug.Log("SetCharlieRoleQueue");
 
         charlieRoleQueue = new SyncList<GameObject>();
 
@@ -71,7 +86,6 @@ public class manager : NetworkBehaviour
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
         List<GameObject> ListPNJ = new List<GameObject>();
-
         foreach (GameObject obj in allPNJ)
         {
             ListPNJ.Add(obj);
@@ -94,17 +108,18 @@ public class manager : NetworkBehaviour
         foreach (PlayerData playerScript in scriptPlayer)
         {
             player.Add(playerScript.gameObject);
-            playerScript.AssignRole(Role.Seeker);
+            playerScript.role = Role.Seeker;
         }
 
         int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
 
-        //SetCharlieRoleQueue();
-        //GiveNextRoles();
-        
-        yield return new WaitForSeconds(.1f);
-        
+
+        SetCharlieRoleQueue();
+        GiveNextRoles();
+
+        yield return new WaitForSeconds(2f);
+
         PlayersStartScene();
     }
 
@@ -114,7 +129,8 @@ public class manager : NetworkBehaviour
         {
             if (playerscript.isLocalPlayer)
             {
-                playerscript.StartScene(playerscript);   
+                playerscript.StartScene(playerscript);
+
             }
         }
     }
@@ -125,8 +141,9 @@ public class manager : NetworkBehaviour
         {
             if (playerscript.isLocalPlayer)
             {
-
+                Debug.Log(playerscript);
                 return playerscript;
+
             }
         }
 
@@ -134,12 +151,13 @@ public class manager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Passe à la prochaine manche du jeu.
+    /// Passe ï¿½ la prochaine manche du jeu.
     /// </summary>
     public void NextRound()
     {
-        foreach (PlayerData playerscript in scriptPlayer)
+        /*foreach (PlayerData playerscript in scriptPlayer)
         {
+            if (playerscript.isLocalPlayer)
             if (playerscript.isLocalPlayer)
             {
                 playerscript.StartGame();
@@ -147,50 +165,41 @@ public class manager : NetworkBehaviour
             }
         }
 
-        GiveRole();
-        PlayersStartScene();
+        GiveNextRoles();
+        PlayersStartScene();*/
 
         StartCoroutine(roundlaunch());
     }
 
     /// <summary>
-    /// Assigne les prochains rôles des joueurs selon l'ordre prédéfini.
+    /// Assigne les prochains rï¿½les des joueurs selon l'ordre prï¿½dï¿½fini.
     /// </summary>
-    IEnumerator roundlaunch()
+    public void GiveNextRoles()
     {
-        
-
-        foreach (PlayerData playerscript in scriptPlayer)
+        foreach (PlayerData playerScript in scriptPlayer)
         {
-            if (playerscript.isLocalPlayer)
-            {
-                playerscript.RpcStartGame();
-            }
-            
+            playerScript.AssignRole(Role.Seeker);
         }
 
-        yield return new WaitForSeconds(0.2f);
+        charlieRoleQueue[0].GetComponent<PlayerData>().AssignRole(Role.Lost);
 
-        PlayersStartScene();
+        charlieRoleQueue.RemoveAt(0);
     }
 
-    /*IEnumerator roundlaunch() 
+    IEnumerator roundlaunch()
     {
         foreach (PlayerData playerscript in scriptPlayer)
         {
             if (playerscript.isLocalPlayer)
             {
-                Debug.Log("Je suis le test");
                 playerscript.StartGame();
 
             }
         }
 
-        //GiveNextRoles();
-
+        GiveNextRoles();
         yield return new WaitForSeconds(0.2f);
-
         PlayersStartScene();
-    }*/
+    }
 
 }
