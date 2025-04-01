@@ -42,10 +42,18 @@ public class PlayerData : NetworkBehaviour
 
     public void SpawnText()
     {
-        GameObject text = Instantiate(textPrefab, new Vector3(pnjValide.transform.localPosition.x, pnjValide.transform.localPosition.y + 5f, pnjValide.transform.localPosition.z), Quaternion.identity);
-        text.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
-        text.GetComponent<TextMesh>().text = playerName;
-        text.GetComponent<TextMesh>().color = color;
+        if(pnjValide != null)
+        {
+            GameObject text = Instantiate(textPrefab, new Vector3(pnjValide.transform.localPosition.x, pnjValide.transform.localPosition.y + 5f, pnjValide.transform.localPosition.z), Quaternion.identity, pnjValide.transform);
+            text.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
+            text.GetComponent<TextMesh>().text = playerName;
+            text.GetComponent<TextMesh>().color = color;
+            Debug.Log("textExiste" + text.GetComponent<TextMesh>().text);
+        }
+        else
+        {
+            print("pnjValide est null");
+        }
     }
 
     [TargetRpc]

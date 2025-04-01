@@ -1,4 +1,6 @@
 using Mirror;
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class CheckPNJSelected : NetworkBehaviour
@@ -54,7 +56,15 @@ public class CheckPNJSelected : NetworkBehaviour
         _playerData.testPNJ();
         seekerView.guessButton.gameObject.SetActive(false);
 
+        DelayFunction(manager.Instance.CamerasDezoom, 2f);
+
 
         Debug.Log($"IsGuess; isLocalPlayer: {isLocalPlayer}");
+    }
+
+    public IEnumerator DelayFunction(Action action, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        action();
     }
 }
