@@ -108,7 +108,7 @@ public class PlayerData : NetworkBehaviour
             }
             if (role == Role.Lost)
             {
-                if (transform.position == new Vector3(0, 0, 0))
+                if (transform.position == new Vector3(0, 0, 0) || transform.position == DeuxiemeJoueurSpawn.transform.position)
                 {
                     if (PNJcible != null)
                     {
@@ -171,21 +171,17 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            PremierJoueurSpawn = GameObject.Find("spawn1");
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
 
             int randomNumber = Random.Range(0, allPNJ.Length);
 
-
             ClearOtherTchat();
-
-
+           
             NetworkMana.Instance.StartFadeOut();
             EnablePlayer(role);
-
-
+            
             foreach (NetworkConnection conn in NetworkServer.connections.Values)
             {
                 TargetEnableAudioListener(conn);
@@ -326,7 +322,7 @@ public class PlayerData : NetworkBehaviour
 
         AudioListener audioListener = camPlayer.GetComponent<AudioListener>();
 
-        PlayerScoring playerScore = GetComponent<PlayerScoring>();
+        List<PlayerScoring> playerScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
 
         ViewManager.Instance.UpdateViewsList();
 
@@ -360,7 +356,16 @@ public class PlayerData : NetworkBehaviour
 
             timer timerGame = FindAnyObjectByType<timer>();
 
-            playerScore.ScoreJoueur = 0;
+            foreach(PlayerScoring score in playerScore)
+            {
+                score.ScoreJoueur = 0;
+
+                if (score.isLocalPlayer)
+                {
+                    
+                }
+            }
+            
 
 
             if (role == Role.Seeker)
