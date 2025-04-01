@@ -141,6 +141,11 @@ public class PlayerScoring : NetworkBehaviour
         {
             if (score.GetComponent<PlayerData>().role == Role.Seeker)
             {
+                if (score.GetComponentInChildren<IsoCameraSelection>().selectedObject != null)
+                {
+                    score.IsGuess = true;
+                }
+
                 score.IsLost = false;
             }
 
