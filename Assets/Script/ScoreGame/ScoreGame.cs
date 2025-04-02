@@ -27,6 +27,7 @@ public class ScoreGame : NetworkBehaviour
         if (!_leaderboardView)
             _leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
 
+        Debug.Log("test dans le ShowScore");
         playerScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         playerScores = playerScores.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.Distance).ToList();
 
