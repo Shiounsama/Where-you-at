@@ -92,7 +92,7 @@ public class PNJSpawner : MonoBehaviour
 
             Collider[] colliders = Physics.OverlapBox(
                                     spawnPosition,
-                                    objectToInstantiate.transform.localScale / 2.5f,
+                                    objectToInstantiate.transform.localScale / 1f,
                                     Quaternion.identity);
 
             validPosition = colliders.Length == 1;

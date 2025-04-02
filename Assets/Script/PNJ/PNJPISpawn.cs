@@ -25,7 +25,7 @@ public class PNJPISpawn : MonoBehaviour
 
     IEnumerator spawnPIPNJ()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         Random.InitState(seed.Instance.SeedValue);
         for (int i = 0; i < nombrePNJPI; i++)
         {
@@ -65,7 +65,7 @@ public class PNJPISpawn : MonoBehaviour
 
             Collider[] colliders = Physics.OverlapBox(
                                    spawnPosition,
-                                   objectToInstantiate.transform.localScale / 0.1f,
+                                   objectToInstantiate.transform.localScale / 1f,
                                    Quaternion.identity);
 
            
