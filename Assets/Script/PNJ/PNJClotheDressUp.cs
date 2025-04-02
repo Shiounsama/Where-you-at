@@ -88,16 +88,16 @@ public class PNJClothe : MonoBehaviour
 
     public void choseCorps()
     {
-        int randomNumberListCorps = Random.Range(0, corpsClothe.Length);
+        int randomNumberListCorps = 0;
         int randomNumberListTete = Random.Range(0, teteClothe.Length);
 
         int randomNumberHair = Random.Range(0, corpsClothe[randomNumberListCorps].clotheList.Count);
 
-        Sprite spriteCorps = corpsClothe[randomNumberListCorps].ReturnRandomClothe(randomNumberHair);
-        Sprite spriteTete = teteClothe[randomNumberListTete].ReturnRandomClothe(randomNumberHair);
+        Sprite spriteCorps = corpsClothe[randomNumberHair].ReturnRandomClothe(randomNumberListCorps);
+        Sprite spriteTete = teteClothe[randomNumberHair].ReturnRandomClothe(randomNumberListTete);
 
 
-        frontHairClotheImage.sprite = spriteCorps;
-        backHairClotheImage.sprite = spriteTete;
+        corpsClotheImage.sprite = spriteCorps;
+        teteClotheImage.sprite = spriteTete;
     }
 }
