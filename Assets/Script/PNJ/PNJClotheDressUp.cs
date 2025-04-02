@@ -29,7 +29,7 @@ public class PNJClothe : MonoBehaviour
     public void Start()
     {
         choseHair();
-        //choseCorps();
+        choseCorps();
         chooseExpression(eyesClothe, eyesClotheImage);
         chooseExpression(plusClothe, plusClotheImage);
         chooseExpression(mouthClothe, mouthClotheImage);
