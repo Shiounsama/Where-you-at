@@ -27,7 +27,9 @@ public class timer : NetworkBehaviour
         while (tempsjoueur.time > 0)
         {
             tempsjoueur.time--;
-            tempsjoueur.timeLost--;
+            if(tempsjoueur.timeLost > 0)
+                tempsjoueur.timeLost--;
+
             yield return new WaitForSeconds(1f);
             texteTimer.text = string.Format("{0:0}:{1:00}", Mathf.Floor(tempsjoueur.time / 60), tempsjoueur.time % 60);
         }
