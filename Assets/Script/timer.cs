@@ -11,7 +11,7 @@ public class timer : NetworkBehaviour
 {
     public timer tempsjoueur;
     public int time = 0;
-    public Image timeSprite;
+
     public int timeStart = 180;
 
     public IEnumerator Timer()
@@ -21,7 +21,6 @@ public class timer : NetworkBehaviour
 
         time = timeStart;
         texteTimer.enabled = true;
-        timeSprite.enabled = true;
         while (tempsjoueur.time > 0)
         {
             tempsjoueur.time--;
@@ -30,7 +29,6 @@ public class timer : NetworkBehaviour
         }
 
         texteTimer.enabled = false;
-        timeSprite.enabled = false;
         score.ShowScore();
     }
 }
