@@ -12,10 +12,10 @@ public class IsoCameraDrag : MonoBehaviour
 
     public Camera camIso;
 
-    private Vector3 startDraggingMousePos;
-    private Vector3 cameraPosOrigin;
+    public Vector3 startDraggingMousePos;
+    public Vector3 cameraPosOrigin;
     private Vector3 directionToMove;
-    private Vector3 objectOriginPos;
+    public Vector3 objectOriginPos;
     private Vector3 targetPosition;
     [SerializeField, Tooltip("0 ou 1 RIEN D'AUTRE sinon ça part en couillasses")] private Vector3 axisLocker;
 
@@ -93,7 +93,7 @@ public class IsoCameraDrag : MonoBehaviour
         return false;
     }
 
-    private Vector3 GetMouseWorldPosition()
+    public Vector3 GetMouseWorldPosition()
     {
         return mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
     }

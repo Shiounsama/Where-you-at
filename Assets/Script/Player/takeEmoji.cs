@@ -36,6 +36,7 @@ public class takeEmoji : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("emojiRecup"))
                     {
+                        GetStartedEmoji();
                         Debug.Log("PLOP !");
                         Destroy(hit.collider.gameObject);
                         AddEmojiToList("<sprite name=" + hit.collider.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name + ">");
@@ -46,8 +47,9 @@ public class takeEmoji : MonoBehaviour
 
     private void Start()
     {
+        emojiList.Clear();
         thisCamera = GetComponentInChildren<Camera>();
-        StartCoroutine(DelayFunction(3f, GetStartedEmoji));
+        //StartCoroutine(DelayFunction(3f, GetStartedEmoji));
     }
 
     public void AddEmojiToList(string textToAdd)
@@ -66,9 +68,12 @@ public class takeEmoji : MonoBehaviour
 
     public void GetStartedEmoji()
     {
-        foreach (Transform child in EmojiMenu)
+        if(emojiList.Count < 5 )
         {
-            emojiList.Add(child.GetComponentInChildren<TextMeshProUGUI>().text);
+            foreach (Transform child in EmojiMenu)
+            {
+                emojiList.Add(child.GetComponentInChildren<TextMeshProUGUI>().text);
+            }
         }
     }
 }
