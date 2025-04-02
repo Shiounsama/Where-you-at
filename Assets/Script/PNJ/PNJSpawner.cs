@@ -83,7 +83,7 @@ public class PNJSpawner : MonoBehaviour
 
         while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.01f);
             spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
                         transform.position.y,
                         Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));

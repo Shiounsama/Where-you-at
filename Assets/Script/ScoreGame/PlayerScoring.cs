@@ -37,8 +37,6 @@ public class PlayerScoring : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         finish = false;
-
-        
     }
 
 
