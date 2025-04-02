@@ -112,7 +112,7 @@ public class PlayerData : NetworkBehaviour
                 {
                     if (PNJcible != null)
                     {
-                        transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
+                        transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
                         destroyPNJ();
                     }
