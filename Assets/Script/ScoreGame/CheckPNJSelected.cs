@@ -3,9 +3,12 @@ using UnityEngine.InputSystem;
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class CheckPNJSelected : NetworkBehaviour
 {
+    private PlayerData _playerData;
+
     public IsoCameraSelection cameraSelection;
 
     public PlayerScoring score;
@@ -34,28 +37,42 @@ public class CheckPNJSelected : NetworkBehaviour
         cameraSelection = GetComponentInChildren<IsoCameraSelection>();
         score = GetComponentInChildren<PlayerScoring>();
         scoreGame = FindObjectOfType<ScoreGame>();
-    }
-
-
-
-    public void IsGuessRight(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (cameraSelection.selectedObject.gameObject == PlayerData.PNJcible)
-            {
-            }
-        }
+        _playerData = GetComponent<PlayerData>();
+        
     }
 
     public void IsGuess()
     {
+        //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
+        float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+        score.ServeurScore(resultat);
+        scoreGame.finish = true;
+
         if (isLocalPlayer)
         {
-            scoreGame.finished = true;
-            float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-            score.ServerScore(resultat);
-            seekerView.guessButton.gameObject.SetActive(false);
+            _playerData = GetComponent<PlayerData>();
+            Vector3 testPNJ = cameraSelection.selectedObject.position;
+            _playerData.setPNJvalide(testPNJ);
+            timer timerScript = FindObjectOfType<timer>();
+            timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+            //manager.Instance.CamerasDezoom();
         }
+
+        _playerData.testPNJ();
+        seekerView.guessButton.gameObject.SetActive(false);
+
+        foreach (NetworkConnection conn in NetworkServer.connections.Values)
+        {
+            timerTo30(conn);
+        }
+    }
+
+    [TargetRpc]
+    private void timerTo30(NetworkConnection conn)
+    {
+        timer timerScript = FindObjectOfType<timer>();
+
+        if (timerScript.time > 30)
+            timerScript.time = 30;
     }
 }

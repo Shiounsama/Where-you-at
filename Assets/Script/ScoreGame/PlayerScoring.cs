@@ -2,101 +2,177 @@ using System.Collections;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.SocialPlatforms.Impl;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerScoring : NetworkBehaviour
 {
-    private Score score;
-
-    public bool victory;
+    public bool victoire;
 
     [SyncVar]
-    public bool finished;
+    public bool finish;
 
     [SyncVar]
-    public float finalScore;
+    public float Distance;
 
     [SyncVar]
-    public string playerName;
+    public int placement;
+
+    [SyncVar]
+    public float ScoreJoueur;
+
+    [SyncVar]
+    public float ScoreFinal;
+
+    [SyncVar]
+    public bool IsLost;
+    [SyncVar]
+    public bool IsGuess = false;
+
+
+
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
+        finish = false;
 
-        ServerSetPlayerName(GetComponentInParent<PlayerData>().playerName);
-
-        finished = false;
+        
     }
 
-    /// <summary>
-    /// Demande au serveur de mettre à jour le score du joueur.
-    /// </summary>
-    /// <param name="newScore">Nouveau score du joueur.</param>
+
     [Command]
-    public void ServerScore(float newScore)
+    public void ServeurScore(float newScore)
     {
-        StartCoroutine(ScoreCoroutine(newScore));
+        StartCoroutine(resultat(newScore));
     }
 
-    /// <summary>
-    /// Coroutine qui met à jour le score du joueur.
-    /// </summary>
-    /// <param name="newScore">Nouveau score du joueur.</param>
-    /// <returns></returns>
-    public IEnumerator ScoreCoroutine(float newScore)
+    [Command]
+    public void ShowScore()
     {
-        finalScore = newScore;
-        finished = true;
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            ShowScoreTimer(conn);
+        }
+    }
+
+    public IEnumerator resultat(float newScore)
+    {
+        Distance = newScore;
+        finish = true;
+
+        ScoreJoueur = 100 - Distance;
 
         yield return new WaitForSeconds(0.1f);
 
         foreach (var conn in NetworkServer.connections.Values)
         {
-            TargetShowScore(conn);
+            TargetHandleScores(conn);
         }
     }
 
-    /// <summary>
-    /// Affiche le score du joueur sur son propre Canvas.
-    /// </summary>
-    /// <param name="player">Joueur cible.</param>
+
     [TargetRpc]
-    private void TargetShowScore(NetworkConnection player)
+    private void ShowScoreTimer(NetworkConnection target)
     {
-        if (FindObjectOfType<ScoreGame>().finished)
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+        float totalScore = 0;
+
+        foreach (PlayerScoring score in allScores)
         {
-            FindObjectOfType<ScoreGame>().ShowScore();
+            score.finish = true;
+
+            if (score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                if (score.GetComponentInChildren<IsoCameraSelection>().selectedObject != null)
+                {
+                    score.IsGuess = true;
+                }
+
+                if (score.IsGuess)
+                {
+                    float resultat = Mathf.Round(Vector3.Distance(score.GetComponentInChildren<IsoCameraSelection>().selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+                    float scorePosition = Mathf.Max(0, 60 - allScores.Count(score => score.finish) * 10);
+                    scorePosition += 100 - resultat;
+                    totalScore += (score.ScoreJoueur + scorePosition) / (seekerCount);
+                }
+
+                if (!score.IsGuess)
+                {
+                    totalScore += 100;
+                }
+
+                score.IsLost = false;
+            }
         }
+
+        foreach (PlayerScoring score in allScores)
+        {
+            if (score.GetComponent<PlayerData>().role == Role.Lost)
+            {
+                score.IsLost = true;
+                score.ScoreJoueur = totalScore;
+                score.ScoreFinal += totalScore;
+            }
+        }
+
+        FindObjectOfType<ScoreGame>().ShowScore();
     }
 
-    [Command]
-    public void ShowScore(float newScore)
+
+    [TargetRpc]
+    private void TargetHandleScores(NetworkConnection target)
     {
-        finalScore = newScore;
-        finished = true;
+        var scoreGame = FindObjectOfType<ScoreGame>();
+
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        int finishedPlayers = allScores.Count(score => score.finish);
+        int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+        float totalScore = 0;
+
+        foreach (PlayerScoring score in allScores)
+        {
+            if (score.GetComponent<PlayerData>().role == Role.Seeker)
+            {
+                if (score.GetComponentInChildren<IsoCameraSelection>().selectedObject != null)
+                {
+                    score.IsGuess = true;
+                }
+
+                score.IsLost = false;
+            }
+
+            if (score.finish)
+            {
+                int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
+                totalScore += (score.ScoreJoueur + scorePosition) / (seekerCount);
+            }
+        }
+
+        if (GetComponent<PlayerData>().role == Role.Seeker)
+        {
+            int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
+            ScoreJoueur += scorePosition;
+            ScoreFinal += ScoreJoueur;
+        }
+
+        if (seekerCount == finishedPlayers)
+        {
+            foreach (PlayerScoring score in allScores)
+            {
+                if (score.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    score.finish = true;
+                    score.IsLost = true;
+                    score.ScoreJoueur = totalScore;
+                    score.ScoreFinal += totalScore;
+                }
+            }
+        }
+
+        scoreGame.ShowScore();
     }
 
-    /// <summary>
-    /// Demande au serveur de mettre à jour le nom du joueur.
-    /// </summary>
-    /// <param name="newName">Nouveau nom du joueur.</param>
-    [Command]
-    private void ServerSetPlayerName(string newName)
-    {
-        Debug.Log($"Server set player name: {playerName}");
-
-        playerName = newName;
-    }
-}
-
-[Serializable]
-public class Score
-{
-    public int time;
-    public int distance;
-
-    public Score(int time, int distance)
-    {
-        this.time = time;
-        this.distance = distance;
-    }
 }

@@ -34,11 +34,10 @@ public class PointInteretManager : MonoBehaviour
             {
                 constructionList[x].pointInteret = true;
                 a++;
-                if (seed.Instance != null)
-                {
-                    seed.Instance.SeedValue++;
-                }
+               
             }
         }
+
+        seed.Instance.SeedValue++;
     }
 }

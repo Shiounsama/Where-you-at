@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7955349465628382180}
   - component: {fileID: 8806690992553315526}
   - component: {fileID: 1681415351222101991}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8448849091008463481}
   - component: {fileID: 8416823553301839574}
-  m_Layer: 0
+  - component: {fileID: 5043669883171234597}
+  m_Layer: 6
   m_Name: 3 stair lookin pattern 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013716936363261749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -92.77643, y: 0, z: -8.123573}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -130,3 +131,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabBuildingType: 4
   prefabBuildingName: 9
+--- !u!65 &5043669883171234597
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013716936363261749}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.7, y: 6.44, z: 6.39}
+  m_Center: {x: 0, y: 3.02, z: 0}

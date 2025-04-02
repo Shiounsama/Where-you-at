@@ -15,9 +15,16 @@ public class LeaderboardView : View
 
     public override void Initialize()
     {
+        restartButton.onClick.RemoveAllListeners(); 
         restartButton.onClick.AddListener(OnClick_RestartButton);
 
         base.Initialize();
+    }
+
+    private void OnEnable()
+    {
+        //Debug.Log("Leaderboard OnEnable");
+        ClearLeaderboard();
     }
 
     #region Button Events
@@ -26,9 +33,9 @@ public class LeaderboardView : View
     /// </summary>
     private void OnClick_RestartButton()
     {
-        ClearLeaderboard();
         ViewManager.Instance.HideAll();
         manager.Instance.NextRound();
+        
     }
     #endregion
 
@@ -37,17 +44,49 @@ public class LeaderboardView : View
     /// Ajoute un nouveau score au leaderboard.
     /// </summary>
     /// <param name="playerScoring">Classe qui gère le score du joueur.</param>
-    public void AddScore(PlayerScoring playerScoring)
+    public void AddScore(PlayerScoring playerScoring, int placement)
     {
         GameObject newScore = GameObject.Instantiate(scoreElementPrefab, scoresLayout);
 
         ScoreElement scoreElement = newScore.GetComponent<ScoreElement>();
         scoreElements.Add(scoreElement);
 
-        int placement = 0;
         string playerName = playerScoring.GetComponent<PlayerData>().playerName;
-        float distance = playerScoring.finalScore;
-        scoreElement.UpdateScoreText(placement, playerName, distance);
+        
+        float distance = playerScoring.Distance;
+
+        float Score = playerScoring.ScoreJoueur;
+
+        float scoreFinal = playerScoring.ScoreFinal;
+
+        bool isLost = playerScoring.IsLost;
+
+        bool isGuess = playerScoring.IsGuess; 
+        
+        
+
+        scoreElement.UpdateScoreText(placement, playerName, distance, Score, scoreFinal, isLost, isGuess);
+
+        DisableRestartButton();
+
+        int compteurScore = 0;
+        List<PlayerScoring> allScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+
+        foreach (PlayerScoring score in allScore)
+        {
+
+            if (score.finish)
+            {
+                compteurScore++;
+            }
+
+            if (allScore.Count == compteurScore)
+            {
+                AbleRestartButton();
+
+            }
+
+        }
     }
 
     /// <summary>
@@ -64,4 +103,16 @@ public class LeaderboardView : View
     }
     #endregion
 
+    /// <summary>
+    /// Désactive le bouton Restart pour le joueur
+    /// </summary>
+    public void DisableRestartButton()
+    {
+        restartButton.gameObject.SetActive(false);
+    }
+
+    public void AbleRestartButton()
+    {
+        restartButton.gameObject.SetActive(true);
+    }
 }

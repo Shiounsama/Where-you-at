@@ -6,21 +6,12 @@ public class ClotheCollection : ScriptableObject
 {
     public List<Sprite> clotheList = new List<Sprite>();
 
-    public Sprite ReturnRandomClothe()
+    public Sprite ReturnRandomClothe(int number)
     {
-        if(seed.Instance != null)
-        {
-            Random.InitState(seed.Instance.SeedValue);
-        }
-        else
-        {
-            Random.InitState(0);
-        }
-
         if(clotheList.Count <= 0)
         {
             return null;
         }
-        return clotheList[Random.Range(0, clotheList.Count)];
+        return clotheList[number];
     }
 }

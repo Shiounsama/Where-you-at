@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9140235923844476310}
   - component: {fileID: 6346641057715108668}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: garden houses 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,9 +58,10 @@ GameObject:
   - component: {fileID: 3372715149150705969}
   - component: {fileID: 435616219052451464}
   - component: {fileID: 8593883306960992733}
-  m_Layer: 0
+  - component: {fileID: 1053116098324725918}
+  m_Layer: 6
   m_Name: default
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,3 +131,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1053116098324725918
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4163259915868617574}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.4728518, y: 2.265058, z: 6.34024}
+  m_Center: {x: 0.18217409, y: 1.1143, z: 0.03820896}

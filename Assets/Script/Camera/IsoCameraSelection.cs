@@ -11,13 +11,13 @@ public class IsoCameraSelection : MonoBehaviour
 
     private void Awake()
     {
-        _seekerView = ViewManager.Instance.GetView<SeekerView>();
+       // _seekerView = ViewManager.Instance.GetView<SeekerView>();
     }
 
     public void OnObjectSelected(InputAction.CallbackContext context)
     {
         if (!_seekerView)
-            _seekerView = ViewManager.Instance.GetView<SeekerView>();
+            _seekerView = ViewManager.Instance.defaultView as SeekerView;
 
         if (context.performed)
         {
@@ -25,7 +25,25 @@ public class IsoCameraSelection : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
             {
+                if(selectedObject != null)
+                {
+                    foreach (Transform child in selectedObject)
+                    {
+                        if (child.CompareTag("SelectedFX"))
+                        {
+                            child.gameObject.SetActive(false);
+                        }
+                    }
+                }
                 selectedObject = hit.transform;
+
+                foreach (Transform child in selectedObject)
+                {
+                    if(child.CompareTag("SelectedFX"))
+                    {
+                        child.gameObject.SetActive(true);
+                    }
+                }
 
                 _seekerView.guessButton.gameObject.SetActive(true);
             }
@@ -36,8 +54,36 @@ public class IsoCameraSelection : MonoBehaviour
     {
         if (context.performed)
         {
+            if (selectedObject != null)
+            {
+                foreach (Transform child in selectedObject)
+                {
+                    if (child.CompareTag("SelectedFX"))
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                }
+            }
             selectedObject = null;
             _seekerView.guessButton.gameObject.SetActive(false);
         }
+    }
+
+    public void OnObjectUnselected()
+    {
+        if (selectedObject != null)
+        {
+            foreach (Transform child in selectedObject)
+            {
+                if (child.CompareTag("SelectedFX"))
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
+
+            selectedObject = null;
+            _seekerView.guessButton.gameObject.SetActive(false);
+        }
+             
     }
 }

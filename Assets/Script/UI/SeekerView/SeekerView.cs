@@ -11,11 +11,15 @@ public class SeekerView : View
 
     public override void Initialize()
     {
-        if (IsInitialized) return;
+        if (IsInitialized)
+            return;
+
+        base.Initialize();
+
         openingQuestionButton.onClick.AddListener(OnClick_OpeningQuestionButton);
         guessButton.onClick.AddListener(OnClick_GuessButton);
 
-        base.Initialize();
+        //Debug.Log($"Added listener on player {transform.localPosition.y}");
     }
 
     #region Button Events

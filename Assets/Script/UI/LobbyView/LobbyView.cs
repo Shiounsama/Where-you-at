@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class LobbyView : View
 {
-    [Header("Buttons")]
     [SerializeField] private Button readyButton;
     [SerializeField] private Button startGameButton;
 
@@ -43,10 +42,26 @@ public class LobbyView : View
             player.CmdStartGame();
         }
     }
+
+    public override void OnClick_Return()
+    {
+        ViewManager.Instance.Show<NameInputView>();
+
+        if (NetworkMana.Instance.IsHost())
+        {
+            NetworkMana.Instance.StopHost();
+        }
+        else
+        {
+            NetworkMana.Instance.StopClient();
+        }
+    }
     #endregion
 
     public void UpdatePlayerStatus(int index, string displayName, bool isReady)
     {
+        //Debug.Log("UpdatePlayerStatus");
+
         PlayerStatus currentPlayerStatus = _playerStatuses[index];
 
         currentPlayerStatus.KillCoroutine();
@@ -54,6 +69,14 @@ public class LobbyView : View
         currentPlayerStatus.UpdateReadyText(isReady ?
             "<color=green>Ready</color>" :
             "<color=red>Not Ready</color>");
+    }
+
+    public void ResetPlayerStatus(int index)
+    {
+        if (!_playerStatuses[index].isActiveAndEnabled)
+            return;
+
+        _playerStatuses[index].ResetPlayerStatus();
     }
 
     public void HandleReadyToStart(bool isReady)
@@ -69,6 +92,7 @@ public class LobbyView : View
 
     public void DestroyStartGameButton()
     {
-        Destroy(startGameButton.gameObject);
+        if (startGameButton)
+            Destroy(startGameButton.gameObject);
     }
 }

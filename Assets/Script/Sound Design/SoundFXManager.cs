@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SoundDesign
 {
+    [RequireComponent(typeof(AudioSource))]
     public class SoundFXManager : MonoBehaviour
     {
         public static SoundFXManager Instance;
@@ -25,7 +26,9 @@ namespace SoundDesign
 
             m_audioSource = GetComponent<AudioSource>();
 
-            m_audioSource.clip = soundBank.backgroundMusic;
+            m_audioSource.clip = soundBank.backgroundMusicMenu;
+            m_audioSource.loop = true;
+            m_audioSource.playOnAwake = true;
             m_audioSource.Play();
         }
 
@@ -39,6 +42,19 @@ namespace SoundDesign
 
             float clipLength = audioSource.clip.length;
             Destroy(audioSource.gameObject, clipLength);
+        }
+
+        /// <summary>
+        /// Définit la musique de fond et la lance sur l'AudioSource du SoundManager.
+        /// </summary>
+        /// <param name="music">Musique de fond.</param>
+        public void SetBackgroundMusic(AudioClip music)
+        {
+            if (music == m_audioSource.clip)
+                return;
+
+            m_audioSource.clip = music;
+            m_audioSource.Play();
         }
     }
 }

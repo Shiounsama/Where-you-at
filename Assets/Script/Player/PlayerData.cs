@@ -1,9 +1,7 @@
-using Cinemachine;
 using Mirror;
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PlayerData : NetworkBehaviour
@@ -20,13 +18,109 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
-    public static GameObject PNJcible { get; private set; }
+    [Header("EndGame")]
+    [SyncVar] public Color color;
+    [SyncVar] public Vector3 pnjValidePosition;
+    public GameObject pnjValide;
+
+    private Coroutine timerCoroutine;
+
+    public static GameObject PNJcible { get; set; }
+
+    [Command]
+    public void setPNJvalide(Vector3 pnj)
+    {
+        pnjValidePosition = pnj;
+    }
+
+    [Command]
+    public void testPNJ()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            TargetShowScoreForPlayer(conn);
+        }
+    }
+
+    [TargetRpc]
+    public void TargetShowScoreForPlayer(NetworkConnection target)
+    {
+        List<PlayerData> allPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        List<GameObject> allPNJ = new List<GameObject>(GameObject.FindGameObjectsWithTag("pnj"));
+
+        foreach (GameObject pnj in allPNJ)
+        {
+            for (int i = 0; i < allPlayer.Count; i++)
+            {
+                Vector3 pnjPosition = pnj.transform.localPosition;
+                Vector3 pnjSelected = allPlayer[i].pnjValidePosition;
+
+                pnjPosition.x = Mathf.RoundToInt(pnjPosition.x);
+                pnjPosition.y = Mathf.RoundToInt(pnjPosition.y);
+                pnjPosition.z = Mathf.RoundToInt(pnjPosition.z);
+
+                pnjSelected.x = Mathf.RoundToInt(pnjSelected.x);
+                pnjSelected.y = Mathf.RoundToInt(pnjSelected.y);
+                pnjSelected.z = Mathf.RoundToInt(pnjSelected.z);
+
+
+                Debug.Log("Je suis dans la boucle");
+                if (pnjPosition == pnjSelected)
+                {
+                    Debug.Log("Trouver le pnj");
+                    pnjValide = pnj;
+                }
+            }
+        }
+    }
+
+    public void SpawnText()
+    {
+        if (pnjValide != null)
+        {
+            pnjValide.GetComponentInChildren<TextMeshPro>().transform.gameObject.SetActive(true);
+
+            pnjValide.GetComponentInChildren<TextMeshPro>().text = playerName;
+            pnjValide.GetComponentInChildren<TextMeshPro>().color = color;
+
+            pnjValide.GetComponentInChildren<TextMeshPro>().transform.LookAt(GetComponentInChildren<Camera>().transform.position);
+
+            Debug.Log("textExiste" + pnjValide.GetComponentInChildren<TextMeshPro>().text);
+        }
+        else
+        {
+            print("pnjValide est null");
+        }
+    }
 
     private void Update()
     {
         if (isLocalPlayer)
         {
             frontPNJ();
+            if (role == Role.Seeker)
+            {
+                if (transform.position == new Vector3(0, 0, 0))
+                {
+                    transform.position = DeuxiemeJoueurSpawn.transform.position;
+                    transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
+                }
+            }
+            if (role == Role.Lost)
+            {
+                if (transform.position == new Vector3(0, 0, 0) || transform.position == DeuxiemeJoueurSpawn.transform.position)
+                {
+                    if (PNJcible != null)
+                    {
+                        transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
+                        transform.rotation = PNJcible.transform.rotation;
+                        destroyPNJ();
+                    }
+                }
+
+
+            }
+
         }
     }
 
@@ -36,16 +130,30 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Assigne un nouveau rôle au joueur.
+    /// Assigne un nouveau rï¿½le au joueur.
     /// </summary>
-    /// <param name="newRole">Nouveau rôle à assigner.</param>
+    /// <param name="newRole">Nouveau rï¿½le ï¿½ assigner.</param>
     public void AssignRole(Role newRole)
     {
         role = newRole;
+
+        GetComponent<PlayerScoring>().finish = false;
+
+        if (!isLocalPlayer)
+            return;
+
+        if (role == Role.Seeker)
+        {
+            ViewManager.Instance.defaultView = GetComponentInChildren<SeekerView>(true);
+        }
+        else if (role == Role.Lost)
+        {
+            ViewManager.Instance.defaultView = GetComponentInChildren<LostView>(true);
+        }
     }
 
     /// <summary>
-    /// Permet de synchroniser le rôle de chaque joueur pour tout le monde.
+    /// Permet de synchroniser le rï¿½le de chaque joueur pour tout le monde.
     /// </summary>
     /// <param name="newRole"></param>
     [Server]
@@ -55,20 +163,38 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Se lance a partir du manager, cette fonction se fait quand la scène VilleJeu se lance
-    /// récupère les spawn pour les joueurs, spawn1 : joueur caché, spawn2 : joueur chercheur
-    /// Ensuite on enlève tous les autres tchat et on active tous les composant + Ui du joueur en fonction de son role
+    /// Se lance a partir du manager, cette fonction se fait quand la scï¿½ne VilleJeu se lance
+    /// rï¿½cupï¿½re les spawn pour les joueurs, spawn1 : joueur cachï¿½, spawn2 : joueur chercheur
+    /// Ensuite on enlï¿½ve tous les autres tchat et on active tous les composant + Ui du joueur en fonction de son role
     /// </summary>
     public void StartScene(PlayerData playerData)
     {
         if (isLocalPlayer)
         {
-            PremierJoueurSpawn = GameObject.Find("spawn1");
             DeuxiemeJoueurSpawn = GameObject.Find("spawn2");
 
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+
+            int randomNumber = Random.Range(0, allPNJ.Length);
+
             ClearOtherTchat();
-            EnablePlayer(role);    
+           
+            NetworkMana.Instance.StartFadeOut();
+            EnablePlayer(role);
+            
+            foreach (NetworkConnection conn in NetworkServer.connections.Values)
+            {
+                TargetEnableAudioListener(conn);
+
+            }
         }
+    }
+
+    [TargetRpc]
+    private void TargetEnableAudioListener(NetworkConnection conn)
+    {
+        manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled = true;
+        Debug.Log($"Local AudioListener enabled: {manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled}");
     }
 
     /// <summary>
@@ -107,10 +233,11 @@ public class PlayerData : NetworkBehaviour
                 objRigid.constraints = RigidbodyConstraints.FreezePositionX;
                 objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
 
-                
+
             }
 
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
+
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
         }
     }
@@ -161,7 +288,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     /// <summary>
-    /// Change l'état des objets.
+    /// Change l'ï¿½tat des objets.
     /// </summary>
     public void ObjectsStateSetter(List<GameObject> listOfObjectToChangeState, bool setOnObject)
     {
@@ -183,18 +310,26 @@ public class PlayerData : NetworkBehaviour
         IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
         IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
         IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+        IsoCameraSelection camSelectedIso = GetComponentInChildren<IsoCameraSelection>();
+        IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
+        SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
 
         Camera360 cam360 = GetComponentInChildren<Camera360>();
 
         Camera camPlayer = GetComponentInChildren<Camera>();
 
+        takeEmoji emojiScript = GetComponent<takeEmoji>();
+
+        AudioListener audioListener = camPlayer.GetComponent<AudioListener>();
+
+        List<PlayerScoring> playerScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+
         ViewManager.Instance.UpdateViewsList();
 
         if (role != Role.None)
         {
-            GameObject building = GameObject.Find("monde"); 
+            GameObject building = GameObject.Find("VilleELP");
             building.transform.position = new Vector3(0, 0, 0);
-
             GetComponentInChildren<PlayerInput>().enabled = false;
 
             cam360.enabled = false;
@@ -207,24 +342,37 @@ public class PlayerData : NetworkBehaviour
             camRotaIso.enabled = false;
             camRotaIso.objectToRotate = building.transform;
 
+            camSelectedIso.OnObjectUnselected();
+
             camPlayer.enabled = true;
 
-            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
-            List<GameObject> ListPNJ = new List<GameObject>();
+            emojiScript.enabled = false;
 
-            foreach (GameObject obj in allPNJ)
+            Xray.enabled = false;
+
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+
+            audioListener.enabled = true;
+
+            timer timerGame = FindAnyObjectByType<timer>();
+
+            foreach(PlayerScoring score in playerScore)
             {
-                ListPNJ.Add(obj);
+                score.ScoreJoueur = 0;
+
+                if (score.isLocalPlayer)
+                {
+                    
+                }
             }
             
-            int randomNumber = Random.Range(0, ListPNJ.Count);
-            PNJcible = ListPNJ[randomNumber];
+
 
             if (role == Role.Seeker)
             {
                 SeekerView seekerView = GetComponentInChildren<SeekerView>(true);
                 ViewManager.Instance.AddView(seekerView);
-                ViewManager.Instance.GetView<SeekerView>().Initialize();
+                //ViewManager.Instance.GetView<SeekerView>().Initialize();
 
                 ObjectsStateSetter(charlieObjects, false);
                 ObjectsStateSetter(seekerObjects, true);
@@ -234,21 +382,26 @@ public class PlayerData : NetworkBehaviour
                 camDragIso.enabled = true;
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
+                Xray.enabled = true;
+                emojiScript.enabled = false;
 
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
-
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
 
+                //PNJcible.SetActive(true);
+
+                seekerAudio.enabled = true;
+                seekerAudio.cityTransform = building.transform;
             }
             else if (role == Role.Lost)
             {
                 LostView lostView = GetComponentInChildren<LostView>(true);
                 ViewManager.Instance.AddView(lostView);
-                ViewManager.Instance.GetView<LostView>().Initialize();
+                //ViewManager.Instance.GetView<LostView>().Initialize();
 
                 ObjectsStateSetter(charlieObjects, true);
                 ObjectsStateSetter(seekerObjects, false);
@@ -258,22 +411,24 @@ public class PlayerData : NetworkBehaviour
                 frontPNJ();
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
-
-                transform.position = PremierJoueurSpawn.transform.position;
-                transform.rotation = PremierJoueurSpawn.transform.rotation;
-
-                transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
-                transform.rotation = PNJcible.transform.rotation;
-
+                emojiScript.enabled = true;
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
-                Destroy(PNJcible);
+
+
+                seekerAudio.enabled = false;
             }
+
+            if (timerCoroutine != null)
+                StopCoroutine(timerCoroutine);
+
+            timerCoroutine = StartCoroutine(timerGame.Timer());
+            ViewManager.Instance.Initialize();
         }
     }
 
     /// <summary>
-    /// enlève tous les scripts et UI du joueur pour le reset 
+    /// enlï¿½ve tous les scripts et UI du joueur pour le reset 
     /// </summary>
     public void DisablePlayer()
     {
@@ -282,6 +437,10 @@ public class PlayerData : NetworkBehaviour
         IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
         TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
         Camera360 cam360 = GetComponentInChildren<Camera360>();
+        IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
+        SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
+
+        IsoCameraSelection camSelecIso = GetComponent<IsoCameraSelection>();
 
         GetComponentInChildren<PlayerInput>().enabled = false;
 
@@ -292,12 +451,20 @@ public class PlayerData : NetworkBehaviour
         camZoomIso.enabled = false;
 
         camRotaIso.enabled = false;
-  
+
+        Xray.enabled = false;
+
+        seekerAudio.enabled = true;
+
+        //camSelecIso.OnObjectUnselected();
+
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
+
+
     }
 
     /// <summary>
-    /// Fait front les pnjs de la liste donné vers le joueur
+    /// Fait front les pnjs de la liste donnï¿½ vers le joueur
     /// </summary>
     private void LockPNJ(GameObject[] listePNJ)
     {
@@ -312,6 +479,21 @@ public class PlayerData : NetworkBehaviour
 
             Rigidbody objRigid = obj.GetComponent<Rigidbody>();
             objRigid.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        }
+    }
+
+    [ClientRpc]
+    public void RpcStartGame()
+    {
+        StartGame(); // Exï¿½cutï¿½ sur tous les clients
+    }
+
+    public void destroyPNJ()
+    {
+        if (isLocalPlayer)
+        {
+            if (role == Role.Lost)
+                Destroy(PNJcible);
         }
     }
 

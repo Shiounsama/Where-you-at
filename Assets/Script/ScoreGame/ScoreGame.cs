@@ -3,40 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using Mirror;
+using TMPro;
 
-public class ScoreGame : MonoBehaviour
+public class ScoreGame : NetworkBehaviour
 {
-    public List<PlayerScoring> playersScores;
-    public bool finished = false;
+    public List<PlayerScoring> playerScores;
+    public Canvas classementCanvas;
+    public Transform parentTransform;
 
-    /// <summary>
-    /// Récupère dans une liste tous les joueurs avec un script scoringPlayer
-    /// trie la liste avec tous les joueurs qui ont validé leurs choix puis trie la liste du plus proche au plus loin.
-    /// </summary>
+    [SyncVar]
+    public bool finish = false;
+
+    private Button restartButton;
+    public Button restartButtonPrefab;
+    public GameObject BackgroundImage;
+
+    private LeaderboardView _leaderboardView;
+
+
     public void ShowScore()
     {
-        playersScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        playersScores = playersScores.Where(score => score.finished).OrderBy(scoreJoueur => scoreJoueur.finalScore).ToList();
+        if (!_leaderboardView)
+            _leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
 
-        ShowLeaderboard(playersScores);
+        playerScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        playerScores = playerScores.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.Distance).ToList();
+
+        ShowLeaderboard(playerScores);
     }
 
+    /// <summary>
+    /// Initialisation du panel de Leaderboard et affichage de celui-ci.
+    /// </summary>
+    /// <param name="scores">Liste des PlayerScoring des joueurs qui ont fini de jouer, triée dans l'ordre de placement.</param>
     private void ShowLeaderboard(List<PlayerScoring> scores)
     {
-        LeaderboardView leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
-
         ViewManager.Instance.Show<LeaderboardView>();
+        _leaderboardView.ClearLeaderboard();
 
-        for (int i = 0; i < scores.Count; i++)
+        timer timerScript = FindObjectOfType<timer>();
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+
+
+        for (int i = 0; i< scores.Count; i++)
         {
-            PlayerData currentPlayerData = scores[i].GetComponent<PlayerData>();
-            PlayerScoring currentPlayerScoring = playersScores[i];
+            _leaderboardView.AddScore(scores[i], i + 1);
 
-            leaderboardView.AddScore(currentPlayerScoring);
+            scores[i].GetComponent<PlayerData>().DisablePlayer();
+            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
+            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
 
-            currentPlayerData.DisablePlayer();
-            currentPlayerData.ObjectsStateSetter(currentPlayerData.seekerObjects, false);
-            currentPlayerData.ObjectsStateSetter(currentPlayerData.charlieObjects, false);
+            
         }
     }
 }

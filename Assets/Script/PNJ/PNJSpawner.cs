@@ -1,11 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PNJSpawner : MonoBehaviour
 {
     [Header("Taille de la zone en largeur et longueur")]
-    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en x")] private float length;
-    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en z")] private float width;
+    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en x")] public float length;
+    [SerializeField, Range(0, 500), Tooltip("la taille de spawn sur le scale en z")] public float width;
     private Vector3 spawnRange;
 
     [Header("Caracteristique du spawner")]
@@ -14,12 +15,20 @@ public class PNJSpawner : MonoBehaviour
 
     [Header("Nombre d'entite a faire apparaitre")]
     [SerializeField, Range(0, 150), Tooltip("Le nombre d'entité qui vont spawn")] private int numberToSpawn;
-    [SerializeField] private int PnjPICount;
+    //[SerializeField] private int PnjPICount;
 
     [SerializeField] private PnjPIFamily PnjPIFamilyData;
     [SerializeField] private List<GameObject> entitiesSpawnedArray;
 
     private BoxCollider boxCollider;
+
+    private Vector3 spawnPosition;
+    private int compteurPNJ;
+
+
+
+
+
 
     public void Awake()
     {
@@ -37,6 +46,12 @@ public class PNJSpawner : MonoBehaviour
 
     public void Start()
     {
+        compteurPNJ = 0;
+        List<PNJSpawner> allPNJ = new List<PNJSpawner>(FindObjectsOfType<PNJSpawner>());
+        foreach (PNJSpawner PNJscript in allPNJ)
+        {
+            compteurPNJ += PNJscript.numberToSpawn;
+        }
         InstantiatePNJs(pnjPrefab, numberToSpawn);
     }
 
@@ -47,51 +62,71 @@ public class PNJSpawner : MonoBehaviour
             return;
         }
 
-        if (PnjPICount > 0)
+        for (int i = 0; i < NumberOfEntitiesToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
         {
-            if (PnjPIFamilyData != null)
-            {
-                for (int i = 0; i < PnjPICount; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
-                {              
-                    InstantiateObject(i, PnjPIFamilyData.GetPrefab());
-                }
-
-                for (int i = 0; i < NumberOfEntitiesToSpawn - PnjPICount; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
-                {
-                    InstantiateObject(i, pnjPrefab);
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < NumberOfEntitiesToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
-            {
-                InstantiateObject(i, prefabToSpawn);
-            }
-        }
+            StartCoroutine(InstantiateObject(prefabToSpawn));
+        } 
     }
 
-    private void InstantiateObject(int i, GameObject objectToInstantiate)
+    IEnumerator InstantiateObject(GameObject objectToInstantiate)
     {
+         int nombreDeSpawnMax = 10;
+         int nombreEssai = 0;
+         bool validPosition = false;
+         
+        
+
         if (seed.Instance != null)
         {
             Random.InitState(seed.Instance.SeedValue);
         }
 
-        GameObject actualPlayer = Instantiate(objectToInstantiate, //On instantie un objet dans une position aleatoire dans le boxCollider de l'objet
-                        new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
-                        transform.position.y,
-                        (Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z))), Quaternion.identity, transform);
-
-        entitiesSpawnedArray.Add(actualPlayer);
-
-        PnjPIFamilyData.ResetListOfPnjPI();
-
-        if (seed.Instance != null)
+        while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
-            seed.Instance.SeedValue++;
+            yield return new WaitForSeconds(0.01f);
+            spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
+                        transform.position.y,
+                        Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));
+
+
+
+            Collider[] colliders = Physics.OverlapBox(
+                                    spawnPosition,
+                                    objectToInstantiate.transform.localScale / 2.5f,
+                                    Quaternion.identity);
+
+            validPosition = colliders.Length == 1;
+            nombreEssai++;
+
+            if (nombreEssai == 10)
+            {
+                Debug.Log("PNJ. MORT.");
+            }
+
+
+            if (validPosition)
+            {
+                GameObject actualPlayer = Instantiate(objectToInstantiate,
+                            spawnPosition,
+                            Quaternion.identity, transform);
+
+
+
+                entitiesSpawnedArray.Add(actualPlayer);
+
+                PnjPIFamilyData.ResetListOfPnjPI();
+
+                
+
+                GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
+
+
+                if (compteurPNJ == PNJ.Length)
+                {
+                    int randomNumber = Random.Range(0, PNJ.Length);
+                    PlayerData.PNJcible = PNJ[randomNumber];
+                }
+            }
         }
     }
-
-
 }

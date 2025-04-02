@@ -7,7 +7,10 @@ public enum TypeOfConstruction
     Route,
     Maison,
     Immeuble,
-    Parc
+    Parc,
+    ParcPI,
+    foraine,
+    forainePI
 }
 
 public enum NameOfConstruction
@@ -21,7 +24,9 @@ public enum NameOfConstruction
     fastfood,
     magasin,
     maison,
-    immeuble
+    immeuble,
+    parc, 
+    foraine
 }
 public class ConstructionType : MonoBehaviour
 {

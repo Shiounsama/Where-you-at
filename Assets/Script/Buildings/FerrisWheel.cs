@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using SoundDesign;
 using UnityEngine;
 
-public class FerrisWheel : Building
+public class FerrisWheel : SoundObject
 {
     public override void SetAmbientSound()
     {
