@@ -85,7 +85,6 @@ public class IsoCameraRotation : MonoBehaviour
 
         while (elapsedTime < transitionDuration)
         {
-
             cam.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / transitionDuration);
 
             cam.transform.rotation = Quaternion.LookRotation(lookAtPoint - cam.transform.position);
