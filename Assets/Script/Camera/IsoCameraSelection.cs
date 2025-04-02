@@ -50,14 +50,24 @@ public class IsoCameraSelection : MonoBehaviour
         }
     }
 
-    /*public void OnObjectUnselected(InputAction.CallbackContext context)
+    public void OnObjectUnselected(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
+            if (selectedObject != null)
+            {
+                foreach (Transform child in selectedObject)
+                {
+                    if (child.CompareTag("SelectedFX"))
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                }
+            }
             selectedObject = null;
             _seekerView.guessButton.gameObject.SetActive(false);
         }
-    }*/
+    }
 
     public void OnObjectUnselected()
     {
