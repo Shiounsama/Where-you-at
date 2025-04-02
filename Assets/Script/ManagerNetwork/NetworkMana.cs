@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 using DG.Tweening;
+using SoundDesign;
 
 public class NetworkMana : NetworkManager
 {
@@ -159,6 +160,9 @@ public class NetworkMana : NetworkManager
 
         if (SceneManager.GetActiveScene().path == mainScene) 
         {
+            AudioClip music = SoundFXManager.Instance.SoundBank.backgroundMusicGame;
+            SoundFXManager.Instance.SetBackgroundMusic(music);
+
             scriptManager.GiveRole();
         }
     }
@@ -169,6 +173,9 @@ public class NetworkMana : NetworkManager
 
         if (SceneManager.GetActiveScene().path == lobbyScene)
         {
+            AudioClip music = SoundFXManager.Instance.SoundBank.backgroundMusicMenu;
+            SoundFXManager.Instance.SetBackgroundMusic(music);
+
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
                 var conn = RoomPlayers[i].connectionToClient;

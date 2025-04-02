@@ -93,7 +93,6 @@ public class PlayerScoring : NetworkBehaviour
 
                 if (score.IsGuess)
                 {
-                    Debug.Log("Total score finish : " + totalScore);
                     float resultat = Mathf.Round(Vector3.Distance(score.GetComponentInChildren<IsoCameraSelection>().selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
                     float scorePosition = Mathf.Max(0, 60 - allScores.Count(score => score.finish) * 10);
                     scorePosition += 100 - resultat;
@@ -102,8 +101,6 @@ public class PlayerScoring : NetworkBehaviour
 
                 if (!score.IsGuess)
                 {
-                    Debug.Log("Total Is guess : " + totalScore);
-
                     totalScore += 100;
                 }
 
@@ -115,7 +112,6 @@ public class PlayerScoring : NetworkBehaviour
         {
             if (score.GetComponent<PlayerData>().role == Role.Lost)
             {
-                Debug.Log("Total fin : " + totalScore);
                 score.IsLost = true;
                 score.ScoreJoueur = totalScore;
                 score.ScoreFinal += totalScore;

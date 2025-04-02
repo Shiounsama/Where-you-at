@@ -20,7 +20,8 @@ namespace SoundDesign
         public AudioClip pnjPingClip;
 
         [Header("Music")]
-        public AudioClip backgroundMusic;
+        public AudioClip backgroundMusicGame;
+        public AudioClip backgroundMusicMenu;
 
         [Header("Interest points")]
         public AudioClip ferrisWheelMusic;
