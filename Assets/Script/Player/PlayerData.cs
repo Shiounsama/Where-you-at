@@ -178,16 +178,21 @@ public class PlayerData : NetworkBehaviour
             int randomNumber = Random.Range(0, allPNJ.Length);
 
             ClearOtherTchat();
-           
-            NetworkMana.Instance.StartFadeOut();
-            EnablePlayer(role);
-            
+            ViewManager.Instance.StartFadeOut();
+            EnablePlayer(role);    
+
             foreach (NetworkConnection conn in NetworkServer.connections.Values)
             {
                 TargetEnableAudioListener(conn);
 
             }
         }
+    }
+
+    [TargetRpc]
+    public void TargetFadeTransition(NetworkConnection conn)
+    {
+        ViewManager.Instance.StartFadeIn();
     }
 
     [TargetRpc]

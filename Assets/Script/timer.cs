@@ -9,14 +9,22 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class timer : NetworkBehaviour
 {
+    public static timer Instance;
+
     public timer tempsjoueur;
     public int time = 0;
     public Image timeSprite;
     public int timeStart = 180;
 
-    private void Start()
+    private void Awake()
     {
-        
+        if (!Instance)
+            Instance = this;
+    }
+
+    public int GetPassedTime()
+    {
+        return timeStart - time;
     }
 
     public IEnumerator Timer()
