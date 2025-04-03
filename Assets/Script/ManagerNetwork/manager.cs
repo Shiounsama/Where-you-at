@@ -14,7 +14,6 @@ public class manager : NetworkBehaviour
     public static manager Instance;
 
     public bool VuDuHaut;
-    public bool guessCooldown = true;
 
     [SyncVar]
     public int nbrJoueur = 0;

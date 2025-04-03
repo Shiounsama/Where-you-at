@@ -15,8 +15,6 @@ public class CheckPNJSelected : NetworkBehaviour
 
     public ScoreGame scoreGame;
 
-    [SerializeField] private bool guessCooldown = true;
-
     private SeekerView _seekerView;
 
     private SeekerView seekerView
@@ -40,13 +38,11 @@ public class CheckPNJSelected : NetworkBehaviour
         score = GetComponentInChildren<PlayerScoring>();
         scoreGame = FindObjectOfType<ScoreGame>();
         _playerData = GetComponent<PlayerData>();
+        
     }
 
     public void IsGuess()
     {
-        if (guessCooldown && timer.Instance.GetPassedTime() < 30)
-            return;
-
         //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
         score.ServeurScore(resultat);

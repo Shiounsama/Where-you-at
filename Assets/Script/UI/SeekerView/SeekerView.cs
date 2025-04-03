@@ -9,9 +9,6 @@ public class SeekerView : View
     [SerializeField] private Button openingQuestionButton;
     public Button guessButton;
 
-    [Header("Prefabs")]
-    [SerializeField] private GameObject guessWaitingTextPrefab;
-
     public override void Initialize()
     {
         if (IsInitialized)
@@ -33,14 +30,7 @@ public class SeekerView : View
 
     private void OnClick_GuessButton()
     {
-        if (manager.Instance.guessCooldown && timer.Instance.GetPassedTime() < 30)
-        {
-            Instantiate(guessWaitingTextPrefab, transform);
-        }
-        else
-        {
-            GetComponentInParent<CheckPNJSelected>().IsGuess();
-        }
+        GetComponentInParent<CheckPNJSelected>().IsGuess();
     }
     #endregion
 }
