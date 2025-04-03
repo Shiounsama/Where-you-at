@@ -63,8 +63,6 @@ public class LeaderboardView : View
 
         bool isGuess = playerScoring.IsGuess; 
         
-        
-
         scoreElement.UpdateScoreText(placement, playerName, distance, Score, scoreFinal, isLost, isGuess);
 
         DisableRestartButton();

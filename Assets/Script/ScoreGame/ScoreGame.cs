@@ -27,7 +27,6 @@ public class ScoreGame : NetworkBehaviour
         if (!_leaderboardView)
             _leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
 
-        Debug.Log("test dans le ShowScore");
         playerScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         playerScores = playerScores.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.Distance).ToList();
 
@@ -40,6 +39,11 @@ public class ScoreGame : NetworkBehaviour
     /// <param name="scores">Liste des PlayerScoring des joueurs qui ont fini de jouer, triée dans l'ordre de placement.</param>
     private void ShowLeaderboard(List<PlayerScoring> scores)
     {
+        if (!playerScores.Any(p => p.finish && p.isLocalPlayer))
+        {
+            return; 
+        }
+
         ViewManager.Instance.Show<LeaderboardView>();
         _leaderboardView.ClearLeaderboard();
 

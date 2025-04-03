@@ -174,12 +174,11 @@ public class PlayerScoring : NetworkBehaviour
                 }
             }
         }
-        foreach (PlayerScoring score in allScores)
+        if (GetComponent<PlayerScoring>().finish)
         {
-            if (score.finish)
-                scoreGame.ShowScore();
+            scoreGame.ShowScore();
         }
-        
+
     }
 
 }

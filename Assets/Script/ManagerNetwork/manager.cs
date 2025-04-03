@@ -123,7 +123,7 @@ public class manager : NetworkBehaviour
         }
 
         int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
+        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
 
         //SetCharlieRoleQueue();
         //GiveNextRoles();

@@ -17,14 +17,15 @@ public class PNJPISpawn : MonoBehaviour
 
     public bool isAllPnjUsed;
 
-    void Start()
+    void Awake()
     {
+        
         StartCoroutine(spawnPIPNJ());
     }
 
     IEnumerator spawnPIPNJ()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         Random.InitState(seed.Instance.SeedValue);
         for (int i = 0; i < nombrePNJPI; i++)
         {
@@ -47,7 +48,7 @@ public class PNJPISpawn : MonoBehaviour
 
     IEnumerator InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
     {
-        int nombreDeSpawnMax = 20;
+        int nombreDeSpawnMax = 99;
         int nombreEssai = 0;
         bool validPosition = false;
         
