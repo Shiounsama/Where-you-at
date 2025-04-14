@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 using DG.Tweening;
+using SoundDesign;
 
 public class NetworkMana : NetworkManager
 {
@@ -15,11 +16,6 @@ public class NetworkMana : NetworkManager
     [Scene][SerializeField] private string mainScene;
 
     [Scene][SerializeField] private string menuScene = string.Empty;
-
-    [Header("UI")]
-    [SerializeField] private CanvasGroup fadeImage;
-    [SerializeField] private float fadeDuration = 1f;
-    public static bool IsFading = false;
 
     [Header ("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
@@ -123,18 +119,6 @@ public class NetworkMana : NetworkManager
         return NetworkServer.connections.Count > 0;
     }
 
-    public void StartFadeIn()
-    {
-        IsFading = true;
-        fadeImage.DOFade(1, fadeDuration).OnComplete(() => IsFading = false);
-    }
-
-    public void StartFadeOut()
-    {
-        IsFading = true;
-        fadeImage.DOFade(0, fadeDuration).OnComplete(() => IsFading = false);
-    }
-
     public IEnumerator StartGame()
     {
         if (SceneManager.GetActiveScene().path == lobbyScene)
@@ -147,10 +131,32 @@ public class NetworkMana : NetworkManager
                 RoomPlayers[i].TargetFadeTransition(NetworkServer.connections[i]);
             }
 
-            yield return new WaitForSeconds(fadeDuration);
+            yield return null;
+
+            yield return new WaitWhile(() => ViewManager.IsFading);
 
             ServerChangeScene(mainScene);
         }
+    }
+
+    public IEnumerator RestartGame()
+    {
+        if (!IsHost())
+            yield break;
+
+        PlayerData[] players = FindObjectsOfType<PlayerData>();
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].TargetFadeTransition(NetworkServer.connections[i]);
+        }
+
+        yield return null;
+
+        yield return new WaitWhile(() => ViewManager.IsFading);
+
+        ViewManager.Instance.HideAll();
+        manager.Instance.NextRound();
     }
 
     public override void OnClientSceneChanged()
@@ -159,6 +165,9 @@ public class NetworkMana : NetworkManager
 
         if (SceneManager.GetActiveScene().path == mainScene) 
         {
+            AudioClip music = SoundFXManager.Instance.SoundBank.backgroundMusicGame;
+            SoundFXManager.Instance.SetBackgroundMusic(music);
+
             scriptManager.GiveRole();
         }
     }
@@ -169,6 +178,9 @@ public class NetworkMana : NetworkManager
 
         if (SceneManager.GetActiveScene().path == lobbyScene)
         {
+            AudioClip music = SoundFXManager.Instance.SoundBank.backgroundMusicMenu;
+            SoundFXManager.Instance.SetBackgroundMusic(music);
+
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
                 var conn = RoomPlayers[i].connectionToClient;
