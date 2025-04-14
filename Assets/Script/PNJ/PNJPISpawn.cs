@@ -40,7 +40,7 @@ public class PNJPISpawn : MonoBehaviour
             GameObject placementPNJ = AllPNJ[randomNumber];
            
             PNJSpawner uwu = placementPNJ.GetComponentInParent<PNJSpawner>();
-            Destroy(placementPNJ);
+            
             StartCoroutine( InstantiateObject(GetPrefab(), uwu));    
         }
         
