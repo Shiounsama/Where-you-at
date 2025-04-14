@@ -28,7 +28,7 @@ public class ScoreGame : NetworkBehaviour
             _leaderboardView = ViewManager.Instance.GetView<LeaderboardView>();
 
         playerScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        playerScores = playerScores.Where(score => score.finish).OrderBy(scoreJoueur => scoreJoueur.Distance).ToList();
+        playerScores = playerScores.Where(score => score.finish).OrderByDescending(scoreJoueur => scoreJoueur.Distance).ToList();
 
         ShowLeaderboard(playerScores);
     }

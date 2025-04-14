@@ -37,6 +37,13 @@ public class timer : NetworkBehaviour
 
         texteTimer.enabled = false;
         timeSprite.enabled = false;
+        cmdshowscor();
+    }
+
+    [Command]
+    public void cmdshowscor()
+    {
+        PlayerScoring score = FindObjectOfType<PlayerScoring>();
         score.ShowScore();
     }
 }
