@@ -25,11 +25,6 @@ public class PNJSpawner : MonoBehaviour
     private Vector3 spawnPosition;
     private int compteurPNJ;
 
-
-
-
-
-
     public void Awake()
     {
         boxCollider = GetComponent<BoxCollider>(); //On recupere le boxCollider 
@@ -52,6 +47,12 @@ public class PNJSpawner : MonoBehaviour
         {
             compteurPNJ += PNJscript.numberToSpawn;
         }
+
+        if (seed.Instance != null)
+        {
+            Random.InitState(seed.Instance.SeedValue);
+        }
+
         InstantiatePNJs(pnjPrefab, numberToSpawn);
     }
 
@@ -70,16 +71,10 @@ public class PNJSpawner : MonoBehaviour
 
     IEnumerator InstantiateObject(GameObject objectToInstantiate)
     {
-         int nombreDeSpawnMax = 10;
+         int nombreDeSpawnMax = 99;
          int nombreEssai = 0;
          bool validPosition = false;
          
-        
-
-        if (seed.Instance != null)
-        {
-            Random.InitState(seed.Instance.SeedValue);
-        }
 
         while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
@@ -92,7 +87,7 @@ public class PNJSpawner : MonoBehaviour
 
             Collider[] colliders = Physics.OverlapBox(
                                     spawnPosition,
-                                    objectToInstantiate.transform.localScale / 2.5f,
+                                    objectToInstantiate.transform.localScale / 1f,
                                     Quaternion.identity);
 
             validPosition = colliders.Length == 1;
@@ -110,13 +105,9 @@ public class PNJSpawner : MonoBehaviour
                             spawnPosition,
                             Quaternion.identity, transform);
 
-
-
                 entitiesSpawnedArray.Add(actualPlayer);
 
                 PnjPIFamilyData.ResetListOfPnjPI();
-
-                
 
                 GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
 

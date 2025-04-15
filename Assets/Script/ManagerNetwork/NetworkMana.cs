@@ -17,6 +17,11 @@ public class NetworkMana : NetworkManager
 
     [Scene][SerializeField] private string menuScene = string.Empty;
 
+    [Header("UI")]
+    [SerializeField] private CanvasGroup fadeImage;
+    [SerializeField] private float fadeDuration = 1f;
+    public static bool IsFading = false;
+
     [Header ("Room")]
     [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
 
@@ -119,6 +124,18 @@ public class NetworkMana : NetworkManager
         return NetworkServer.connections.Count > 0;
     }
 
+    public void StartFadeIn()
+    {
+        IsFading = true;
+        fadeImage.DOFade(1, fadeDuration).OnComplete(() => IsFading = false);
+    }
+
+    public void StartFadeOut()
+    {
+        IsFading = true;
+        fadeImage.DOFade(0, fadeDuration).OnComplete(() => IsFading = false);
+    }
+
     public IEnumerator StartGame()
     {
         if (SceneManager.GetActiveScene().path == lobbyScene)
@@ -131,32 +148,10 @@ public class NetworkMana : NetworkManager
                 RoomPlayers[i].TargetFadeTransition(NetworkServer.connections[i]);
             }
 
-            yield return null;
-
-            yield return new WaitWhile(() => ViewManager.IsFading);
+            yield return new WaitForSeconds(fadeDuration);
 
             ServerChangeScene(mainScene);
         }
-    }
-
-    public IEnumerator RestartGame()
-    {
-        if (!IsHost())
-            yield break;
-
-        PlayerData[] players = FindObjectsOfType<PlayerData>();
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].TargetFadeTransition(NetworkServer.connections[i]);
-        }
-
-        yield return null;
-
-        yield return new WaitWhile(() => ViewManager.IsFading);
-
-        ViewManager.Instance.HideAll();
-        manager.Instance.NextRound();
     }
 
     public override void OnClientSceneChanged()

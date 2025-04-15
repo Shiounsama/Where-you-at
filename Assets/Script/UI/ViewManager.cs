@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,11 +10,6 @@ public class ViewManager : MonoBehaviour
     [SerializeField] private bool autoInitialize;
     [SerializeField] private List<View> views = new List<View>();
     public View defaultView;
-
-    [Header("Transition fade")]
-    [SerializeField] private CanvasGroup fadeImage;
-    [SerializeField] private float fadeDuration = 1f;
-    public static bool IsFading = false;
 
     private void Awake()
     {
@@ -118,18 +112,4 @@ public class ViewManager : MonoBehaviour
 
         Debug.Log("Removed a view");
     }
-
-    #region Fade transition
-    public void StartFadeIn()
-    {
-        IsFading = true;
-        fadeImage.DOFade(1, fadeDuration).OnComplete(() => IsFading = false);
-    }
-
-    public void StartFadeOut()
-    {
-        IsFading = true;
-        fadeImage.DOFade(0, fadeDuration).OnComplete(() => IsFading = false);
-    }
-    #endregion
-}
+} 

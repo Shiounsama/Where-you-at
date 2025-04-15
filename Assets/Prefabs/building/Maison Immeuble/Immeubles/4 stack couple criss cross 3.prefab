@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5486577664994232774}
   - component: {fileID: 5395078841565179105}
-  m_Layer: 0
+  - component: {fileID: 5017481227613106039}
+  m_Layer: 6
   m_Name: 4 stack couple criss cross 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2322452069447592695}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -92.77643, y: 0, z: -8.123573}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,6 +48,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabBuildingType: 4
   prefabBuildingName: 9
+--- !u!65 &5017481227613106039
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2322452069447592695}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.7, y: 6.44, z: 6.39}
+  m_Center: {x: 0, y: 3.02, z: 0}
 --- !u!1 &6022597839625695134
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +80,7 @@ GameObject:
   - component: {fileID: 4962106074788126129}
   - component: {fileID: 3668410436541875783}
   - component: {fileID: 224299187332180843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}

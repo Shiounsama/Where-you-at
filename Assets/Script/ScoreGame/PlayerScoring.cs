@@ -37,8 +37,6 @@ public class PlayerScoring : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         finish = false;
-
-        
     }
 
 
@@ -61,6 +59,8 @@ public class PlayerScoring : NetworkBehaviour
     {
         Distance = newScore;
         finish = true;
+
+        Debug.Log("test dans le resultat");
 
         ScoreJoueur = 100 - Distance;
 
@@ -125,6 +125,8 @@ public class PlayerScoring : NetworkBehaviour
     [TargetRpc]
     private void TargetHandleScores(NetworkConnection target)
     {
+        
+
         var scoreGame = FindObjectOfType<ScoreGame>();
 
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
@@ -134,7 +136,7 @@ public class PlayerScoring : NetworkBehaviour
 
         foreach (PlayerScoring score in allScores)
         {
-            if (score.GetComponent<PlayerData>().role == Role.Seeker)
+            if (score.GetComponent<PlayerData>().role == Role.Seeker && score.finish)
             {
                 if (score.GetComponentInChildren<IsoCameraSelection>().selectedObject != null)
                 {
@@ -153,6 +155,7 @@ public class PlayerScoring : NetworkBehaviour
 
         if (GetComponent<PlayerData>().role == Role.Seeker)
         {
+            Debug.Log("test dans le TargetHandleScores");
             int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
             ScoreJoueur += scorePosition;
             ScoreFinal += ScoreJoueur;
@@ -171,8 +174,11 @@ public class PlayerScoring : NetworkBehaviour
                 }
             }
         }
+        if (GetComponent<PlayerScoring>().finish)
+        {
+            scoreGame.ShowScore();
+        }
 
-        scoreGame.ShowScore();
     }
 
 }

@@ -163,6 +163,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [TargetRpc]
     public void TargetFadeTransition(NetworkConnection conn)
     {
-        ViewManager.Instance.StartFadeIn();
+        Room.StartFadeIn();
     }
 }

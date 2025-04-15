@@ -17,7 +17,7 @@ public class PNJPISpawn : MonoBehaviour
 
     public bool isAllPnjUsed;
 
-    void Start()
+    void Awake()
     {
         
         StartCoroutine(spawnPIPNJ());
@@ -25,7 +25,7 @@ public class PNJPISpawn : MonoBehaviour
 
     IEnumerator spawnPIPNJ()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Random.InitState(seed.Instance.SeedValue);
         for (int i = 0; i < nombrePNJPI; i++)
         {
@@ -40,7 +40,7 @@ public class PNJPISpawn : MonoBehaviour
             GameObject placementPNJ = AllPNJ[randomNumber];
            
             PNJSpawner uwu = placementPNJ.GetComponentInParent<PNJSpawner>();
-            Destroy(placementPNJ);
+            
             StartCoroutine( InstantiateObject(GetPrefab(), uwu));    
         }
         
@@ -48,7 +48,7 @@ public class PNJPISpawn : MonoBehaviour
 
     IEnumerator InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
     {
-        int nombreDeSpawnMax = 20;
+        int nombreDeSpawnMax = 99;
         int nombreEssai = 0;
         bool validPosition = false;
         
@@ -65,7 +65,7 @@ public class PNJPISpawn : MonoBehaviour
 
             Collider[] colliders = Physics.OverlapBox(
                                    spawnPosition,
-                                   objectToInstantiate.transform.localScale / 2f,
+                                   objectToInstantiate.transform.localScale / 1f,
                                    Quaternion.identity);
 
            
