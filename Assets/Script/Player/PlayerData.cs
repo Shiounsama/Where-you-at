@@ -179,7 +179,7 @@ public class PlayerData : NetworkBehaviour
 
             ClearOtherTchat();
            
-            NetworkMana.Instance.StartFadeOut();
+            ViewManager.Instance.StartFadeOut();
             EnablePlayer(role);
             
             foreach (NetworkConnection conn in NetworkServer.connections.Values)
@@ -188,6 +188,12 @@ public class PlayerData : NetworkBehaviour
 
             }
         }
+    }
+
+    [TargetRpc]
+    public void TargetFadeTransition(NetworkConnection conn)
+    {
+        ViewManager.Instance.StartFadeIn();
     }
 
     [TargetRpc]
@@ -365,8 +371,6 @@ public class PlayerData : NetworkBehaviour
                     
                 }
             }
-            
-
 
             if (role == Role.Seeker)
             {
