@@ -123,7 +123,7 @@ public class manager : NetworkBehaviour
         }
 
         int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
 
         //SetCharlieRoleQueue();
         //GiveNextRoles();
@@ -173,7 +173,6 @@ public class manager : NetworkBehaviour
         }
 
         GiveRole();
-        PlayersStartScene();
 
         StartCoroutine(roundlaunch());
     }
@@ -183,7 +182,6 @@ public class manager : NetworkBehaviour
     /// </summary>
     IEnumerator roundlaunch()
     {
-        
 
         foreach (PlayerData playerscript in scriptPlayer)
         {
@@ -198,24 +196,5 @@ public class manager : NetworkBehaviour
 
         PlayersStartScene();
     }
-
-    /*IEnumerator roundlaunch() 
-    {
-        foreach (PlayerData playerscript in scriptPlayer)
-        {
-            if (playerscript.isLocalPlayer)
-            {
-                Debug.Log("Je suis le test");
-                playerscript.StartGame();
-
-            }
-        }
-
-        //GiveNextRoles();
-
-        yield return new WaitForSeconds(0.2f);
-
-        PlayersStartScene();
-    }*/
 
 }

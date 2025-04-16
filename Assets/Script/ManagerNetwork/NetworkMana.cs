@@ -167,6 +167,7 @@ public class NetworkMana : NetworkManager
         {
             AudioClip music = SoundFXManager.Instance.SoundBank.backgroundMusicGame;
             SoundFXManager.Instance.SetBackgroundMusic(music);
+            Debug.Log("AAAAAAAAAAH");
 
             scriptManager.GiveRole();
         }
