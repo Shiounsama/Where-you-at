@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using Mirror;
-using System;
-using UnityEngine.SocialPlatforms.Impl;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -125,8 +123,6 @@ public class PlayerScoring : NetworkBehaviour
     [TargetRpc]
     private void TargetHandleScores(NetworkConnection target)
     {
-        
-
         var scoreGame = FindObjectOfType<ScoreGame>();
 
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
@@ -174,11 +170,11 @@ public class PlayerScoring : NetworkBehaviour
                 }
             }
         }
+
         if (GetComponent<PlayerScoring>().finish)
         {
             scoreGame.ShowScore();
         }
-
     }
 
 }
