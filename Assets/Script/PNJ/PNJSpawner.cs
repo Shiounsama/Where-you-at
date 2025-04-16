@@ -24,6 +24,7 @@ public class PNJSpawner : MonoBehaviour
 
     private Vector3 spawnPosition;
     private int compteurPNJ;
+    private int compteurPriorite;
 
     public void Awake()
     {
@@ -35,13 +36,14 @@ public class PNJSpawner : MonoBehaviour
 
     public void OnDrawGizmos() //Gizmos qui permet de visualiser dans l'editor la taille de la box
     {
-        Gizmos.color = Color.blue; // Bleu parce que bleu = ciel = liberte et liberte = pas de travail :))))))
+        Gizmos.color = Color.blue; 
         Gizmos.DrawWireCube(transform.position, new Vector3(length, 1, width));
     }
 
     public void Start()
     {
         compteurPNJ = 0;
+        compteurPriorite = 0;
         List<PNJSpawner> allPNJ = new List<PNJSpawner>(FindObjectsOfType<PNJSpawner>());
         foreach (PNJSpawner PNJscript in allPNJ)
         {
@@ -65,25 +67,21 @@ public class PNJSpawner : MonoBehaviour
 
         for (int i = 0; i < NumberOfEntitiesToSpawn; i++) //On va dans la boucle autant de fois qu'il y a d'entite a spawn
         {
-            StartCoroutine(InstantiateObject(prefabToSpawn));
+            InstantiateObject(prefabToSpawn);
         } 
     }
 
-    IEnumerator InstantiateObject(GameObject objectToInstantiate)
+    void InstantiateObject(GameObject objectToInstantiate)
     {
          int nombreDeSpawnMax = 99;
          int nombreEssai = 0;
          bool validPosition = false;
          
-
         while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
-            yield return new WaitForSeconds(0.01f);
             spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
                         transform.position.y,
                         Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));
-
-
 
             Collider[] colliders = Physics.OverlapBox(
                                     spawnPosition,
@@ -93,30 +91,19 @@ public class PNJSpawner : MonoBehaviour
             validPosition = colliders.Length == 1;
             nombreEssai++;
 
-            if (nombreEssai == 10)
-            {
-                Debug.Log("PNJ. MORT.");
-            }
-
-
             if (validPosition)
             {
+                compteurPriorite++;
+
                 GameObject actualPlayer = Instantiate(objectToInstantiate,
                             spawnPosition,
                             Quaternion.identity, transform);
 
+                actualPlayer.GetComponent<PNJpriorite>().priorite = compteurPriorite;
+
                 entitiesSpawnedArray.Add(actualPlayer);
 
                 PnjPIFamilyData.ResetListOfPnjPI();
-
-                GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
-
-
-                if (compteurPNJ == PNJ.Length)
-                {
-                    int randomNumber = Random.Range(0, PNJ.Length);
-                    PlayerData.PNJcible = PNJ[randomNumber];
-                }
             }
         }
     }

@@ -17,9 +17,8 @@ public class PNJPISpawn : MonoBehaviour
 
     public bool isAllPnjUsed;
 
-    void Awake()
+    public void Start()
     {
-        
         StartCoroutine(spawnPIPNJ());
     }
 
@@ -30,23 +29,20 @@ public class PNJPISpawn : MonoBehaviour
         for (int i = 0; i < nombrePNJPI; i++)
         {
             GameObject[] AllPNJ = GameObject.FindGameObjectsWithTag("pnj");
-            int randomNumber = Random.Range(0, AllPNJ.Length);
-
-            while (AllPNJ[randomNumber].gameObject == PlayerData.PNJcible.gameObject)
-            {
-                randomNumber = Random.Range(0, AllPNJ.Length);
-            }
+            int randomNumber = Random.Range(0, AllPNJ.Length);          
 
             GameObject placementPNJ = AllPNJ[randomNumber];
            
             PNJSpawner uwu = placementPNJ.GetComponentInParent<PNJSpawner>();
-            
-            StartCoroutine( InstantiateObject(GetPrefab(), uwu));    
+
+            Destroy(placementPNJ);
+
+            InstantiateObject(GetPrefab(), uwu);    
         }
         
     }
 
-    IEnumerator InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
+    void InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
     {
         int nombreDeSpawnMax = 99;
         int nombreEssai = 0;
@@ -58,7 +54,6 @@ public class PNJPISpawn : MonoBehaviour
 
         while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
-            yield return new WaitForSeconds(0.01f);
             spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
                             transform.position.y + 1,
                             Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));          
@@ -96,29 +91,6 @@ public class PNJPISpawn : MonoBehaviour
 
         if (listOfPnjPI.Count > 0)
         {
-            /*int x = Random.Range(0, listOfPnjPI.Count);
-
-            while (listOfValueUsed.Contains(x))
-            {
-                x = Random.Range(0, listOfPnjPI.Count);
-                if (listOfValueUsed.Count >= listOfPnjPI.Count)
-                {
-                    isAllPnjUsed = true;
-
-                    return listOfPnjPI[0].gameObject;
-                }
-            }
-
-            listOfValueUsed.Add(x);
-
-            if (listOfValueUsed.Count <= listOfPnjPI.Count)
-            {
-                return listOfPnjPI[x].gameObject;
-            }
-            return listOfPnjPI[0].gameObject;*/
-
-            
-
             int x = Random.Range(0, listOfPnjPI.Count);
 
             return listOfPnjPI[x].gameObject;
