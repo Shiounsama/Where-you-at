@@ -39,7 +39,13 @@ public class PNJPISpawn : MonoBehaviour
 
             InstantiateObject(GetPrefab(), uwu);    
         }
-        
+
+        GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
+        FindObjectOfType<PNJPISpawn>().spawnPIPNJ();
+        int randomNumberPNJ = Random.Range(0, PNJ.Length);
+        PlayerData.PNJcible = PNJ[randomNumberPNJ];
+
+        Debug.Log("Maude est une queen : " + PlayerData.PNJcible.transform.position);
     }
 
     void InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
@@ -80,8 +86,6 @@ public class PNJPISpawn : MonoBehaviour
             entitiesSpawnedArray.Add(actualPlayer);
 
             ResetListOfPnjPI();
-
-            
         }
     }
 
