@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class EnterIPView : View
 {
-    [SerializeField] private Button joinButton;
     [SerializeField] private TMP_InputField ipInputField;
 
     private LobbyJoining _lobbyJoining;
@@ -21,7 +20,7 @@ public class EnterIPView : View
 
     public override void Initialize()
     {
-        joinButton.onClick.AddListener(OnClick_Join);
+        submitButton.onClick.AddListener(OnClick_Join);
 
         base.Initialize();
     }
@@ -45,7 +44,7 @@ public class EnterIPView : View
 
         _lobbyJoining.JoinLobby(ipAddress);
 
-        joinButton.interactable = false;
+        submitButton.interactable = false;
     }
 
     /// <summary>
@@ -53,7 +52,7 @@ public class EnterIPView : View
     /// </summary>
     public void HandleClientConnected()
     {
-        joinButton.interactable = true;
+        submitButton.interactable = true;
 
         ViewManager.Instance.Show<LobbyView>();
     }
@@ -63,7 +62,12 @@ public class EnterIPView : View
     /// </summary>
     public void HandleClientDisconnected()
     {
-        joinButton.interactable = true;
+        submitButton.interactable = true;
+    }
+
+    public override void SubmitInput()
+    {
+        base.SubmitInput();
     }
     #endregion
 }

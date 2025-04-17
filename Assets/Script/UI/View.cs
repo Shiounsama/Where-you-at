@@ -8,6 +8,7 @@ public abstract class View : MonoBehaviour
 
     [Header("Buttons")]
     [SerializeField] private Button returnButton;
+    public Button submitButton;
 
     public bool IsInitialized { get; private set; }
 
@@ -38,5 +39,13 @@ public abstract class View : MonoBehaviour
     public virtual void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    public virtual void SubmitInput()
+    {
+        if (submitButton.interactable)
+        {
+            submitButton.onClick.Invoke();
+        }
     }
 }

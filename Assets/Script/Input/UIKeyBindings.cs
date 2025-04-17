@@ -27,6 +27,10 @@ public class UIKeyBindings : MonoBehaviour
         {
             ViewManager.Instance.GetView<NameInputView>().SubmitInput();
         }
+        else if (ViewManager.Instance.IsCurrentView<EnterIPView>())
+        {
+            ViewManager.Instance.GetView<EnterIPView>().SubmitInput();
+        }
     }
 
     private void OnReturn(InputAction.CallbackContext context)
