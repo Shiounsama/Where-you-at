@@ -50,6 +50,7 @@ public class PlayerScoring : NetworkBehaviour
         foreach (var conn in NetworkServer.connections.Values)
         {
             ShowScoreTimer(conn);
+            Debug.Log("Je suis dans le showscore");
         }
     }
 
