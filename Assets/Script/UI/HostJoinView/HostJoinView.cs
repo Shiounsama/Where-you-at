@@ -8,6 +8,11 @@ public class HostJoinView : View
     [SerializeField] private Button hostLobbyButton;
     [SerializeField] private Button joinLobbyButton;
 
+    private void Awake()
+    {
+        _defaultSelectedGameObject = hostLobbyButton.gameObject;
+    }
+
     public override void Initialize()
     {
         hostLobbyButton.onClick.AddListener(OnClick_HostLobby);

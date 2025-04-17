@@ -12,6 +12,8 @@ public class ViewManager : MonoBehaviour
     [SerializeField] private List<View> views = new List<View>();
     public View defaultView;
 
+    private View _currentView;
+
     [Header("Transition fade")]
     [SerializeField] private CanvasGroup fadeImage;
     [SerializeField] private float fadeDuration = 1f;
@@ -43,7 +45,10 @@ public class ViewManager : MonoBehaviour
         }
 
         if (defaultView != null)
+        {
+            _currentView = defaultView;
             defaultView.Show();
+        }
     }
 
     /// <summary>
@@ -53,10 +58,14 @@ public class ViewManager : MonoBehaviour
     /// <param name="args"></param>
     public void Show<TView>(object args = null) where TView : View
     {
+        Debug.Log("ShowView");
+
         foreach (var view in views)
         {
             if (view is TView)
             {
+                _currentView = view;
+
                 view.Show();
             }
             else
@@ -97,6 +106,11 @@ public class ViewManager : MonoBehaviour
         return null;
     }
 
+    public bool IsCurrentView<TView>(object args = null) where TView : View
+    {
+        return _currentView is TView;
+    }
+
     /// <summary>
     /// Met à jour la liste des Views afin d'éviter que des Views qui n'existent plus soient présents.
     /// </summary>
@@ -117,6 +131,11 @@ public class ViewManager : MonoBehaviour
         views.Remove(view);
 
         Debug.Log("Removed a view");
+    }
+
+    public void Return()
+    {
+        _currentView.OnClick_Return();
     }
 
     #region Fade transition

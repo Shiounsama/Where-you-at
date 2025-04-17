@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class NameInputView : View
 {
-    [SerializeField] private Button confirmNameButton;
     [SerializeField] private TMP_InputField nameInputField;
 
     private NamesInput _namesInput;
@@ -14,11 +14,13 @@ public class NameInputView : View
     private void Awake()
     {
         _namesInput = GetComponent<NamesInput>();
+
+        _defaultSelectedGameObject = nameInputField.gameObject;
     }
 
     public override void Initialize()
     {
-        confirmNameButton.onClick.AddListener(OnClick_ConfirmName);
+        submitButton.onClick.AddListener(OnClick_ConfirmName);
         nameInputField.onValueChanged.AddListener(delegate(string str) { SetPlayerName(str); });
 
         base.Initialize();
@@ -43,12 +45,17 @@ public class NameInputView : View
 
     public void SetPlayerName(string playerName)
     {
-        confirmNameButton.interactable = nameInputField.text.Length >= 2;
+        submitButton.interactable = nameInputField.text.Length >= 2;
     }
 
     public void SavePlayerName()
     {
         _namesInput.SavePlayerName(nameInputField.text);
+    }
+
+    public override void SubmitInput()
+    {
+        base.SubmitInput();
     }
     #endregion
 }
