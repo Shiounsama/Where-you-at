@@ -150,8 +150,7 @@ public class PlayerScoring : NetworkBehaviour
         }
 
         if (GetComponent<PlayerData>().role == Role.Seeker)
-        {
-            Debug.Log("test dans le TargetHandleScores");
+        { 
             int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
             ScoreJoueur += scorePosition;
             ScoreFinal += ScoreJoueur;

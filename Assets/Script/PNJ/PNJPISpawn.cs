@@ -45,7 +45,9 @@ public class PNJPISpawn : MonoBehaviour
         int randomNumberPNJ = Random.Range(0, PNJ.Length);
         PlayerData.PNJcible = PNJ[randomNumberPNJ];
 
-        Debug.Log("Maude est une queen : " + PlayerData.PNJcible.transform.position);
+        yield return new WaitForSeconds(0.5f);
+
+        manager.Instance.GiveRole();
     }
 
     void InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)

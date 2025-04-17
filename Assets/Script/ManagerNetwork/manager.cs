@@ -172,9 +172,7 @@ public class manager : NetworkBehaviour
             }
         }
 
-        GiveRole();
-
-        StartCoroutine(roundlaunch());
+        //StartCoroutine(roundlaunch());
     }
 
     /// <summary>
