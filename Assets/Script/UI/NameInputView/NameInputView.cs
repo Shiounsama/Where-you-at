@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class NameInputView : View
@@ -14,6 +15,8 @@ public class NameInputView : View
     private void Awake()
     {
         _namesInput = GetComponent<NamesInput>();
+
+        _defaultSelectedGameObject = nameInputField.gameObject;
     }
 
     public override void Initialize()
@@ -49,6 +52,16 @@ public class NameInputView : View
     public void SavePlayerName()
     {
         _namesInput.SavePlayerName(nameInputField.text);
+    }
+
+    public void SubmitInput()
+    {
+        Debug.Log("SubmitInput");
+
+        if (confirmNameButton.interactable)
+        {
+            confirmNameButton.onClick.Invoke();
+        }
     }
     #endregion
 }

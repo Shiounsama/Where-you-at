@@ -15,6 +15,8 @@ public class EnterIPView : View
     private void Awake()
     {
         _lobbyJoining = GetComponent<LobbyJoining>();
+
+        _defaultSelectedGameObject = ipInputField.gameObject;
     }
 
     public override void Initialize()

@@ -45,7 +45,10 @@ public class ViewManager : MonoBehaviour
         }
 
         if (defaultView != null)
+        {
+            _currentView = defaultView;
             defaultView.Show();
+        }
     }
 
     /// <summary>
@@ -55,6 +58,8 @@ public class ViewManager : MonoBehaviour
     /// <param name="args"></param>
     public void Show<TView>(object args = null) where TView : View
     {
+        Debug.Log("ShowView");
+
         foreach (var view in views)
         {
             if (view is TView)

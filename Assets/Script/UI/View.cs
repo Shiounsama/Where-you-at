@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public abstract class View : MonoBehaviour
 {
+    private protected GameObject _defaultSelectedGameObject;
+
     [Header("Buttons")]
     [SerializeField] private Button returnButton;
 
@@ -28,6 +31,8 @@ public abstract class View : MonoBehaviour
     public virtual void Show(object args = null)
     {
         gameObject.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(_defaultSelectedGameObject);
     }
 
     public virtual void Hide()

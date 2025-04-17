@@ -212,6 +212,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""493167cd-d671-4285-930b-221e2c28e737"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -250,12 +259,45 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""e68d4e07-7457-4ca4-9c83-2329744798e5"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5a7547a8-9d6d-43df-bf47-fe16956a0454"",
                     ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""StartGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de50c5ce-b29b-44a6-9145-a22787081bca"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a29b4c9f-28c8-401d-b820-9a2594dea070"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -278,6 +320,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_Return = m_UI.FindAction("Return", throwIfNotFound: true);
         m_UI_Ready = m_UI.FindAction("Ready", throwIfNotFound: true);
         m_UI_StartGame = m_UI.FindAction("StartGame", throwIfNotFound: true);
+        m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -429,6 +472,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Return;
     private readonly InputAction m_UI_Ready;
     private readonly InputAction m_UI_StartGame;
+    private readonly InputAction m_UI_Submit;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -437,6 +481,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Return => m_Wrapper.m_UI_Return;
         public InputAction @Ready => m_Wrapper.m_UI_Ready;
         public InputAction @StartGame => m_Wrapper.m_UI_StartGame;
+        public InputAction @Submit => m_Wrapper.m_UI_Submit;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -458,6 +503,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @StartGame.started += instance.OnStartGame;
             @StartGame.performed += instance.OnStartGame;
             @StartGame.canceled += instance.OnStartGame;
+            @Submit.started += instance.OnSubmit;
+            @Submit.performed += instance.OnSubmit;
+            @Submit.canceled += instance.OnSubmit;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -474,6 +522,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @StartGame.started -= instance.OnStartGame;
             @StartGame.performed -= instance.OnStartGame;
             @StartGame.canceled -= instance.OnStartGame;
+            @Submit.started -= instance.OnSubmit;
+            @Submit.performed -= instance.OnSubmit;
+            @Submit.canceled -= instance.OnSubmit;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -506,5 +557,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnReturn(InputAction.CallbackContext context);
         void OnReady(InputAction.CallbackContext context);
         void OnStartGame(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
     }
 }
