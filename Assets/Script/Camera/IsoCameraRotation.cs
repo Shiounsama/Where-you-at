@@ -78,13 +78,13 @@ public class IsoCameraRotation : MonoBehaviour
         GetComponent<IsoCameraDrag>().enabled = false;
         GetComponent<IsoCameraDrag>().isDragging = false;
 
+
         Vector3 startPosition = cam.transform.position;
 
         float elapsedTime = 0f;
 
         while (elapsedTime < transitionDuration)
         {
-
             cam.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / transitionDuration);
 
             cam.transform.rotation = Quaternion.LookRotation(lookAtPoint - cam.transform.position);
@@ -98,6 +98,9 @@ public class IsoCameraRotation : MonoBehaviour
 
 
         isTransitioning = false;
+        CamDrag.startDraggingMousePos = CamDrag.GetMouseWorldPosition();
+        CamDrag.cameraPosOrigin = cam.transform.position;
+        CamDrag.objectOriginPos = CamDrag.objectToMove.position;
         GetComponent<IsoCameraDrag>().enabled = true;
 
     }

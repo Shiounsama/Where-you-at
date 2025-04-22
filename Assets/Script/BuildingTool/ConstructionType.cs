@@ -8,7 +8,9 @@ public enum TypeOfConstruction
     Maison,
     Immeuble,
     Parc,
-    ParcPI
+    ParcPI,
+    foraine,
+    forainePI
 }
 
 public enum NameOfConstruction
@@ -23,7 +25,8 @@ public enum NameOfConstruction
     magasin,
     maison,
     immeuble,
-    parc
+    parc, 
+    foraine
 }
 public class ConstructionType : MonoBehaviour
 {

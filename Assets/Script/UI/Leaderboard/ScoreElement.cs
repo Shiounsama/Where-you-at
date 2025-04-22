@@ -23,14 +23,14 @@ public class ScoreElement : MonoBehaviour
     {
         string newScoreText = string.Empty;
 
-        if (!IsLost && isGuess)
+        if (!IsLost)
         {
             newScoreText = $"{placement} - {playerName} avec {distance} mètres \n Score de la manche : {Score} Score total : {ScoreFinal}.";
         }
-        else if (!IsLost && !isGuess)
+        /*else if (!IsLost && !isGuess)
         {
             newScoreText = $"{placement} - {playerName} n'a pas sélectionner de personnage. \n Score de la manche : {Score} Score total : {ScoreFinal}.";
-        }
+        }*/
 
         else if (IsLost)
         {

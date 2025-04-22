@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1748597851822227653}
   - component: {fileID: 6319792033958867774}
   - component: {fileID: 4335779069138895231}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,8 @@ GameObject:
   - component: {fileID: 1788847787711948569}
   - component: {fileID: 4612886630242114396}
   - component: {fileID: 6765367048062160268}
-  m_Layer: 0
+  - component: {fileID: 8445599857160481559}
+  m_Layer: 6
   m_Name: ferris wheel+carrousel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7717240470745369589}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -59.87821, y: 0, z: -3.595417}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -243,3 +244,24 @@ MonoBehaviour:
   soundDistance: 10
   wireSphereColor: {r: 0, g: 0, b: 1, a: 1}
   labelFontSize: 15
+--- !u!65 &8445599857160481559
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7717240470745369589}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 6.123595, z: 5.036127}
+  m_Center: {x: 0, y: 3.099949, z: -0.15135288}

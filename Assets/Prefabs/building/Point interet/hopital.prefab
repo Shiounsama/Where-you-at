@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7333713934795490952}
   - component: {fileID: 3154368228209931732}
-  m_Layer: 0
+  - component: {fileID: 4032445610459032219}
+  m_Layer: 6
   m_Name: hopital
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458318225502368414}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -59.87821, y: 0, z: -3.595417}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,6 +48,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabBuildingType: 1
   prefabBuildingName: 5
+--- !u!65 &4032445610459032219
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458318225502368414}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.2614822, y: 4.985187, z: 4.5944824}
+  m_Center: {x: -0.026050568, y: 2.5135329, z: -0.2865181}
 --- !u!1 &3783988686436403383
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +80,7 @@ GameObject:
   - component: {fileID: 7994972026057704749}
   - component: {fileID: 9050850873811426782}
   - component: {fileID: 6977818784490976172}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
