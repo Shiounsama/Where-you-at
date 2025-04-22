@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Mirror;
 
 [System.Serializable]
 public class Plateform
@@ -17,19 +18,15 @@ public class Plateform
         }
     }
 }
-public class CityManager : MonoBehaviour
+public class CityManager : NetworkBehaviour
 {
     [SerializeField] private List<Plateform> _plateforms = new List<Plateform>();
     
     [SerializeField] private int _plateformWhereHiderIsIn;
     [SerializeField] private int randomIndex;
 
-    private void Start()
-    {
-        ChoosePlateform();
-    }
-
-    public void SetHiderPlateform(GameObject PlateformToCheck)
+    [TargetRpc]
+    public void SetHiderPlateform(NetworkConnection conn, GameObject PlateformToCheck)
     {
         int index = 0;
         
@@ -47,16 +44,11 @@ public class CityManager : MonoBehaviour
         }
     }
     
-    private void ChoosePlateform()
+    private void MakePlateformFall()
     {
         if (randomIndex == _plateformWhereHiderIsIn)
         {
-            randomIndex++;
-            RemovePlateform(randomIndex);
-        }
-        else
-        {
-            RemovePlateform(randomIndex);
+            RemovePlateform(randomIndex + 1);
         }
         randomIndex++;
     }

@@ -18,6 +18,9 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
+    [Header("MidGame")]
+    public GameObject playerPlateform;
+
     [Header("EndGame")]
     [SyncVar] public Color color;
     [SyncVar] public Vector3 pnjValidePosition;
@@ -26,6 +29,24 @@ public class PlayerData : NetworkBehaviour
     private Coroutine timerCoroutine;
 
     public static GameObject PNJcible { get; set; }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Map"))
+        {
+            playerPlateform = collision.gameObject;
+            SetPlayerPlateform();
+        }
+    }
+
+    [Command]
+    private void SetPlayerPlateform()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            FindObjectOfType<CityManager>().SetHiderPlateform(conn, playerPlateform);
+        }
+    }
 
     [Command]
     public void setPNJvalide(Vector3 pnj)
