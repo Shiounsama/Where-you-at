@@ -41,6 +41,28 @@ public class TchatPlayer : NetworkBehaviour
         }
     }
 
+    public void DeleteLastChar()
+    {
+        string text = textToSend.text;
+
+        if (text.Length < 1)
+            return;
+
+        if (isLocalPlayer)
+        {
+            string[] split = text.Split('>');
+            string newText = "";
+
+            for (int i = 0; i < split.Length - 2; i++)
+            {
+                string s = split[i];
+                newText += s + '>';
+            }
+
+            textToSend.text = newText;
+        }
+    }
+
     [Command]
     public void CmdSendMessage(string message)
     {

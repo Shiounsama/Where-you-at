@@ -12,6 +12,7 @@ public class UIKeyBindings : MonoBehaviour
         _playerInputActions = new PlayerInputActions();
         _playerInputActions.UI.Enable();
 
+        _playerInputActions.UI.Backspace.performed += OnBackspace;
         _playerInputActions.UI.Submit.canceled += OnSubmit;
         _playerInputActions.UI.Return.performed += OnReturn;
         _playerInputActions.UI.Ready.performed += OnReady;
@@ -19,10 +20,18 @@ public class UIKeyBindings : MonoBehaviour
         _playerInputActions.UI.Pause.performed += OnPause;
     }
 
+    private void OnBackspace(InputAction.CallbackContext context)
+    {
+        TchatPlayer tchatPlayer = FindObjectOfType<TchatPlayer>();
+
+        if (!tchatPlayer)
+            return;
+
+        tchatPlayer.DeleteLastChar();
+    }
+
     private void OnSubmit(InputAction.CallbackContext context)
     {
-        Debug.Log("OnSubmit");
-
         if (ViewManager.Instance.IsCurrentView<NameInputView>())
         {
             ViewManager.Instance.GetView<NameInputView>().SubmitInput();
