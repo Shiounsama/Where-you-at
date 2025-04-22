@@ -11,16 +11,23 @@ public class timer : NetworkBehaviour
 {
     public timer tempsjoueur;
     public int time = 0;
-
+    public Image timeSprite;
     public int timeStart = 180;
+
+    private void Start()
+    {
+        
+    }
 
     public IEnumerator Timer()
     {
+        timeSprite = GetComponentInChildren<Image>();
         PlayerScoring score = FindObjectOfType<PlayerScoring>();
         TMP_Text texteTimer = GetComponentInChildren<TMP_Text>();
 
         time = timeStart;
         texteTimer.enabled = true;
+        timeSprite.enabled = true;
         while (tempsjoueur.time > 0)
         {
             tempsjoueur.time--;
@@ -29,6 +36,14 @@ public class timer : NetworkBehaviour
         }
 
         texteTimer.enabled = false;
+        timeSprite.enabled = false;
+        cmdshowscor();
+    }
+
+    [Command]
+    public void cmdshowscor()
+    {
+        PlayerScoring score = FindObjectOfType<PlayerScoring>();
         score.ShowScore();
     }
 }

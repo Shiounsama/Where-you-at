@@ -58,8 +58,6 @@ public class LeaderboardView : View
 
         bool isGuess = playerScoring.IsGuess; 
         
-        
-
         scoreElement.UpdateScoreText(placement, playerName, distance, Score, scoreFinal, isLost, isGuess);
 
         DisableRestartButton();
@@ -69,7 +67,6 @@ public class LeaderboardView : View
 
         foreach (PlayerScoring score in allScore)
         {
-
             if (score.finish)
             {
                 compteurScore++;
@@ -78,7 +75,6 @@ public class LeaderboardView : View
             if (allScore.Count == compteurScore)
             {
                 AbleRestartButton();
-
             }
 
         }

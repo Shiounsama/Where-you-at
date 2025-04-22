@@ -9,9 +9,11 @@ public class PointInteretManager : MonoBehaviour
 
     public void Start()
     {
+        int chiffreSeed = seed.Instance.SeedValue;
         if (seed.Instance != null)
         {
-            Random.InitState(seed.Instance.SeedValue);
+            
+            Random.InitState(chiffreSeed);
         }
 
         int a = 0;
@@ -36,8 +38,9 @@ public class PointInteretManager : MonoBehaviour
                 a++;
                
             }
+            chiffreSeed++;
         }
 
-        seed.Instance.SeedValue++;
+        
     }
 }

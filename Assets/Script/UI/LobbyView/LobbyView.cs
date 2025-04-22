@@ -20,14 +20,14 @@ public class LobbyView : View
 
     public override void Initialize()
     {
-        readyButton.onClick.AddListener(OnClick_ReadyButton);
-        startGameButton.onClick.AddListener(OnClick_StartGameButton);
+        readyButton.onClick.AddListener(OnClick_Ready);
+        startGameButton.onClick.AddListener(OnClick_StartGame);
 
         base.Initialize();
     }
 
     #region Button events
-    private void OnClick_ReadyButton()
+    public void OnClick_Ready()
     {
         foreach (NetworkRoomPlayerLobby player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
@@ -35,7 +35,7 @@ public class LobbyView : View
         }
     }
 
-    private void OnClick_StartGameButton()
+    public void OnClick_StartGame()
     {
         foreach (NetworkRoomPlayerLobby player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {

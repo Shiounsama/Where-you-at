@@ -70,7 +70,7 @@ public class manager : NetworkBehaviour
         return true; // Tous les joueurs sont actifs
     }
     /// <summary>
-    /// Définit l'ordre d'attribution du rôle de Charlie à chaque joueur.
+    /// Dï¿½finit l'ordre d'attribution du rï¿½le de Charlie ï¿½ chaque joueur.
     /// </summary>
     private void SetCharlieRoleQueue()
     {
@@ -159,7 +159,7 @@ public class manager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Passe à la prochaine manche du jeu.
+    /// Passe ï¿½ la prochaine manche du jeu.
     /// </summary>
     public void NextRound()
     {
@@ -172,18 +172,14 @@ public class manager : NetworkBehaviour
             }
         }
 
-        GiveRole();
-        PlayersStartScene();
-
-        StartCoroutine(roundlaunch());
+        //StartCoroutine(roundlaunch());
     }
 
     /// <summary>
-    /// Assigne les prochains rôles des joueurs selon l'ordre prédéfini.
+    /// Assigne les prochains rï¿½les des joueurs selon l'ordre prï¿½dï¿½fini.
     /// </summary>
     IEnumerator roundlaunch()
     {
-        
 
         foreach (PlayerData playerscript in scriptPlayer)
         {
@@ -198,24 +194,5 @@ public class manager : NetworkBehaviour
 
         PlayersStartScene();
     }
-
-    /*IEnumerator roundlaunch() 
-    {
-        foreach (PlayerData playerscript in scriptPlayer)
-        {
-            if (playerscript.isLocalPlayer)
-            {
-                Debug.Log("Je suis le test");
-                playerscript.StartGame();
-
-            }
-        }
-
-        //GiveNextRoles();
-
-        yield return new WaitForSeconds(0.2f);
-
-        PlayersStartScene();
-    }*/
 
 }

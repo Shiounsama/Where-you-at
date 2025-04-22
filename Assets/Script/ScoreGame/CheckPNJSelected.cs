@@ -46,7 +46,6 @@ public class CheckPNJSelected : NetworkBehaviour
         //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
         score.ServeurScore(resultat);
-        scoreGame.finish = true;
 
         if (isLocalPlayer)
         {
@@ -55,6 +54,7 @@ public class CheckPNJSelected : NetworkBehaviour
             _playerData.setPNJvalide(testPNJ);
             timer timerScript = FindObjectOfType<timer>();
             timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+            timerScript.timeSprite.enabled = false;
             //manager.Instance.CamerasDezoom();
         }
 

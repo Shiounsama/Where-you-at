@@ -135,7 +135,7 @@ public class PlayerData : NetworkBehaviour
                     {
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
-                        destroyPNJ();
+                        
                     }
                 }
 
@@ -199,9 +199,10 @@ public class PlayerData : NetworkBehaviour
             int randomNumber = Random.Range(0, allPNJ.Length);
 
             ClearOtherTchat();
+           
             ViewManager.Instance.StartFadeOut();
-            EnablePlayer(role);    
-
+            EnablePlayer(role);
+            
             foreach (NetworkConnection conn in NetworkServer.connections.Values)
             {
                 TargetEnableAudioListener(conn);
@@ -391,8 +392,6 @@ public class PlayerData : NetworkBehaviour
                     
                 }
             }
-            
-
 
             if (role == Role.Seeker)
             {
