@@ -63,11 +63,8 @@ public class PlayerData : NetworkBehaviour
                 pnjSelected.y = Mathf.RoundToInt(pnjSelected.y);
                 pnjSelected.z = Mathf.RoundToInt(pnjSelected.z);
 
-
-                Debug.Log("Je suis dans la boucle");
                 if (pnjPosition == pnjSelected)
                 {
-                    Debug.Log("Trouver le pnj");
                     pnjValide = pnj;
                 }
             }
@@ -182,11 +179,7 @@ public class PlayerData : NetworkBehaviour
             ViewManager.Instance.StartFadeOut();
             EnablePlayer(role);
             
-            foreach (NetworkConnection conn in NetworkServer.connections.Values)
-            {
-                TargetEnableAudioListener(conn);
-
-            }
+            
         }
     }
 
