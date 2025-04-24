@@ -404,6 +404,17 @@ public class PlayerData : NetworkBehaviour
 
                 seekerAudio.enabled = true;
                 seekerAudio.cityTransform = building.transform;
+
+                GameObject PNJclone = PNJcible.gameObject;
+
+                PNJclone.GetComponent<PNJClothe>().enabled = false;
+                Vector3 uwuVector = Vector3.zero;
+
+                GameObject uwuPNJ = Instantiate(PNJclone, PNJcible.transform.parent.gameObject.transform);
+
+                uwuPNJ.name = "HEHEHEHE";
+
+                PNJcible.name = "JE SUIS CACHE";
             }
             else if (role == Role.Lost)
             {
