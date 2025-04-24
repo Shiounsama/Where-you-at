@@ -45,7 +45,7 @@ public class PNJPISpawn : MonoBehaviour
         int randomNumberPNJ = Random.Range(0, PNJ.Length);
         PlayerData.PNJcible = PNJ[randomNumberPNJ];
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         manager.Instance.GiveRole();
     }

@@ -23,6 +23,8 @@ public class manager : NetworkBehaviour
 
     public bool InGame;
 
+    public bool Seeker;
+
     [Range(1, 10)]
     public int gameRounds = 6;
 
@@ -123,11 +125,15 @@ public class manager : NetworkBehaviour
         }
 
         int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
+
+        if(!Seeker)
+            player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        else
+            player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
 
         //SetCharlieRoleQueue();
         //GiveNextRoles();
-        
+
         yield return new WaitForSeconds(.1f);
         
         PlayersStartScene();

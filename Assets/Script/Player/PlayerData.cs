@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerData : NetworkBehaviour
 {
@@ -26,6 +27,13 @@ public class PlayerData : NetworkBehaviour
     private Coroutine timerCoroutine;
 
     public static GameObject PNJcible { get; set; }
+
+    [Header("Selected UI")]
+    public GameObject taskItemPrefab; 
+    public Transform layoutGroupParent; 
+
+    public Sprite finishedSprite;     
+    public Sprite notFinishedSprite;
 
     [Command]
     public void setPNJvalide(Vector3 pnj)
@@ -114,8 +122,6 @@ public class PlayerData : NetworkBehaviour
                         
                     }
                 }
-
-
             }
 
         }
@@ -323,6 +329,10 @@ public class PlayerData : NetworkBehaviour
 
         List<PlayerScoring> playerScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
 
+        List<string> allPlayerDataName = new List<string>();
+        List<bool> allPlayerScoringFinished = new List<bool>();
+
+        layoutGroupParent = GameObject.Find("UIfinish").transform;
         ViewManager.Instance.UpdateViewsList();
 
         if (role != Role.None)
@@ -355,15 +365,16 @@ public class PlayerData : NetworkBehaviour
 
             timer timerGame = FindAnyObjectByType<timer>();
 
-            foreach(PlayerScoring score in playerScore)
-            {
-                score.ScoreJoueur = 0;
+            GetComponent<PlayerData>().layoutGroupParent.gameObject.SetActive(true);
 
-                if (score.isLocalPlayer)
-                {
-                    
-                }
+            foreach (PlayerScoring score in playerScore)
+            {
+                score.ScoreJoueur = 0; 
+                allPlayerDataName.Add(score.GetComponent<PlayerData>().playerName);
+                allPlayerScoringFinished.Add(score.finish);
             }
+
+            showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
             if (role == Role.Seeker)
             {
@@ -491,6 +502,44 @@ public class PlayerData : NetworkBehaviour
         {
             if (role == Role.Lost)
                 Destroy(PNJcible);
+        }
+    }
+
+    public void showPlayer(List<string> names, List<bool> finishedStates)
+    {
+        if (layoutGroupParent == null)
+        {
+            GameObject uiFinishGO = GameObject.Find("UIfinish");
+            if (uiFinishGO != null)
+            {
+                layoutGroupParent = uiFinishGO.transform;
+            }
+            else
+            {
+                Debug.LogError("layoutGroupParent est null et le GameObject 'UIfinish' est introuvable !");
+                return;
+            }
+        }
+
+        if (names.Count != finishedStates.Count)
+        {
+            Debug.Log("La liste des noms et la liste des états finished ne sont pas de la même taille !");
+            return;
+        }
+
+        foreach (Transform child in layoutGroupParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < names.Count; i++)
+        {
+            GameObject taskItem = Instantiate(taskItemPrefab, layoutGroupParent);
+            TextMeshProUGUI nameText = taskItem.GetComponentInChildren<TextMeshProUGUI>();
+            Image statusImage = taskItem.GetComponentInChildren<Image>();
+
+            if (nameText != null) nameText.text = names[i];
+            if (statusImage != null) statusImage.sprite = finishedStates[i] ? finishedSprite : notFinishedSprite;
         }
     }
 
