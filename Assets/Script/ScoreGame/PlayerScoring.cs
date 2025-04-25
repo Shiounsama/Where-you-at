@@ -87,7 +87,7 @@ public class PlayerScoring : NetworkBehaviour
                 player.compteurGame++;
             }
 
-            if (compteurGame == 1)
+            if (compteurGame == 98)
             {
                 foreach (PlayerScoring player in allScores)
                 {
@@ -102,7 +102,7 @@ public class PlayerScoring : NetworkBehaviour
                 //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
             }
 
-            if (compteurGame == 2)
+            if (compteurGame == 1)
             {
                 GetComponent<PlayerData>().layoutGroupParent.gameObject.SetActive(false);
 
@@ -150,10 +150,9 @@ public class PlayerScoring : NetworkBehaviour
                     }
                 }
 
-                if (GetComponent<PlayerScoring>().finish)
-                {
-                    scoreGame.ShowScore();
-                }
+                
+                scoreGame.ShowScore();
+                
             }
         }
     }

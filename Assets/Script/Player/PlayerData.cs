@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -34,6 +35,8 @@ public class PlayerData : NetworkBehaviour
 
     public Sprite finishedSprite;     
     public Sprite notFinishedSprite;
+
+    public GameObject canvasHintPNJ;
 
     [Command]
     public void setPNJvalide(Vector3 pnj)
@@ -367,11 +370,16 @@ public class PlayerData : NetworkBehaviour
 
             GetComponent<PlayerData>().layoutGroupParent.gameObject.SetActive(true);
 
+            canvasHintPNJ = GameObject.Find("ShowPNJ");
+
             foreach (PlayerScoring score in playerScore)
             {
-                score.ScoreJoueur = 0; 
-                allPlayerDataName.Add(score.GetComponent<PlayerData>().playerName);
-                allPlayerScoringFinished.Add(score.finish);
+                score.ScoreJoueur = 0;
+                if (score.GetComponent<PlayerData>().role == Role.Seeker)
+                {
+                    allPlayerDataName.Add(score.GetComponent<PlayerData>().playerName);
+                    allPlayerScoringFinished.Add(score.finish);
+                }
             }
 
             showPlayer(allPlayerDataName, allPlayerScoringFinished);
@@ -417,6 +425,8 @@ public class PlayerData : NetworkBehaviour
 
                 uwuPNJ.transform.rotation = Quaternion.Euler(0, 180, 0);
                 uwuPNJ.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
+
+                StartCoroutine(MICKEY(canvasHintPNJ));
             
             }
             else if (role == Role.Lost)
@@ -430,6 +440,8 @@ public class PlayerData : NetworkBehaviour
 
                 ViewManager.Instance.Show<LostView>();
 
+                canvasHintPNJ.SetActive(false);
+
                 frontPNJ();
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
@@ -440,7 +452,7 @@ public class PlayerData : NetworkBehaviour
 
                 seekerAudio.enabled = false;
 
-                Destroy(PNJcible);
+                //Destroy(PNJcible);
             }
 
             if (timerCoroutine != null)
@@ -532,7 +544,7 @@ public class PlayerData : NetworkBehaviour
             }
             else
             {
-                Debug.LogError("layoutGroupParent est null et le GameObject 'UIfinish' est introuvable !");
+                Debug.Log("layoutGroupParent est null et le GameObject 'UIfinish' est introuvable !");
                 return;
             }
         }
@@ -559,4 +571,10 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
+    IEnumerator MICKEY(GameObject canvasHintPNJ)
+    {
+        yield return new WaitForSeconds(5);
+        canvasHintPNJ.SetActive(false);
+    }
+        
 }
