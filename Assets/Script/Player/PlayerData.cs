@@ -408,13 +408,16 @@ public class PlayerData : NetworkBehaviour
                 GameObject PNJclone = PNJcible.gameObject;
 
                 PNJclone.GetComponent<PNJClothe>().enabled = false;
+
                 Vector3 uwuVector = Vector3.zero;
 
-                GameObject uwuPNJ = Instantiate(PNJclone, PNJcible.transform.parent.gameObject.transform);
+                GameObject uwuPNJ = Instantiate(PNJclone);
 
-                uwuPNJ.name = "HEHEHEHE";
+                uwuPNJ.tag = "PNJCIBLE";
 
-                PNJcible.name = "JE SUIS CACHE";
+                uwuPNJ.transform.rotation = Quaternion.Euler(0, 180, 0);
+                uwuPNJ.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
+            
             }
             else if (role == Role.Lost)
             {
@@ -436,6 +439,8 @@ public class PlayerData : NetworkBehaviour
 
 
                 seekerAudio.enabled = false;
+
+                Destroy(PNJcible);
             }
 
             if (timerCoroutine != null)
