@@ -23,6 +23,8 @@ public class manager : NetworkBehaviour
 
     public bool InGame;
 
+    public bool Seeker;
+
     [Range(1, 10)]
     public int gameRounds = 6;
 
@@ -70,7 +72,7 @@ public class manager : NetworkBehaviour
         return true; // Tous les joueurs sont actifs
     }
     /// <summary>
-    /// Dï¿½finit l'ordre d'attribution du rï¿½le de Charlie ï¿½ chaque joueur.
+    /// Définit l'ordre d'attribution du rôle de Charlie à chaque joueur.
     /// </summary>
     private void SetCharlieRoleQueue()
     {
@@ -123,11 +125,15 @@ public class manager : NetworkBehaviour
         }
 
         int nbrRandom = Random.Range(0, player.Count);
-        player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
+
+        if(!Seeker)
+            player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        else
+            player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
 
         //SetCharlieRoleQueue();
         //GiveNextRoles();
-        
+
         yield return new WaitForSeconds(.1f);
         
         PlayersStartScene();
@@ -159,7 +165,7 @@ public class manager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Passe ï¿½ la prochaine manche du jeu.
+    /// Passe à la prochaine manche du jeu.
     /// </summary>
     public void NextRound()
     {
@@ -176,7 +182,7 @@ public class manager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Assigne les prochains rï¿½les des joueurs selon l'ordre prï¿½dï¿½fini.
+    /// Assigne les prochains rôles des joueurs selon l'ordre prédéfini.
     /// </summary>
     IEnumerator roundlaunch()
     {

@@ -39,8 +39,6 @@ public class ScoreGame : NetworkBehaviour
     /// <param name="scores">Liste des PlayerScoring des joueurs qui ont fini de jouer, triée dans l'ordre de placement.</param>
     private void ShowLeaderboard(List<PlayerScoring> scores)
     {
-        Debug.Log("Tu es dans le showLeaderBoard");
-
         if (!playerScores.Any(p => p.finish && p.isLocalPlayer))
         {
             return; 
@@ -59,9 +57,7 @@ public class ScoreGame : NetworkBehaviour
 
             scores[i].GetComponent<PlayerData>().DisablePlayer();
             scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().seekerObjects, false);
-            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);
-
-            
+            scores[i].GetComponent<PlayerData>().ObjectsStateSetter(scores[i].GetComponent<PlayerData>().charlieObjects, false);  
         }
     }
 }

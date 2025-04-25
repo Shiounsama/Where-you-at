@@ -12,14 +12,14 @@ public class PNJpriorite : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PNJpriorite>())
         {
-            prioVoisin = collision.gameObject.GetComponent<PNJpriorite>();
+           /* prioVoisin = collision.gameObject.GetComponent<PNJpriorite>();
 
             if (prioVoisin.priorite > priorite)
             {
                 Destroy(collision.gameObject);
             }
             else
-                Destroy(this);
+                Destroy(this);*/
         }
         else return;
 
