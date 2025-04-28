@@ -426,7 +426,7 @@ public class PlayerData : NetworkBehaviour
                 uwuPNJ.transform.rotation = Quaternion.Euler(0, 180, 0);
                 uwuPNJ.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
 
-                StartCoroutine(MICKEY(canvasHintPNJ));
+                StartCoroutine(PNJHint(canvasHintPNJ));
             
             }
             else if (role == Role.Lost)
@@ -571,7 +571,7 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    IEnumerator MICKEY(GameObject canvasHintPNJ)
+    IEnumerator PNJHint(GameObject canvasHintPNJ)
     {
         yield return new WaitForSeconds(5);
         canvasHintPNJ.SetActive(false);
