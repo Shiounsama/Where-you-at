@@ -107,53 +107,33 @@ public class PlayerScoring : NetworkBehaviour
                 GetComponent<PlayerData>().layoutGroupParent.gameObject.SetActive(false);
 
                 var scoreGame = FindObjectOfType<ScoreGame>();
-
-                float totalScore = 0;
+                float moyenneScore = 0;
 
                 foreach (PlayerScoring score in allScores)
                 {
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
-                        if (score.GetComponentInChildren<IsoCameraSelection>().selectedObject != null)
-                        {
-                            score.IsGuess = true;
-                        }
-
-                        score.IsLost = false;
+                        moyenneScore += (score.ScoreJoueur) / (seekerCount);
                     }
+                }
 
-                    if (score.finish)
+                foreach (PlayerScoring score in allScores)
+                {
+                    if (GetComponent<PlayerData>().role == Role.Seeker)
                     {
-                        int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
-                        totalScore += (score.ScoreJoueur + scorePosition) / (seekerCount);
+                        score.ScoreFinal += score.ScoreJoueur;
                     }
-                }
 
-                if (GetComponent<PlayerData>().role == Role.Seeker)
-                {
-                    int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
-                    ScoreJoueur += scorePosition;
-                    ScoreFinal += ScoreJoueur;
-                }
-
-                if (seekerCount == finishedPlayers)
-                {
-                    foreach (PlayerScoring score in allScores)
+                    else
                     {
-                        if (score.GetComponent<PlayerData>().role == Role.Lost)
-                        {
-                            score.finish = true;
-                            score.IsLost = true;
-                            score.ScoreJoueur = totalScore;
-                            score.ScoreFinal += totalScore;
-                        }
+                        score.ScoreJoueur = moyenneScore;
+                        score.ScoreFinal += moyenneScore;
                     }
                 }
 
-                if (GetComponent<PlayerScoring>().finish)
-                {
-                    scoreGame.ShowScore();
-                }
+
+                scoreGame.ShowScore();
+                
             }
         }
     }
