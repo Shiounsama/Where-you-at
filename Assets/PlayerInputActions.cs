@@ -221,6 +221,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Backspace"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0d66e29-394a-4d02-af8c-d0029b119a1c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -300,6 +309,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c8113f2-4a74-40a2-8e22-2bb62d6378bb"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Backspace"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -321,6 +341,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_Ready = m_UI.FindAction("Ready", throwIfNotFound: true);
         m_UI_StartGame = m_UI.FindAction("StartGame", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
+        m_UI_Backspace = m_UI.FindAction("Backspace", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -473,6 +494,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Ready;
     private readonly InputAction m_UI_StartGame;
     private readonly InputAction m_UI_Submit;
+    private readonly InputAction m_UI_Backspace;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -482,6 +504,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Ready => m_Wrapper.m_UI_Ready;
         public InputAction @StartGame => m_Wrapper.m_UI_StartGame;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
+        public InputAction @Backspace => m_Wrapper.m_UI_Backspace;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -506,6 +529,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Submit.started += instance.OnSubmit;
             @Submit.performed += instance.OnSubmit;
             @Submit.canceled += instance.OnSubmit;
+            @Backspace.started += instance.OnBackspace;
+            @Backspace.performed += instance.OnBackspace;
+            @Backspace.canceled += instance.OnBackspace;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -525,6 +551,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Submit.started -= instance.OnSubmit;
             @Submit.performed -= instance.OnSubmit;
             @Submit.canceled -= instance.OnSubmit;
+            @Backspace.started -= instance.OnBackspace;
+            @Backspace.performed -= instance.OnBackspace;
+            @Backspace.canceled -= instance.OnBackspace;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -558,5 +587,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnReady(InputAction.CallbackContext context);
         void OnStartGame(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
+        void OnBackspace(InputAction.CallbackContext context);
     }
 }
