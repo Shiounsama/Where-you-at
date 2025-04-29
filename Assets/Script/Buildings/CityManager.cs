@@ -18,16 +18,16 @@ public class Plateform
         }
     }
 }
-public class CityManager : NetworkBehaviour
+public class CityManager : MonoBehaviour
 {
     [SerializeField] private List<Plateform> _plateforms = new List<Plateform>();
     
     [SerializeField] private int _plateformWhereHiderIsIn;
     [SerializeField] private int randomIndex;
-
-    [TargetRpc]
-    public void SetHiderPlateform(NetworkConnection conn, GameObject PlateformToCheck)
+    
+    public void SetHiderPlateform(GameObject PlateformToCheck)
     {
+        print("SetHiderPlateform");
         int index = 0;
         
         foreach (var plateform in _plateforms)
@@ -37,18 +37,27 @@ public class CityManager : NetworkBehaviour
                 if (plateformPlateform == PlateformToCheck)
                 {
                     _plateformWhereHiderIsIn = index;
+                    MakePlateformFall();
                     return;
                 }
             }
             index++;
         }
     }
-    
+
     private void MakePlateformFall()
     {
         if (randomIndex == _plateformWhereHiderIsIn)
         {
-            RemovePlateform(randomIndex + 1);
+            if(randomIndex + 1 < _plateforms.Count)
+            {
+                RemovePlateform(randomIndex + 1);
+                randomIndex++;
+            }
+        }
+        if(randomIndex >= _plateforms.Count)
+        {
+            randomIndex = 0;
         }
         randomIndex++;
     }

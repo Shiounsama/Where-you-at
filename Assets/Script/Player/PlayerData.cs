@@ -30,24 +30,6 @@ public class PlayerData : NetworkBehaviour
 
     public static GameObject PNJcible { get; set; }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Map"))
-        {
-            playerPlateform = collision.gameObject;
-            SetPlayerPlateform();
-        }
-    }
-
-    [Command]
-    private void SetPlayerPlateform()
-    {
-        foreach (var conn in NetworkServer.connections.Values)
-        {
-            FindObjectOfType<CityManager>().SetHiderPlateform(conn, playerPlateform);
-        }
-    }
-
     [Command]
     public void setPNJvalide(Vector3 pnj)
     {
@@ -116,6 +98,7 @@ public class PlayerData : NetworkBehaviour
 
     private void Update()
     {
+        SetPlateform();
         if (isLocalPlayer)
         {
             frontPNJ();
@@ -135,13 +118,36 @@ public class PlayerData : NetworkBehaviour
                     {
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
-                        
+
                     }
                 }
-
-
             }
+        }
+    }
 
+    private void SetPlateform()
+    {
+        for (int i = 0; i < manager.Instance.scriptPlayer.Count ; i++)
+        {
+            if (manager.Instance.scriptPlayer[i])
+            {
+                if (manager.Instance.scriptPlayer[i].role == Role.Lost)
+                {
+                    Transform currentPlayer = manager.Instance.scriptPlayer[i].transform;
+                    
+                    RaycastHit hit;
+                    
+                    if (Physics.Raycast(currentPlayer.position, currentPlayer.transform.TransformDirection(Vector3.down), out hit, 100f))
+                    {
+                        if (hit.collider.CompareTag("Map") && !playerPlateform)
+                        {
+                            print("Je suis dans le if");
+                            playerPlateform = hit.collider.gameObject;
+                            FindObjectOfType<CityManager>().SetHiderPlateform(playerPlateform);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -199,13 +205,13 @@ public class PlayerData : NetworkBehaviour
             int randomNumber = Random.Range(0, allPNJ.Length);
 
             ClearOtherTchat();
-           
+
             ViewManager.Instance.StartFadeOut();
             EnablePlayer(role);
-            
+
             foreach (NetworkConnection conn in NetworkServer.connections.Values)
             {
-                TargetEnableAudioListener(conn);
+
 
             }
         }
@@ -217,12 +223,6 @@ public class PlayerData : NetworkBehaviour
         ViewManager.Instance.StartFadeIn();
     }
 
-    [TargetRpc]
-    private void TargetEnableAudioListener(NetworkConnection conn)
-    {
-        manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled = true;
-        Debug.Log($"Local AudioListener enabled: {manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled}");
-    }
 
     /// <summary>
     /// Fais en sorte que les PNJ soient toujours tourner vers les joueurs
@@ -383,13 +383,13 @@ public class PlayerData : NetworkBehaviour
 
             timer timerGame = FindAnyObjectByType<timer>();
 
-            foreach(PlayerScoring score in playerScore)
+            foreach (PlayerScoring score in playerScore)
             {
                 score.ScoreJoueur = 0;
 
                 if (score.isLocalPlayer)
                 {
-                    
+
                 }
             }
 
