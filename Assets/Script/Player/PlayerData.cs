@@ -268,7 +268,6 @@ public class PlayerData : NetworkBehaviour
                 if (tchat.isLocalPlayer)
                 {
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
-
                 }
                 else
                 {

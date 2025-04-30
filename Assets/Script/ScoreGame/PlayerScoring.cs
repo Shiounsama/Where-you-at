@@ -28,6 +28,9 @@ public class PlayerScoring : NetworkBehaviour
     [SyncVar]
     public int compteurGame = 0;
 
+    [SyncVar]
+    public List<PlayerScoring> OrdreGuess = new List<PlayerScoring>();
+
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
@@ -46,6 +49,12 @@ public class PlayerScoring : NetworkBehaviour
     {
         Distance = newScore;
         finish = true;
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        foreach (PlayerScoring player in allScores)
+        {
+            player.OrdreGuess.Add(this);
+        }
+
 
         ScoreJoueur = 100 - Distance;
 
@@ -75,6 +84,8 @@ public class PlayerScoring : NetworkBehaviour
             {
                 allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                 allPlayerScoringFinished.Add(player.finish);
+                
+
             }
 
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
