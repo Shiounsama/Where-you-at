@@ -46,11 +46,8 @@ public class PNJPISpawn : MonoBehaviour
         PlayerData.PNJcible = PNJ[randomNumberPNJ];
         
         PlayerData.PNJcible.GetComponent<PNJpriorite>().isCible = true;
+        PlayerData.PNJcible.GetComponent<PNJpriorite>().CheckVoisins();
 
-        foreach(GameObject pnj in PNJ)
-        {
-            pnj.GetComponent<PNJpriorite>().enabled = true;
-        }
 
         yield return new WaitForSeconds(1f);
 

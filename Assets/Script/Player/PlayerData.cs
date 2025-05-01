@@ -367,7 +367,7 @@ public class PlayerData : NetworkBehaviour
 
             timer timerGame = FindAnyObjectByType<timer>();
 
-            GetComponent<PlayerData>().layoutGroupParent.gameObject.SetActive(true);
+            layoutGroupParent.gameObject.SetActive(false);
 
             canvasHintPNJ = GameObject.Find("ShowPNJ");
 
@@ -407,7 +407,7 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
 
-                layoutGroupParent.gameObject.SetActive(false);
+                layoutGroupParent.gameObject.SetActive(true);
 
                 //PNJcible.SetActive(true);
 
@@ -448,6 +448,7 @@ public class PlayerData : NetworkBehaviour
                 ViewManager.Instance.AddView(lostView);
                 //ViewManager.Instance.GetView<LostView>().Initialize();
 
+                layoutGroupParent.gameObject.SetActive(false);
                 ObjectsStateSetter(charlieObjects, true);
                 ObjectsStateSetter(seekerObjects, false);
 

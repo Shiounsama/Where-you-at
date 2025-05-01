@@ -53,13 +53,13 @@ public class PlayerScoring : NetworkBehaviour
         Distance = newScore;
         finish = true;
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        foreach (PlayerScoring player in allScores)
-        {
-            player.OrdreGuess.Add(this);
-        }
-
+        int finishedPlayers = allScores.Count(score => score.finish);
+        int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
 
         ScoreJoueur = 100 - Distance;
+
+        int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
+        ScoreJoueur = (ScoreJoueur + scorePosition);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -81,10 +81,6 @@ public class PlayerScoring : NetworkBehaviour
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
 
-        if (canPoint)
-        {
-            OrdreGuess.Add(this);
-        }
 
         if (finishedPlayers != seekerCount)
         {
@@ -94,8 +90,6 @@ public class PlayerScoring : NetworkBehaviour
                 allPlayerScoringFinished.Add(player.finish);
 
             }
-
-            
 
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
@@ -136,6 +130,20 @@ public class PlayerScoring : NetworkBehaviour
                     {
                         moyenneScore += (score.ScoreJoueur) / (seekerCount);
                     }
+                }
+
+                for (int i = 0; i < OrdreGuess.Count; i++)
+                {
+                    int ordrePoint = 50;
+                    i = i * 10;
+                    ordrePoint -= i;
+
+                    if( ordrePoint < 0)
+                    {
+                        ordrePoint = 0;
+                    }
+
+                    OrdreGuess[i].ScoreJoueur += ordrePoint;
                 }
 
                 foreach (PlayerScoring score in allScores)
