@@ -44,6 +44,13 @@ public class PNJPISpawn : MonoBehaviour
         FindObjectOfType<PNJPISpawn>().spawnPIPNJ();
         int randomNumberPNJ = Random.Range(0, PNJ.Length);
         PlayerData.PNJcible = PNJ[randomNumberPNJ];
+        
+        PlayerData.PNJcible.GetComponent<PNJpriorite>().isCible = true;
+
+        foreach(GameObject pnj in PNJ)
+        {
+            pnj.GetComponent<PNJpriorite>().enabled = true;
+        }
 
         yield return new WaitForSeconds(1f);
 

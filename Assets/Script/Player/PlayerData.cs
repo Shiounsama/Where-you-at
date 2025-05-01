@@ -407,6 +407,8 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
 
+                layoutGroupParent.gameObject.SetActive(false);
+
                 //PNJcible.SetActive(true);
 
                 seekerAudio.enabled = true;
@@ -507,6 +509,7 @@ public class PlayerData : NetworkBehaviour
 
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
+        layoutGroupParent.gameObject.SetActive(false);
 
     }
 

@@ -29,6 +29,9 @@ public class PlayerScoring : NetworkBehaviour
     public int compteurGame = 0;
 
     [SyncVar]
+    public bool canPoint = false;
+
+    [SyncVar]
     public List<PlayerScoring> OrdreGuess = new List<PlayerScoring>();
 
     public override void OnStartLocalPlayer()
@@ -78,15 +81,21 @@ public class PlayerScoring : NetworkBehaviour
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
 
+        if (canPoint)
+        {
+            OrdreGuess.Add(this);
+        }
+
         if (finishedPlayers != seekerCount)
         {
             foreach (PlayerScoring player in allScores)
             {
                 allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                 allPlayerScoringFinished.Add(player.finish);
-                
 
             }
+
+            
 
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
@@ -96,6 +105,7 @@ public class PlayerScoring : NetworkBehaviour
             foreach (PlayerScoring player in allScores)
             {
                 player.compteurGame++;
+                player.StartCoroutine(unlockPoint());
             }
 
             if (compteurGame == 1)
@@ -111,11 +121,11 @@ public class PlayerScoring : NetworkBehaviour
                 GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
                 //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
+
             }
 
             if (compteurGame == 2)
             {
-                GetComponent<PlayerData>().layoutGroupParent.gameObject.SetActive(false);
 
                 var scoreGame = FindObjectOfType<ScoreGame>();
                 float moyenneScore = 0;
@@ -151,7 +161,13 @@ public class PlayerScoring : NetworkBehaviour
 
 
 
+    IEnumerator unlockPoint()
+    {
+        yield return new WaitForSeconds(1);
 
+        canPoint = true;
+
+    }
 
 
 

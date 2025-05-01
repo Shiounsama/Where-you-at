@@ -22,10 +22,12 @@ public class PNJpriorite : MonoBehaviour
 
             if (prioVoisin.isCible)
             {
+                Debug.Log("JE SUIS CONNE");
                 Destroy(this);
             }
             else if (prioVoisin.priorite > priorite)
             {
+                Debug.Log("JE SUIS A COTE DE " + prioVoisin.isCible);
                 Destroy(collision.gameObject);
             }
             else
