@@ -296,7 +296,6 @@ public class PlayerData : NetworkBehaviour
                 if (tchat.isLocalPlayer)
                 {
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
-
                 }
                 else
                 {
@@ -396,7 +395,7 @@ public class PlayerData : NetworkBehaviour
 
             timer timerGame = FindAnyObjectByType<timer>();
 
-            GetComponent<PlayerData>().layoutGroupParent.gameObject.SetActive(true);
+            layoutGroupParent.gameObject.SetActive(false);
 
             canvasHintPNJ = GameObject.Find("ShowPNJ");
 
@@ -436,6 +435,8 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
 
+                layoutGroupParent.gameObject.SetActive(true);
+
                 //PNJcible.SetActive(true);
 
                 seekerAudio.enabled = true;
@@ -447,12 +448,24 @@ public class PlayerData : NetworkBehaviour
 
                 Vector3 uwuVector = Vector3.zero;
 
-                GameObject uwuPNJ = Instantiate(PNJclone);
+                GameObject hintPNJObject = Instantiate(PNJclone);
 
-                uwuPNJ.tag = "PNJCIBLE";
+                hintPNJObject.tag = "PNJCIBLE";
 
-                uwuPNJ.transform.rotation = Quaternion.Euler(0, 180, 0);
-                uwuPNJ.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
+                hintPNJObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+                hintPNJObject.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
+
+                foreach (Transform child in hintPNJObject.GetComponentsInChildren<Transform>())
+                {
+                    if (child == hintPNJObject.transform) continue;
+
+                    SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
+                    if (sr != null)
+                    {
+                        sr.color = Color.black;
+                    }
+                }
 
                 StartCoroutine(PNJHint(canvasHintPNJ));
             
@@ -463,6 +476,7 @@ public class PlayerData : NetworkBehaviour
                 ViewManager.Instance.AddView(lostView);
                 //ViewManager.Instance.GetView<LostView>().Initialize();
 
+                layoutGroupParent.gameObject.SetActive(false);
                 ObjectsStateSetter(charlieObjects, true);
                 ObjectsStateSetter(seekerObjects, false);
 
@@ -524,6 +538,7 @@ public class PlayerData : NetworkBehaviour
 
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
+        layoutGroupParent.gameObject.SetActive(false);
 
     }
 
@@ -550,15 +565,6 @@ public class PlayerData : NetworkBehaviour
     public void RpcStartGame()
     {
         StartGame(); // Ex�cut� sur tous les clients
-    }
-
-    public void destroyPNJ()
-    {
-        if (isLocalPlayer)
-        {
-            if (role == Role.Lost)
-                Destroy(PNJcible);
-        }
     }
 
     public void showPlayer(List<string> names, List<bool> finishedStates)

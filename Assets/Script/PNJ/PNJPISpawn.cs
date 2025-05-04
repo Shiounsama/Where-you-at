@@ -44,6 +44,10 @@ public class PNJPISpawn : MonoBehaviour
         FindObjectOfType<PNJPISpawn>().spawnPIPNJ();
         int randomNumberPNJ = Random.Range(0, PNJ.Length);
         PlayerData.PNJcible = PNJ[randomNumberPNJ];
+        
+        PlayerData.PNJcible.GetComponent<PNJpriorite>().isCible = true;
+        PlayerData.PNJcible.GetComponent<PNJpriorite>().CheckVoisins();
+
 
         yield return new WaitForSeconds(1f);
 

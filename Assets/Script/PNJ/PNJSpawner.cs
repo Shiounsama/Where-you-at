@@ -99,6 +99,7 @@ public class PNJSpawner : MonoBehaviour
                             spawnPosition,
                             Quaternion.identity, transform);
 
+
                 actualPlayer.GetComponent<PNJpriorite>().priorite = compteurPriorite;
 
                 entitiesSpawnedArray.Add(actualPlayer);

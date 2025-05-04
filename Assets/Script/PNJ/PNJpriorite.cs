@@ -4,35 +4,56 @@ using UnityEngine;
 
 public class PNJpriorite : MonoBehaviour
 {
-    public int priorite;
     public bool isCible;
+    public int priorite;
+    public float tailleSphere = 0.4f;
 
-    private void OnCollisionStay(Collision collision)
+    public void CheckVoisins()
     {
-        PNJpriorite prioVoisin;
+        Debug.Log("Je lance le check");
 
-        if (collision.gameObject.GetComponent<PNJpriorite>())
+        Collider[] voisins = Physics.OverlapSphere(transform.position, tailleSphere);
+
+        foreach (Collider collider in voisins)
         {
-           prioVoisin = collision.gameObject.GetComponent<PNJpriorite>();
+            if (collider.gameObject == this.gameObject) continue;
 
-            if (isCible)
+            PNJpriorite prioVoisin = collider.GetComponent<PNJpriorite>();
+            if (prioVoisin != null)
             {
-                return;
-            }
+                if (prioVoisin.isCible)
+                {
+                    Debug.Log("L'autre est une cible, je me détruis");
+                    Destroy(this.gameObject);
+                    return;
+                }
 
-            if (prioVoisin.isCible)
-            {
-                Destroy(this);
+                if (isCible)
+                {
+                    Debug.Log("Je suis une cible, je détruis l'autre");
+                    Destroy(prioVoisin.gameObject);
+                    return;
+                }
+
+                if (prioVoisin.priorite < priorite)
+                {
+                    Debug.Log("L'autre a une priorité plus faible, je le détruis");
+                    Destroy(prioVoisin.gameObject);
+                    return;
+                }
+                else
+                {
+                    Debug.Log("L'autre a une priorité plus élevée ou égale, je me détruis");
+                    Destroy(this.gameObject);
+                    return;
+                }
             }
-            else if (prioVoisin.priorite > priorite)
-            {
-                Destroy(collision.gameObject);
-            }
-            else
-                Destroy(this);
         }
-        else return;
+    }
 
-        
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, tailleSphere);
     }
 }
