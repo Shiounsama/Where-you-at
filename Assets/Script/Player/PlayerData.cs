@@ -135,6 +135,7 @@ public class PlayerData : NetworkBehaviour
 
     private void SetPlateform()
     {
+        print("test");
         for (int i = 0; i < manager.Instance.scriptPlayer.Count ; i++)
         {
             if (manager.Instance.scriptPlayer[i])
