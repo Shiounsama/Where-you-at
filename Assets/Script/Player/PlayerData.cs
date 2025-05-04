@@ -69,17 +69,19 @@ public class PlayerData : NetworkBehaviour
                 Vector3 pnjPosition = pnj.transform.localPosition;
                 Vector3 pnjSelected = allPlayer[i].pnjValidePosition;
 
-                pnjPosition.x = Mathf.RoundToInt(pnjPosition.x);
-                pnjPosition.y = Mathf.RoundToInt(pnjPosition.y);
-                pnjPosition.z = Mathf.RoundToInt(pnjPosition.z);
-
-                pnjSelected.x = Mathf.RoundToInt(pnjSelected.x);
-                pnjSelected.y = Mathf.RoundToInt(pnjSelected.y);
-                pnjSelected.z = Mathf.RoundToInt(pnjSelected.z);
+                // pnjPosition.x = Mathf.RoundToInt(pnjPosition.x);
+                // pnjPosition.y = Mathf.RoundToInt(pnjPosition.y);
+                // pnjPosition.z = Mathf.RoundToInt(pnjPosition.z);
+                //
+                // pnjSelected.x = Mathf.RoundToInt(pnjSelected.x);
+                // pnjSelected.y = Mathf.RoundToInt(pnjSelected.y);
+                // pnjSelected.z = Mathf.RoundToInt(pnjSelected.z);
 
                 if (pnjPosition == pnjSelected)
                 {
                     pnjValide = pnj;
+                    manager.Instance.seekerGuessedPNJs.Add(pnj);
+                    manager.Instance.CamerasDezoom();
                 }
             }
         }
@@ -89,14 +91,14 @@ public class PlayerData : NetworkBehaviour
     {
         if (pnjValide != null)
         {
-            pnjValide.GetComponentInChildren<TextMeshPro>().transform.gameObject.SetActive(true);
+            TextMeshProUGUI textMesh = pnjValide.GetComponentInChildren<TextMeshProUGUI>();
+            
+            textMesh.gameObject.SetActive(true);
 
-            pnjValide.GetComponentInChildren<TextMeshPro>().text = playerName;
-            pnjValide.GetComponentInChildren<TextMeshPro>().color = color;
+            textMesh.text = playerName;
+            textMesh.color = color;
 
-            pnjValide.GetComponentInChildren<TextMeshPro>().transform.LookAt(GetComponentInChildren<Camera>().transform.position);
-
-            Debug.Log("textExiste" + pnjValide.GetComponentInChildren<TextMeshPro>().text);
+            print("textExiste" + pnjValide.GetComponentInChildren<TextMeshPro>().text);
         }
         else
         {
