@@ -160,8 +160,9 @@ public class PlayerScoring : NetworkBehaviour
                     }
                 }
 
-
+                
                 scoreGame.ShowScore();
+                
                 
             }
         }
@@ -177,80 +178,13 @@ public class PlayerScoring : NetworkBehaviour
 
     }
 
-
-
-
-
-
-
-
-
-
-    private void TargetHandleScores(NetworkConnection target)
-    {
-        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        int finishedPlayers = allScores.Count(score => score.finish);
-        int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
-
-        GetComponent<PlayerData>().layoutGroupParent.gameObject.SetActive(false);
-
-        var scoreGame = FindObjectOfType<ScoreGame>();
-
-        float totalScore = 0;
-
-        foreach (PlayerScoring score in allScores)
-        {
-            if (score.GetComponent<PlayerData>().role == Role.Seeker)
-            {
-                if (score.GetComponentInChildren<IsoCameraSelection>().selectedObject != null)
-                {
-                    score.IsGuess = true;
-                }
-
-                score.IsLost = false;
-            }
-
-            if (score.finish)
-            {
-                int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
-                totalScore += (score.ScoreJoueur + scorePosition) / (seekerCount);
-            }
-        }
-
-        if (GetComponent<PlayerData>().role == Role.Seeker)
-        {
-            int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
-            ScoreJoueur += scorePosition;
-            ScoreFinal += ScoreJoueur;
-        }
-
-        if (seekerCount == finishedPlayers)
-        {
-            foreach (PlayerScoring score in allScores)
-            {
-                if (score.GetComponent<PlayerData>().role == Role.Lost)
-                {
-                    score.finish = true;
-                    score.IsLost = true;
-                    score.ScoreJoueur = totalScore;
-                    score.ScoreFinal += totalScore;
-                }
-            }
-        }
-
-        if (GetComponent<PlayerScoring>().finish)
-        {
-            scoreGame.ShowScore();
-        }
-    }
-
     [Command]
     public void ShowScore()
     {
         foreach (var conn in NetworkServer.connections.Values)
         {
             ShowScoreTimer(conn);
-            Debug.Log("Je suis dans le showscore");
+            
         }
     }
 
@@ -258,47 +192,61 @@ public class PlayerScoring : NetworkBehaviour
     private void ShowScoreTimer(NetworkConnection target)
     {
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
-        float totalScore = 0;
-
-        foreach (PlayerScoring score in allScores)
+        foreach (PlayerScoring player in allScores)
         {
-            score.finish = true;
-
-            if (score.GetComponent<PlayerData>().role == Role.Seeker)
-            {
-                if (score.GetComponentInChildren<IsoCameraSelection>().selectedObject != null)
-                {
-                    score.IsGuess = true;
-                }
-
-                if (score.IsGuess)
-                {
-                    float resultat = Mathf.Round(Vector3.Distance(score.GetComponentInChildren<IsoCameraSelection>().selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-                    float scorePosition = Mathf.Max(0, 60 - allScores.Count(score => score.finish) * 10);
-                    scorePosition += 100 - resultat;
-                    totalScore += (score.ScoreJoueur + scorePosition) / (seekerCount);
-                }
-
-                if (!score.IsGuess)
-                {
-                    totalScore += 100;
-                }
-
-                score.IsLost = false;
-            }
+            player.compteurGame++;
+            player.StartCoroutine(unlockPoint());
         }
 
-        foreach (PlayerScoring score in allScores)
+        if (compteurGame == 1)
         {
-            if (score.GetComponent<PlayerData>().role == Role.Lost)
+            List<string> allPlayerDataName = new List<string>();
+            List<bool> allPlayerScoringFinished = new List<bool>();
+
+            foreach (PlayerScoring player in allScores)
             {
-                score.IsLost = true;
-                score.ScoreJoueur = totalScore;
-                score.ScoreFinal += totalScore;
+                player.finish = false;
+
+                allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
+                allPlayerScoringFinished.Add(player.finish);
             }
+
+            GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
+
+            //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
         }
 
-        FindObjectOfType<ScoreGame>().ShowScore();
+        if (compteurGame == 2)
+        {
+            int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+            float totalScore = 0;
+
+            foreach (PlayerScoring score in allScores)
+            {
+                if (score.GetComponent<PlayerData>().role == Role.Seeker && !score.finish)
+                {
+                    score.ScoreJoueur = 0;
+                    score.finish = true;
+                }
+                else if (score.GetComponent<PlayerData>().role == Role.Seeker && score.finish)
+                {
+                    score.ScoreFinal = score.ScoreJoueur;
+                    score.finish = true;
+                }
+
+            }
+
+            foreach (PlayerScoring score in allScores)
+            {
+
+                if (score.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    score.ScoreJoueur = totalScore;
+                    score.ScoreFinal += totalScore;
+                }
+            }
+
+            FindObjectOfType<ScoreGame>().ShowScore();
+        }
     }
 }

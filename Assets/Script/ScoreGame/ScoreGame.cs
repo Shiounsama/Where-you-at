@@ -30,6 +30,12 @@ public class ScoreGame : NetworkBehaviour
         playerScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         playerScores = playerScores.Where(score => score.finish).OrderByDescending(scoreJoueur => scoreJoueur.ScoreJoueur).ToList();
 
+        foreach (PlayerScoring score in playerScores)
+        {
+            score.compteurGame = 0;
+            score.canPoint = false;
+        }
+
         ShowLeaderboard(playerScores);
     }
 

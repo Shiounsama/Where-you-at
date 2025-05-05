@@ -334,7 +334,11 @@ public class PlayerData : NetworkBehaviour
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
 
-        layoutGroupParent = GameObject.Find("UIfinish").transform;
+        if(layoutGroupParent == null)
+        {
+            layoutGroupParent = GameObject.Find("UIfinish").transform;
+        }
+        
         ViewManager.Instance.UpdateViewsList();
 
         if (role != Role.None)
@@ -428,6 +432,8 @@ public class PlayerData : NetworkBehaviour
 
                 hintPNJObject.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
 
+                hintPNJObject.GetComponent<Rigidbody>().useGravity = false;
+
                 foreach (Transform child in hintPNJObject.GetComponentsInChildren<Transform>())
                 {
                     if (child == hintPNJObject.transform) continue;
@@ -465,8 +471,6 @@ public class PlayerData : NetworkBehaviour
 
 
                 seekerAudio.enabled = false;
-
-                //Destroy(PNJcible);
             }
 
             if (timerCoroutine != null)
@@ -482,35 +486,41 @@ public class PlayerData : NetworkBehaviour
     /// </summary>
     public void DisablePlayer()
     {
-        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
-        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
-        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
-        TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
-        Camera360 cam360 = GetComponentInChildren<Camera360>();
-        IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
-        SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
+        if (isLocalPlayer)
+        {
+            IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+            IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+            IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+            TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
+            Camera360 cam360 = GetComponentInChildren<Camera360>();
+            IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
+            SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
 
-        IsoCameraSelection camSelecIso = GetComponent<IsoCameraSelection>();
+            IsoCameraSelection camSelecIso = GetComponent<IsoCameraSelection>();
 
-        GetComponentInChildren<PlayerInput>().enabled = false;
+            GetComponentInChildren<PlayerInput>().enabled = false;
 
-        cam360.enabled = false;
+            cam360.enabled = false;
 
-        camDragIso.enabled = false;
+            camDragIso.enabled = false;
 
-        camZoomIso.enabled = false;
+            camZoomIso.enabled = false;
 
-        camRotaIso.enabled = false;
+            camRotaIso.enabled = false;
 
-        Xray.enabled = false;
+            Xray.enabled = false;
 
-        seekerAudio.enabled = true;
+            seekerAudio.enabled = true;
 
-        //camSelecIso.OnObjectUnselected();
+            //camSelecIso.OnObjectUnselected();
 
-        tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
+            tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
-        layoutGroupParent.gameObject.SetActive(false);
+            if (layoutGroupParent != null)
+            {
+                layoutGroupParent.gameObject.SetActive(false);
+            }
+        }
 
     }
 
