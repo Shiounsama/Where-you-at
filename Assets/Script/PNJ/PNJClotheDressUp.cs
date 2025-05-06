@@ -29,7 +29,7 @@ public class PNJClothe : MonoBehaviour
     public void Start()
     {
         choseHair();
-        //choseCorps();
+        choseCorps();
         chooseExpression(eyesClothe, eyesClotheImage);
         chooseExpression(plusClothe, plusClotheImage);
         chooseExpression(mouthClothe, mouthClotheImage);
@@ -89,15 +89,14 @@ public class PNJClothe : MonoBehaviour
     public void choseCorps()
     {
         int randomNumberListCorps = Random.Range(0, corpsClothe.Length);
-        int randomNumberListTete = Random.Range(0, teteClothe.Length);
 
         int randomNumberHair = Random.Range(0, corpsClothe[randomNumberListCorps].clotheList.Count);
 
         Sprite spriteCorps = corpsClothe[randomNumberListCorps].ReturnRandomClothe(randomNumberHair);
-        Sprite spriteTete = teteClothe[randomNumberListTete].ReturnRandomClothe(randomNumberHair);
+        Sprite spriteTete = teteClothe[randomNumberListCorps].ReturnRandomClothe(randomNumberHair);
 
 
-        frontHairClotheImage.sprite = spriteCorps;
-        backHairClotheImage.sprite = spriteTete;
+        corpsClotheImage.sprite = spriteCorps;
+        teteClotheImage.sprite = spriteTete;
     }
 }

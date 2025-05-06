@@ -63,8 +63,9 @@ public class Construction : MonoBehaviour
             this.GetComponent<ConstructionType>().prefabBuildingName = actualPrefab.GetComponent<ConstructionType>().prefabBuildingName;
         }
 
-        
-        
+        seed.Instance.SeedValue++;
+
+
     }
 
     public NameOfConstruction checkvoisin()

@@ -17,38 +17,50 @@ public class PNJPISpawn : MonoBehaviour
 
     public bool isAllPnjUsed;
 
-    void Start()
+    public void Start()
     {
-        
         StartCoroutine(spawnPIPNJ());
     }
 
     IEnumerator spawnPIPNJ()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Random.InitState(seed.Instance.SeedValue);
         for (int i = 0; i < nombrePNJPI; i++)
         {
             GameObject[] AllPNJ = GameObject.FindGameObjectsWithTag("pnj");
-            int randomNumber = Random.Range(0, AllPNJ.Length);
-
-            while (AllPNJ[randomNumber].gameObject == PlayerData.PNJcible.gameObject)
-            {
-                randomNumber = Random.Range(0, AllPNJ.Length);
-            }
+            int randomNumber = Random.Range(0, AllPNJ.Length);          
 
             GameObject placementPNJ = AllPNJ[randomNumber];
            
             PNJSpawner uwu = placementPNJ.GetComponentInParent<PNJSpawner>();
+
             Destroy(placementPNJ);
-            StartCoroutine( InstantiateObject(GetPrefab(), uwu));    
+
+            InstantiateObject(GetPrefab(), uwu);    
         }
+
+        GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
+        FindObjectOfType<PNJPISpawn>().spawnPIPNJ();
+        int randomNumberPNJ = Random.Range(0, PNJ.Length);
+        PlayerData.PNJcible = PNJ[randomNumberPNJ];
         
+        PlayerData.PNJcible.GetComponent<PNJpriorite>().isCible = true;
+        PlayerData.PNJcible.GetComponent<PNJpriorite>().CheckVoisins();
+
+        PlayerData.PNJcible.name = "Cible";
+
+        Debug.Log("Je suis la cible et j'existe " + PlayerData.PNJcible.name);
+
+
+        yield return new WaitForSeconds(1f);
+
+        manager.Instance.GiveRole();
     }
 
-    IEnumerator InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
+    void InstantiateObject(GameObject objectToInstantiate, PNJSpawner spawner)
     {
-        int nombreDeSpawnMax = 20;
+        int nombreDeSpawnMax = 99;
         int nombreEssai = 0;
         bool validPosition = false;
         
@@ -58,14 +70,13 @@ public class PNJPISpawn : MonoBehaviour
 
         while (!validPosition && nombreEssai < nombreDeSpawnMax)
         {
-            yield return new WaitForSeconds(0.01f);
             spawnPosition = new Vector3(Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
                             transform.position.y + 1,
                             Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z));          
 
             Collider[] colliders = Physics.OverlapBox(
                                    spawnPosition,
-                                   objectToInstantiate.transform.localScale / 2f,
+                                   objectToInstantiate.transform.localScale / 1f,
                                    Quaternion.identity);
 
            
@@ -85,8 +96,6 @@ public class PNJPISpawn : MonoBehaviour
             entitiesSpawnedArray.Add(actualPlayer);
 
             ResetListOfPnjPI();
-
-            
         }
     }
 
@@ -96,29 +105,6 @@ public class PNJPISpawn : MonoBehaviour
 
         if (listOfPnjPI.Count > 0)
         {
-            /*int x = Random.Range(0, listOfPnjPI.Count);
-
-            while (listOfValueUsed.Contains(x))
-            {
-                x = Random.Range(0, listOfPnjPI.Count);
-                if (listOfValueUsed.Count >= listOfPnjPI.Count)
-                {
-                    isAllPnjUsed = true;
-
-                    return listOfPnjPI[0].gameObject;
-                }
-            }
-
-            listOfValueUsed.Add(x);
-
-            if (listOfValueUsed.Count <= listOfPnjPI.Count)
-            {
-                return listOfPnjPI[x].gameObject;
-            }
-            return listOfPnjPI[0].gameObject;*/
-
-            
-
             int x = Random.Range(0, listOfPnjPI.Count);
 
             return listOfPnjPI[x].gameObject;

@@ -1,8 +1,10 @@
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerData : NetworkBehaviour
 {
@@ -26,6 +28,15 @@ public class PlayerData : NetworkBehaviour
     private Coroutine timerCoroutine;
 
     public static GameObject PNJcible { get; set; }
+
+    [Header("Selected UI")]
+    public GameObject taskItemPrefab; 
+    public Transform layoutGroupParent; 
+
+    public Sprite finishedSprite;     
+    public Sprite notFinishedSprite;
+
+    public GameObject canvasHintPNJ;
 
     [Command]
     public void setPNJvalide(Vector3 pnj)
@@ -63,11 +74,8 @@ public class PlayerData : NetworkBehaviour
                 pnjSelected.y = Mathf.RoundToInt(pnjSelected.y);
                 pnjSelected.z = Mathf.RoundToInt(pnjSelected.z);
 
-
-                Debug.Log("Je suis dans la boucle");
                 if (pnjPosition == pnjSelected)
                 {
-                    Debug.Log("Trouver le pnj");
                     pnjValide = pnj;
                 }
             }
@@ -112,13 +120,11 @@ public class PlayerData : NetworkBehaviour
                 {
                     if (PNJcible != null)
                     {
-                        transform.position = new Vector3(PNJcible.transform.position.x, 1f, PNJcible.transform.position.z);
+                        transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
-                        destroyPNJ();
+                        
                     }
                 }
-
-
             }
 
         }
@@ -178,14 +184,11 @@ public class PlayerData : NetworkBehaviour
             int randomNumber = Random.Range(0, allPNJ.Length);
 
             ClearOtherTchat();
+           
             ViewManager.Instance.StartFadeOut();
-            EnablePlayer(role);    
-
-            foreach (NetworkConnection conn in NetworkServer.connections.Values)
-            {
-                TargetEnableAudioListener(conn);
-
-            }
+            EnablePlayer(role);
+            
+            
         }
     }
 
@@ -265,7 +268,6 @@ public class PlayerData : NetworkBehaviour
                 if (tchat.isLocalPlayer)
                 {
                     tchat.gameObject.GetComponentInChildren<Canvas>().enabled = true;
-
                 }
                 else
                 {
@@ -329,6 +331,14 @@ public class PlayerData : NetworkBehaviour
 
         List<PlayerScoring> playerScore = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
 
+        List<string> allPlayerDataName = new List<string>();
+        List<bool> allPlayerScoringFinished = new List<bool>();
+
+        if(layoutGroupParent == null)
+        {
+            layoutGroupParent = GameObject.Find("UIfinish").transform;
+        }
+        
         ViewManager.Instance.UpdateViewsList();
 
         if (role != Role.None)
@@ -361,17 +371,21 @@ public class PlayerData : NetworkBehaviour
 
             timer timerGame = FindAnyObjectByType<timer>();
 
-            foreach(PlayerScoring score in playerScore)
+            layoutGroupParent.gameObject.SetActive(false);
+
+            canvasHintPNJ = GameObject.Find("ShowPNJ");
+
+            foreach (PlayerScoring score in playerScore)
             {
                 score.ScoreJoueur = 0;
-
-                if (score.isLocalPlayer)
+                if (score.GetComponent<PlayerData>().role == Role.Seeker)
                 {
-                    
+                    allPlayerDataName.Add(score.GetComponent<PlayerData>().playerName);
+                    allPlayerScoringFinished.Add(score.finish);
                 }
             }
-            
 
+            showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
             if (role == Role.Seeker)
             {
@@ -397,10 +411,42 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
 
+                layoutGroupParent.gameObject.SetActive(true);
+
                 //PNJcible.SetActive(true);
 
                 seekerAudio.enabled = true;
                 seekerAudio.cityTransform = building.transform;
+
+                GameObject PNJclone = PNJcible.gameObject;
+
+                PNJclone.GetComponent<PNJClothe>().enabled = false;
+
+                Vector3 uwuVector = Vector3.zero;
+
+                GameObject hintPNJObject = Instantiate(PNJclone);
+
+                hintPNJObject.tag = "PNJCIBLE";
+
+                hintPNJObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+                hintPNJObject.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
+
+                hintPNJObject.GetComponent<Rigidbody>().useGravity = false;
+
+                foreach (Transform child in hintPNJObject.GetComponentsInChildren<Transform>())
+                {
+                    if (child == hintPNJObject.transform) continue;
+
+                    SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
+                    if (sr != null)
+                    {
+                        sr.color = Color.black;
+                    }
+                }
+
+                StartCoroutine(PNJHint(canvasHintPNJ));
+            
             }
             else if (role == Role.Lost)
             {
@@ -408,10 +454,13 @@ public class PlayerData : NetworkBehaviour
                 ViewManager.Instance.AddView(lostView);
                 //ViewManager.Instance.GetView<LostView>().Initialize();
 
+                layoutGroupParent.gameObject.SetActive(false);
                 ObjectsStateSetter(charlieObjects, true);
                 ObjectsStateSetter(seekerObjects, false);
 
                 ViewManager.Instance.Show<LostView>();
+
+                canvasHintPNJ.SetActive(false);
 
                 frontPNJ();
                 cam360.enabled = true;
@@ -437,34 +486,41 @@ public class PlayerData : NetworkBehaviour
     /// </summary>
     public void DisablePlayer()
     {
-        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
-        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
-        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
-        TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
-        Camera360 cam360 = GetComponentInChildren<Camera360>();
-        IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
-        SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
+        if (isLocalPlayer)
+        {
+            IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+            IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+            IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+            TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
+            Camera360 cam360 = GetComponentInChildren<Camera360>();
+            IsoCameraXRay Xray = GetComponentInChildren<IsoCameraXRay>();
+            SeekerAudio seekerAudio = GetComponentInChildren<SeekerAudio>();
 
-        IsoCameraSelection camSelecIso = GetComponent<IsoCameraSelection>();
+            IsoCameraSelection camSelecIso = GetComponent<IsoCameraSelection>();
 
-        GetComponentInChildren<PlayerInput>().enabled = false;
+            GetComponentInChildren<PlayerInput>().enabled = false;
 
-        cam360.enabled = false;
+            cam360.enabled = false;
 
-        camDragIso.enabled = false;
+            camDragIso.enabled = false;
 
-        camZoomIso.enabled = false;
+            camZoomIso.enabled = false;
 
-        camRotaIso.enabled = false;
+            camRotaIso.enabled = false;
 
-        Xray.enabled = false;
+            Xray.enabled = false;
 
-        seekerAudio.enabled = true;
+            seekerAudio.enabled = true;
 
-        //camSelecIso.OnObjectUnselected();
+            //camSelecIso.OnObjectUnselected();
 
-        tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
+            tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
+            if (layoutGroupParent != null)
+            {
+                layoutGroupParent.gameObject.SetActive(false);
+            }
+        }
 
     }
 
@@ -493,13 +549,48 @@ public class PlayerData : NetworkBehaviour
         StartGame(); // Ex�cut� sur tous les clients
     }
 
-    public void destroyPNJ()
+    public void showPlayer(List<string> names, List<bool> finishedStates)
     {
-        if (isLocalPlayer)
+        if (layoutGroupParent == null)
         {
-            if (role == Role.Lost)
-                Destroy(PNJcible);
+            GameObject uiFinishGO = GameObject.Find("UIfinish");
+            if (uiFinishGO != null)
+            {
+                layoutGroupParent = uiFinishGO.transform;
+            }
+            else
+            {
+                Debug.Log("layoutGroupParent est null et le GameObject 'UIfinish' est introuvable !");
+                return;
+            }
+        }
+
+        if (names.Count != finishedStates.Count)
+        {
+            Debug.Log("La liste des noms et la liste des états finished ne sont pas de la même taille !");
+            return;
+        }
+
+        foreach (Transform child in layoutGroupParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < names.Count; i++)
+        {
+            GameObject taskItem = Instantiate(taskItemPrefab, layoutGroupParent);
+            TextMeshProUGUI nameText = taskItem.GetComponentInChildren<TextMeshProUGUI>();
+            Image statusImage = taskItem.GetComponentInChildren<Image>();
+
+            if (nameText != null) nameText.text = names[i];
+            if (statusImage != null) statusImage.sprite = finishedStates[i] ? finishedSprite : notFinishedSprite;
         }
     }
 
+    IEnumerator PNJHint(GameObject canvasHintPNJ)
+    {
+        yield return new WaitForSeconds(5);
+        canvasHintPNJ.SetActive(false);
+    }
+        
 }
