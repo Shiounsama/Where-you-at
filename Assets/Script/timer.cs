@@ -40,7 +40,7 @@ public class timer : NetworkBehaviour
         cmdshowscor();
     }
 
-    [Command]
+    
     public void cmdshowscor()
     {
         PlayerScoring score = FindObjectOfType<PlayerScoring>();

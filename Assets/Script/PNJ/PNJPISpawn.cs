@@ -48,6 +48,10 @@ public class PNJPISpawn : MonoBehaviour
         PlayerData.PNJcible.GetComponent<PNJpriorite>().isCible = true;
         PlayerData.PNJcible.GetComponent<PNJpriorite>().CheckVoisins();
 
+        PlayerData.PNJcible.name = "Cible";
+
+        Debug.Log("Je suis la cible et j'existe " + PlayerData.PNJcible.name);
+
 
         yield return new WaitForSeconds(1f);
 
