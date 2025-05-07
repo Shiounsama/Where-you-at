@@ -4,6 +4,7 @@ using Mirror;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
 
 public class PlayerScoring : NetworkBehaviour
 {
@@ -117,6 +118,13 @@ public class PlayerScoring : NetworkBehaviour
                 }
 
                 GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
+                timer timerScript = FindObjectOfType<timer>();
+
+                timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
+                timerScript.time = 180;
+                
+                timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
+                timerScript.timeSprite.enabled = true;
 
                 //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
 
@@ -166,8 +174,9 @@ public class PlayerScoring : NetworkBehaviour
 
                 
                 scoreGame.ShowScore();
-                
-                
+                timer timerScript = FindObjectOfType<timer>();
+                timerScript.time = 999999;
+
             }
         }
     }
