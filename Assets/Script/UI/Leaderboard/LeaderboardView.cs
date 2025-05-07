@@ -37,7 +37,7 @@ public class LeaderboardView : View
     /// <summary>
     /// Ajoute un nouveau score au leaderboard.
     /// </summary>
-    /// <param name="playerScoring">Classe qui gère le score du joueur.</param>
+    /// <param name="playerScoring">Classe qui gÃ¨re le score du joueur.</param>
     public void AddScore(PlayerScoring playerScoring, int placement)
     {
         GameObject newScore = GameObject.Instantiate(scoreElementPrefab, scoresLayout);
@@ -73,14 +73,14 @@ public class LeaderboardView : View
 
             if (allScore.Count == compteurScore)
             {
-                AbleRestartButton();
+                EnableRestartButton();
             }
 
         }
     }
 
     /// <summary>
-    /// Efface entièrement le leaderboard.
+    /// Efface entiï¿½rement le leaderboard.
     /// </summary>
     public void ClearLeaderboard()
     {
@@ -94,14 +94,14 @@ public class LeaderboardView : View
     #endregion
 
     /// <summary>
-    /// Désactive le bouton Restart pour le joueur
+    /// Dï¿½sactive le bouton Restart pour le joueur
     /// </summary>
     public void DisableRestartButton()
     {
         restartButton.gameObject.SetActive(false);
     }
 
-    public void AbleRestartButton()
+    public void EnableRestartButton()
     {
         restartButton.gameObject.SetActive(true);
     }
