@@ -81,6 +81,9 @@ public class PlayerScoring : NetworkBehaviour
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
 
+        
+        GetComponent<PlayerData>().DisableSelect();
+
 
         if (finishedPlayers != seekerCount)
         {
@@ -100,6 +103,7 @@ public class PlayerScoring : NetworkBehaviour
             {
                 player.compteurGame++;
                 player.StartCoroutine(unlockPoint());
+                
             }
 
             if (compteurGame == 1)
@@ -107,7 +111,7 @@ public class PlayerScoring : NetworkBehaviour
                 foreach (PlayerScoring player in allScores)
                 {
                     player.finish = false;
-
+                    GetComponent<PlayerData>().AbleSelect();
                     allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                     allPlayerScoringFinished.Add(player.finish);
                 }

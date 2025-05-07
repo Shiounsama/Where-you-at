@@ -357,7 +357,7 @@ public class PlayerData : NetworkBehaviour
             camRotaIso.enabled = false;
             camRotaIso.objectToRotate = building.transform;
 
-            camSelectedIso.OnObjectUnselected();
+            DisableSelect();
 
             camPlayer.enabled = true;
 
@@ -412,6 +412,8 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localRotation = Quaternion.identity;
 
                 layoutGroupParent.gameObject.SetActive(true);
+
+                AbleSelect();
 
                 //PNJcible.SetActive(true);
 
@@ -516,6 +518,8 @@ public class PlayerData : NetworkBehaviour
 
             tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
+            DisableSelect();
+
             if (layoutGroupParent != null)
             {
                 layoutGroupParent.gameObject.SetActive(false);
@@ -591,6 +595,18 @@ public class PlayerData : NetworkBehaviour
     {
         yield return new WaitForSeconds(5);
         canvasHintPNJ.SetActive(false);
+    }
+
+    public void DisableSelect()
+    {
+        IsoCameraSelection camSelecIso = GetComponentInChildren<IsoCameraSelection>();
+        camSelecIso.CanSelect = false;
+    }
+
+    public void AbleSelect()
+    {
+        IsoCameraSelection camSelecIso = GetComponentInChildren<IsoCameraSelection>();
+        camSelecIso.CanSelect = true;
     }
         
 }

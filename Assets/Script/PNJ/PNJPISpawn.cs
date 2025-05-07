@@ -42,11 +42,18 @@ public class PNJPISpawn : MonoBehaviour
 
         GameObject[] PNJ = GameObject.FindGameObjectsWithTag("pnj");
         FindObjectOfType<PNJPISpawn>().spawnPIPNJ();
+
+        foreach(GameObject pnj in PNJ)
+        {
+            pnj.GetComponent<PNJpriorite>().CheckVoisins();
+        }
+
+        PNJ = GameObject.FindGameObjectsWithTag("pnj");
+
         int randomNumberPNJ = Random.Range(0, PNJ.Length);
         PlayerData.PNJcible = PNJ[randomNumberPNJ];
         
         PlayerData.PNJcible.GetComponent<PNJpriorite>().isCible = true;
-        PlayerData.PNJcible.GetComponent<PNJpriorite>().CheckVoisins();
 
         PlayerData.PNJcible.name = "Cible";
 

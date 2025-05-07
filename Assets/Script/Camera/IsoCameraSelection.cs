@@ -9,6 +9,8 @@ public class IsoCameraSelection : MonoBehaviour
 
     private SeekerView _seekerView;
 
+    public bool CanSelect = true;
+
     private void Awake()
     {
        // _seekerView = ViewManager.Instance.GetView<SeekerView>();
@@ -23,7 +25,7 @@ public class IsoCameraSelection : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerToVerify) && CanSelect)
             {
                 if(selectedObject != null)
                 {
