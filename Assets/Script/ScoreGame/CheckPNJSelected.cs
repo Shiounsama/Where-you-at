@@ -50,7 +50,7 @@ public class CheckPNJSelected : NetworkBehaviour
         if (isLocalPlayer)
         {
             _playerData = GetComponent<PlayerData>();
-            Vector3 testPNJ = cameraSelection.selectedObject.localposition;
+            Vector3 testPNJ = cameraSelection.selectedObject.localPosition;
             cameraSelection.OnObjectUnselected();
 
             _playerData.setPNJvalide(testPNJ);
