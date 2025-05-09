@@ -50,8 +50,9 @@ public class CheckPNJSelected : NetworkBehaviour
         if (isLocalPlayer)
         {
             _playerData = GetComponent<PlayerData>();
-            Vector3 testPNJ = cameraSelection.selectedObject.position;
+            Vector3 testPNJ = cameraSelection.selectedObject.localposition;
             cameraSelection.OnObjectUnselected();
+
             _playerData.setPNJvalide(testPNJ);
             timer timerScript = FindObjectOfType<timer>();
             timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
