@@ -118,6 +118,8 @@ MonoBehaviour:
   layoutGroupParent: {fileID: 0}
   finishedSprite: {fileID: 21300000, guid: 21461b6f65d61094bb9bb8dd9d433d1c, type: 3}
   notFinishedSprite: {fileID: 21300000, guid: 85b5d20281e4f6747a332a8a6b7baf7b, type: 3}
+  canvasHintPNJ: {fileID: 0}
+  tailleSphere: 10
 --- !u!114 &5284582141068114091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,14 +135,15 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  victoire: 0
   finish: 0
   Distance: 0
-  placement: 0
   ScoreJoueur: 0
   ScoreFinal: 0
   IsLost: 0
   IsGuess: 0
+  compteurGame: 0
+  canPoint: 0
+  OrdreGuess: []
 --- !u!114 &3605825858785897536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,6 +494,7 @@ MonoBehaviour:
   layerToVerify:
     serializedVersion: 2
     m_Bits: 8
+  CanSelect: 1
 --- !u!114 &5238412738729209366
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -262,4 +262,7 @@ public class PlayerScoring : NetworkBehaviour
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
+
+
+    
 }

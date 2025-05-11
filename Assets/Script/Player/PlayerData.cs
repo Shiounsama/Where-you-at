@@ -38,6 +38,8 @@ public class PlayerData : NetworkBehaviour
 
     public GameObject canvasHintPNJ;
 
+    public float tailleSphere;
+
     [Command]
     public void setPNJvalide(Vector3 pnj)
     {
@@ -464,6 +466,7 @@ public class PlayerData : NetworkBehaviour
 
                 canvasHintPNJ.SetActive(false);
 
+                activateEmotion();
                 frontPNJ();
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
@@ -608,5 +611,27 @@ public class PlayerData : NetworkBehaviour
         IsoCameraSelection camSelecIso = GetComponentInChildren<IsoCameraSelection>();
         camSelecIso.CanSelect = true;
     }
-        
+
+    private void activateEmotion()
+    {
+        Collider[] voisins = Physics.OverlapSphere(transform.position, tailleSphere);
+
+        foreach (Collider collider in voisins)
+        {
+            if (collider.gameObject == this.gameObject) continue;
+
+            PNJemotion emoVoisin = collider.GetComponent<PNJemotion>();
+
+            if (emoVoisin != null)
+            {
+                emoVoisin.enabled = true;
+            }
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, tailleSphere);
+    }
 }
