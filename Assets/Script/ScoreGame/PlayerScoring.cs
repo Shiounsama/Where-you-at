@@ -126,7 +126,7 @@ public class PlayerScoring : NetworkBehaviour
                 timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
                 timerScript.timeSprite.enabled = true;
 
-                //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
+                FindObjectOfType<CityManager>().MakePlateformFall();
 
             }
 

@@ -83,7 +83,7 @@ public class PlayerData : NetworkBehaviour
                 {
                     pnjValide = pnj;
                     manager.Instance.seekerGuessedPNJs.Add(pnj);
-                    manager.Instance.CamerasDezoom();
+                    //manager.Instance.CamerasDezoom();
                 }
             }
         }
@@ -140,28 +140,19 @@ public class PlayerData : NetworkBehaviour
     private void SetPlateform()
     {
         print("test");
-        for (int i = 0; i < manager.Instance.scriptPlayer.Count ; i++)
+              
+        RaycastHit hit;
+                    
+        if (Physics.Raycast(PNJcible.transform.position, PNJcible.transform.TransformDirection(Vector3.down), out hit, 100f))
         {
-            if (manager.Instance.scriptPlayer[i])
+            if (hit.collider.CompareTag("Map") && !playerPlateform)
             {
-                if (manager.Instance.scriptPlayer[i].role == Role.Lost)
-                {
-                    Transform currentPlayer = manager.Instance.scriptPlayer[i].transform;
-                    
-                    RaycastHit hit;
-                    
-                    if (Physics.Raycast(currentPlayer.position, currentPlayer.transform.TransformDirection(Vector3.down), out hit, 100f))
-                    {
-                        if (hit.collider.CompareTag("Map") && !playerPlateform)
-                        {
-                            print("Je suis dans le if");
-                            playerPlateform = hit.collider.gameObject;
-                            FindObjectOfType<CityManager>().SetHiderPlateform(playerPlateform);
-                        }
-                    }
-                }
+                print("Je suis dans le if");
+                playerPlateform = hit.collider.gameObject;
+                FindObjectOfType<CityManager>().SetHiderPlateform(playerPlateform);
             }
         }
+                
     }
 
     public override void OnStartLocalPlayer()

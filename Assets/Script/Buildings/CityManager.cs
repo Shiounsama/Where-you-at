@@ -37,7 +37,7 @@ public class CityManager : MonoBehaviour
                 if (plateformPlateform == PlateformToCheck)
                 {
                     _plateformWhereHiderIsIn = index;
-                    MakePlateformFall();
+                    //MakePlateformFall();
                     return;
                 }
             }
@@ -45,22 +45,20 @@ public class CityManager : MonoBehaviour
         }
     }
 
-    private void MakePlateformFall()
+    public void MakePlateformFall()
     {
-        if (randomIndex == _plateformWhereHiderIsIn)
+        Debug.Log("Dans MakePlateformFall");
+
+        for(int i = 0; i< _plateforms.Count; i++ )
+
+        if (i != _plateformWhereHiderIsIn)
         {
-            if(randomIndex + 1 < _plateforms.Count)
-            {
-                RemovePlateform(randomIndex + 1);
-                randomIndex++;
-            }
+            
+            RemovePlateform(i);
+             
         }
-        if(randomIndex >= _plateforms.Count)
-        {
-            randomIndex = 0;
-        }
-        randomIndex++;
     }
+
     private void RemovePlateform(int index)
     {
         _plateforms[index].MakePlateformDown();

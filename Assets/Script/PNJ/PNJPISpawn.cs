@@ -48,6 +48,8 @@ public class PNJPISpawn : MonoBehaviour
             pnj.GetComponent<PNJpriorite>().CheckVoisins();
         }
 
+        yield return new WaitForSeconds(0.5f);
+
         PNJ = GameObject.FindGameObjectsWithTag("pnj");
 
         int randomNumberPNJ = Random.Range(0, PNJ.Length);
@@ -56,9 +58,6 @@ public class PNJPISpawn : MonoBehaviour
         PlayerData.PNJcible.GetComponent<PNJpriorite>().isCible = true;
 
         PlayerData.PNJcible.name = "Cible";
-
-        Debug.Log("Je suis la cible et j'existe " + PlayerData.PNJcible.name);
-
 
         yield return new WaitForSeconds(1f);
 
