@@ -109,24 +109,54 @@ public class PlayerScoring : NetworkBehaviour
 
             if (compteurGame == 1)
             {
+                timer timerScript = FindObjectOfType<timer>();
+
+                timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+                timerScript.timeSprite.enabled = false;
+
+                timerScript.time = 9999;
+
+                GameObject car = GameObject.Find("RedCar");
+
+                car.SetActive(false);
+
+                int t = 0;
+                while (t < 1)
+                {
+
+                }
+                //dezoom de la camera + la map viens au centre
+
+
+                foreach (PlayerScoring player in allScores)
+                {
+                    player.GetComponent<PlayerData>().DisablePlayer();
+                }
+
+                    FindObjectOfType<CityManager>().MakePlateformFall();
+
+
+                //Mettre la map peu a peu vers le centre en meme temps que la camera dezoom
+
                 foreach (PlayerScoring player in allScores)
                 {
                     player.finish = false;
                     GetComponent<PlayerData>().AbleSelect();
+                    
+                    //Faire un enable fais maison
+
                     allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                     allPlayerScoringFinished.Add(player.finish);
                 }
 
                 GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
-                timer timerScript = FindObjectOfType<timer>();
 
-                timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
-                timerScript.time = 180;
-                
+
                 timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
                 timerScript.timeSprite.enabled = true;
 
-                FindObjectOfType<CityManager>().MakePlateformFall();
+                timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
+                timerScript.time = 180;
 
             }
 
