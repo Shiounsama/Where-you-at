@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.SocialPlatforms.Impl;
 using TMPro;
+using System.Net;
 
 public class PlayerScoring : NetworkBehaviour
 {
@@ -111,52 +112,7 @@ public class PlayerScoring : NetworkBehaviour
             {
                 timer timerScript = FindObjectOfType<timer>();
 
-                timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
-                timerScript.timeSprite.enabled = false;
-
-                timerScript.time = 9999;
-
-                GameObject car = GameObject.Find("RedCar");
-
-                car.SetActive(false);
-
-                int t = 0;
-                while (t < 1)
-                {
-
-                }
-                //dezoom de la camera + la map viens au centre
-
-
-                foreach (PlayerScoring player in allScores)
-                {
-                    player.GetComponent<PlayerData>().DisablePlayer();
-                }
-
-                    FindObjectOfType<CityManager>().MakePlateformFall();
-
-
-                //Mettre la map peu a peu vers le centre en meme temps que la camera dezoom
-
-                foreach (PlayerScoring player in allScores)
-                {
-                    player.finish = false;
-                    GetComponent<PlayerData>().AbleSelect();
-                    
-                    //Faire un enable fais maison
-
-                    allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
-                    allPlayerScoringFinished.Add(player.finish);
-                }
-
-                GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
-
-
-                timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
-                timerScript.timeSprite.enabled = true;
-
-                timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
-                timerScript.time = 180;
+                StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
 
             }
 
@@ -293,6 +249,102 @@ public class PlayerScoring : NetworkBehaviour
         }
     }
 
+    IEnumerator StartGameTransition(List<string> allPlayerDataName, List<bool> allPlayerScoringFinished, List<PlayerScoring> allScores)
+    {
+        timer timerScript = FindObjectOfType<timer>();
 
-    
+        Camera cam = GetComponentInChildren<Camera>();
+
+        foreach (PlayerScoring player in allScores)
+        {
+            if (player.isLocalPlayer)
+            {
+                cam = player.GetComponentInChildren<Camera>();
+            }
+        }
+
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+        timerScript.timeSprite.enabled = false;
+        timerScript.time = 9999;
+
+        GameObject car = GameObject.Find("redCar");
+        car.SetActive(false);
+
+        foreach (PlayerScoring player in allScores)
+        {
+            player.GetComponent<PlayerData>().DisablePlayer();
+        }
+
+        yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(-15, -6, 13),25,cam, 2f));
+
+        yield return new WaitForSeconds(2);
+
+        FindObjectOfType<CityManager>().MakePlateformFall();
+
+        yield return new WaitForSeconds(2);
+
+        switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
+        {
+            case 0:
+                yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(-13, 6, 15), 8, cam, 1f));
+                break;
+
+            case 1:
+                yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(-35, -1, 35), 8, cam, 1f));
+                break;
+
+            case 2:
+                yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(-16, -10, 13), 8, cam, 1f));
+                break;
+
+            case 3:
+                yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(1, -2, -2), 8, cam, 1f));
+                break;
+        }
+
+        
+
+
+        foreach (PlayerScoring player in allScores)
+        {
+            player.finish = false;
+            GetComponent<PlayerData>().AbleSelect();
+
+            allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
+            allPlayerScoringFinished.Add(player.finish);
+            //Faire un able player localement
+        }
+
+        GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
+
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
+        timerScript.timeSprite.enabled = true;
+        timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
+        timerScript.time = 180;
+    }
+
+    IEnumerator MoveMap(Vector3 startPos, Vector3 endPos, int zoomCam, Camera cam,  float temps)
+    {
+
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+
+        float elapsed = 0f;
+        GameObject map = GameObject.Find("VilleELP");
+        float startZoom = cam.orthographicSize;
+
+        
+        
+        while (elapsed < temps)
+        {
+            float t = elapsed / temps;
+            cam.orthographicSize = Mathf.Lerp(startZoom, zoomCam, t);
+            map.transform.position = Vector3.Lerp(startPos, endPos, t);
+            elapsed += Time.deltaTime;
+            yield return null; 
+        }
+
+        map.transform.position = endPos; 
+    }
+
+
 }

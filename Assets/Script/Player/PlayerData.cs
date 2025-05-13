@@ -548,6 +548,9 @@ public class PlayerData : NetworkBehaviour
             {
                 layoutGroupParent.gameObject.SetActive(false);
             }
+
+            ObjectsStateSetter(GetComponent<PlayerData>().seekerObjects, false);
+            ObjectsStateSetter(GetComponent<PlayerData>().charlieObjects, false);
         }
 
     }

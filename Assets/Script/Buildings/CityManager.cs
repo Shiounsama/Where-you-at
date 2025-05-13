@@ -22,7 +22,7 @@ public class CityManager : MonoBehaviour
 {
     [SerializeField] private List<Plateform> _plateforms = new List<Plateform>();
     
-    [SerializeField] private int _plateformWhereHiderIsIn;
+    public int _plateformWhereHiderIsIn;
     [SerializeField] private int randomIndex;
     
     public void SetHiderPlateform(GameObject PlateformToCheck)
