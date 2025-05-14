@@ -334,16 +334,18 @@ public class PlayerScoring : NetworkBehaviour
             if (player.isLocalPlayer)
             {
                 cam = player.GetComponentInChildren<Camera>();
-                camObject = player.GetComponent<GameObject>();
+                camObject = player.gameObject;
 
                 if(player.GetComponent<PlayerData>().role == Role.Lost)
                 {
                     isLost = true;
-                    positionLost = player.gameObject.transform.position;
+                    if (back == false)
+                        positionLost = player.gameObject.transform.position;
 
                     if (back == true)
                     {
                         endPosCam = positionLost;
+                        
                         targetRotation = Quaternion.Euler(0f, 0f, 0f);
                     }
                     else
@@ -369,7 +371,10 @@ public class PlayerScoring : NetworkBehaviour
             cam.orthographic = true;
             cam.orthographicSize = Mathf.Lerp(startZoom, zoomCam, t);
 
-            if (!isLost)
+            if (!back)
+                map.transform.position = Vector3.Lerp(startPos, endPos, t);
+
+            if (back && !isLost)
                 map.transform.position = Vector3.Lerp(startPos, endPos, t);
 
             if (isLost)
