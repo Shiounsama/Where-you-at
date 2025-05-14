@@ -36,6 +36,9 @@ public class PlayerScoring : NetworkBehaviour
     [SyncVar]
     public List<PlayerScoring> OrdreGuess = new List<PlayerScoring>();
 
+    [SyncVar]
+    public Vector3 positionLost;
+
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
@@ -255,13 +258,7 @@ public class PlayerScoring : NetworkBehaviour
 
         Camera cam = GetComponentInChildren<Camera>();
 
-        foreach (PlayerScoring player in allScores)
-        {
-            if (player.isLocalPlayer)
-            {
-                cam = player.GetComponentInChildren<Camera>();
-            }
-        }
+        
 
         timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
         timerScript.timeSprite.enabled = false;
@@ -275,7 +272,7 @@ public class PlayerScoring : NetworkBehaviour
             player.GetComponent<PlayerData>().DisablePlayer();
         }
 
-        yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(-15, -6, 13),25,cam, 2f));
+        yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-15, -6, 13), 25, false, 2f));
 
         yield return new WaitForSeconds(2);
 
@@ -286,24 +283,21 @@ public class PlayerScoring : NetworkBehaviour
         switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
         {
             case 0:
-                yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(-13, 6, 15), 8, cam, 1f));
+                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-13, 6, 15), 8, true, 1f));
                 break;
 
             case 1:
-                yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(-35, -1, 35), 8, cam, 1f));
+                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-35, -1, 35), 8, true, 1f));
                 break;
 
             case 2:
-                yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(-16, -10, 13), 8, cam, 1f));
+                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-16, -10, 13), 8, true, 1f));
                 break;
 
             case 3:
-                yield return StartCoroutine(MoveMap(GameObject.Find("VilleELP").transform.position, new Vector3(1, -2, -2), 8, cam, 1f));
+                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(1, -2, -2), 8, true, 1f));
                 break;
         }
-
-        
-
 
         foreach (PlayerScoring player in allScores)
         {
@@ -323,27 +317,76 @@ public class PlayerScoring : NetworkBehaviour
         timerScript.time = 180;
     }
 
-    IEnumerator MoveMap(Vector3 startPos, Vector3 endPos, int zoomCam, Camera cam,  float temps)
+    IEnumerator MoveMapAndCam(Vector3 startPos, Vector3 endPos, int zoomCam, bool back, float temps)
     {
 
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
 
+        Camera cam = new Camera();
+        GameObject camObject = new GameObject();
+
+        bool isLost = false;
+        Vector3 endPosCam = new Vector3();
+        Quaternion targetRotation = new Quaternion();
+
+        foreach (PlayerScoring player in allScores)
+        {
+            if (player.isLocalPlayer)
+            {
+                cam = player.GetComponentInChildren<Camera>();
+                camObject = player.GetComponent<GameObject>();
+
+                if(player.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    isLost = true;
+                    positionLost = player.gameObject.transform.position;
+
+                    if (back == true)
+                    {
+                        endPosCam = positionLost;
+                        targetRotation = Quaternion.Euler(0f, 0f, 0f);
+                    }
+                    else
+                    {
+                        endPosCam = GameObject.Find("spawn2").transform.position;
+                        targetRotation = GameObject.Find("spawn2").transform.rotation;
+
+                    }
+                }
+            }
+        }
+
         float elapsed = 0f;
         GameObject map = GameObject.Find("VilleELP");
         float startZoom = cam.orthographicSize;
+        Vector3 startPosCam = camObject.transform.position;
+        Quaternion startRotation = cam.transform.rotation;
 
-        
-        
+
         while (elapsed < temps)
         {
             float t = elapsed / temps;
+            cam.orthographic = true;
             cam.orthographicSize = Mathf.Lerp(startZoom, zoomCam, t);
-            map.transform.position = Vector3.Lerp(startPos, endPos, t);
+
+            if (!isLost)
+                map.transform.position = Vector3.Lerp(startPos, endPos, t);
+
+            if (isLost)
+            {
+                camObject.transform.position = Vector3.Lerp(startPosCam, endPosCam, t);
+                cam.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, t);
+
+            }
+
             elapsed += Time.deltaTime;
             yield return null; 
         }
 
-        map.transform.position = endPos; 
+        if (isLost && back)
+        {
+            cam.orthographic = false;
+        }
     }
 
 

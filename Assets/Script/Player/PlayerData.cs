@@ -150,7 +150,10 @@ public class PlayerData : NetworkBehaviour
                 print("Je suis dans le if");
                 playerPlateform = hit.collider.gameObject;
                 FindObjectOfType<CityManager>().SetHiderPlateform(playerPlateform);
+
             }
+
+           
         }
                 
     }

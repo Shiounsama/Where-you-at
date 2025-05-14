@@ -23,19 +23,20 @@ public class CityManager : MonoBehaviour
     [SerializeField] private List<Plateform> _plateforms = new List<Plateform>();
     
     public int _plateformWhereHiderIsIn;
-    [SerializeField] private int randomIndex;
     
     public void SetHiderPlateform(GameObject PlateformToCheck)
     {
-        print("SetHiderPlateform");
+        
         int index = 0;
         
         foreach (var plateform in _plateforms)
         {
             foreach (var plateformPlateform in plateform._plateforms)
             {
+                print("FOREACH DE TES MORTS");
                 if (plateformPlateform == PlateformToCheck)
                 {
+                    print("LETS GO L'INDEX C'EST " + index);
                     _plateformWhereHiderIsIn = index;
                     //MakePlateformFall();
                     return;
