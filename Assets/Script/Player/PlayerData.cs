@@ -639,7 +639,7 @@ public class PlayerData : NetworkBehaviour
         camSelecIso.CanSelect = true;
     }
 
-    private void activateEmotion()
+    public void activateEmotion()
     {
         Collider[] voisins = Physics.OverlapSphere(transform.position, tailleSphere);
 

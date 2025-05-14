@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine.SocialPlatforms.Impl;
 using TMPro;
 using System.Net;
+using UnityEngine.InputSystem;
 
 public class PlayerScoring : NetworkBehaviour
 {
@@ -215,7 +216,6 @@ public class PlayerScoring : NetworkBehaviour
 
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
-            //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
         }
 
         if (compteurGame == 2)
@@ -256,9 +256,17 @@ public class PlayerScoring : NetworkBehaviour
     {
         timer timerScript = FindObjectOfType<timer>();
 
-        Camera cam = GetComponentInChildren<Camera>();
+        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
 
-        
+        Camera360 cam360 = GetComponentInChildren<Camera360>();
+
+        Camera camPlayer = GetComponentInChildren<Camera>();
+
+        takeEmoji emojiScript = GetComponent<takeEmoji>();
+
+        PlayerData playerData = GetComponent<PlayerData>();
 
         timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
         timerScript.timeSprite.enabled = false;
@@ -306,8 +314,41 @@ public class PlayerScoring : NetworkBehaviour
 
             allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
             allPlayerScoringFinished.Add(player.finish);
-            //Faire un able player localement
-        }
+
+            if (playerData.role == Role.Seeker)
+            {
+                playerData.ObjectsStateSetter(playerData.charlieObjects, false);
+                playerData.ObjectsStateSetter(playerData.seekerObjects, true);
+
+                GetComponentInChildren<PlayerInput>().enabled = true;
+
+                camDragIso.enabled = true;
+                camZoomIso.enabled = true;
+                camRotaIso.enabled = true;
+                emojiScript.enabled = false;
+                playerData.layoutGroupParent.gameObject.SetActive(true);
+
+                playerData.layoutGroupParent.gameObject.SetActive(true);
+
+                playerData.AbleSelect();
+
+            }
+
+            else if (playerData.role == Role.Lost)
+            {
+                playerData.layoutGroupParent.gameObject.SetActive(false);
+                playerData.ObjectsStateSetter(playerData.charlieObjects, true);
+                playerData.ObjectsStateSetter(playerData.seekerObjects, false);
+
+                GetComponentInChildren<PlayerInput>().enabled = true;
+
+                playerData.activateEmotion();
+                playerData.frontPNJ();
+                cam360.enabled = true;
+                camPlayer.orthographic = false;
+                emojiScript.enabled = true;
+            }
+        }       
 
         GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
@@ -319,7 +360,6 @@ public class PlayerScoring : NetworkBehaviour
 
     IEnumerator MoveMapAndCam(Vector3 startPos, Vector3 endPos, int zoomCam, bool back, float temps)
     {
-
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
 
         Camera cam = new Camera();
@@ -339,8 +379,6 @@ public class PlayerScoring : NetworkBehaviour
                 if(player.GetComponent<PlayerData>().role == Role.Lost)
                 {
                     isLost = true;
-                    if (back == false)
-                        positionLost = player.gameObject.transform.position;
 
                     if (back == true)
                     {
@@ -352,6 +390,7 @@ public class PlayerScoring : NetworkBehaviour
                     {
                         endPosCam = GameObject.Find("spawn2").transform.position;
                         targetRotation = GameObject.Find("spawn2").transform.rotation;
+                        positionLost = player.gameObject.transform.position;
 
                     }
                 }
@@ -363,7 +402,6 @@ public class PlayerScoring : NetworkBehaviour
         float startZoom = cam.orthographicSize;
         Vector3 startPosCam = camObject.transform.position;
         Quaternion startRotation = cam.transform.rotation;
-
 
         while (elapsed < temps)
         {
@@ -381,7 +419,6 @@ public class PlayerScoring : NetworkBehaviour
             {
                 camObject.transform.position = Vector3.Lerp(startPosCam, endPosCam, t);
                 cam.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, t);
-
             }
 
             elapsed += Time.deltaTime;
