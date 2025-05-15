@@ -264,7 +264,7 @@ public class PlayerScoring : NetworkBehaviour
 
         Camera camPlayer = GetComponentInChildren<Camera>();
 
-        takeEmoji emojiScript = GetComponent<takeEmoji>();
+        takeEmoji emojiScript = GetComponent<takeEmoji>();;
 
         PlayerData playerData = GetComponent<PlayerData>();
 
@@ -310,10 +310,13 @@ public class PlayerScoring : NetworkBehaviour
         foreach (PlayerScoring player in allScores)
         {
             player.finish = false;
-            GetComponent<PlayerData>().AbleSelect();
+            player.GetComponent<PlayerData>().AbleSelect();
 
             allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
             allPlayerScoringFinished.Add(player.finish);
+            playerData = player.GetComponent<PlayerData>();
+
+        
 
             if (playerData.role == Role.Seeker)
             {
@@ -326,9 +329,7 @@ public class PlayerScoring : NetworkBehaviour
                 camZoomIso.enabled = true;
                 camRotaIso.enabled = true;
                 emojiScript.enabled = false;
-                playerData.layoutGroupParent.gameObject.SetActive(true);
 
-                playerData.layoutGroupParent.gameObject.SetActive(true);
 
                 playerData.AbleSelect();
 
@@ -336,7 +337,6 @@ public class PlayerScoring : NetworkBehaviour
 
             else if (playerData.role == Role.Lost)
             {
-                playerData.layoutGroupParent.gameObject.SetActive(false);
                 playerData.ObjectsStateSetter(playerData.charlieObjects, true);
                 playerData.ObjectsStateSetter(playerData.seekerObjects, false);
 
