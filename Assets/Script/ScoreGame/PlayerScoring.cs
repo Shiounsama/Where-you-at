@@ -409,7 +409,7 @@ public class PlayerScoring : NetworkBehaviour
             cam.orthographic = true;
             cam.orthographicSize = Mathf.Lerp(startZoom, zoomCam, t);
 
-            if (!back)
+            if (!back && !isLost)
                 map.transform.position = Vector3.Lerp(startPos, endPos, t);
 
             if (back && !isLost)
@@ -418,6 +418,7 @@ public class PlayerScoring : NetworkBehaviour
             if (isLost)
             {
                 camObject.transform.position = Vector3.Lerp(startPosCam, endPosCam, t);
+
                 cam.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, t);
             }
 
