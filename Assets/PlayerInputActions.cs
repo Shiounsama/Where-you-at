@@ -80,6 +80,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CloseMenuUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d5ff020-7fc7-4d92-a120-3e4ee7c05530"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -168,6 +177,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UnselectObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""54e16758-ce58-4030-a65e-8290d04cf64c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseMenuUI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -334,6 +354,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_KeyboardMouse_SelectObject = m_KeyboardMouse.FindAction("SelectObject", throwIfNotFound: true);
         m_KeyboardMouse_UnselectObject = m_KeyboardMouse.FindAction("UnselectObject", throwIfNotFound: true);
         m_KeyboardMouse_SendMessage = m_KeyboardMouse.FindAction("SendMessage", throwIfNotFound: true);
+        m_KeyboardMouse_CloseMenuUI = m_KeyboardMouse.FindAction("CloseMenuUI", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
@@ -409,6 +430,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMouse_SelectObject;
     private readonly InputAction m_KeyboardMouse_UnselectObject;
     private readonly InputAction m_KeyboardMouse_SendMessage;
+    private readonly InputAction m_KeyboardMouse_CloseMenuUI;
     public struct KeyboardMouseActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -419,6 +441,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @SelectObject => m_Wrapper.m_KeyboardMouse_SelectObject;
         public InputAction @UnselectObject => m_Wrapper.m_KeyboardMouse_UnselectObject;
         public InputAction @SendMessage => m_Wrapper.m_KeyboardMouse_SendMessage;
+        public InputAction @CloseMenuUI => m_Wrapper.m_KeyboardMouse_CloseMenuUI;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -446,6 +469,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SendMessage.started += instance.OnSendMessage;
             @SendMessage.performed += instance.OnSendMessage;
             @SendMessage.canceled += instance.OnSendMessage;
+            @CloseMenuUI.started += instance.OnCloseMenuUI;
+            @CloseMenuUI.performed += instance.OnCloseMenuUI;
+            @CloseMenuUI.canceled += instance.OnCloseMenuUI;
         }
 
         private void UnregisterCallbacks(IKeyboardMouseActions instance)
@@ -468,6 +494,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SendMessage.started -= instance.OnSendMessage;
             @SendMessage.performed -= instance.OnSendMessage;
             @SendMessage.canceled -= instance.OnSendMessage;
+            @CloseMenuUI.started -= instance.OnCloseMenuUI;
+            @CloseMenuUI.performed -= instance.OnCloseMenuUI;
+            @CloseMenuUI.canceled -= instance.OnCloseMenuUI;
         }
 
         public void RemoveCallbacks(IKeyboardMouseActions instance)
@@ -579,6 +608,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSelectObject(InputAction.CallbackContext context);
         void OnUnselectObject(InputAction.CallbackContext context);
         void OnSendMessage(InputAction.CallbackContext context);
+        void OnCloseMenuUI(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
