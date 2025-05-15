@@ -4,6 +4,9 @@ using Mirror;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
+using System.Net;
+using UnityEngine.InputSystem;
 
 public class PlayerScoring : NetworkBehaviour
 {
@@ -33,6 +36,9 @@ public class PlayerScoring : NetworkBehaviour
 
     [SyncVar]
     public List<PlayerScoring> OrdreGuess = new List<PlayerScoring>();
+
+    [SyncVar]
+    public Vector3 positionLost;
 
     public override void OnStartLocalPlayer()
     {
@@ -81,6 +87,9 @@ public class PlayerScoring : NetworkBehaviour
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
 
+        
+        GetComponent<PlayerData>().DisableSelect();
+
 
         if (finishedPlayers != seekerCount)
         {
@@ -100,21 +109,14 @@ public class PlayerScoring : NetworkBehaviour
             {
                 player.compteurGame++;
                 player.StartCoroutine(unlockPoint());
+                
             }
 
             if (compteurGame == 1)
             {
-                foreach (PlayerScoring player in allScores)
-                {
-                    player.finish = false;
+                timer timerScript = FindObjectOfType<timer>();
 
-                    allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
-                    allPlayerScoringFinished.Add(player.finish);
-                }
-
-                GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
-
-                //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
+                StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
 
             }
 
@@ -162,8 +164,9 @@ public class PlayerScoring : NetworkBehaviour
 
                 
                 scoreGame.ShowScore();
-                
-                
+                timer timerScript = FindObjectOfType<timer>();
+                timerScript.time = 999999;
+
             }
         }
     }
@@ -213,7 +216,6 @@ public class PlayerScoring : NetworkBehaviour
 
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
-            //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
         }
 
         if (compteurGame == 2)
@@ -249,4 +251,185 @@ public class PlayerScoring : NetworkBehaviour
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
+
+    IEnumerator StartGameTransition(List<string> allPlayerDataName, List<bool> allPlayerScoringFinished, List<PlayerScoring> allScores)
+    {
+        timer timerScript = FindObjectOfType<timer>();
+
+        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+
+        Camera360 cam360 = GetComponentInChildren<Camera360>();
+
+        Camera camPlayer = GetComponentInChildren<Camera>();
+
+        takeEmoji emojiScript = GetComponent<takeEmoji>();
+
+        PlayerData playerData = GetComponent<PlayerData>();
+
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+        timerScript.timeSprite.enabled = false;
+        timerScript.time = 9999;
+
+        GameObject car = GameObject.Find("redCar");
+        car.SetActive(false);
+
+        foreach (PlayerScoring player in allScores)
+        {
+            player.GetComponent<PlayerData>().DisablePlayer();
+        }
+
+        yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-15, -6, 13), 25, false, 2f));
+
+        yield return new WaitForSeconds(2);
+
+        FindObjectOfType<CityManager>().MakePlateformFall();
+
+        yield return new WaitForSeconds(2);
+
+        switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
+        {
+            case 0:
+                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-13, 6, 15), 8, true, 1f));
+                break;
+
+            case 1:
+                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-35, -1, 35), 8, true, 1f));
+                break;
+
+            case 2:
+                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-16, -10, 13), 8, true, 1f));
+                break;
+
+            case 3:
+                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(1, -2, -2), 8, true, 1f));
+                break;
+        }
+
+        foreach (PlayerScoring player in allScores)
+        {
+            player.finish = false;
+            GetComponent<PlayerData>().AbleSelect();
+
+            allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
+            allPlayerScoringFinished.Add(player.finish);
+
+            if (playerData.role == Role.Seeker)
+            {
+                playerData.ObjectsStateSetter(playerData.charlieObjects, false);
+                playerData.ObjectsStateSetter(playerData.seekerObjects, true);
+
+                GetComponentInChildren<PlayerInput>().enabled = true;
+
+                camDragIso.enabled = true;
+                camZoomIso.enabled = true;
+                camRotaIso.enabled = true;
+                emojiScript.enabled = false;
+                playerData.layoutGroupParent.gameObject.SetActive(true);
+
+                playerData.layoutGroupParent.gameObject.SetActive(true);
+
+                playerData.AbleSelect();
+
+            }
+
+            else if (playerData.role == Role.Lost)
+            {
+                playerData.layoutGroupParent.gameObject.SetActive(false);
+                playerData.ObjectsStateSetter(playerData.charlieObjects, true);
+                playerData.ObjectsStateSetter(playerData.seekerObjects, false);
+
+                GetComponentInChildren<PlayerInput>().enabled = true;
+
+                playerData.activateEmotion();
+                playerData.frontPNJ();
+                cam360.enabled = true;
+                camPlayer.orthographic = false;
+                emojiScript.enabled = true;
+            }
+        }       
+
+        GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
+
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
+        timerScript.timeSprite.enabled = true;
+        timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
+        timerScript.time = 180;
+    }
+
+    IEnumerator MoveMapAndCam(Vector3 startPos, Vector3 endPos, int zoomCam, bool back, float temps)
+    {
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+
+        Camera cam = new Camera();
+        GameObject camObject = new GameObject();
+
+        bool isLost = false;
+        Vector3 endPosCam = new Vector3();
+        Quaternion targetRotation = new Quaternion();
+
+        foreach (PlayerScoring player in allScores)
+        {
+            if (player.isLocalPlayer)
+            {
+                cam = player.GetComponentInChildren<Camera>();
+                camObject = player.gameObject;
+
+                if(player.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    isLost = true;
+
+                    if (back == true)
+                    {
+                        endPosCam = positionLost;
+                        
+                        targetRotation = Quaternion.Euler(0f, 0f, 0f);
+                    }
+                    else
+                    {
+                        endPosCam = GameObject.Find("spawn2").transform.position;
+                        targetRotation = GameObject.Find("spawn2").transform.rotation;
+                        positionLost = player.gameObject.transform.position;
+
+                    }
+                }
+            }
+        }
+
+        float elapsed = 0f;
+        GameObject map = GameObject.Find("VilleELP");
+        float startZoom = cam.orthographicSize;
+        Vector3 startPosCam = camObject.transform.position;
+        Quaternion startRotation = cam.transform.rotation;
+
+        while (elapsed < temps)
+        {
+            float t = elapsed / temps;
+            cam.orthographic = true;
+            cam.orthographicSize = Mathf.Lerp(startZoom, zoomCam, t);
+
+            if (!back)
+                map.transform.position = Vector3.Lerp(startPos, endPos, t);
+
+            if (back && !isLost)
+                map.transform.position = Vector3.Lerp(startPos, endPos, t);
+
+            if (isLost)
+            {
+                camObject.transform.position = Vector3.Lerp(startPosCam, endPosCam, t);
+                cam.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, t);
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null; 
+        }
+
+        if (isLost && back)
+        {
+            cam.orthographic = false;
+        }
+    }
+
+
 }

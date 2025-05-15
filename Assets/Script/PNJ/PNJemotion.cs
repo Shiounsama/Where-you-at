@@ -20,8 +20,8 @@ public class PNJemotion : MonoBehaviour
         while (true)
         {
             int randomNumber = 0;
-            yield return new WaitForSeconds(Random.Range(6,8));
-            randomNumber = Random.Range(1, 4);
+            yield return new WaitForSeconds(Random.Range(4,6));
+            randomNumber = Random.Range(1, 3);
             if(randomNumber == 1) createEmojiPNJ();
         }
     }

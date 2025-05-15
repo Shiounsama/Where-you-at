@@ -20,6 +20,9 @@ public class PlayerData : NetworkBehaviour
     public List<GameObject> seekerObjects;
     public List<GameObject> charlieObjects;
 
+    [Header("MidGame")]
+    public GameObject playerPlateform;
+
     [Header("EndGame")]
     [SyncVar] public Color color;
     [SyncVar] public Vector3 pnjValidePosition;
@@ -37,6 +40,8 @@ public class PlayerData : NetworkBehaviour
     public Sprite notFinishedSprite;
 
     public GameObject canvasHintPNJ;
+
+    public float tailleSphere;
 
     [Command]
     public void setPNJvalide(Vector3 pnj)
@@ -66,17 +71,19 @@ public class PlayerData : NetworkBehaviour
                 Vector3 pnjPosition = pnj.transform.localPosition;
                 Vector3 pnjSelected = allPlayer[i].pnjValidePosition;
 
-                pnjPosition.x = Mathf.RoundToInt(pnjPosition.x);
-                pnjPosition.y = Mathf.RoundToInt(pnjPosition.y);
-                pnjPosition.z = Mathf.RoundToInt(pnjPosition.z);
-
-                pnjSelected.x = Mathf.RoundToInt(pnjSelected.x);
-                pnjSelected.y = Mathf.RoundToInt(pnjSelected.y);
-                pnjSelected.z = Mathf.RoundToInt(pnjSelected.z);
+                // pnjPosition.x = Mathf.RoundToInt(pnjPosition.x);
+                // pnjPosition.y = Mathf.RoundToInt(pnjPosition.y);
+                // pnjPosition.z = Mathf.RoundToInt(pnjPosition.z);
+                //
+                // pnjSelected.x = Mathf.RoundToInt(pnjSelected.x);
+                // pnjSelected.y = Mathf.RoundToInt(pnjSelected.y);
+                // pnjSelected.z = Mathf.RoundToInt(pnjSelected.z);
 
                 if (pnjPosition == pnjSelected)
                 {
                     pnjValide = pnj;
+                    manager.Instance.seekerGuessedPNJs.Add(pnj);
+                    //manager.Instance.CamerasDezoom();
                 }
             }
         }
@@ -86,14 +93,14 @@ public class PlayerData : NetworkBehaviour
     {
         if (pnjValide != null)
         {
-            pnjValide.GetComponentInChildren<TextMeshPro>().transform.gameObject.SetActive(true);
+            TextMeshProUGUI textMesh = pnjValide.GetComponentInChildren<TextMeshProUGUI>();
+            
+            textMesh.gameObject.SetActive(true);
 
-            pnjValide.GetComponentInChildren<TextMeshPro>().text = playerName;
-            pnjValide.GetComponentInChildren<TextMeshPro>().color = color;
+            textMesh.text = playerName;
+            textMesh.color = color;
 
-            pnjValide.GetComponentInChildren<TextMeshPro>().transform.LookAt(GetComponentInChildren<Camera>().transform.position);
-
-            Debug.Log("textExiste" + pnjValide.GetComponentInChildren<TextMeshPro>().text);
+            print("textExiste" + pnjValide.GetComponentInChildren<TextMeshPro>().text);
         }
         else
         {
@@ -103,6 +110,7 @@ public class PlayerData : NetworkBehaviour
 
     private void Update()
     {
+        SetPlateform();
         if (isLocalPlayer)
         {
             frontPNJ();
@@ -122,12 +130,32 @@ public class PlayerData : NetworkBehaviour
                     {
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
-                        
+
                     }
                 }
             }
-
         }
+    }
+
+    private void SetPlateform()
+    {
+        print("test");
+              
+        RaycastHit hit;
+                    
+        if (Physics.Raycast(PNJcible.transform.position, PNJcible.transform.TransformDirection(Vector3.down), out hit, 100f))
+        {
+            if (hit.collider.CompareTag("Map") && !playerPlateform)
+            {
+                print("Je suis dans le if");
+                playerPlateform = hit.collider.gameObject;
+                FindObjectOfType<CityManager>().SetHiderPlateform(playerPlateform);
+
+            }
+
+           
+        }
+                
     }
 
     public override void OnStartLocalPlayer()
@@ -184,11 +212,15 @@ public class PlayerData : NetworkBehaviour
             int randomNumber = Random.Range(0, allPNJ.Length);
 
             ClearOtherTchat();
-           
+
             ViewManager.Instance.StartFadeOut();
             EnablePlayer(role);
-            
-            
+
+            foreach (NetworkConnection conn in NetworkServer.connections.Values)
+            {
+
+
+            }
         }
     }
 
@@ -198,12 +230,6 @@ public class PlayerData : NetworkBehaviour
         ViewManager.Instance.StartFadeIn();
     }
 
-    [TargetRpc]
-    private void TargetEnableAudioListener(NetworkConnection conn)
-    {
-        manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled = true;
-        Debug.Log($"Local AudioListener enabled: {manager.Instance.GetLocalPlayerData().GetComponentInChildren<AudioListener>().enabled}");
-    }
 
     /// <summary>
     /// Fais en sorte que les PNJ soient toujours tourner vers les joueurs
@@ -357,7 +383,7 @@ public class PlayerData : NetworkBehaviour
             camRotaIso.enabled = false;
             camRotaIso.objectToRotate = building.transform;
 
-            camSelectedIso.OnObjectUnselected();
+            DisableSelect();
 
             camPlayer.enabled = true;
 
@@ -413,6 +439,8 @@ public class PlayerData : NetworkBehaviour
 
                 layoutGroupParent.gameObject.SetActive(true);
 
+                AbleSelect();
+
                 //PNJcible.SetActive(true);
 
                 seekerAudio.enabled = true;
@@ -462,6 +490,7 @@ public class PlayerData : NetworkBehaviour
 
                 canvasHintPNJ.SetActive(false);
 
+                activateEmotion();
                 frontPNJ();
                 cam360.enabled = true;
                 camPlayer.orthographic = false;
@@ -516,10 +545,15 @@ public class PlayerData : NetworkBehaviour
 
             tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
+            DisableSelect();
+
             if (layoutGroupParent != null)
             {
                 layoutGroupParent.gameObject.SetActive(false);
             }
+
+            ObjectsStateSetter(GetComponent<PlayerData>().seekerObjects, false);
+            ObjectsStateSetter(GetComponent<PlayerData>().charlieObjects, false);
         }
 
     }
@@ -592,5 +626,39 @@ public class PlayerData : NetworkBehaviour
         yield return new WaitForSeconds(5);
         canvasHintPNJ.SetActive(false);
     }
-        
+
+    public void DisableSelect()
+    {
+        IsoCameraSelection camSelecIso = GetComponentInChildren<IsoCameraSelection>();
+        camSelecIso.CanSelect = false;
+    }
+
+    public void AbleSelect()
+    {
+        IsoCameraSelection camSelecIso = GetComponentInChildren<IsoCameraSelection>();
+        camSelecIso.CanSelect = true;
+    }
+
+    public void activateEmotion()
+    {
+        Collider[] voisins = Physics.OverlapSphere(transform.position, tailleSphere);
+
+        foreach (Collider collider in voisins)
+        {
+            if (collider.gameObject == this.gameObject) continue;
+
+            PNJemotion emoVoisin = collider.GetComponent<PNJemotion>();
+
+            if (emoVoisin != null)
+            {
+                emoVoisin.enabled = true;
+            }
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, tailleSphere);
+    }
 }
