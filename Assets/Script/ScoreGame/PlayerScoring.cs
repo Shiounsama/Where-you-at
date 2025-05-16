@@ -83,6 +83,7 @@ public class PlayerScoring : NetworkBehaviour
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
         int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+        
 
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
@@ -122,10 +123,10 @@ public class PlayerScoring : NetworkBehaviour
 
             if (compteurGame == 2)
             {
-
                 var scoreGame = FindObjectOfType<ScoreGame>();
                 float moyenneScore = 0;
 
+                
                 foreach (PlayerScoring score in allScores)
                 {
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
@@ -140,7 +141,7 @@ public class PlayerScoring : NetworkBehaviour
                     i = i * 10;
                     ordrePoint -= i;
 
-                    if( ordrePoint < 0)
+                    if (ordrePoint < 0)
                     {
                         ordrePoint = 0;
                     }
@@ -150,7 +151,7 @@ public class PlayerScoring : NetworkBehaviour
 
                 foreach (PlayerScoring score in allScores)
                 {
-                    if (GetComponent<PlayerData>().role == Role.Seeker)
+                    if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
                         score.ScoreFinal += score.ScoreJoueur;
                     }
@@ -159,13 +160,17 @@ public class PlayerScoring : NetworkBehaviour
                     {
                         score.ScoreJoueur = moyenneScore;
                         score.ScoreFinal += moyenneScore;
+                        score.finish = true;
                     }
+
+                    scoreGame.ShowScore();
                 }
 
-                
-                scoreGame.ShowScore();
+                Debug.Log($"Il y a {finishedPlayers} qui ont finis et {seekerCount} seeker");
+                    
                 timer timerScript = FindObjectOfType<timer>();
                 timerScript.time = 999999;
+                
 
             }
         }
@@ -221,6 +226,7 @@ public class PlayerScoring : NetworkBehaviour
         if (compteurGame == 2)
         {
             int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+            Debug.Log("Il y a autant de Seeker : " + seekerCount);
             float totalScore = 0;
 
             foreach (PlayerScoring score in allScores)
@@ -255,18 +261,6 @@ public class PlayerScoring : NetworkBehaviour
     IEnumerator StartGameTransition(List<string> allPlayerDataName, List<bool> allPlayerScoringFinished, List<PlayerScoring> allScores)
     {
         timer timerScript = FindObjectOfType<timer>();
-
-        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
-        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
-        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
-
-        Camera360 cam360 = GetComponentInChildren<Camera360>();
-
-        Camera camPlayer = GetComponentInChildren<Camera>();
-
-        takeEmoji emojiScript = GetComponent<takeEmoji>();;
-
-        PlayerData playerData = GetComponent<PlayerData>();
 
         timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
         timerScript.timeSprite.enabled = false;
@@ -314,41 +308,12 @@ public class PlayerScoring : NetworkBehaviour
 
             allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
             allPlayerScoringFinished.Add(player.finish);
-            playerData = player.GetComponent<PlayerData>();
 
-        
-
-            if (playerData.role == Role.Seeker)
+            if (player.isLocalPlayer)
             {
-                playerData.ObjectsStateSetter(playerData.charlieObjects, false);
-                playerData.ObjectsStateSetter(playerData.seekerObjects, true);
-
-                GetComponentInChildren<PlayerInput>().enabled = true;
-
-                camDragIso.enabled = true;
-                camZoomIso.enabled = true;
-                camRotaIso.enabled = true;
-                emojiScript.enabled = false;
-
-
-                playerData.AbleSelect();
-
+                player.EnableLocalComponents();
             }
-
-            else if (playerData.role == Role.Lost)
-            {
-                playerData.ObjectsStateSetter(playerData.charlieObjects, true);
-                playerData.ObjectsStateSetter(playerData.seekerObjects, false);
-
-                GetComponentInChildren<PlayerInput>().enabled = true;
-
-                playerData.activateEmotion();
-                playerData.frontPNJ();
-                cam360.enabled = true;
-                camPlayer.orthographic = false;
-                emojiScript.enabled = true;
-            }
-        }       
+        }
 
         GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
@@ -376,14 +341,14 @@ public class PlayerScoring : NetworkBehaviour
                 cam = player.GetComponentInChildren<Camera>();
                 camObject = player.gameObject;
 
-                if(player.GetComponent<PlayerData>().role == Role.Lost)
+                if (player.GetComponent<PlayerData>().role == Role.Lost)
                 {
                     isLost = true;
 
                     if (back == true)
                     {
                         endPosCam = positionLost;
-                        
+
                         targetRotation = Quaternion.Euler(0f, 0f, 0f);
                     }
                     else
@@ -423,12 +388,53 @@ public class PlayerScoring : NetworkBehaviour
             }
 
             elapsed += Time.deltaTime;
-            yield return null; 
+            yield return null;
         }
 
         if (isLost && back)
         {
             cam.orthographic = false;
+        }
+    }
+
+    public void EnableLocalComponents()
+    {
+        PlayerData playerData = GetComponent<PlayerData>();
+
+        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+
+        Camera360 cam360 = GetComponentInChildren<Camera360>();
+        takeEmoji emojiScript = GetComponent<takeEmoji>();
+        Camera camPlayer = GetComponentInChildren<Camera>();
+        PlayerInput input = GetComponentInChildren<PlayerInput>();
+
+        if (camPlayer == null || !camPlayer.isActiveAndEnabled) return;
+
+        Debug.Log("Réactivation composants pour : " + playerData.playerName + " (" + playerData.role + ")");
+
+        if (input != null) input.enabled = true;
+
+        if (playerData.role == Role.Seeker)
+        {
+            playerData.ObjectsStateSetter(playerData.charlieObjects, false);
+            playerData.ObjectsStateSetter(playerData.seekerObjects, true);
+
+            if (camDragIso != null) camDragIso.enabled = true;
+            if (camZoomIso != null) camZoomIso.enabled = true;
+            if (camRotaIso != null) camRotaIso.enabled = true;
+            if (emojiScript != null) emojiScript.enabled = false;
+
+            playerData.AbleSelect();
+        }
+        else if (playerData.role == Role.Lost)
+        {
+            playerData.ObjectsStateSetter(playerData.charlieObjects, true);
+            playerData.ObjectsStateSetter(playerData.seekerObjects, false);
+
+            if (cam360 != null) cam360.enabled = true;
+            if (emojiScript != null) emojiScript.enabled = true;
         }
     }
 
