@@ -1,15 +1,33 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using SoundDesign;
 using UnityEngine;
 
 public class RoleWheelTile : MonoBehaviour, IComparable
 {
     [SerializeField] private float scaleMultiplier = 5;
 
+    public bool MostForwardTile
+    {
+        get
+        {
+            return _mostForwardTile;
+        }
+        set
+        {
+            _mostForwardTile = value;
+
+            SoundFXManager.Instance.PlaySFXClip(_tickClip, transform);
+        }
+    }
+
     private RectTransform m_rectTransform;
 
     private Vector2 _baseSize;
+
+    private bool _mostForwardTile = false;
+
+    private SoundBankSO _soundBank;
+    private AudioClip _tickClip;
 
     public int CompareTo(object obj)
     {
@@ -30,7 +48,15 @@ public class RoleWheelTile : MonoBehaviour, IComparable
         m_rectTransform = GetComponent<RectTransform>();
         _baseSize = new Vector2(m_rectTransform.rect.width, m_rectTransform.rect.height);
 
+        InitSFX();
+
         // InitializeTileSize();
+    }
+
+    private void InitSFX()
+    {
+        _soundBank = SoundFXManager.Instance.SoundBank;
+        _tickClip = _soundBank.roleWheelTickClip;
     }
 
     private void LateUpdate()

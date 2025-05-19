@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,6 +16,7 @@ public class RoleWheel : MonoBehaviour
     private Vector3 originPoint;
     private int _turnDuration;
     private float angle;
+
     float x;
     float z;
     float time = 0;
@@ -40,6 +40,7 @@ public class RoleWheel : MonoBehaviour
 
                 //value.transform.SetAsLastSibling();
                 _mostForwardTile = value;
+                _mostForwardTile.MostForwardTile = true;
             }
             else
                 return;
