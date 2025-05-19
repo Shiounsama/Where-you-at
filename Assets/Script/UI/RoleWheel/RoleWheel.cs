@@ -38,7 +38,7 @@ public class RoleWheel : MonoBehaviour
                 if (_mostForwardTile)
                     _mostForwardTile.GetComponent<Image>().color = Color.white;
 
-                value.transform.SetAsLastSibling();
+                //value.transform.SetAsLastSibling();
                 _mostForwardTile = value;
             }
             else
@@ -78,6 +78,30 @@ public class RoleWheel : MonoBehaviour
 
             if (dist < Vector3.Distance(mostForwardTile.transform.position, transform.position))
                 mostForwardTile = currentTile;
+        }
+
+        UpdateTilesHierarchy();
+    }
+
+    private void UpdateTilesHierarchy()
+    {
+        List<RoleWheelTile> tiles = GetComponentsInChildren<RoleWheelTile>().ToList();
+
+        //for (int i = 1; i < tiles.Length; i++)
+        //{
+        //    Transform tile = tiles[i].transform;
+
+        //    if (tiles[i - 1].transform.position.z > tile.position.z)
+        //    {
+        //        tile.SetSiblingIndex(tile.GetSiblingIndex() + 1);
+        //    }
+        //}
+
+        tiles.Sort();
+
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            tiles[i].transform.SetSiblingIndex(i);
         }
     }
 

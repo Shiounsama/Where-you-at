@@ -1,15 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoleWheelTile : MonoBehaviour
+public class RoleWheelTile : MonoBehaviour, IComparable
 {
     [SerializeField] private float scaleMultiplier = 5;
 
     private RectTransform m_rectTransform;
 
     private Vector2 _baseSize;
-    private float _time;
+
+    public int CompareTo(object obj)
+    {
+        var a = this;
+        var b = obj as RoleWheelTile;
+
+        if (a.transform.position.z > b.transform.position.z)
+            return -1;
+
+        if (a.transform.position.z < b.transform.position.z)
+            return 1;
+
+        return 0;
+    }
 
     private void Awake()
     {
