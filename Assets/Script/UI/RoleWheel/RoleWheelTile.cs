@@ -9,16 +9,24 @@ public class RoleWheelTile : MonoBehaviour
     private RectTransform m_rectTransform;
 
     private Vector2 _baseSize;
+    private float _time;
 
     private void Awake()
     {
         m_rectTransform = GetComponent<RectTransform>();
         _baseSize = new Vector2(m_rectTransform.rect.width, m_rectTransform.rect.height);
+
+        // InitializeTileSize();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        float t = Mathf.InverseLerp(-(scaleMultiplier) * 100, 0, transform.localPosition.z);
+        SetCurrentSize();
+    }
+
+    private void SetCurrentSize()
+    {
+        float t = Mathf.InverseLerp((scaleMultiplier) * 100, 0, transform.localPosition.z);
         m_rectTransform.sizeDelta = Vector2.Lerp(Vector2.one, _baseSize, t);
     }
 }

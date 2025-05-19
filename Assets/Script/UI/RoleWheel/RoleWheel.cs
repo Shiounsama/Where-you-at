@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoleWheel : MonoBehaviour
 {
@@ -10,8 +11,9 @@ public class RoleWheel : MonoBehaviour
     [SerializeField, Range(4, 8)] private int minDuration = 4;
     [SerializeField, Range(5, 15)] private int maxDuration = 15;
     [SerializeField] private float circleRadius = 300;
+    [SerializeField] private Color mostForwardColor;
+    [SerializeField] private List<RoleWheelTile> roleWheelTiles = new();
 
-    private List<RoleWheelTile> _roleWheelTiles = new ();
     private Vector3 originPoint;
     private int _turnDuration;
     private float angle;
@@ -21,12 +23,39 @@ public class RoleWheel : MonoBehaviour
     float speed = 0;
     float currentSpeed;
 
+    private RoleWheelTile _mostForwardTile;
+
+    private RoleWheelTile mostForwardTile
+    {
+        get
+        {
+            return _mostForwardTile;
+        }
+        set
+        {
+            if (value != _mostForwardTile)
+            {
+                if (_mostForwardTile)
+                    _mostForwardTile.GetComponent<Image>().color = Color.white;
+
+                value.transform.SetAsLastSibling();
+                _mostForwardTile = value;
+            }
+            else
+                return;
+
+            value.GetComponent<Image>().color = mostForwardColor;
+        }
+    }
+
     private void Awake()
     {
-        _roleWheelTiles = GetComponentsInChildren<RoleWheelTile>().ToList();
-        originPoint = transform.position - Vector3.forward * circleRadius;
-        angle = 360f / _roleWheelTiles.Count;
+        roleWheelTiles = GetComponentsInChildren<RoleWheelTile>().ToList();
+        originPoint = transform.position + Vector3.forward * circleRadius;
+        angle = 360f / roleWheelTiles.Count;
         _turnDuration = Random.Range(minDuration, maxDuration);
+
+        mostForwardTile = roleWheelTiles[0];
     }
 
     private void Update()
@@ -36,12 +65,40 @@ public class RoleWheel : MonoBehaviour
         currentSpeed = Mathf.Lerp(baseSpeed, 0, slowingCurve.Evaluate(time / _turnDuration));
         speed += Time.deltaTime * currentSpeed;
 
-        for (int i = 0; i < _roleWheelTiles.Count; i++)
+        for (int i = 0; i < roleWheelTiles.Count; i++)
         {
-            x = circleRadius * Mathf.Cos((90 + i * angle + speed) * Mathf.Deg2Rad); 
-            z = circleRadius * Mathf.Sin((90 + i * angle + speed) * Mathf.Deg2Rad);
+            RoleWheelTile currentTile = roleWheelTiles[i];
 
-            _roleWheelTiles[i].transform.position = new Vector3(originPoint.x + x, originPoint.y, originPoint.z + z);
+            x = circleRadius * Mathf.Cos((-90 + i * angle + speed) * Mathf.Deg2Rad);
+            z = circleRadius * Mathf.Sin((-90 + i * angle + speed) * Mathf.Deg2Rad);
+
+            currentTile.transform.position = new Vector3(originPoint.x + x, originPoint.y, originPoint.z + z);
+
+            float dist = Vector3.Distance(currentTile.transform.position, transform.position);
+
+            if (dist < Vector3.Distance(mostForwardTile.transform.position, transform.position))
+                mostForwardTile = currentTile;
+        }
+    }
+
+    [ContextMenu("Initialize tiles position")]
+    private void InitializeTilesPosition()
+    {
+        originPoint = transform.position + Vector3.forward * circleRadius;
+        angle = 360f / roleWheelTiles.Count;
+
+        for (int i = 0; i < roleWheelTiles.Count; i++)
+        {
+            RoleWheelTile currentTile = roleWheelTiles[i];
+
+            x = circleRadius * Mathf.Cos((-90 + i * angle + speed) * Mathf.Deg2Rad);
+            z = circleRadius * Mathf.Sin((-90 + i * angle + speed) * Mathf.Deg2Rad);
+
+            Debug.Log($"x: {x}; z: {z}");
+
+            currentTile.transform.position = new Vector3(originPoint.x + x, originPoint.y, originPoint.z + z);
+
+            float dist = Vector3.Distance(currentTile.transform.position, transform.position);
         }
     }
 }
