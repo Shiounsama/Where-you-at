@@ -71,14 +71,14 @@ public class PlayerScoring : NetworkBehaviour
 
         foreach (var conn in NetworkServer.connections.Values)
         {
-            TestTarget(conn);
+            launchGuess(conn);
             //TargetHandleScores(conn);
         }
     }
 
 
     [TargetRpc]
-    private void TestTarget(NetworkConnection target)
+    private void launchGuess(NetworkConnection target)
     {
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
@@ -199,6 +199,7 @@ public class PlayerScoring : NetworkBehaviour
     [TargetRpc]
     private void ShowScoreTimer(NetworkConnection target)
     {
+
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         foreach (PlayerScoring player in allScores)
         {
