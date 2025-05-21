@@ -1,10 +1,14 @@
 using System;
 using SoundDesign;
+using TMPro;
 using UnityEngine;
 
 public class RoleWheelTile : MonoBehaviour, IComparable
 {
     public int scaleMultiplier { get; set; } = 5;
+
+    private PlayerData _associatedPlayer;
+    private string _playerName;
 
     public bool IsMostForwardTile
     {
@@ -53,20 +57,33 @@ public class RoleWheelTile : MonoBehaviour, IComparable
         // InitializeTileSize();
     }
 
+    private void LateUpdate()
+    {
+        SetCurrentSize();
+    }
+
     private void InitSFX()
     {
         _soundBank = SoundFXManager.Instance.SoundBank;
         _tickClip = _soundBank.roleWheelTickClip;
     }
 
-    private void LateUpdate()
-    {
-        SetCurrentSize();
-    }
-
     private void SetCurrentSize()
     {
         float t = Mathf.InverseLerp((scaleMultiplier) * 100, 0, transform.localPosition.z);
         m_rectTransform.sizeDelta = Vector2.Lerp(Vector2.one, _baseSize, t);
+    }
+
+    public void SetPlayer(PlayerData player)
+    {
+        _associatedPlayer = player;
+        _playerName = _associatedPlayer.playerName;
+
+        SetName();
+    }
+
+    private void SetName()
+    {
+        GetComponentInChildren<TextMeshProUGUI>().text = _playerName;
     }
 }

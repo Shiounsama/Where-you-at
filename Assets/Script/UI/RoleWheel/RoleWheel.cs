@@ -16,10 +16,11 @@ public class RoleWheel : MonoBehaviour
     [Header("Tiles")]
     [SerializeField] private Vector2 tileBaseSize = new Vector2(500, 225);
     [SerializeField] private int tilesScaleMultiplier = 12;
+    [SerializeField] private GameObject tilePrefab;
 
     private List<RoleWheelTile> _roleWheelTiles = new();
     private Vector3 _originPoint;
-    private int _turnDuration;
+    private float _turnDuration;
     private float _angle;
     private bool _mostForwardNegativePos = false;
     private bool _popAnim = false;
@@ -62,7 +63,18 @@ public class RoleWheel : MonoBehaviour
 
     private void OnEnable()
     {
-        _turnDuration = Random.Range(minDuration, maxDuration);
+        if (transform.childCount == 0)
+        {
+            foreach (var player in FindObjectsOfType<PlayerData>())
+            {
+                GameObject newTile = Instantiate(tilePrefab, transform);
+                newTile.GetComponent<RoleWheelTile>().SetPlayer(player);
+            }
+        }
+
+        InitializeTilesSizeDelta();
+
+        _turnDuration = Random.Range((float)minDuration, (float)maxDuration);
         _roleWheelTiles = GetComponentsInChildren<RoleWheelTile>().ToList();
         _angle = 360f / _roleWheelTiles.Count;
         foreach (var r in _roleWheelTiles) r.scaleMultiplier = tilesScaleMultiplier;
@@ -71,7 +83,13 @@ public class RoleWheel : MonoBehaviour
 
     private void OnDisable()
     {
-
+        time = 0;
+        x = 0;
+        z = 0;
+        speed = 0;
+        currentSpeed = 0;
+        _mostForwardNegativePos = false;
+        _popAnim = false;
     }
 
     private void Update()
