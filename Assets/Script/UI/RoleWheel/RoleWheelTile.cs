@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class RoleWheelTile : MonoBehaviour, IComparable
 {
-    [SerializeField] private float scaleMultiplier = 5;
+    public int scaleMultiplier { get; set; } = 5;
 
-    public bool MostForwardTile
+    public bool IsMostForwardTile
     {
         get
         {
-            return _mostForwardTile;
+            return _isMostForwardTile;
         }
         set
         {
-            _mostForwardTile = value;
+            _isMostForwardTile = value;
 
             SoundFXManager.Instance.PlaySFXClip(_tickClip, transform);
         }
@@ -24,7 +24,7 @@ public class RoleWheelTile : MonoBehaviour, IComparable
 
     private Vector2 _baseSize;
 
-    private bool _mostForwardTile = false;
+    private bool _isMostForwardTile = false;
 
     private SoundBankSO _soundBank;
     private AudioClip _tickClip;
