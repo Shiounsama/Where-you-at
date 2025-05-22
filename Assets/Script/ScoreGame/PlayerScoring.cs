@@ -4,6 +4,9 @@ using Mirror;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
+using System.Net;
+using UnityEngine.InputSystem;
 
 public class PlayerScoring : NetworkBehaviour
 {
@@ -33,6 +36,9 @@ public class PlayerScoring : NetworkBehaviour
 
     [SyncVar]
     public List<PlayerScoring> OrdreGuess = new List<PlayerScoring>();
+
+    [SyncVar]
+    public Vector3 positionLost;
 
     public override void OnStartLocalPlayer()
     {
@@ -65,21 +71,25 @@ public class PlayerScoring : NetworkBehaviour
 
         foreach (var conn in NetworkServer.connections.Values)
         {
-            TestTarget(conn);
+            launchGuess(conn);
             //TargetHandleScores(conn);
         }
     }
 
 
     [TargetRpc]
-    private void TestTarget(NetworkConnection target)
+    private void launchGuess(NetworkConnection target)
     {
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
         int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+        
 
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
+
+        
+        GetComponent<PlayerData>().DisableSelect();
 
 
         if (finishedPlayers != seekerCount)
@@ -100,30 +110,23 @@ public class PlayerScoring : NetworkBehaviour
             {
                 player.compteurGame++;
                 player.StartCoroutine(unlockPoint());
+                
             }
 
             if (compteurGame == 1)
             {
-                foreach (PlayerScoring player in allScores)
-                {
-                    player.finish = false;
+                timer timerScript = FindObjectOfType<timer>();
 
-                    allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
-                    allPlayerScoringFinished.Add(player.finish);
-                }
-
-                GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
-
-                //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
+                StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
 
             }
 
             if (compteurGame == 2)
             {
-
                 var scoreGame = FindObjectOfType<ScoreGame>();
                 float moyenneScore = 0;
 
+                
                 foreach (PlayerScoring score in allScores)
                 {
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
@@ -138,7 +141,7 @@ public class PlayerScoring : NetworkBehaviour
                     i = i * 10;
                     ordrePoint -= i;
 
-                    if( ordrePoint < 0)
+                    if (ordrePoint < 0)
                     {
                         ordrePoint = 0;
                     }
@@ -148,7 +151,7 @@ public class PlayerScoring : NetworkBehaviour
 
                 foreach (PlayerScoring score in allScores)
                 {
-                    if (GetComponent<PlayerData>().role == Role.Seeker)
+                    if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
                         score.ScoreFinal += score.ScoreJoueur;
                     }
@@ -157,13 +160,16 @@ public class PlayerScoring : NetworkBehaviour
                     {
                         score.ScoreJoueur = moyenneScore;
                         score.ScoreFinal += moyenneScore;
+                        score.finish = true;
                     }
-                }
 
+                    scoreGame.ShowScore();
+                }
+                    
+                timer timerScript = FindObjectOfType<timer>();
+                timerScript.time = 999999;
                 
-                scoreGame.ShowScore();
-                
-                
+
             }
         }
     }
@@ -191,6 +197,8 @@ public class PlayerScoring : NetworkBehaviour
     [TargetRpc]
     private void ShowScoreTimer(NetworkConnection target)
     {
+        List<string> allPlayerDataName = new List<string>();
+        List<bool> allPlayerScoringFinished = new List<bool>();
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         foreach (PlayerScoring player in allScores)
         {
@@ -200,25 +208,13 @@ public class PlayerScoring : NetworkBehaviour
 
         if (compteurGame == 1)
         {
-            List<string> allPlayerDataName = new List<string>();
-            List<bool> allPlayerScoringFinished = new List<bool>();
-
-            foreach (PlayerScoring player in allScores)
-            {
-                player.finish = false;
-
-                allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
-                allPlayerScoringFinished.Add(player.finish);
-            }
-
-            GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
-
-            //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
+            StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
         }
 
         if (compteurGame == 2)
         {
             int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+            Debug.Log("Il y a autant de Seeker : " + seekerCount);
             float totalScore = 0;
 
             foreach (PlayerScoring score in allScores)
@@ -249,4 +245,172 @@ public class PlayerScoring : NetworkBehaviour
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
+
+    IEnumerator StartGameTransition(List<string> allPlayerDataName, List<bool> allPlayerScoringFinished, List<PlayerScoring> allScores)
+    {
+        timer timerScript = FindObjectOfType<timer>();
+
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+        timerScript.timeSprite.enabled = false;
+        timerScript.time = 9999;
+
+        GameObject car = GameObject.Find("redCar");
+        car.SetActive(false);
+
+        foreach (PlayerScoring player in allScores)
+        {
+            player.GetComponent<PlayerData>().DisablePlayer();
+        }
+
+        yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 25, false, 2f));
+
+        yield return new WaitForSeconds(3);
+
+        FindObjectOfType<CityManager>().MakePlateformFall();
+
+        yield return new WaitForSeconds(3);
+
+        switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
+        {
+            case 0:
+                yield return StartCoroutine(transitionCam(new Vector3(-13, 6, 15), 8, true, 1f));
+                break;
+
+            case 1:
+                yield return StartCoroutine(transitionCam(new Vector3(-35, -1, 35), 8, true, 1f));
+                break;
+
+            case 2:
+                yield return StartCoroutine(transitionCam(new Vector3(-16, -10, 13), 8, true, 1f));
+                break;
+
+            case 3:
+                yield return StartCoroutine(transitionCam(new Vector3(1, -2, -2), 8, true, 1f));
+                break;
+        }
+
+        foreach (PlayerScoring player in allScores)
+        {
+            player.finish = false;
+            player.GetComponent<PlayerData>().AbleSelect();
+
+            allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
+            allPlayerScoringFinished.Add(player.finish);
+
+            if (player.isLocalPlayer)
+            {
+                player.EnableLocalComponents();
+            }
+        }
+
+        GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
+
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
+        timerScript.timeSprite.enabled = true;
+        timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
+        timerScript.time = 180;
+    }
+
+    IEnumerator transitionCam( Vector3 endPos, int zoomCam, bool back, float temps)
+    {
+        ViewManager.Instance.StartFadeIn();
+        yield return new WaitForSeconds(1f);
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+
+        Camera cam = new Camera();
+        GameObject camObject = new GameObject();
+
+        foreach (PlayerScoring player in allScores)
+        {
+            if (player.isLocalPlayer)
+            {
+                cam = player.GetComponentInChildren<Camera>();
+                camObject = player.gameObject;
+
+                GameObject.Find("VilleELP").transform.position = endPos;
+
+                if (player.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    if (back == false)
+                    {
+                        cam.orthographic = true;
+
+                        cam.orthographicSize = zoomCam;
+
+                        player.positionLost = camObject.transform.position;
+
+                        camObject.transform.position = GameObject.Find("spawn2").transform.position;
+
+                        cam.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+                    }
+                    else
+                    {
+                        camObject.transform.position = player.positionLost;
+
+                        cam.transform.rotation = Quaternion.identity;
+
+                        cam.orthographic = false;
+
+                        cam.fieldOfView = 60;
+                    }
+                }
+                else
+                {
+                    cam.orthographicSize = zoomCam;
+
+                    cam.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+
+                    cam.transform.position = GameObject.Find("spawn2").transform.position;
+
+                }
+            }
+            
+        }
+
+        ViewManager.Instance.StartFadeOut();
+        yield return null;
+    }
+
+    public void EnableLocalComponents()
+    {
+        PlayerData playerData = GetComponent<PlayerData>();
+
+        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+
+        Camera360 cam360 = GetComponentInChildren<Camera360>();
+        takeEmoji emojiScript = GetComponent<takeEmoji>();
+        Camera camPlayer = GetComponentInChildren<Camera>();
+        PlayerInput input = GetComponentInChildren<PlayerInput>();
+
+        if (camPlayer == null || !camPlayer.isActiveAndEnabled) return;
+
+        Debug.Log("Réactivation composants pour : " + playerData.playerName + " (" + playerData.role + ")");
+
+        if (input != null) input.enabled = true;
+
+        if (playerData.role == Role.Seeker)
+        {
+            playerData.ObjectsStateSetter(playerData.charlieObjects, false);
+            playerData.ObjectsStateSetter(playerData.seekerObjects, true);
+
+            if (camDragIso != null) camDragIso.enabled = true;
+            if (camZoomIso != null) camZoomIso.enabled = true;
+            if (camRotaIso != null) camRotaIso.enabled = true;
+            if (emojiScript != null) emojiScript.enabled = false;
+
+            playerData.AbleSelect();
+        }
+        else if (playerData.role == Role.Lost)
+        {
+            playerData.ObjectsStateSetter(playerData.charlieObjects, true);
+            playerData.ObjectsStateSetter(playerData.seekerObjects, false);
+
+            if (cam360 != null) cam360.enabled = true;
+            if (emojiScript != null) emojiScript.enabled = true;
+        }
+    }
+
+
 }
