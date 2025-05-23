@@ -215,12 +215,6 @@ public class PlayerData : NetworkBehaviour
 
             ViewManager.Instance.StartFadeOut();
             EnablePlayer(role);
-
-            foreach (NetworkConnection conn in NetworkServer.connections.Values)
-            {
-
-
-            }
         }
     }
 
@@ -238,38 +232,6 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
-            GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
-
-            foreach (GameObject obj in allPNJ)
-            {
-                obj.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
-                Vector3 lockedRotation = obj.transform.eulerAngles;
-                lockedRotation.x = 0;
-                lockedRotation.z = 0;
-                obj.transform.eulerAngles = lockedRotation;
-
-                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
-                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
-                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
-
-            }
-
-            foreach (GameObject obj in allPNJPI)
-            {
-                obj.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
-                Vector3 lockedRotation = obj.transform.eulerAngles;
-                lockedRotation.x = 0;
-                lockedRotation.z = 0;
-                obj.transform.eulerAngles = lockedRotation;
-
-                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
-                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
-                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
-
-
-            }
-
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
 
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
@@ -572,15 +534,14 @@ public class PlayerData : NetworkBehaviour
             obj.transform.eulerAngles = lockedRotation;
             obj.transform.eulerAngles = lockedRotation;
 
-            Rigidbody objRigid = obj.GetComponent<Rigidbody>();
-            objRigid.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            
         }
     }
 
     [ClientRpc]
     public void RpcStartGame()
     {
-        StartGame(); // Ex�cut� sur tous les clients
+        StartGame(); 
     }
 
     public void showPlayer(List<string> names, List<bool> finishedStates)

@@ -104,6 +104,9 @@ public class PNJSpawner : MonoBehaviour
 
                 entitiesSpawnedArray.Add(actualPlayer);
 
+                Rigidbody objRigid = actualPlayer.GetComponent<Rigidbody>();
+                objRigid.constraints = RigidbodyConstraints.FreezePosition;
+
                 PnjPIFamilyData.ResetListOfPnjPI();
             }
         }
