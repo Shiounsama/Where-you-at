@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2670897861984869587}
   - component: {fileID: 7565912330210310617}
   - component: {fileID: 659716459781955244}
+  - component: {fileID: -482700524964109961}
   m_Layer: 0
   m_Name: Manif-5
   m_TagString: pnj pi
@@ -136,3 +137,20 @@ CapsuleCollider:
   m_Height: 1.373216
   m_Direction: 1
   m_Center: {x: 0.014673471, y: -0.06865579, z: 0}
+--- !u!114 &-482700524964109961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437288130521530660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073327c8be052614c9a45e662a43b4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  groundCheckDistance: 2
+  groundCheckPoint: {fileID: 0}

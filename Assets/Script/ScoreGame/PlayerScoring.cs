@@ -256,7 +256,7 @@ public class PlayerScoring : NetworkBehaviour
 
         GameObject car = GameObject.Find("redCar");
         car.SetActive(false);
-
+         
         foreach (PlayerScoring player in allScores)
         {
             player.GetComponent<PlayerData>().DisablePlayer();
@@ -268,7 +268,22 @@ public class PlayerScoring : NetworkBehaviour
 
         FindObjectOfType<CityManager>().MakePlateformFall();
 
-        yield return new WaitForSeconds(3);
+        GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+        GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
+
+        yield return new WaitForSeconds(0.5f);
+
+        foreach (GameObject pnj in allPNJ)
+        {
+            pnj.GetComponent<PNJShake>().ShakePNJ();
+        }
+
+        foreach (GameObject pnj in allPNJPI)
+        {
+            pnj.GetComponent<PNJShake>().ShakePNJ();
+        }
+
+        yield return new WaitForSeconds(2);
 
         switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
         {
