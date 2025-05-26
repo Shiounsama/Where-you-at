@@ -322,8 +322,7 @@ public class PlayerScoring : NetworkBehaviour
         timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
         timerScript.timeSprite.enabled = true;
         timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
-        timerScript.time = 180;
-        //Faire un essai si le timer est encore en coroutine ou non 
+        timerScript.RestartTimer();
     }
 
     IEnumerator transitionCam( Vector3 endPos, int zoomCam, bool back, float temps)

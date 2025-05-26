@@ -467,7 +467,7 @@ public class PlayerData : NetworkBehaviour
             if (timerCoroutine != null)
                 StopCoroutine(timerCoroutine);
 
-            timerCoroutine = StartCoroutine(timerGame.Timer());
+            timerGame.StartTimer();
             ViewManager.Instance.Initialize();
         }
     }
