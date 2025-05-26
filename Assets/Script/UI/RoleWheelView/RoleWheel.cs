@@ -3,9 +3,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class RoleWheel : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private float baseSpeed = 200f;
     [SerializeField] private AnimationCurve slowingCurve;
     [SerializeField, Range(4, 8)] private int minDuration = 4;
@@ -32,13 +34,13 @@ public class RoleWheel : MonoBehaviour
     float currentSpeed;
 
     private RoleWheelTile _mostForwardTile;
-    private RoleWheelTile mostForwardTile
+    public RoleWheelTile MostForwardTile
     {
         get
         {
             return _mostForwardTile;
         }
-        set
+        private set
         {
             if (value != _mostForwardTile)
             {
@@ -55,21 +57,29 @@ public class RoleWheel : MonoBehaviour
             value.GetComponent<Image>().color = mostForwardColor;
         }
     }
+    #endregion
 
     private void Awake()
     {
         _originPoint = transform.position + Vector3.forward * circleRadius;
     }
 
+    #region Enable Disable
     private void OnEnable()
     {
         if (transform.childCount == 0)
         {
-            foreach (var player in FindObjectsOfType<PlayerData>())
-            {
-                GameObject newTile = Instantiate(tilePrefab, transform);
-                newTile.GetComponent<RoleWheelTile>().SetPlayer(player);
-            }
+            List<NetworkRoomPlayerLobby> players = FindObjectsOfType<NetworkRoomPlayerLobby>().ToList();
+            players.Sort((a, b) => a.displayName.CompareTo(b.displayName));
+
+            foreach (var p in players)
+                Debug.Log($"Player: {p.displayName}");
+
+            foreach (var player in players)
+                {
+                    GameObject newTile = Instantiate(tilePrefab, transform);
+                    newTile.GetComponent<RoleWheelTile>().SetPlayer(player);
+                }
         }
 
         InitializeTilesSizeDelta();
@@ -78,7 +88,8 @@ public class RoleWheel : MonoBehaviour
         _roleWheelTiles = GetComponentsInChildren<RoleWheelTile>().ToList();
         _angle = 360f / _roleWheelTiles.Count;
         foreach (var r in _roleWheelTiles) r.scaleMultiplier = tilesScaleMultiplier;
-        mostForwardTile = _roleWheelTiles[0];
+        MostForwardTile = _roleWheelTiles[0];
+        Debug.Log(MostForwardTile);
     }
 
     private void OnDisable()
@@ -91,6 +102,7 @@ public class RoleWheel : MonoBehaviour
         _mostForwardNegativePos = false;
         _popAnim = false;
     }
+    #endregion
 
     private void Update()
     {
@@ -101,19 +113,19 @@ public class RoleWheel : MonoBehaviour
             currentSpeed = Mathf.Lerp(baseSpeed, 0, slowingCurve.Evaluate(time / _turnDuration));
             speed += Time.deltaTime * currentSpeed;
 
-            _mostForwardNegativePos = mostForwardTile.transform.position.x < _originPoint.x;
+            _mostForwardNegativePos = MostForwardTile.transform.position.x < _originPoint.x;
         }
         else
         {
             if (_mostForwardNegativePos)
             {
-                if (mostForwardTile.transform.position.x >= _originPoint.x)
+                if (MostForwardTile.transform.position.x >= _originPoint.x)
                 {
                     if (!_popAnim)
                     {
-                        mostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                        MostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
                         {
-                            mostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo);
+                            MostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo);
                         });
                         _popAnim = true;
                     }
@@ -125,13 +137,17 @@ public class RoleWheel : MonoBehaviour
             }
             else
             {
-                if (mostForwardTile.transform.position.x <= _originPoint.x)
+                if (MostForwardTile.transform.position.x <= _originPoint.x)
                 {
                     if (!_popAnim)
                     {
-                        mostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                        MostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
                         {
-                            mostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo);
+                            MostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                            {
+                                manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
+                                Invoke("OnWheelComplete", 2f);
+                            });
                         });
                         _popAnim = true;
                     }
@@ -156,8 +172,8 @@ public class RoleWheel : MonoBehaviour
 
             float dist = Vector3.Distance(currentTile.transform.position, transform.position);
 
-            if (dist < Vector3.Distance(mostForwardTile.transform.position, transform.position))
-                mostForwardTile = currentTile;
+            if (dist < Vector3.Distance(MostForwardTile.transform.position, transform.position))
+                MostForwardTile = currentTile;
         }
 
         UpdateTilesHierarchy();
@@ -175,6 +191,27 @@ public class RoleWheel : MonoBehaviour
         }
     }
 
+    private void OnWheelComplete()
+    { 
+        foreach (NetworkRoomPlayerLobby player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            Debug.Log("CmdStartGame");
+            player.CmdStartGame();
+        }
+    }
+
+    private void InitializeTilesSizeDelta()
+    {
+        _roleWheelTiles = GetComponentsInChildren<RoleWheelTile>().ToList();
+
+        foreach (var r in _roleWheelTiles)
+        {
+            RectTransform rect = r.GetComponent<RectTransform>();
+            rect.sizeDelta = tileBaseSize;
+        }
+    }
+
+    #region Editor Only
 #if UNITY_EDITOR
     [ContextMenu("Initialize tiles position")]
     private void InitializeTilesPosition()
@@ -199,17 +236,6 @@ public class RoleWheel : MonoBehaviour
         }
     }
 
-    private void InitializeTilesSizeDelta()
-    {
-        _roleWheelTiles = GetComponentsInChildren<RoleWheelTile>().ToList();
-
-        foreach (var r in _roleWheelTiles)
-        {
-            RectTransform rect = r.GetComponent<RectTransform>();
-            rect.sizeDelta = tileBaseSize;
-        }
-    }
-
     private void OnDrawGizmos()
     {
         _originPoint = transform.position + Vector3.forward * circleRadius;
@@ -223,4 +249,5 @@ public class RoleWheel : MonoBehaviour
         InitializeTilesSizeDelta();
     }
 #endif
+    #endregion
 }

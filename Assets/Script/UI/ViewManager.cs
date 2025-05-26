@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ViewManager : MonoBehaviour
+public class ViewManager : NetworkBehaviour
 {
     public static ViewManager Instance { get; private set; }
 
@@ -132,7 +133,7 @@ public class ViewManager : MonoBehaviour
     {
         views.Clear();
 
-        views = FindObjectsByType<View>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
+        views = FindObjectsOfType<View>(true).ToList();
     }
 
     public void AddView(View view)

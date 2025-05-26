@@ -7,7 +7,7 @@ public class RoleWheelTile : MonoBehaviour, IComparable
 {
     public int scaleMultiplier { get; set; } = 5;
 
-    private PlayerData _associatedPlayer;
+    public NetworkRoomPlayerLobby AssociatedPlayer { get; private set; }
     private string _playerName;
 
     public bool IsMostForwardTile
@@ -74,10 +74,10 @@ public class RoleWheelTile : MonoBehaviour, IComparable
         m_rectTransform.sizeDelta = Vector2.Lerp(Vector2.one, _baseSize, t);
     }
 
-    public void SetPlayer(PlayerData player)
+    public void SetPlayer(NetworkRoomPlayerLobby player)
     {
-        _associatedPlayer = player;
-        _playerName = _associatedPlayer.playerName;
+        AssociatedPlayer = player;
+        _playerName = AssociatedPlayer.displayName;
 
         SetName();
     }

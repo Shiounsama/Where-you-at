@@ -30,6 +30,7 @@ public class manager : NetworkBehaviour
     public int gameRounds = 6;
 
     public SyncList<GameObject> charlieRoleQueue = new SyncList<GameObject>();
+    public string LostName { get; set; }
 
     public void CamerasDezoom()
     {
@@ -127,10 +128,18 @@ public class manager : NetworkBehaviour
 
         int nbrRandom = Random.Range(0, player.Count);
 
-        if(!Seeker)
-            player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
-        else
-            player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
+        // if(!Seeker)
+        //     player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        // else
+        //     player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
+
+        foreach (PlayerData playerScript in scriptPlayer)
+        {
+            if (playerScript.playerName == LostName)
+            {
+                playerScript.AssignRole(Role.Lost);
+            }
+        }
 
         //SetCharlieRoleQueue();
         //GiveNextRoles();
@@ -146,7 +155,7 @@ public class manager : NetworkBehaviour
         {
             if (playerscript.isLocalPlayer)
             {
-                playerscript.StartScene(playerscript);   
+                playerscript.StartScene(playerscript);
             }
         }
     }

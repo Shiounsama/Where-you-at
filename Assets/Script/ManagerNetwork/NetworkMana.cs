@@ -139,6 +139,14 @@ public class NetworkMana : NetworkManager
         }
     }
 
+    public void ShowRoleWheel()
+    {
+        for (int i = 0; i < RoomPlayers.Count; i++)
+        {
+            RoomPlayers[i].TargetShowRoleWheel(NetworkServer.connections[i]);
+        }
+    }
+
     public IEnumerator RestartGame()
     {
         if (!IsHost())
@@ -186,7 +194,7 @@ public class NetworkMana : NetworkManager
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(playerPrefab);
                 PlayerData playerData = gameplayerInstance.GetComponentInChildren<PlayerData>();
-                playerData.playerName = RoomPlayers[i].DisplayName;
+                playerData.playerName = RoomPlayers[i].displayName;
 
                 NetworkServer.Destroy(conn.identity.gameObject);
 
