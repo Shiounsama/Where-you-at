@@ -262,7 +262,7 @@ public class PlayerScoring : NetworkBehaviour
             player.GetComponent<PlayerData>().DisablePlayer();
         }
 
-        yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 25, false, 2f));
+        yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 43, false, 2f));
 
         yield return new WaitForSeconds(3);
 
@@ -272,6 +272,7 @@ public class PlayerScoring : NetworkBehaviour
         GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
 
         yield return new WaitForSeconds(0.5f);
+
 
         foreach (GameObject pnj in allPNJ)
         {
@@ -288,19 +289,15 @@ public class PlayerScoring : NetworkBehaviour
         switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
         {
             case 0:
-                yield return StartCoroutine(transitionCam(new Vector3(-13, 6, 15), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-41, 3, 42), 8, true, 1f));
                 break;
 
             case 1:
-                yield return StartCoroutine(transitionCam(new Vector3(-35, -1, 35), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(6, -5, -8), 8, true, 1f));
                 break;
 
             case 2:
-                yield return StartCoroutine(transitionCam(new Vector3(-16, -10, 13), 8, true, 1f));
-                break;
-
-            case 3:
-                yield return StartCoroutine(transitionCam(new Vector3(1, -2, -2), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-14, -1, 14), 8, true, 1f));
                 break;
         }
 

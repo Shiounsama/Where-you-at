@@ -26,7 +26,7 @@ public class PNJShake : MonoBehaviour
         }
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics.Raycast(groundCheckPoint.position, Vector3.down, groundCheckDistance, groundLayer);
     }

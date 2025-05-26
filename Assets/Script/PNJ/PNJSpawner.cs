@@ -104,11 +104,18 @@ public class PNJSpawner : MonoBehaviour
 
                 entitiesSpawnedArray.Add(actualPlayer);
 
-                Rigidbody objRigid = actualPlayer.GetComponent<Rigidbody>();
-                objRigid.constraints = RigidbodyConstraints.FreezePosition;
+                StartCoroutine(freezePNJ(actualPlayer));
 
                 PnjPIFamilyData.ResetListOfPnjPI();
             }
         }
+    }
+
+    IEnumerator freezePNJ(GameObject pnj)
+    {
+        yield return new WaitForSeconds(1);
+        Rigidbody objRigid = pnj.GetComponent<Rigidbody>();
+        objRigid.constraints = RigidbodyConstraints.FreezePosition;
+
     }
 }
