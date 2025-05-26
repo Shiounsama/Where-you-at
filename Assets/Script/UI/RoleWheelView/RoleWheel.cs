@@ -76,14 +76,15 @@ public class RoleWheel : MonoBehaviour
                 Debug.Log($"Player: {p.displayName}");
 
             foreach (var player in players)
-                {
-                    GameObject newTile = Instantiate(tilePrefab, transform);
-                    newTile.GetComponent<RoleWheelTile>().SetPlayer(player);
-                }
+            {
+                GameObject newTile = Instantiate(tilePrefab, transform);
+                newTile.GetComponent<RoleWheelTile>().SetPlayer(player);
+            }
         }
 
         InitializeTilesSizeDelta();
 
+        Random.InitState(seed.Instance.SeedValue);
         _turnDuration = Random.Range((float)minDuration, (float)maxDuration);
         _roleWheelTiles = GetComponentsInChildren<RoleWheelTile>().ToList();
         _angle = 360f / _roleWheelTiles.Count;
@@ -146,7 +147,7 @@ public class RoleWheel : MonoBehaviour
                             MostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
                             {
                                 manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
-                                Invoke("OnWheelComplete", 2f);
+                                OnWheelComplete();
                             });
                         });
                         _popAnim = true;
