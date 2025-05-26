@@ -54,10 +54,6 @@ public class CheckPNJSelected : NetworkBehaviour
             cameraSelection.OnObjectUnselected();
 
             _playerData.setPNJvalide(testPNJ);
-            timer timerScript = FindObjectOfType<timer>();
-            timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
-            timerScript.timeSprite.enabled = false;
-            //manager.Instance.CamerasDezoom();
         }
 
         _playerData.testPNJ();

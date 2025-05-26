@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Mirror;
-
 [System.Serializable]
 public class Plateform
 {
@@ -13,32 +12,43 @@ public class Plateform
     {
         foreach (var plateform in _plateforms)
         {
-            plateform.transform.DOMoveY(plateform.transform.localPosition.y - 30f, 0.5f).SetEase(Ease.InSine).OnComplete(() =>
-                plateform.SetActive(false));
+            plateform.transform.DOShakePosition(
+                duration: 3f,
+                strength: new Vector3(0.5f, 0.5f, 0),
+                vibrato: 5,
+                randomness: 10,
+                snapping: false,
+                fadeOut: true
+            )
+            .OnComplete(() =>
+            {
+                plateform.transform.DOMoveY(
+                    plateform.transform.localPosition.y - 30f,
+                    0.5f
+                )
+                .SetEase(Ease.InSine)
+                .OnComplete(() => plateform.SetActive(false));
+            });
         }
     }
 }
 public class CityManager : MonoBehaviour
 {
     [SerializeField] private List<Plateform> _plateforms = new List<Plateform>();
-    
+
     public int _plateformWhereHiderIsIn;
-    
+
     public void SetHiderPlateform(GameObject PlateformToCheck)
     {
-        
         int index = 0;
-        
+
         foreach (var plateform in _plateforms)
         {
-            foreach (var plateformPlateform in plateform._plateforms)
+            foreach (var plateformPiece in plateform._plateforms)
             {
-                print("FOREACH DE TES MORTS");
-                if (plateformPlateform == PlateformToCheck)
+                if (plateformPiece == PlateformToCheck)
                 {
-                    print("LETS GO L'INDEX C'EST " + index);
                     _plateformWhereHiderIsIn = index;
-                    //MakePlateformFall();
                     return;
                 }
             }
@@ -48,15 +58,12 @@ public class CityManager : MonoBehaviour
 
     public void MakePlateformFall()
     {
-        Debug.Log("Dans MakePlateformFall");
-
-        for(int i = 0; i< _plateforms.Count; i++ )
-
-        if (i != _plateformWhereHiderIsIn)
+        for (int i = 0; i < _plateforms.Count; i++)
         {
-            
-            RemovePlateform(i);
-             
+            if (i != _plateformWhereHiderIsIn)
+            {
+                RemovePlateform(i);
+            }
         }
     }
 

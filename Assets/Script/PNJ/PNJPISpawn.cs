@@ -101,6 +101,8 @@ public class PNJPISpawn : MonoBehaviour
 
             entitiesSpawnedArray.Add(actualPlayer);
 
+            StartCoroutine(freezePNJ(actualPlayer));
+
             ResetListOfPnjPI();
         }
     }
@@ -125,4 +127,11 @@ public class PNJPISpawn : MonoBehaviour
         isAllPnjUsed = false;
     }
 
+    IEnumerator freezePNJ(GameObject pnj)
+    {
+        yield return new WaitForSeconds(1);
+        Rigidbody objRigid = pnj.GetComponent<Rigidbody>();
+        objRigid.constraints = RigidbodyConstraints.FreezePosition;
+
+    }
 }
