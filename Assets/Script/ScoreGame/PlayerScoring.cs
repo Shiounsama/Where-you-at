@@ -264,9 +264,11 @@ public class PlayerScoring : NetworkBehaviour
 
         yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 43, false, 2f));
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
 
         FindObjectOfType<CityManager>().MakePlateformFall();
+
+        yield return new WaitForSeconds(3);
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
         GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
@@ -321,6 +323,7 @@ public class PlayerScoring : NetworkBehaviour
         timerScript.timeSprite.enabled = true;
         timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
         timerScript.time = 180;
+        //Faire un essai si le timer est encore en coroutine ou non 
     }
 
     IEnumerator transitionCam( Vector3 endPos, int zoomCam, bool back, float temps)
