@@ -355,7 +355,12 @@ public class PlayerScoring : NetworkBehaviour
 
                         camObject.transform.position = GameObject.Find("spawn2").transform.position;
 
-                        cam.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+                        camObject.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+
+                        cam.transform.localRotation = Quaternion.identity;
+
+                        cam.transform.localPosition = new Vector3(0, 0, 0);
+
                     }
                     else
                     {
@@ -366,6 +371,10 @@ public class PlayerScoring : NetworkBehaviour
                         cam.orthographic = false;
 
                         cam.fieldOfView = 60;
+
+                        GameObject.Find("VilleELP").transform.position = new Vector3(0, 0, 0);
+
+                        Debug.Log($"AAAAAAAA POSITION {camObject.transform.position} et sa rotati-");
                     }
                 }
                 else
