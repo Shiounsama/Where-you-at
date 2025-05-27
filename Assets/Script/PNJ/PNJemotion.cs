@@ -20,7 +20,7 @@ public class PNJemotion : MonoBehaviour
         while (true)
         {
             int randomNumber = 0;
-            yield return new WaitForSeconds(Random.Range(4,6));
+            yield return new WaitForSeconds(Random.Range(6,9));
             randomNumber = Random.Range(1, 3);
             if(randomNumber == 1) createEmojiPNJ();
         }
@@ -29,7 +29,7 @@ public class PNJemotion : MonoBehaviour
     void createEmojiPNJ()
     {
         GameObject emoji = Instantiate(prefabEmoji, spawnPoint.position, Quaternion.identity, transform);
-        emoji.transform.localPosition = new Vector3(1.5f, 2.5f, 0);
+        emoji.transform.localPosition = new Vector3(1.8f, 2.8f, 0);
         emoji.transform.localRotation = Quaternion.Euler(0, 0, 0);
         SpriteRenderer spriteRenderer = emoji.transform.GetChild(0).GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = emojiPNJ[Random.Range(0, emojiPNJ.Count)];
@@ -39,7 +39,7 @@ public class PNJemotion : MonoBehaviour
 
     IEnumerator animEmojiPNJ(GameObject emoji)
     {
-        float duration = 3f;
+        float duration = 6f;
         float elapsedTime = 0f;
         SpriteRenderer spriteRenderer = emoji.GetComponent<SpriteRenderer>();
         SpriteRenderer spriteRenderer2 = emoji.transform.GetChild(0).GetComponent<SpriteRenderer>();
