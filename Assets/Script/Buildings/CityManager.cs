@@ -14,9 +14,9 @@ public class Plateform
         {
             plateform.transform.DOShakePosition(
                 duration: 3f,
-                strength: new Vector3(0.5f, 0.5f, 0),
-                vibrato: 5,
-                randomness: 10,
+                strength: new Vector3(3f, 3f, 0),
+                vibrato: 7,
+                randomness: 15,
                 snapping: false,
                 fadeOut: true
             )

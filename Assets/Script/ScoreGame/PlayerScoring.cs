@@ -286,7 +286,7 @@ public class PlayerScoring : NetworkBehaviour
             pnj.GetComponent<PNJShake>().ShakePNJ();
         }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
 
         switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
         {
