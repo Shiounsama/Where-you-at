@@ -406,6 +406,9 @@ public class PlayerScoring : NetworkBehaviour
         takeEmoji emojiScript = GetComponent<takeEmoji>();
         Camera camPlayer = GetComponentInChildren<Camera>();
         PlayerInput input = GetComponentInChildren<PlayerInput>();
+        TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
+
+        tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = true;
 
         if (camPlayer == null || !camPlayer.isActiveAndEnabled) return;
 
