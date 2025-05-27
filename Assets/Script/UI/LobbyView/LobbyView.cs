@@ -1,3 +1,4 @@
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,10 +38,18 @@ public class LobbyView : View
 
     public void OnClick_StartGame()
     {
-        foreach (NetworkRoomPlayerLobby player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        // foreach (NetworkRoomPlayerLobby player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        // {
+        //     player.CmdStartGame();
+        // }
+
+        foreach (var conn in NetworkServer.connections.Values)
         {
-            player.CmdStartGame();
+            Debug.Log($"Network connection: {conn}");
+            // manager.Instance.TargetShowRoleWheel(conn);
+            NetworkMana.Instance.ShowRoleWheel();
         }
+        
     }
 
     public override void OnClick_Return()

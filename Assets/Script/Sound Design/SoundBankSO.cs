@@ -9,6 +9,7 @@ namespace SoundDesign
     {
         [Header("SFXs")]
         public AudioClip gameEndingCelebrationClip;
+        public AudioClip roleWheelTickClip;
 
         [Header("UI")]
         public AudioClip buttonClickClip;
