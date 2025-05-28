@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class RoleWheel : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class RoleWheel : MonoBehaviour
     [SerializeField] private Vector2 tileBaseSize = new Vector2(500, 225);
     [SerializeField] private int tilesScaleMultiplier = 12;
     [SerializeField] private GameObject tilePrefab;
+
+    [Header("Animation")]
+    [SerializeField] private Animation _popOutAnim;
+    [SerializeField] private Animation _popInAnim;
 
     private List<RoleWheelTile> _roleWheelTiles = new();
     private Vector3 _originPoint;
@@ -62,6 +67,15 @@ public class RoleWheel : MonoBehaviour
     private void Awake()
     {
         _originPoint = transform.position + Vector3.forward * circleRadius;
+    }
+
+    private void Start()
+    {
+        _popOutAnim.UpdateAction = UpdatePopOutAnimation;
+        _popOutAnim.EndAction = EndPopOutAnimation;
+
+        _popInAnim.UpdateAction = UpdatePopInAnimation;
+        _popInAnim.EndAction = EndPopInAnimation;
     }
 
     #region Enable Disable
@@ -109,6 +123,9 @@ public class RoleWheel : MonoBehaviour
     {
         time += Time.deltaTime;
 
+        _popOutAnim.Update(Time.deltaTime);
+        _popInAnim.Update(Time.deltaTime);
+
         if (time < _turnDuration)
         {
             currentSpeed = Mathf.Lerp(baseSpeed, 0, slowingCurve.Evaluate(time / _turnDuration));
@@ -124,10 +141,17 @@ public class RoleWheel : MonoBehaviour
                 {
                     if (!_popAnim)
                     {
-                        MostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
-                        {
-                            MostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo);
-                        });
+                        //MostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                        //{
+                        //    MostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                        //    {
+                        //        manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
+                        //        OnWheelComplete();
+                        //    });
+                        //});
+
+                        StartPopOutAnimation();
+
                         _popAnim = true;
                     }
 
@@ -142,14 +166,17 @@ public class RoleWheel : MonoBehaviour
                 {
                     if (!_popAnim)
                     {
-                        MostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
-                        {
-                            MostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
-                            {
-                                manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
-                                OnWheelComplete();
-                            });
-                        });
+                        //MostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                        //{
+                        //    MostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                        //    {
+                        //        manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
+                        //        OnWheelComplete();
+                        //    });
+                        //});
+
+                        StartPopOutAnimation();
+
                         _popAnim = true;
                     }
 
@@ -211,6 +238,59 @@ public class RoleWheel : MonoBehaviour
             rect.sizeDelta = tileBaseSize;
         }
     }
+
+    #region Animation
+    // Pop out animation
+
+    private void StartPopOutAnimation()
+    {
+        Vector3 scale = Vector3.one;
+        transform.localScale = scale;
+
+        _popOutAnim.StartAnimation();
+    }
+
+    private void UpdatePopOutAnimation(float t)
+    {
+        Vector3 scale = Vector3.Lerp(Vector3.one, Vector3.one * 1.6f, t);
+        transform.localScale = scale;
+    }
+
+    private void EndPopOutAnimation()
+    {
+        Vector3 scale = Vector3.one * 1.6f;
+        transform.localScale = scale;
+
+        StartPopInAnimation();
+    }
+    
+    // Pop in animation
+
+    private void StartPopInAnimation()
+    {
+        Vector3 scale = Vector3.one * 1.6f;
+        transform.localScale = scale;
+
+        _popInAnim.StartAnimation();
+    }
+
+    private void UpdatePopInAnimation(float t)
+    {
+        Vector3 scale = Vector3.Lerp(Vector3.one * 1.6f, Vector3.one, t);
+        transform.localScale = scale;
+    }
+
+    private void EndPopInAnimation()
+    {
+        Vector3 scale = Vector3.one;
+        transform.localScale = scale;
+
+        Debug.Log("EndPopInAnim");
+
+        manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
+        OnWheelComplete();
+    }
+    #endregion
 
     #region Editor Only
 #if UNITY_EDITOR
