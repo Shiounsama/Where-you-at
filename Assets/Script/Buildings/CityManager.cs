@@ -8,15 +8,17 @@ public class Plateform
 {
     public List<GameObject> _plateforms = new List<GameObject>();
 
+    
+
     public void MakePlateformDown()
     {
         foreach (var plateform in _plateforms)
         {
             plateform.transform.DOShakePosition(
                 duration: 3f,
-                strength: new Vector3(0.5f, 0.5f, 0),
-                vibrato: 5,
-                randomness: 10,
+                strength: new Vector3(3f, 3f, 0),
+                vibrato: 7,
+                randomness: 15,
                 snapping: false,
                 fadeOut: true
             )
@@ -37,6 +39,22 @@ public class CityManager : MonoBehaviour
     [SerializeField] private List<Plateform> _plateforms = new List<Plateform>();
 
     public int _plateformWhereHiderIsIn;
+
+    private void Start()
+    {
+        List<cityNumber> allCity = new List<cityNumber>(FindObjectsOfType<cityNumber>());
+        
+        foreach(cityNumber uwu in allCity)
+        {
+            Transform[] allTransforms = uwu.GetComponentsInChildren<Transform>();
+
+            foreach (Transform t in allTransforms)
+            {
+                _plateforms[uwu.zone]._plateforms.Add(t.gameObject);
+            }
+
+        }
+    }
 
     public void SetHiderPlateform(GameObject PlateformToCheck)
     {

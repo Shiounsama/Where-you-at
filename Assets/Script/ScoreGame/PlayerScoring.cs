@@ -286,19 +286,19 @@ public class PlayerScoring : NetworkBehaviour
             pnj.GetComponent<PNJShake>().ShakePNJ();
         }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
 
         switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
         {
-            case 0:
+            case 1:
                 yield return StartCoroutine(transitionCam(new Vector3(-41, 3, 42), 8, true, 1f));
                 break;
 
-            case 1:
+            case 2:
                 yield return StartCoroutine(transitionCam(new Vector3(6, -5, -8), 8, true, 1f));
                 break;
 
-            case 2:
+            case 0:
                 yield return StartCoroutine(transitionCam(new Vector3(-14, -1, 14), 8, true, 1f));
                 break;
         }
@@ -355,7 +355,12 @@ public class PlayerScoring : NetworkBehaviour
 
                         camObject.transform.position = GameObject.Find("spawn2").transform.position;
 
-                        cam.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+                        camObject.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+
+                        cam.transform.localRotation = Quaternion.identity;
+
+                        cam.transform.localPosition = new Vector3(0, 0, 0);
+
                     }
                     else
                     {
@@ -366,6 +371,10 @@ public class PlayerScoring : NetworkBehaviour
                         cam.orthographic = false;
 
                         cam.fieldOfView = 60;
+
+                        GameObject.Find("VilleELP").transform.position = new Vector3(0, 0, 0);
+
+                        Debug.Log($"AAAAAAAA POSITION {camObject.transform.position} et sa rotati-");
                     }
                 }
                 else
@@ -397,6 +406,9 @@ public class PlayerScoring : NetworkBehaviour
         takeEmoji emojiScript = GetComponent<takeEmoji>();
         Camera camPlayer = GetComponentInChildren<Camera>();
         PlayerInput input = GetComponentInChildren<PlayerInput>();
+        TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
+
+        tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = true;
 
         if (camPlayer == null || !camPlayer.isActiveAndEnabled) return;
 
