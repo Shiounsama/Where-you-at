@@ -290,15 +290,15 @@ public class PlayerScoring : NetworkBehaviour
 
         switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
         {
-            case 0:
+            case 1:
                 yield return StartCoroutine(transitionCam(new Vector3(-41, 3, 42), 8, true, 1f));
                 break;
 
-            case 1:
+            case 2:
                 yield return StartCoroutine(transitionCam(new Vector3(6, -5, -8), 8, true, 1f));
                 break;
 
-            case 2:
+            case 0:
                 yield return StartCoroutine(transitionCam(new Vector3(-14, -1, 14), 8, true, 1f));
                 break;
         }
