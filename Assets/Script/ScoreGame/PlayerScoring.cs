@@ -48,24 +48,22 @@ public class PlayerScoring : NetworkBehaviour
 
 
     [Command]
-    public void ServeurScore(float newScore)
+    public void ServeurScore(bool newScore)
     {
         StartCoroutine(resultat(newScore));
     }
 
 
-    public IEnumerator resultat(float newScore)
+    public IEnumerator resultat(bool newScore)
     {
-        Distance = newScore;
+        
         finish = true;
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
         int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
 
-        ScoreJoueur = 100 - Distance;
-
-        int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
-        ScoreJoueur = (ScoreJoueur + scorePosition);
+        if (newScore)
+            ScoreJoueur = 40 ;
 
         yield return new WaitForSeconds(0.1f);
 
