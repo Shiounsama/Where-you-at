@@ -16,7 +16,7 @@ public class Plateform
         {
             plateform.transform.DOShakePosition(
                 duration: 3f,
-                strength: new Vector3(3f, 3f, 0),
+                strength: new Vector3(0, 3f, 0),
                 vibrato: 7,
                 randomness: 15,
                 snapping: false,
@@ -43,16 +43,24 @@ public class CityManager : MonoBehaviour
     private void Start()
     {
         List<cityNumber> allCity = new List<cityNumber>(FindObjectsOfType<cityNumber>());
-        
-        foreach(cityNumber uwu in allCity)
+
+        foreach (cityNumber uwu in allCity)
         {
-            Transform[] allTransforms = uwu.GetComponentsInChildren<Transform>();
+            Debug.Log(uwu.name);
 
-            foreach (Transform t in allTransforms)
+            _plateforms[uwu.zone]._plateforms.Add(uwu.gameObject);
+
+            BoxCollider[] colliders = uwu.GetComponentsInChildren<BoxCollider>();
+
+            foreach (BoxCollider col in colliders)
             {
-                _plateforms[uwu.zone]._plateforms.Add(t.gameObject);
-            }
+                GameObject go = col.gameObject;
 
+                if (go != uwu.gameObject)
+                {
+                    _plateforms[uwu.zone]._plateforms.Add(go);
+                }
+            }
         }
     }
 
