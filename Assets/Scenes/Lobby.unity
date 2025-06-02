@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 3da1b493386939448a34038068222648, type: 3}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.6623074, g: 0.87574553, b: 0.94800407, a: 1}
+  m_IndirectSpecularColor: {r: 0.66230583, g: 0.8757435, b: 0.9480149, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -247,6 +247,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &123681972 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 374871053804567685, guid: 54036c443df40454b896139ffd1fd7ae, type: 3}
+  m_PrefabInstance: {fileID: 471909475}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669c5446e6045364cb7e4f655cebd678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &197304043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -256,12 +267,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 34865909493709847, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 34865909493709847, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
       propertyPath: defaultView
       value: 
       objectReference: {fileID: 471909479}
     - target: {fileID: 34865909493709847, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
       propertyPath: views.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 34865909493709847, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
       propertyPath: views.Array.data[0]
@@ -281,6 +296,10 @@ PrefabInstance:
       objectReference: {fileID: 471909476}
     - target: {fileID: 34865909493709847, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
       propertyPath: views.Array.data[4]
+      value: 
+      objectReference: {fileID: 123681972}
+    - target: {fileID: 34865909493709847, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
+      propertyPath: views.Array.data[5]
       value: 
       objectReference: {fileID: 1360273409}
     - target: {fileID: 34865909493709847, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
@@ -1326,6 +1345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e2780bce54ac84e85cce3460db3cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   returnButton: {fileID: 0}
   submitButton: {fileID: 0}
   scoreElementPrefab: {fileID: 4228281338085362560, guid: 74dd967b38f79c442812fc4b211d3727, type: 3}
@@ -1807,7 +1829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 6586050
+      value: 6342538
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
