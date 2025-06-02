@@ -2,17 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
-using UnityEngine.Events;
-using Unity.VisualScripting;
 
 public class RoleWheel : MonoBehaviour
 {
     #region Variables
+    [SerializeField] private bool editorMode = false;
     [SerializeField] private float baseSpeed = 200f;
     [SerializeField] private AnimationCurve slowingCurve;
     [SerializeField, Range(4, 8)] private int minDuration = 4;
     [SerializeField, Range(5, 15)] private int maxDuration = 15;
+    [SerializeField, Range(5, 15)] private int minTurns = 5;
+    [SerializeField, Range(5, 15)] private int maxTurns = 10;
     [SerializeField, Range(300, 1200)] private float circleRadius = 300;
     [SerializeField] private Color mostForwardColor;
 
@@ -22,21 +22,23 @@ public class RoleWheel : MonoBehaviour
     [SerializeField] private GameObject tilePrefab;
 
     [Header("Animation")]
-    [SerializeField] private Animation _popOutAnim;
-    [SerializeField] private Animation _popInAnim;
+    [SerializeField] private Animation wheelAnim;
+    [SerializeField] private Animation popOutAnim;
+    [SerializeField] private Animation popInAnim;
+
+    [Header("")]
+    [SerializeField] private PlayerData debugSelectedPlayer;
+    [SerializeField] private int selectedPlayerIndex;
 
     private List<RoleWheelTile> _roleWheelTiles = new();
     private Vector3 _originPoint;
     private float _turnDuration;
+    private int _turns;
     private float _angle;
-    private bool _mostForwardNegativePos = false;
-    private bool _popAnim = false;
+    private float _goal;
 
     float x;
     float z;
-    float time = 0;
-    float speed = 0;
-    float currentSpeed;
 
     private RoleWheelTile _mostForwardTile;
     public RoleWheelTile MostForwardTile
@@ -52,7 +54,6 @@ public class RoleWheel : MonoBehaviour
                 if (_mostForwardTile)
                     _mostForwardTile.GetComponent<Image>().color = Color.white;
 
-                //value.transform.SetAsLastSibling();
                 value.IsMostForwardTile = true;
                 _mostForwardTile = value;
             }
@@ -71,11 +72,17 @@ public class RoleWheel : MonoBehaviour
 
     private void Start()
     {
-        _popOutAnim.UpdateAction = UpdatePopOutAnimation;
-        _popOutAnim.EndAction = EndPopOutAnimation;
+        wheelAnim.UpdateAction = UpdateWheelAnimation;
+        wheelAnim.EndAction = EndWheelAnimation;
+        wheelAnim.Duration = _turnDuration;
 
-        _popInAnim.UpdateAction = UpdatePopInAnimation;
-        _popInAnim.EndAction = EndPopInAnimation;
+        popOutAnim.UpdateAction = UpdatePopOutAnimation;
+        popOutAnim.EndAction = EndPopOutAnimation;
+
+        popInAnim.UpdateAction = UpdatePopInAnimation;
+        popInAnim.EndAction = EndPopInAnimation;
+
+        StartWheelAnimation();
     }
 
     #region Enable Disable
@@ -83,16 +90,44 @@ public class RoleWheel : MonoBehaviour
     {
         if (transform.childCount == 0)
         {
-            List<NetworkRoomPlayerLobby> players = FindObjectsOfType<NetworkRoomPlayerLobby>().ToList();
-            players.Sort((a, b) => a.displayName.CompareTo(b.displayName));
-
-            foreach (var p in players)
-                Debug.Log($"Player: {p.displayName}");
-
-            foreach (var player in players)
+            if (!editorMode)
             {
-                GameObject newTile = Instantiate(tilePrefab, transform);
-                newTile.GetComponent<RoleWheelTile>().SetPlayer(player);
+                List<NetworkRoomPlayerLobby> players = FindObjectsOfType<NetworkRoomPlayerLobby>().ToList();
+
+                players.Sort((a, b) => a.displayName.CompareTo(b.displayName));
+
+                //foreach (var p in players)
+                    //Debug.Log($"Player: {p.displayName}");
+
+                for (int i = 0; i < players.Count; i++)
+                {
+                    var player = players[i];
+
+                    GameObject newTile = Instantiate(tilePrefab, transform);
+                    newTile.GetComponent<RoleWheelTile>().SetPlayer(player);
+                }
+            }
+            else
+            {
+                List<PlayerData> players = FindObjectsOfType<PlayerData>().ToList();
+
+                players.Sort((a, b) => a.playerName.CompareTo(b.playerName));
+
+                //foreach (var p in players)
+                    //Debug.Log($"Player: {p.playerName}");
+
+                for (int i = 0; i < players.Count; i++)
+                {
+                    var player = players[i];
+
+                    if (player == debugSelectedPlayer)
+                    {
+                        selectedPlayerIndex = i;
+                    }
+
+                    GameObject newTile = Instantiate(tilePrefab, transform);
+                    newTile.GetComponent<RoleWheelTile>().DebugSetPlayer(player);
+                }
             }
         }
 
@@ -100,109 +135,28 @@ public class RoleWheel : MonoBehaviour
 
         Random.InitState(seed.Instance.SeedValue);
         _turnDuration = Random.Range((float)minDuration, (float)maxDuration);
+        _turns = Mathf.FloorToInt(_turnDuration);
         _roleWheelTiles = GetComponentsInChildren<RoleWheelTile>().ToList();
         _angle = 360f / _roleWheelTiles.Count;
         foreach (var r in _roleWheelTiles) r.scaleMultiplier = tilesScaleMultiplier;
         MostForwardTile = _roleWheelTiles[0];
-        Debug.Log(MostForwardTile);
+        //Debug.Log(MostForwardTile);
+
+        _goal = 360 * _turns + (360 - (_angle * selectedPlayerIndex));
     }
 
     private void OnDisable()
     {
-        time = 0;
         x = 0;
         z = 0;
-        speed = 0;
-        currentSpeed = 0;
-        _mostForwardNegativePos = false;
-        _popAnim = false;
     }
     #endregion
 
     private void Update()
     {
-        time += Time.deltaTime;
-
-        _popOutAnim.Update(Time.deltaTime);
-        _popInAnim.Update(Time.deltaTime);
-
-        if (time < _turnDuration)
-        {
-            currentSpeed = Mathf.Lerp(baseSpeed, 0, slowingCurve.Evaluate(time / _turnDuration));
-            speed += Time.deltaTime * currentSpeed;
-
-            _mostForwardNegativePos = MostForwardTile.transform.position.x < _originPoint.x;
-        }
-        else
-        {
-            if (_mostForwardNegativePos)
-            {
-                if (MostForwardTile.transform.position.x >= _originPoint.x)
-                {
-                    if (!_popAnim)
-                    {
-                        //MostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
-                        //{
-                        //    MostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
-                        //    {
-                        //        manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
-                        //        OnWheelComplete();
-                        //    });
-                        //});
-
-                        StartPopOutAnimation();
-
-                        _popAnim = true;
-                    }
-
-                    return;
-                }
-
-                speed += Time.deltaTime * baseSpeed;
-            }
-            else
-            {
-                if (MostForwardTile.transform.position.x <= _originPoint.x)
-                {
-                    if (!_popAnim)
-                    {
-                        //MostForwardTile.transform.DOScale(1.6f, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
-                        //{
-                        //    MostForwardTile.transform.DOScale(1, .5f).SetEase(Ease.OutExpo).OnComplete(() =>
-                        //    {
-                        //        manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
-                        //        OnWheelComplete();
-                        //    });
-                        //});
-
-                        StartPopOutAnimation();
-
-                        _popAnim = true;
-                    }
-
-                    return;
-                }
-
-                speed -= Time.deltaTime * baseSpeed;
-            }
-        }
-
-        for (int i = 0; i < _roleWheelTiles.Count; i++)
-        {
-            RoleWheelTile currentTile = _roleWheelTiles[i];
-
-            var formula = (-90 + i * _angle + speed) * Mathf.Deg2Rad;
-
-            x = circleRadius * Mathf.Cos(formula);
-            z = circleRadius * Mathf.Sin(formula);
-
-            currentTile.transform.position = new Vector3(_originPoint.x + x, _originPoint.y, _originPoint.z + z);
-
-            float dist = Vector3.Distance(currentTile.transform.position, transform.position);
-
-            if (dist < Vector3.Distance(MostForwardTile.transform.position, transform.position))
-                MostForwardTile = currentTile;
-        }
+        wheelAnim.Update(Time.deltaTime);
+        popOutAnim.Update(Time.deltaTime);
+        popInAnim.Update(Time.deltaTime);
 
         UpdateTilesHierarchy();
     }
@@ -223,7 +177,7 @@ public class RoleWheel : MonoBehaviour
     { 
         foreach (NetworkRoomPlayerLobby player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
-            Debug.Log("CmdStartGame");
+            //Debug.Log("CmdStartGame");
             player.CmdStartGame();
         }
     }
@@ -240,26 +194,93 @@ public class RoleWheel : MonoBehaviour
     }
 
     #region Animation
+    // Wheel animation
+
+    private void StartWheelAnimation()
+    {
+        for (int i = 0; i < _roleWheelTiles.Count; i++)
+        {
+            RoleWheelTile currentTile = _roleWheelTiles[i];
+
+            var formula = (-90 + i * _angle) * Mathf.Deg2Rad;
+
+            x = circleRadius * Mathf.Cos(formula);
+            z = circleRadius * Mathf.Sin(formula);
+
+            currentTile.transform.position = new Vector3(_originPoint.x + x, _originPoint.y, _originPoint.z + z);
+
+            float dist = Vector3.Distance(currentTile.transform.position, transform.position);
+
+            if (dist < Vector3.Distance(MostForwardTile.transform.position, transform.position))
+                MostForwardTile = currentTile;
+        }
+
+        wheelAnim.StartAnimation();
+    }
+
+    private void UpdateWheelAnimation(float t)
+    {
+        for (int i = 0; i < _roleWheelTiles.Count; i++)
+        {
+            RoleWheelTile currentTile = _roleWheelTiles[i];
+
+            var formula = Mathf.Lerp(-90 + i * _angle, -90 + i * _angle + _goal, t) * Mathf.Deg2Rad;
+            //Debug.Log($"Formula: {formula}");
+
+            x = circleRadius * Mathf.Cos(formula);
+            z = circleRadius * Mathf.Sin(formula);
+
+            currentTile.transform.position = new Vector3(_originPoint.x + x, _originPoint.y, _originPoint.z + z);
+
+            float dist = Vector3.Distance(currentTile.transform.position, transform.position);
+
+            if (dist < Vector3.Distance(MostForwardTile.transform.position, transform.position))
+                MostForwardTile = currentTile;
+        }
+    }
+
+    private void EndWheelAnimation()
+    {
+        for (int i = 0; i < _roleWheelTiles.Count; i++)
+        {
+            RoleWheelTile currentTile = _roleWheelTiles[i];
+
+            var formula = (-90 + i * _angle + _goal) * Mathf.Deg2Rad;
+
+            x = circleRadius * Mathf.Cos(formula);
+            z = circleRadius * Mathf.Sin(formula);
+
+            currentTile.transform.position = new Vector3(_originPoint.x + x, _originPoint.y, _originPoint.z + z);
+
+            float dist = Vector3.Distance(currentTile.transform.position, transform.position);
+
+            if (dist < Vector3.Distance(MostForwardTile.transform.position, transform.position))
+                MostForwardTile = currentTile;
+        }
+
+        StartPopOutAnimation();
+    }
+
     // Pop out animation
 
     private void StartPopOutAnimation()
     {
         Vector3 scale = Vector3.one;
-        transform.localScale = scale;
+        MostForwardTile.transform.localScale = scale;
 
-        _popOutAnim.StartAnimation();
+        popOutAnim.StartAnimation();
     }
 
     private void UpdatePopOutAnimation(float t)
     {
         Vector3 scale = Vector3.Lerp(Vector3.one, Vector3.one * 1.6f, t);
-        transform.localScale = scale;
+        MostForwardTile.transform.localScale = scale;
     }
 
     private void EndPopOutAnimation()
     {
         Vector3 scale = Vector3.one * 1.6f;
-        transform.localScale = scale;
+        MostForwardTile.transform.localScale = scale;
 
         StartPopInAnimation();
     }
@@ -269,25 +290,34 @@ public class RoleWheel : MonoBehaviour
     private void StartPopInAnimation()
     {
         Vector3 scale = Vector3.one * 1.6f;
-        transform.localScale = scale;
+        MostForwardTile.transform.localScale = scale;
 
-        _popInAnim.StartAnimation();
+        popInAnim.StartAnimation();
     }
 
     private void UpdatePopInAnimation(float t)
     {
         Vector3 scale = Vector3.Lerp(Vector3.one * 1.6f, Vector3.one, t);
-        transform.localScale = scale;
+        MostForwardTile.transform.localScale = scale;
     }
 
     private void EndPopInAnimation()
     {
         Vector3 scale = Vector3.one;
-        transform.localScale = scale;
+        MostForwardTile.transform.localScale = scale;
 
-        Debug.Log("EndPopInAnim");
+        //Debug.Log("EndPopInAnim");
 
-        manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
+        if (!editorMode)
+            manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
+        else
+        {
+            if (!editorMode)
+            {
+                manager.Instance.LostName = MostForwardTile.DebugAssociatedPlayer.playerName;
+            }
+        }
+        
         OnWheelComplete();
     }
     #endregion
@@ -306,8 +336,8 @@ public class RoleWheel : MonoBehaviour
         {
             RoleWheelTile currentTile = _roleWheelTiles[i];
 
-            x = circleRadius * Mathf.Cos((-90 + i * _angle + speed) * Mathf.Deg2Rad);
-            z = circleRadius * Mathf.Sin((-90 + i * _angle + speed) * Mathf.Deg2Rad);
+            x = circleRadius * Mathf.Cos((-90 + i * _angle) * Mathf.Deg2Rad);
+            z = circleRadius * Mathf.Sin((-90 + i * _angle) * Mathf.Deg2Rad);
 
             // Debug.Log($"x: {x}; z: {z}");
 

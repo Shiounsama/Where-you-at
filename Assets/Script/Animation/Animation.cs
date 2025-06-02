@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Animation
 {
-    [SerializeField, Tooltip("Animation duration in seconds"), Range(0, 5)]
+    [SerializeField, Tooltip("Animation duration in seconds"), Range(0, 15)]
     private float _duration = .5f; // in seconds
     public float Duration { set => _duration = value; }
 

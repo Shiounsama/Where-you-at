@@ -8,6 +8,7 @@ public class RoleWheelTile : MonoBehaviour, IComparable
     public int scaleMultiplier { get; set; } = 5;
 
     public NetworkRoomPlayerLobby AssociatedPlayer { get; private set; }
+    public PlayerData DebugAssociatedPlayer { get; private set; }
     private string _playerName;
 
     public bool IsMostForwardTile
@@ -78,6 +79,14 @@ public class RoleWheelTile : MonoBehaviour, IComparable
     {
         AssociatedPlayer = player;
         _playerName = AssociatedPlayer.displayName;
+
+        SetName();
+    }
+
+    public void DebugSetPlayer(PlayerData player)
+    {
+        DebugAssociatedPlayer = player;
+        _playerName = DebugAssociatedPlayer.playerName;
 
         SetName();
     }
