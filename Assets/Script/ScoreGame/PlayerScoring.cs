@@ -123,28 +123,28 @@ public class PlayerScoring : NetworkBehaviour
             {
                 var scoreGame = FindObjectOfType<ScoreGame>();
                 float moyenneScore = 0;
-
                 
+
                 foreach (PlayerScoring score in allScores)
                 {
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
-                        moyenneScore += (score.ScoreJoueur) / (seekerCount);
+                        IsoCameraSelection cameraSelection = score.GetComponentInChildren<IsoCameraSelection>();
+                        float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+
+                        if (resultat > 0 && resultat <= 5)
+                        {
+                            score.ScoreJoueur += 60;
+                        }
+                        else if (resultat > 5 && resultat <= 15)
+                        {
+                            score.ScoreJoueur += 30;
+                        }
+                        else if (resultat > 15)
+                        {
+                            score.ScoreJoueur += 15;
+                        }
                     }
-                }
-
-                for (int i = 0; i < OrdreGuess.Count; i++)
-                {
-                    int ordrePoint = 50;
-                    i = i * 10;
-                    ordrePoint -= i;
-
-                    if (ordrePoint < 0)
-                    {
-                        ordrePoint = 0;
-                    }
-
-                    OrdreGuess[i].ScoreJoueur += ordrePoint;
                 }
 
                 foreach (PlayerScoring score in allScores)

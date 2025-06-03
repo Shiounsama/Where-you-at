@@ -44,10 +44,9 @@ public class CheckPNJSelected : NetworkBehaviour
     public void IsGuess()
     {
         //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
-        float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-        score.ServeurScore(TestZoneNumber);
+        
+        score.ServeurScore(TestZoneNumber());
 
-        Debug.Log("TIM EST UN GIGA POTET " + TestZoneNumber());
         if (isLocalPlayer)
         {
             _playerData = GetComponent<PlayerData>();
