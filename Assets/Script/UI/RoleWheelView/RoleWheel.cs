@@ -97,7 +97,7 @@ public class RoleWheel : MonoBehaviour
                 players.Sort((a, b) => a.displayName.CompareTo(b.displayName));
 
                 //foreach (var p in players)
-                    //Debug.Log($"Player: {p.displayName}");
+                //Debug.Log($"Player: {p.displayName}");
 
                 for (int i = 0; i < players.Count; i++)
                 {
@@ -105,6 +105,9 @@ public class RoleWheel : MonoBehaviour
 
                     GameObject newTile = Instantiate(tilePrefab, transform);
                     newTile.GetComponent<RoleWheelTile>().SetPlayer(player);
+
+                    if (player.IsLeader)
+                        selectedPlayerIndex = i;
                 }
             }
             else
