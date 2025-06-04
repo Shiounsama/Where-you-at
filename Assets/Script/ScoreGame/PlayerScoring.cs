@@ -48,13 +48,13 @@ public class PlayerScoring : NetworkBehaviour
 
 
     [Command]
-    public void ServeurScore(bool newScore)
+    public void ServeurScore(bool newScore, float distance)
     {
-        StartCoroutine(resultat(newScore));
+        StartCoroutine(resultat(newScore, distance));
     }
 
 
-    public IEnumerator resultat(bool newScore)
+    public IEnumerator resultat(bool newScore, float resultat)
     {
         
         finish = true;
@@ -69,14 +69,14 @@ public class PlayerScoring : NetworkBehaviour
 
         foreach (var conn in NetworkServer.connections.Values)
         {
-            launchGuess(conn);
+            launchGuess(conn, resultat);
             //TargetHandleScores(conn);
         }
     }
 
 
     [TargetRpc]
-    private void launchGuess(NetworkConnection target)
+    private void launchGuess(NetworkConnection target, float resultat)
     {
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
@@ -97,6 +97,7 @@ public class PlayerScoring : NetworkBehaviour
                 allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                 allPlayerScoringFinished.Add(player.finish);
 
+
             }
 
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
@@ -114,8 +115,18 @@ public class PlayerScoring : NetworkBehaviour
             if (compteurGame == 1)
             {
                 timer timerScript = FindObjectOfType<timer>();
+             
+                foreach (PlayerScoring score in allScores)
+                {
+                    if (score.GetComponent<PlayerData>().role == Role.Seeker)
+                    {
+                        IsoCameraSelection cameraSelection = score.GetComponentInChildren<IsoCameraSelection>();
+                        if (score.isLocalPlayer)
+                            cameraSelection.OnObjectUnselected();
+                    }
+                }
 
-                StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
+                        StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
 
             }
 
@@ -129,10 +140,9 @@ public class PlayerScoring : NetworkBehaviour
                 {
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
-                        IsoCameraSelection cameraSelection = score.GetComponentInChildren<IsoCameraSelection>();
-                        float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-
-                        if (resultat > 0 && resultat <= 5)
+                        Debug.Log($"OUAIS LE RESULTAT {resultat}");
+                           
+                        if (resultat >= 0 && resultat <= 5)
                         {
                             score.ScoreJoueur += 60;
                         }
@@ -152,12 +162,13 @@ public class PlayerScoring : NetworkBehaviour
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
                         score.ScoreFinal += score.ScoreJoueur;
+                        moyenneScore += score.ScoreJoueur;
                     }
 
                     else
                     {
-                        score.ScoreJoueur = moyenneScore;
-                        score.ScoreFinal += moyenneScore;
+                        score.ScoreJoueur = moyenneScore/seekerCount;
+                        score.ScoreFinal += score.ScoreJoueur;
                         score.finish = true;
                     }
 
@@ -212,7 +223,6 @@ public class PlayerScoring : NetworkBehaviour
         if (compteurGame == 2)
         {
             int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
-            Debug.Log("Il y a autant de Seeker : " + seekerCount);
             float totalScore = 0;
 
             foreach (PlayerScoring score in allScores)
@@ -371,8 +381,6 @@ public class PlayerScoring : NetworkBehaviour
                         cam.fieldOfView = 60;
 
                         GameObject.Find("VilleELP").transform.position = new Vector3(0, 0, 0);
-
-                        Debug.Log($"AAAAAAAA POSITION {camObject.transform.position} et sa rotati-");
                     }
                 }
                 else
@@ -409,8 +417,6 @@ public class PlayerScoring : NetworkBehaviour
         tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = true;
 
         if (camPlayer == null || !camPlayer.isActiveAndEnabled) return;
-
-        Debug.Log("Réactivation composants pour : " + playerData.playerName + " (" + playerData.role + ")");
 
         if (input != null) input.enabled = true;
 

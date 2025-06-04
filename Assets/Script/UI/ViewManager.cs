@@ -62,7 +62,6 @@ public class ViewManager : NetworkBehaviour
     /// <param name="args"></param>
     public void Show<TView>(object args = null) where TView : View
     {
-        // Debug.Log("ShowView");
 
         if (args != null)
         {
@@ -144,8 +143,6 @@ public class ViewManager : NetworkBehaviour
     public void RemoveView(View view)
     {
         views.Remove(view);
-
-        Debug.Log("Removed a view");
     }
 
     public void Return()

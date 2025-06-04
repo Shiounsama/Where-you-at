@@ -562,14 +562,12 @@ public class PlayerData : NetworkBehaviour
             }
             else
             {
-                Debug.Log("layoutGroupParent est null et le GameObject 'UIfinish' est introuvable !");
                 return;
             }
         }
 
         if (names.Count != finishedStates.Count)
         {
-            Debug.Log("La liste des noms et la liste des états finished ne sont pas de la même taille !");
             return;
         }
 

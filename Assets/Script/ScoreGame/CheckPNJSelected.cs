@@ -44,8 +44,8 @@ public class CheckPNJSelected : NetworkBehaviour
     public void IsGuess()
     {
         //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
-        
-        score.ServeurScore(TestZoneNumber());
+        float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
+        score.ServeurScore(TestZoneNumber(), resultat);
 
         if (isLocalPlayer)
         {
@@ -82,6 +82,9 @@ public class CheckPNJSelected : NetworkBehaviour
         {
             GameObject player = cameraSelection.selectedObject.gameObject;
             RaycastHit hit;
+
+           
+
             if (Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.down), out hit, 100f))
             {
                 if (hit.collider.CompareTag("Map"))
@@ -95,7 +98,6 @@ public class CheckPNJSelected : NetworkBehaviour
                     if (cityNum.zone == FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
                     {
                         testZone = true;
-                        Debug.Log("TIM EST VRAIMENT TROP BEAU");
                     }
                 }
             }

@@ -23,7 +23,6 @@ public class LeaderboardView : View
 
     private void OnEnable()
     {
-        //Debug.Log("Leaderboard OnEnable");
         ClearLeaderboard();
     }
 
