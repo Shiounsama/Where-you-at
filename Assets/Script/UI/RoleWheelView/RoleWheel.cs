@@ -157,7 +157,20 @@ public class RoleWheel : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Z))
+        {
+            Debug.Log("Ctrl + W");
+            wheelAnim.Update(20f);
+        }
+        else
+        {
+            wheelAnim.Update(Time.deltaTime);
+        }
+#else
         wheelAnim.Update(Time.deltaTime);
+#endif
+
         popOutAnim.Update(Time.deltaTime);
         popInAnim.Update(Time.deltaTime);
 
@@ -363,5 +376,5 @@ public class RoleWheel : MonoBehaviour
         InitializeTilesSizeDelta();
     }
 #endif
-    #endregion
+#endregion
 }
