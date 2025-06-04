@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class RoleWheel : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private bool editorMode = false;
     [SerializeField] private float baseSpeed = 200f;
     [SerializeField] private AnimationCurve slowingCurve;
     [SerializeField, Range(4, 8)] private int minDuration = 4;
@@ -29,6 +28,10 @@ public class RoleWheel : MonoBehaviour
     [Header("")]
     [SerializeField] private PlayerData debugSelectedPlayer;
     [SerializeField] private int selectedPlayerIndex;
+
+    [Header("Debug")]
+    [SerializeField] private bool seeker = false;
+    [SerializeField] private bool editorMode = false;
 
     private List<RoleWheelTile> _roleWheelTiles = new();
     private Vector3 _originPoint;
@@ -325,7 +328,20 @@ public class RoleWheel : MonoBehaviour
         //Debug.Log("EndPopInAnim");
 
         if (!editorMode)
+        {
+#if UNITY_EDITOR
+            if (seeker)
+            {
+                manager.Instance.LostName = "";
+            }
+            else
+            {
+                manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
+            }
+#else
             manager.Instance.LostName = MostForwardTile.AssociatedPlayer.displayName;
+#endif
+        }
         else
         {
             if (!editorMode)
@@ -336,7 +352,7 @@ public class RoleWheel : MonoBehaviour
         
         OnWheelComplete();
     }
-    #endregion
+#endregion
 
     #region Editor Only
 #if UNITY_EDITOR
