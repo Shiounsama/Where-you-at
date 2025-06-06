@@ -72,7 +72,7 @@ public class RoleWheelTile : MonoBehaviour, IComparable
     private void SetCurrentSize()
     {
         float t = Mathf.InverseLerp((scaleMultiplier) * 100, 0, transform.localPosition.z);
-        m_rectTransform.sizeDelta = Vector2.Lerp(Vector2.one, _baseSize, t);
+        transform.localScale = Vector2.Lerp(Vector2.zero, Vector2.one, t);
     }
 
     public void SetPlayer(NetworkRoomPlayerLobby player)
