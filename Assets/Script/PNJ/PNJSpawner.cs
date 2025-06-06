@@ -21,6 +21,7 @@ public class PNJSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> entitiesSpawnedArray;
 
     private BoxCollider boxCollider;
+    private manager Manager;
 
     private Vector3 spawnPosition;
     private int compteurPNJ;
@@ -28,6 +29,7 @@ public class PNJSpawner : MonoBehaviour
 
     public void Awake()
     {
+        Manager = FindObjectOfType<manager>();
         boxCollider = GetComponent<BoxCollider>(); //On recupere le boxCollider 
         spawnRange = new Vector3(length, 1, width); // On sauvegarde la range du spawn dans une variable
         //entitiesSpawnedArray = new GameObject[numberToSpawn]; // On set la taille du tableau en fonction de la variable "numberToSpawn"
@@ -42,20 +44,30 @@ public class PNJSpawner : MonoBehaviour
 
     public void Start()
     {
-        compteurPNJ = 0;
-        compteurPriorite = 0;
-        List<PNJSpawner> allPNJ = new List<PNJSpawner>(FindObjectsOfType<PNJSpawner>());
-        foreach (PNJSpawner PNJscript in allPNJ)
+        if (Manager != null)
         {
-            compteurPNJ += PNJscript.numberToSpawn;
-        }
+            if(!Manager.fakeVille)
+            {
+                compteurPNJ = 0;
+                compteurPriorite = 0;
+                List<PNJSpawner> allPNJ = new List<PNJSpawner>(FindObjectsOfType<PNJSpawner>());
+                foreach (PNJSpawner PNJscript in allPNJ)
+                {
+                    compteurPNJ += PNJscript.numberToSpawn;
+                }
 
-        if (seed.Instance != null)
-        {
-            Random.InitState(seed.Instance.SeedValue);
-        }
+                if (seed.Instance != null)
+                {
+                    Random.InitState(seed.Instance.SeedValue);
+                }
 
-        InstantiatePNJs(pnjPrefab, numberToSpawn);
+                InstantiatePNJs(pnjPrefab, numberToSpawn);
+            }
+            else
+            {
+                StartCoroutine(Manager.fakeVillRole());
+            }
+        }
     }
 
     public void InstantiatePNJs(GameObject prefabToSpawn, int NumberOfEntitiesToSpawn)

@@ -14,7 +14,9 @@ public class manager : NetworkBehaviour
 
     public static manager Instance;
 
-    public bool VuDuHaut;
+    [Header("Fake ville")]
+    public bool fakeVille = false;
+    public static int nombrePartie = 1;
 
     [SyncVar]
     public int nbrJoueur = 0;
@@ -145,7 +147,7 @@ public class manager : NetworkBehaviour
         //GiveNextRoles();
 
         yield return new WaitForSeconds(.1f);
-        
+
         PlayersStartScene();
     }
 
@@ -203,12 +205,18 @@ public class manager : NetworkBehaviour
             {
                 playerscript.RpcStartGame();
             }
-            
+
         }
 
         yield return new WaitForSeconds(0.2f);
 
         PlayersStartScene();
+    }
+
+    public IEnumerator fakeVillRole()
+    {
+        yield return new WaitForSeconds(1);
+        GiveRole();
     }
 
 }
