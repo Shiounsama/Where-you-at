@@ -1428,6 +1428,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e2780bce54ac84e85cce3460db3cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   returnButton: {fileID: 0}
   submitButton: {fileID: 0}
   scoreElementPrefab: {fileID: 4228281338085362560, guid: 74dd967b38f79c442812fc4b211d3727, type: 3}
@@ -2414,6 +2417,10 @@ PrefabInstance:
       propertyPath: m_Padding.m_Bottom
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 4755669131368921686, guid: 54036c443df40454b896139ffd1fd7ae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4795122656131963726, guid: 54036c443df40454b896139ffd1fd7ae, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2700,6 +2707,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -240
       objectReference: {fileID: 0}
+    - target: {fileID: 6499822382985222834, guid: 54036c443df40454b896139ffd1fd7ae, type: 3}
+      propertyPath: tileNormalSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ec564ed0220f3d541b4b7a5f3cca3220, type: 3}
+    - target: {fileID: 6499822382985222834, guid: 54036c443df40454b896139ffd1fd7ae, type: 3}
+      propertyPath: tileMostForwardSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c3871679b86ee4a4389c75fb1918e0a9, type: 3}
     - target: {fileID: 6759364247519355355, guid: 54036c443df40454b896139ffd1fd7ae, type: 3}
       propertyPath: m_Pivot.y
       value: 0.49999994
@@ -3294,7 +3309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 12403309
+      value: 12592348
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4144,6 +4159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd61371c406ad66438cad582d540e6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   autoInitialize: 1
   views:
   - {fileID: 1334309901}
