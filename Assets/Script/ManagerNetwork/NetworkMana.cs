@@ -105,6 +105,7 @@ public class NetworkMana : NetworkManager
         {
             bool isLeader = RoomPlayers.Count == 0;
             NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
+
             roomPlayerInstance.IsLeader = isLeader;
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);

@@ -8,9 +8,13 @@ public class LobbyView : View
     [SerializeField] private Button readyButton;
     [SerializeField] private Button startGameButton;
 
-    [Header("Colors")]
-    [SerializeField] private Color readyColor;
-    [SerializeField] private Color notReadyColor;
+    [Header("Sprites")]
+    [SerializeField] private Sprite readyButtonSprite;
+    [SerializeField] private Sprite unreadyButtonSprite;
+    [SerializeField] private Sprite readyStatusSprite;
+    [SerializeField] private Sprite unreadyStatusSprite;
+    [SerializeField] private Sprite readyFrameSprite;
+    [SerializeField] private Sprite unreadyFrameSprite;
 
     private PlayerStatus[] _playerStatuses;
 
@@ -75,9 +79,11 @@ public class LobbyView : View
 
         currentPlayerStatus.KillCoroutine();
         currentPlayerStatus.UpdateNameText(displayName);
-        currentPlayerStatus.UpdateReadyText(isReady ?
-            "<color=green>Ready</color>" :
-            "<color=red>Not Ready</color>");
+        currentPlayerStatus.UpdateReadySprite(isReady ?
+            readyStatusSprite :
+            unreadyStatusSprite);
+
+        currentPlayerStatus.UpdateFrameSprite(isReady ? unreadyFrameSprite : readyFrameSprite);
     }
 
     public void ResetPlayerStatus(int index)
@@ -95,8 +101,8 @@ public class LobbyView : View
 
     public void HandleReadyButton(bool isReady)
     {
-        readyButton.GetComponent<Image>().color = isReady ? notReadyColor : readyColor;
-        readyButton.GetComponentInChildren<TextMeshProUGUI>().text = isReady ? "Not ready" : "Ready";
+        readyButton.GetComponent<Image>().sprite = isReady ? unreadyButtonSprite : readyButtonSprite;
+        readyButton.GetComponentInChildren<TextMeshProUGUI>().text = isReady ? "Unready" : "Ready";
     }
 
     public void DestroyStartGameButton()

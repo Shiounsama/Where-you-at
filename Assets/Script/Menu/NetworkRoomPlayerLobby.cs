@@ -10,7 +10,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     // Lance la fonction HandleReadyStatusChanged lorsque l'�tat change.
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
-
     public bool IsReady = false;
 
     private bool _isLeader;
@@ -18,17 +17,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     private NetworkMana _room;
     private LobbyView _lobbyView;
 
-    public bool IsLeader
-    {
-        get
-        {
-            return _isLeader;
-        }
-        set
-        {
-            _isLeader = value;
-        }
-    }
+    [SyncVar]
+    public bool IsLeader = false;
 
     private NetworkMana Room
     {
@@ -59,19 +49,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         //Debug.Log("OnStartClient");
 
-        bool hasLeader = false;
-
-        foreach (var player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        if (!IsLeader)
         {
-            if (player.IsLeader)
+            if (isLocalPlayer)
             {
-                hasLeader = true;
+                Debug.Log("DestroyButton");
+                _lobbyView.DestroyStartGameButton();
             }
-        }
-
-        if (!hasLeader)
-        {
-            _lobbyView.DestroyStartGameButton();
         }
 
         UpdateDisplay();
@@ -124,7 +108,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public void HandleReadyToStart(bool readyToStart)
     {
-        if (!_isLeader) { return; }
+        if (!IsLeader) { return; }
 
         _lobbyView.HandleReadyToStart(readyToStart);
     }
