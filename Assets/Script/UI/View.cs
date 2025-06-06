@@ -1,8 +1,9 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class View : MonoBehaviour
+public abstract class View : NetworkBehaviour
 {
     private protected GameObject _defaultSelectedGameObject;
 

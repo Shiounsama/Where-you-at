@@ -48,37 +48,35 @@ public class PlayerScoring : NetworkBehaviour
 
 
     [Command]
-    public void ServeurScore(float newScore)
+    public void ServeurScore(bool newScore, float distance)
     {
-        StartCoroutine(resultat(newScore));
+        StartCoroutine(resultat(newScore, distance));
     }
 
 
-    public IEnumerator resultat(float newScore)
+    public IEnumerator resultat(bool newScore, float resultat)
     {
-        Distance = newScore;
+        
         finish = true;
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
         int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
 
-        ScoreJoueur = 100 - Distance;
-
-        int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
-        ScoreJoueur = (ScoreJoueur + scorePosition);
+        if (newScore)
+            ScoreJoueur = 40 ;
 
         yield return new WaitForSeconds(0.1f);
 
         foreach (var conn in NetworkServer.connections.Values)
         {
-            launchGuess(conn);
+            launchGuess(conn, resultat);
             //TargetHandleScores(conn);
         }
     }
 
 
     [TargetRpc]
-    private void launchGuess(NetworkConnection target)
+    private void launchGuess(NetworkConnection target, float resultat)
     {
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
@@ -99,6 +97,7 @@ public class PlayerScoring : NetworkBehaviour
                 allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                 allPlayerScoringFinished.Add(player.finish);
 
+
             }
 
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
@@ -116,8 +115,18 @@ public class PlayerScoring : NetworkBehaviour
             if (compteurGame == 1)
             {
                 timer timerScript = FindObjectOfType<timer>();
+             
+                foreach (PlayerScoring score in allScores)
+                {
+                    if (score.GetComponent<PlayerData>().role == Role.Seeker)
+                    {
+                        IsoCameraSelection cameraSelection = score.GetComponentInChildren<IsoCameraSelection>();
+                        if (score.isLocalPlayer)
+                            cameraSelection.OnObjectUnselected();
+                    }
+                }
 
-                StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
+                        StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
 
             }
 
@@ -125,28 +134,27 @@ public class PlayerScoring : NetworkBehaviour
             {
                 var scoreGame = FindObjectOfType<ScoreGame>();
                 float moyenneScore = 0;
-
                 
+
                 foreach (PlayerScoring score in allScores)
                 {
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
-                        moyenneScore += (score.ScoreJoueur) / (seekerCount);
+                        Debug.Log($"OUAIS LE RESULTAT {resultat}");
+                           
+                        if (resultat >= 0 && resultat <= 5)
+                        {
+                            score.ScoreJoueur += 60;
+                        }
+                        else if (resultat > 5 && resultat <= 15)
+                        {
+                            score.ScoreJoueur += 30;
+                        }
+                        else if (resultat > 15)
+                        {
+                            score.ScoreJoueur += 15;
+                        }
                     }
-                }
-
-                for (int i = 0; i < OrdreGuess.Count; i++)
-                {
-                    int ordrePoint = 50;
-                    i = i * 10;
-                    ordrePoint -= i;
-
-                    if (ordrePoint < 0)
-                    {
-                        ordrePoint = 0;
-                    }
-
-                    OrdreGuess[i].ScoreJoueur += ordrePoint;
                 }
 
                 foreach (PlayerScoring score in allScores)
@@ -154,12 +162,13 @@ public class PlayerScoring : NetworkBehaviour
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
                         score.ScoreFinal += score.ScoreJoueur;
+                        moyenneScore += score.ScoreJoueur;
                     }
 
                     else
                     {
-                        score.ScoreJoueur = moyenneScore;
-                        score.ScoreFinal += moyenneScore;
+                        score.ScoreJoueur = moyenneScore/seekerCount;
+                        score.ScoreFinal += score.ScoreJoueur;
                         score.finish = true;
                     }
 
@@ -214,7 +223,6 @@ public class PlayerScoring : NetworkBehaviour
         if (compteurGame == 2)
         {
             int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
-            Debug.Log("Il y a autant de Seeker : " + seekerCount);
             float totalScore = 0;
 
             foreach (PlayerScoring score in allScores)
@@ -262,16 +270,19 @@ public class PlayerScoring : NetworkBehaviour
             player.GetComponent<PlayerData>().DisablePlayer();
         }
 
-        yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 25, false, 2f));
+        yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 43, false, 2f));
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
 
         FindObjectOfType<CityManager>().MakePlateformFall();
+
+        yield return new WaitForSeconds(3);
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
         GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
 
         yield return new WaitForSeconds(0.5f);
+
 
         foreach (GameObject pnj in allPNJ)
         {
@@ -283,24 +294,20 @@ public class PlayerScoring : NetworkBehaviour
             pnj.GetComponent<PNJShake>().ShakePNJ();
         }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
 
         switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
         {
-            case 0:
-                yield return StartCoroutine(transitionCam(new Vector3(-13, 6, 15), 8, true, 1f));
-                break;
-
             case 1:
-                yield return StartCoroutine(transitionCam(new Vector3(-35, -1, 35), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-41, 3, 42), 8, true, 1f));
                 break;
 
             case 2:
-                yield return StartCoroutine(transitionCam(new Vector3(-16, -10, 13), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(6, -5, -8), 8, true, 1f));
                 break;
 
-            case 3:
-                yield return StartCoroutine(transitionCam(new Vector3(1, -2, -2), 8, true, 1f));
+            case 0:
+                yield return StartCoroutine(transitionCam(new Vector3(-14, -1, 14), 8, true, 1f));
                 break;
         }
 
@@ -323,7 +330,7 @@ public class PlayerScoring : NetworkBehaviour
         timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
         timerScript.timeSprite.enabled = true;
         timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
-        timerScript.time = 180;
+        timerScript.RestartTimer();
     }
 
     IEnumerator transitionCam( Vector3 endPos, int zoomCam, bool back, float temps)
@@ -356,7 +363,12 @@ public class PlayerScoring : NetworkBehaviour
 
                         camObject.transform.position = GameObject.Find("spawn2").transform.position;
 
-                        cam.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+                        camObject.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+
+                        cam.transform.localRotation = Quaternion.identity;
+
+                        cam.transform.localPosition = new Vector3(0, 0, 0);
+
                     }
                     else
                     {
@@ -367,6 +379,8 @@ public class PlayerScoring : NetworkBehaviour
                         cam.orthographic = false;
 
                         cam.fieldOfView = 60;
+
+                        GameObject.Find("VilleELP").transform.position = new Vector3(0, 0, 0);
                     }
                 }
                 else
@@ -398,10 +412,11 @@ public class PlayerScoring : NetworkBehaviour
         takeEmoji emojiScript = GetComponent<takeEmoji>();
         Camera camPlayer = GetComponentInChildren<Camera>();
         PlayerInput input = GetComponentInChildren<PlayerInput>();
+        TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
+
+        tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = true;
 
         if (camPlayer == null || !camPlayer.isActiveAndEnabled) return;
-
-        Debug.Log("Réactivation composants pour : " + playerData.playerName + " (" + playerData.role + ")");
 
         if (input != null) input.enabled = true;
 

@@ -131,6 +131,8 @@ public class PlayerData : NetworkBehaviour
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
 
+                        Destroy(PNJcible);
+
                     }
                 }
             }
@@ -366,6 +368,7 @@ public class PlayerData : NetworkBehaviour
             foreach (PlayerScoring score in playerScore)
             {
                 score.ScoreJoueur = 0;
+                score.Distance = 0;
                 if (score.GetComponent<PlayerData>().role == Role.Seeker)
                 {
                     allPlayerDataName.Add(score.GetComponent<PlayerData>().playerName);
@@ -394,6 +397,7 @@ public class PlayerData : NetworkBehaviour
 
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
+                camPlayer.orthographicSize = 8;
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 camPlayer.transform.localPosition = Vector3.zero;
@@ -467,7 +471,10 @@ public class PlayerData : NetworkBehaviour
             if (timerCoroutine != null)
                 StopCoroutine(timerCoroutine);
 
-            timerCoroutine = StartCoroutine(timerGame.Timer());
+            timerGame.RestartTimer();
+            timerGame.GetComponentInChildren<TMP_Text>().enabled = true;
+            timerGame.timeSprite.enabled = true;
+            timerGame.GetComponentInChildren<TMP_Text>().text = "3:00";
             ViewManager.Instance.Initialize();
         }
     }
@@ -555,14 +562,12 @@ public class PlayerData : NetworkBehaviour
             }
             else
             {
-                Debug.Log("layoutGroupParent est null et le GameObject 'UIfinish' est introuvable !");
                 return;
             }
         }
 
         if (names.Count != finishedStates.Count)
         {
-            Debug.Log("La liste des noms et la liste des états finished ne sont pas de la même taille !");
             return;
         }
 
