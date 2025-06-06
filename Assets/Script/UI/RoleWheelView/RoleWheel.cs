@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class RoleWheel : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private float baseSpeed = 200f;
     [SerializeField] private AnimationCurve slowingCurve;
     [SerializeField, Range(4, 8)] private int minDuration = 4;
     [SerializeField, Range(5, 15)] private int maxDuration = 15;
-    [SerializeField, Range(5, 15)] private int minTurns = 5;
-    [SerializeField, Range(5, 15)] private int maxTurns = 10;
+    //[SerializeField, Range(5, 15)] private int minTurns = 5;
+    //[SerializeField, Range(5, 15)] private int maxTurns = 10;
     [SerializeField, Range(300, 1200)] private float circleRadius = 300;
-    [SerializeField] private Color mostForwardColor;
 
     [Header("Tiles")]
     [SerializeField] private Vector2 tileBaseSize = new Vector2(500, 225);
     [SerializeField] private int tilesScaleMultiplier = 12;
+    [SerializeField] private Sprite tileNormalSprite;
+    [SerializeField] private Sprite tileMostForwardSprite;
     [SerializeField] private GameObject tilePrefab;
 
     [Header("Animation")]
@@ -55,7 +55,7 @@ public class RoleWheel : MonoBehaviour
             if (value != _mostForwardTile)
             {
                 if (_mostForwardTile)
-                    _mostForwardTile.GetComponent<Image>().color = Color.white;
+                    _mostForwardTile.GetComponent<Image>().sprite = tileNormalSprite;
 
                 value.IsMostForwardTile = true;
                 _mostForwardTile = value;
@@ -63,7 +63,7 @@ public class RoleWheel : MonoBehaviour
             else
                 return;
 
-            value.GetComponent<Image>().color = mostForwardColor;
+            value.GetComponent<Image>().sprite = tileMostForwardSprite;
         }
     }
     #endregion

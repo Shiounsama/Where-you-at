@@ -49,17 +49,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         //Debug.Log("OnStartClient");
 
-        bool hasLeader = false;
-
-        foreach (var player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-        {
-            if (player.IsLeader)
-            {
-                hasLeader = true;
-                // Debug.Log($"HasLeader: {hasLeader}");
-            }
-        }
-
         if (!IsLeader)
         {
             if (isLocalPlayer)
