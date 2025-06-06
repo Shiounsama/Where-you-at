@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -9,10 +10,10 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private string waitingText = "Waiting for player";
 
     [SerializeField] private TextMeshProUGUI playerNameTextMesh;
-    [SerializeField] private TextMeshProUGUI playerStatusTextMesh;
+    [SerializeField] private Image playerStatusImage;
 
     public TextMeshProUGUI PlayerNameTextMesh { get { return playerNameTextMesh; } }
-    public TextMeshProUGUI PlayerStatusTextMesh { get { return playerStatusTextMesh; } }
+    public Image PlayerStatusSprite { get { return playerStatusImage; } }
     
     private string _newNameText;
     private string newNameText
@@ -29,18 +30,18 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
-    private string _newStatusText;
-    private string newStatusText
+    private Sprite _newStatusSprite;
+    private Sprite newStatusSprite
     {
         get
         {
-            return _newStatusText;
+            return _newStatusSprite;
         }
         set
         {
-            _newStatusText = value;
+            _newStatusSprite = value;
 
-            UpdateReadyText(_newStatusText);
+            UpdateReadySprite(_newStatusSprite);
         }
     }
 
@@ -85,22 +86,30 @@ public class PlayerStatus : MonoBehaviour
             KillCoroutine();
 
         UpdateNameText("");
-        UpdateReadyText("");
+        UpdateReadySprite(null);
 
         _coroutine = WaitingAnimation();
 
         StartCoroutine(_coroutine);
     }
 
-    #region TextMeshes
+    #region UI
     public void UpdateNameText(string newText)
     {
         playerNameTextMesh.text = newText;
     }
 
-    public void UpdateReadyText(string newText)
+    public void UpdateReadySprite(Sprite newSprite)
     {
-        PlayerStatusTextMesh.text = newText;
+        if (newSprite == null)
+        {
+            PlayerStatusSprite.color = new Color(0, 0, 0, 0);
+        }
+        else
+        {
+            PlayerStatusSprite.color = new Color(1, 1, 1, 1);
+            PlayerStatusSprite.sprite = newSprite;
+        }
     }
     #endregion
 }
