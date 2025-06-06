@@ -13,6 +13,8 @@ public class LobbyView : View
     [SerializeField] private Sprite unreadyButtonSprite;
     [SerializeField] private Sprite readyStatusSprite;
     [SerializeField] private Sprite unreadyStatusSprite;
+    [SerializeField] private Sprite readyFrameSprite;
+    [SerializeField] private Sprite unreadyFrameSprite;
 
     private PlayerStatus[] _playerStatuses;
 
@@ -80,6 +82,8 @@ public class LobbyView : View
         currentPlayerStatus.UpdateReadySprite(isReady ?
             readyStatusSprite :
             unreadyStatusSprite);
+
+        currentPlayerStatus.UpdateFrameSprite(isReady ? unreadyFrameSprite : readyFrameSprite);
     }
 
     public void ResetPlayerStatus(int index)

@@ -48,11 +48,18 @@ public class PlayerStatus : MonoBehaviour
     private IEnumerator _coroutine;
     private bool _isCoroutineRunning = false;
 
+    private Image _frameImage;
+
     private void OnEnable()
     {
         _coroutine = WaitingAnimation();
 
         StartCoroutine(_coroutine);
+    }
+
+    private void Awake()
+    {
+        _frameImage = GetComponent<Image>();
     }
 
     private IEnumerator WaitingAnimation()
@@ -110,6 +117,11 @@ public class PlayerStatus : MonoBehaviour
             PlayerStatusSprite.color = new Color(1, 1, 1, 1);
             PlayerStatusSprite.sprite = newSprite;
         }
+    }
+
+    public void UpdateFrameSprite(Sprite newSprite)
+    {
+        _frameImage.sprite = newSprite;
     }
     #endregion
 }
