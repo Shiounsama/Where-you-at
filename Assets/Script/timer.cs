@@ -4,8 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
-using UnityEngine.SocialPlatforms.Impl;
-
 
 public class timer : NetworkBehaviour
 {
@@ -14,12 +12,37 @@ public class timer : NetworkBehaviour
     public Image timeSprite;
     public int timeStart = 180;
 
+    private Coroutine timerCoroutine;
+
     private void Start()
     {
         
     }
 
-    public IEnumerator Timer()
+    /// <summary>
+    /// Démarre le timer si ce n’est pas déjà fait.
+    /// </summary>
+    public void StartTimer()
+    {
+        if (timerCoroutine == null)
+        {
+            timerCoroutine = StartCoroutine(Timer());
+        }
+    }
+
+    /// <summary>
+    /// Arrête le timer manuellement si besoin.
+    /// </summary>
+    public void StopTimer()
+    {
+        if (timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+            timerCoroutine = null;
+        }
+    }
+
+    private IEnumerator Timer()
     {
         timeSprite = GetComponentInChildren<Image>();
         PlayerScoring score = FindObjectOfType<PlayerScoring>();
@@ -28,19 +51,29 @@ public class timer : NetworkBehaviour
         time = timeStart;
         texteTimer.enabled = true;
         timeSprite.enabled = true;
-        while (tempsjoueur.time > 0)
+
+        while (time > 0)
         {
-            tempsjoueur.time--;
+            texteTimer.text = string.Format("{0:0}:{1:00}", Mathf.Floor(time / 60f), time % 60);
             yield return new WaitForSeconds(1f);
-            texteTimer.text = string.Format("{0:0}:{1:00}", Mathf.Floor(tempsjoueur.time / 60), tempsjoueur.time % 60);
+            time--;
         }
 
         texteTimer.enabled = false;
         timeSprite.enabled = false;
+
+        timerCoroutine = null;
+
         cmdshowscor();
     }
 
-    
+    public void RestartTimer()
+    {
+        StopTimer();       
+        time = timeStart;  
+        StartTimer();      
+    }
+
     public void cmdshowscor()
     {
         PlayerScoring score = FindObjectOfType<PlayerScoring>();

@@ -66,5 +66,16 @@ public class UIKeyBindings : MonoBehaviour
     private void OnPause(InputAction.CallbackContext context)
     {
         Debug.Log("Pause");
+
+        if (ViewManager.Instance.IsCurrentView<SeekerView>() || ViewManager.Instance.IsCurrentView<LostView>())
+        {
+            ViewManager.Instance.Show<PauseMenuView>();
+        }
+        else if (ViewManager.Instance.IsCurrentView<PauseMenuView>() 
+        /*|| ViewManager.Instance.IsCurrentView<SettingsMenuView>() 
+        || ViewManager.Instance.IsCurrentView<MappingsView>()*/)
+        {
+            ViewManager.Instance.Show<View>(ViewManager.Instance.defaultView);
+        }
     }
 }

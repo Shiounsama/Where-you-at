@@ -45,7 +45,7 @@ public class CheckPNJSelected : NetworkBehaviour
     {
         //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
-        score.ServeurScore(resultat);
+        score.ServeurScore(TestZoneNumber(), resultat);
 
         if (isLocalPlayer)
         {
@@ -54,10 +54,6 @@ public class CheckPNJSelected : NetworkBehaviour
             cameraSelection.OnObjectUnselected();
 
             _playerData.setPNJvalide(testPNJ);
-            timer timerScript = FindObjectOfType<timer>();
-            timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
-            timerScript.timeSprite.enabled = false;
-            //manager.Instance.CamerasDezoom();
         }
 
         _playerData.testPNJ();
@@ -76,5 +72,37 @@ public class CheckPNJSelected : NetworkBehaviour
 
         if (timerScript.time > 30)
             timerScript.time = 30;
+    }
+
+    private bool TestZoneNumber()
+    {
+        bool testZone = false;
+
+        if (isLocalPlayer)
+        {
+            GameObject player = cameraSelection.selectedObject.gameObject;
+            RaycastHit hit;
+
+           
+
+            if (Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.down), out hit, 100f))
+            {
+                if (hit.collider.CompareTag("Map"))
+                {
+                    cityNumber cityNum = hit.collider.GetComponent<cityNumber>();
+                    if (cityNum == null)
+                    {
+                        cityNum = hit.collider.GetComponentInParent<cityNumber>();
+                    }
+
+                    if (cityNum.zone == FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
+                    {
+                        testZone = true;
+                    }
+                }
+            }
+        }
+
+        return testZone;
     }
 }

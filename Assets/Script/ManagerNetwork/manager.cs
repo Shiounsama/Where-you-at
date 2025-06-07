@@ -32,6 +32,7 @@ public class manager : NetworkBehaviour
     public int gameRounds = 6;
 
     public SyncList<GameObject> charlieRoleQueue = new SyncList<GameObject>();
+    public string LostName { get; set; }
 
     public void SetFxOnGuessedPNJ(bool StateOfFX, bool ShowOnLostPlayer)
     {
@@ -117,7 +118,7 @@ public class manager : NetworkBehaviour
         return true; // Tous les joueurs sont actifs
     }
     /// <summary>
-    /// D�finit l'ordre d'attribution du r�le de Charlie � chaque joueur.
+    /// Définit l'ordre d'attribution du rôle de Charlie à chaque joueur.
     /// </summary>
     private void SetCharlieRoleQueue()
     {
@@ -171,10 +172,18 @@ public class manager : NetworkBehaviour
 
         int nbrRandom = Random.Range(0, player.Count);
 
-        if(!Seeker)
-            player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
-        else
-            player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
+        // if(!Seeker)
+        //     player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Lost);
+        // else
+        //     player[nbrRandom].GetComponent<PlayerData>().AssignRole(Role.Seeker);
+
+        foreach (PlayerData playerScript in scriptPlayer)
+        {
+            if (playerScript.playerName == LostName)
+            {
+                playerScript.AssignRole(Role.Lost);
+            }
+        }
 
         //SetCharlieRoleQueue();
         //GiveNextRoles();
@@ -190,7 +199,7 @@ public class manager : NetworkBehaviour
         {
             if (playerscript.isLocalPlayer)
             {
-                playerscript.StartScene(playerscript);   
+                playerscript.StartScene(playerscript);
             }
         }
     }
@@ -227,7 +236,7 @@ public class manager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Assigne les prochains r�les des joueurs selon l'ordre pr�d�fini.
+    /// Assigne les prochains rôles des joueurs selon l'ordre prédéfini.
     /// </summary>
     IEnumerator roundlaunch()
     {

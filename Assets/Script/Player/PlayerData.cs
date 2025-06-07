@@ -131,6 +131,8 @@ public class PlayerData : NetworkBehaviour
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
 
+                        Destroy(PNJcible);
+
                     }
                 }
             }
@@ -215,12 +217,6 @@ public class PlayerData : NetworkBehaviour
 
             ViewManager.Instance.StartFadeOut();
             EnablePlayer(role);
-
-            foreach (NetworkConnection conn in NetworkServer.connections.Values)
-            {
-
-
-            }
         }
     }
 
@@ -238,38 +234,6 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
-            GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
-
-            foreach (GameObject obj in allPNJ)
-            {
-                obj.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
-                Vector3 lockedRotation = obj.transform.eulerAngles;
-                lockedRotation.x = 0;
-                lockedRotation.z = 0;
-                obj.transform.eulerAngles = lockedRotation;
-
-                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
-                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
-                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
-
-            }
-
-            foreach (GameObject obj in allPNJPI)
-            {
-                obj.transform.LookAt(GetComponentInChildren<Camera>().transform.position);
-                Vector3 lockedRotation = obj.transform.eulerAngles;
-                lockedRotation.x = 0;
-                lockedRotation.z = 0;
-                obj.transform.eulerAngles = lockedRotation;
-
-                Rigidbody objRigid = obj.GetComponent<Rigidbody>();
-                objRigid.constraints = RigidbodyConstraints.FreezePositionX;
-                objRigid.constraints = RigidbodyConstraints.FreezePositionZ;
-
-
-            }
-
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
 
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
@@ -404,6 +368,7 @@ public class PlayerData : NetworkBehaviour
             foreach (PlayerScoring score in playerScore)
             {
                 score.ScoreJoueur = 0;
+                score.Distance = 0;
                 if (score.GetComponent<PlayerData>().role == Role.Seeker)
                 {
                     allPlayerDataName.Add(score.GetComponent<PlayerData>().playerName);
@@ -432,6 +397,7 @@ public class PlayerData : NetworkBehaviour
 
                 GetComponentInChildren<PlayerInput>().enabled = true;
                 camPlayer.orthographic = true;
+                camPlayer.orthographicSize = 8;
                 transform.position = DeuxiemeJoueurSpawn.transform.position;
                 transform.rotation = DeuxiemeJoueurSpawn.transform.rotation;
                 camPlayer.transform.localPosition = Vector3.zero;
@@ -505,7 +471,10 @@ public class PlayerData : NetworkBehaviour
             if (timerCoroutine != null)
                 StopCoroutine(timerCoroutine);
 
-            timerCoroutine = StartCoroutine(timerGame.Timer());
+            timerGame.RestartTimer();
+            timerGame.GetComponentInChildren<TMP_Text>().enabled = true;
+            timerGame.timeSprite.enabled = true;
+            timerGame.GetComponentInChildren<TMP_Text>().text = "3:00";
             ViewManager.Instance.Initialize();
         }
     }
@@ -572,15 +541,14 @@ public class PlayerData : NetworkBehaviour
             obj.transform.eulerAngles = lockedRotation;
             obj.transform.eulerAngles = lockedRotation;
 
-            Rigidbody objRigid = obj.GetComponent<Rigidbody>();
-            objRigid.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            
         }
     }
 
     [ClientRpc]
     public void RpcStartGame()
     {
-        StartGame(); // Ex�cut� sur tous les clients
+        StartGame(); 
     }
 
     public void showPlayer(List<string> names, List<bool> finishedStates)
@@ -594,14 +562,12 @@ public class PlayerData : NetworkBehaviour
             }
             else
             {
-                Debug.Log("layoutGroupParent est null et le GameObject 'UIfinish' est introuvable !");
                 return;
             }
         }
 
         if (names.Count != finishedStates.Count)
         {
-            Debug.Log("La liste des noms et la liste des états finished ne sont pas de la même taille !");
             return;
         }
 
@@ -639,7 +605,7 @@ public class PlayerData : NetworkBehaviour
         camSelecIso.CanSelect = true;
     }
 
-    private void activateEmotion()
+    public void activateEmotion()
     {
         Collider[] voisins = Physics.OverlapSphere(transform.position, tailleSphere);
 

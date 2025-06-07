@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ViewManager : MonoBehaviour
+public class ViewManager : NetworkBehaviour
 {
     public static ViewManager Instance { get; private set; }
 
@@ -18,6 +19,9 @@ public class ViewManager : MonoBehaviour
     [SerializeField] private CanvasGroup fadeImage;
     [SerializeField] private float fadeDuration = 1f;
     public static bool IsFading = false;
+
+    [Header("Faded background")]
+    [SerializeField] private CanvasGroup fadedBackgroundImage;
 
     private void Awake()
     {
@@ -34,7 +38,7 @@ public class ViewManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Initialise chaque classe héritant de View.
+    /// Initialise chaque classe hï¿½ritant de View.
     /// </summary>
     public void Initialize()
     {
@@ -52,13 +56,23 @@ public class ViewManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Affiche un panel TView héritant de View.
+    /// Affiche un panel TView hÃ©ritant de View.
     /// </summary>
-    /// <typeparam name="TView">Classe héritant de View.</typeparam>
+    /// <typeparam name="TView">Classe hÃ©ritant de View.</typeparam>
     /// <param name="args"></param>
     public void Show<TView>(object args = null) where TView : View
     {
-        Debug.Log("ShowView");
+
+        if (args != null)
+        {
+            HideAll();
+            
+            View v = args as View;
+            _currentView = v;
+            v.Show();
+
+            return;
+        }
 
         foreach (var view in views)
         {
@@ -76,7 +90,7 @@ public class ViewManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Cache tous les panels héritant de View.
+    /// Cache tous les panels hÃ©ritant de View.
     /// </summary>
     /// <param name="args"></param>
     public void HideAll(object args = null)
@@ -88,11 +102,11 @@ public class ViewManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Renvoie un script TView héritant de View.
+    /// Renvoie un script TView hÃ©ritant de View.
     /// </summary>
-    /// <typeparam name="TView">Classe héritant de View.</typeparam>
+    /// <typeparam name="TView">Classe hÃ©ritant de View.</typeparam>
     /// <param name="args"></param>
-    /// <returns>Script T héritant de View.</returns>
+    /// <returns>Script T hÃ©ritant de View.</returns>
     public TView GetView<TView>(object args = null) where TView: View
     {
         foreach (var view in views)
@@ -112,13 +126,13 @@ public class ViewManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Met à jour la liste des Views afin d'éviter que des Views qui n'existent plus soient présents.
+    /// Met Ã  jour la liste des Views afin d'Ã©viter que des Views qui n'existent plus soient prÃ©sents.
     /// </summary>
     public void UpdateViewsList()
     {
         views.Clear();
 
-        views = FindObjectsByType<View>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
+        views = FindObjectsOfType<View>(true).ToList();
     }
 
     public void AddView(View view)
@@ -129,8 +143,6 @@ public class ViewManager : MonoBehaviour
     public void RemoveView(View view)
     {
         views.Remove(view);
-
-        Debug.Log("Removed a view");
     }
 
     public void Return()
@@ -149,6 +161,13 @@ public class ViewManager : MonoBehaviour
     {
         IsFading = true;
         fadeImage.DOFade(0, fadeDuration).OnComplete(() => IsFading = false);
+    }
+    #endregion
+
+    #region Faded background
+    public void ShowFadedBackground(bool enable)
+    {
+        fadedBackgroundImage.alpha = enable ? 1 : 0;
     }
     #endregion
 }

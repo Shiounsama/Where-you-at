@@ -3,14 +3,13 @@ using UnityEngine;
 
 public class NetworkRoomPlayerLobby : NetworkBehaviour
 {
-    // Met "loading..." au nom jusqu'à ce que le joueur en mette un.
+    // Met "loading..." au nom jusqu'ï¿½ ce que le joueur en mette un.
     // Lorsque le joueur change le nom, lance la fonction HandleDisplayNameChanged.
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
-    public string DisplayName = "Loading...";
+    public string displayName = "Loading...";
 
-    // Lance la fonction HandleReadyStatusChanged lorsque l'état change.
+    // Lance la fonction HandleReadyStatusChanged lorsque l'ï¿½tat change.
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
-
     public bool IsReady = false;
 
     private bool _isLeader;
@@ -18,17 +17,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     private NetworkMana _room;
     private LobbyView _lobbyView;
 
-    public bool IsLeader
-    {
-        get
-        {
-            return _isLeader;
-        }
-        set
-        {
-            _isLeader = value;
-        }
-    }
+    [SyncVar]
+    public bool IsLeader = false;
 
     private NetworkMana Room
     {
@@ -51,7 +41,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     }
 
     /// <summary>
-    /// Quand le joueur est ajouté à un client, l'ajoute dans le lobby et met à jour son affichage.
+    /// Quand le joueur est ajoutï¿½ ï¿½ un client, l'ajoute dans le lobby et met ï¿½ jour son affichage.
     /// </summary>
     public override void OnStartClient()
     {
@@ -59,26 +49,20 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         //Debug.Log("OnStartClient");
 
-        bool hasLeader = false;
-
-        foreach (var player in FindObjectsByType<NetworkRoomPlayerLobby>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        if (!IsLeader)
         {
-            if (player.IsLeader)
+            if (isLocalPlayer)
             {
-                hasLeader = true;
+                Debug.Log("DestroyButton");
+                _lobbyView.DestroyStartGameButton();
             }
-        }
-
-        if (!hasLeader)
-        {
-            _lobbyView.DestroyStartGameButton();
         }
 
         UpdateDisplay();
     }
 
     /// <summary>
-    /// Quand le joueur est enlevé du client, retire le joueur de la liste et met à jour l'affichage du lobby.
+    /// Quand le joueur est enlevï¿½ du client, retire le joueur de la liste et met ï¿½ jour l'affichage du lobby.
     /// </summary>
     public override void OnStopClient()
     {
@@ -110,7 +94,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         for (int i = 0; i < Room.RoomPlayers.Count; i++)
         {
-            string displayName = Room.RoomPlayers[i].DisplayName;
+            string displayName = Room.RoomPlayers[i].displayName;
             bool isReady = Room.RoomPlayers[i].IsReady;
 
             _lobbyView.UpdatePlayerStatus(i, displayName, isReady);
@@ -124,7 +108,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public void HandleReadyToStart(bool readyToStart)
     {
-        if (!_isLeader) { return; }
+        if (!IsLeader) { return; }
 
         _lobbyView.HandleReadyToStart(readyToStart);
     }
@@ -142,7 +126,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [Command]
     private void CmdSetDisplayName(string displayName)
     {
-        DisplayName = displayName;
+        this.displayName = displayName;
     }
 
     [Command]
@@ -164,5 +148,12 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public void TargetFadeTransition(NetworkConnection conn)
     {
         ViewManager.Instance.StartFadeIn();
+    }
+
+    [TargetRpc]
+    public void TargetShowRoleWheel(NetworkConnection target)
+    {
+        Debug.Log("TargetShowRoleWheel");
+        ViewManager.Instance.Show<RoleWheelView>();
     }
 }

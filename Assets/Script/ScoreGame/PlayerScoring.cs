@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine.SocialPlatforms.Impl;
 using TMPro;
 using System.Net;
+using UnityEngine.InputSystem;
 
 public class PlayerScoring : NetworkBehaviour
 {
@@ -47,41 +48,40 @@ public class PlayerScoring : NetworkBehaviour
 
 
     [Command]
-    public void ServeurScore(float newScore)
+    public void ServeurScore(bool newScore, float distance)
     {
-        StartCoroutine(resultat(newScore));
+        StartCoroutine(resultat(newScore, distance));
     }
 
 
-    public IEnumerator resultat(float newScore)
+    public IEnumerator resultat(bool newScore, float resultat)
     {
-        Distance = newScore;
+        
         finish = true;
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
         int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
 
-        ScoreJoueur = 100 - Distance;
-
-        int scorePosition = Mathf.Max(0, 60 - finishedPlayers * 10);
-        ScoreJoueur = (ScoreJoueur + scorePosition);
+        if (newScore)
+            ScoreJoueur = 40 ;
 
         yield return new WaitForSeconds(0.1f);
 
         foreach (var conn in NetworkServer.connections.Values)
         {
-            TestTarget(conn);
+            launchGuess(conn, resultat);
             //TargetHandleScores(conn);
         }
     }
 
 
     [TargetRpc]
-    private void TestTarget(NetworkConnection target)
+    private void launchGuess(NetworkConnection target, float resultat)
     {
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
         int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
+        
 
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
@@ -96,6 +96,7 @@ public class PlayerScoring : NetworkBehaviour
             {
                 allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                 allPlayerScoringFinished.Add(player.finish);
+
 
             }
 
@@ -114,57 +115,69 @@ public class PlayerScoring : NetworkBehaviour
             if (compteurGame == 1)
             {
                 timer timerScript = FindObjectOfType<timer>();
+             
+                foreach (PlayerScoring score in allScores)
+                {
+                    if (score.GetComponent<PlayerData>().role == Role.Seeker)
+                    {
+                        IsoCameraSelection cameraSelection = score.GetComponentInChildren<IsoCameraSelection>();
+                        if (score.isLocalPlayer)
+                            cameraSelection.OnObjectUnselected();
+                    }
+                }
 
-                StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
+                        StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
 
             }
 
             if (compteurGame == 2)
             {
-
                 var scoreGame = FindObjectOfType<ScoreGame>();
                 float moyenneScore = 0;
+                
 
                 foreach (PlayerScoring score in allScores)
                 {
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
-                        moyenneScore += (score.ScoreJoueur) / (seekerCount);
+                        Debug.Log($"OUAIS LE RESULTAT {resultat}");
+                           
+                        if (resultat >= 0 && resultat <= 5)
+                        {
+                            score.ScoreJoueur += 60;
+                        }
+                        else if (resultat > 5 && resultat <= 15)
+                        {
+                            score.ScoreJoueur += 30;
+                        }
+                        else if (resultat > 15)
+                        {
+                            score.ScoreJoueur += 15;
+                        }
                     }
-                }
-
-                for (int i = 0; i < OrdreGuess.Count; i++)
-                {
-                    int ordrePoint = 50;
-                    i = i * 10;
-                    ordrePoint -= i;
-
-                    if( ordrePoint < 0)
-                    {
-                        ordrePoint = 0;
-                    }
-
-                    OrdreGuess[i].ScoreJoueur += ordrePoint;
                 }
 
                 foreach (PlayerScoring score in allScores)
                 {
-                    if (GetComponent<PlayerData>().role == Role.Seeker)
+                    if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
                         score.ScoreFinal += score.ScoreJoueur;
+                        moyenneScore += score.ScoreJoueur;
                     }
 
                     else
                     {
-                        score.ScoreJoueur = moyenneScore;
-                        score.ScoreFinal += moyenneScore;
+                        score.ScoreJoueur = moyenneScore/seekerCount;
+                        score.ScoreFinal += score.ScoreJoueur;
+                        score.finish = true;
                     }
-                }
 
-                
-                scoreGame.ShowScore();
+                    scoreGame.ShowScore();
+                }
+                    
                 timer timerScript = FindObjectOfType<timer>();
                 timerScript.time = 999999;
+                
 
             }
         }
@@ -193,6 +206,8 @@ public class PlayerScoring : NetworkBehaviour
     [TargetRpc]
     private void ShowScoreTimer(NetworkConnection target)
     {
+        List<string> allPlayerDataName = new List<string>();
+        List<bool> allPlayerScoringFinished = new List<bool>();
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         foreach (PlayerScoring player in allScores)
         {
@@ -202,20 +217,7 @@ public class PlayerScoring : NetworkBehaviour
 
         if (compteurGame == 1)
         {
-            List<string> allPlayerDataName = new List<string>();
-            List<bool> allPlayerScoringFinished = new List<bool>();
-
-            foreach (PlayerScoring player in allScores)
-            {
-                player.finish = false;
-
-                allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
-                allPlayerScoringFinished.Add(player.finish);
-            }
-
-            GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
-
-            //RAJOUTER ICI LE SCRIPT POUR LE DEZOOM ET LE FAIT QUE CA TOMBE ! 
+            StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
         }
 
         if (compteurGame == 2)
@@ -256,57 +258,71 @@ public class PlayerScoring : NetworkBehaviour
     {
         timer timerScript = FindObjectOfType<timer>();
 
-        Camera cam = GetComponentInChildren<Camera>();
-
-        
-
         timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
         timerScript.timeSprite.enabled = false;
         timerScript.time = 9999;
 
         GameObject car = GameObject.Find("redCar");
         car.SetActive(false);
-
+         
         foreach (PlayerScoring player in allScores)
         {
             player.GetComponent<PlayerData>().DisablePlayer();
         }
 
-        yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-15, -6, 13), 25, false, 2f));
+        yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 43, false, 2f));
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
         FindObjectOfType<CityManager>().MakePlateformFall();
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
+
+        GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+        GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
+
+        yield return new WaitForSeconds(0.5f);
+
+
+        foreach (GameObject pnj in allPNJ)
+        {
+            pnj.GetComponent<PNJShake>().ShakePNJ();
+        }
+
+        foreach (GameObject pnj in allPNJPI)
+        {
+            pnj.GetComponent<PNJShake>().ShakePNJ();
+        }
+
+        yield return new WaitForSeconds(1.5f);
 
         switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
         {
-            case 0:
-                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-13, 6, 15), 8, true, 1f));
-                break;
-
             case 1:
-                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-35, -1, 35), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-41, 3, 42), 8, true, 1f));
                 break;
 
             case 2:
-                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(-16, -10, 13), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(6, -5, -8), 8, true, 1f));
                 break;
 
-            case 3:
-                yield return StartCoroutine(MoveMapAndCam(GameObject.Find("VilleELP").transform.position, new Vector3(1, -2, -2), 8, true, 1f));
+            case 0:
+                yield return StartCoroutine(transitionCam(new Vector3(-14, -1, 14), 8, true, 1f));
                 break;
         }
 
         foreach (PlayerScoring player in allScores)
         {
             player.finish = false;
-            GetComponent<PlayerData>().AbleSelect();
+            player.GetComponent<PlayerData>().AbleSelect();
 
             allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
             allPlayerScoringFinished.Add(player.finish);
-            //Faire un able player localement
+
+            if (player.isLocalPlayer)
+            {
+                player.EnableLocalComponents();
+            }
         }
 
         GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
@@ -314,20 +330,17 @@ public class PlayerScoring : NetworkBehaviour
         timerScript.GetComponentInChildren<TMP_Text>().enabled = true;
         timerScript.timeSprite.enabled = true;
         timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
-        timerScript.time = 180;
+        timerScript.RestartTimer();
     }
 
-    IEnumerator MoveMapAndCam(Vector3 startPos, Vector3 endPos, int zoomCam, bool back, float temps)
+    IEnumerator transitionCam( Vector3 endPos, int zoomCam, bool back, float temps)
     {
-
+        ViewManager.Instance.StartFadeIn();
+        yield return new WaitForSeconds(1f);
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
 
         Camera cam = new Camera();
         GameObject camObject = new GameObject();
-
-        bool isLost = false;
-        Vector3 endPosCam = new Vector3();
-        Quaternion targetRotation = new Quaternion();
 
         foreach (PlayerScoring player in allScores)
         {
@@ -336,61 +349,96 @@ public class PlayerScoring : NetworkBehaviour
                 cam = player.GetComponentInChildren<Camera>();
                 camObject = player.gameObject;
 
-                if(player.GetComponent<PlayerData>().role == Role.Lost)
-                {
-                    isLost = true;
-                    if (back == false)
-                        positionLost = player.gameObject.transform.position;
+                GameObject.Find("VilleELP").transform.position = endPos;
 
-                    if (back == true)
+                if (player.GetComponent<PlayerData>().role == Role.Lost)
+                {
+                    if (back == false)
                     {
-                        endPosCam = positionLost;
-                        
-                        targetRotation = Quaternion.Euler(0f, 0f, 0f);
+                        cam.orthographic = true;
+
+                        cam.orthographicSize = zoomCam;
+
+                        player.positionLost = camObject.transform.position;
+
+                        camObject.transform.position = GameObject.Find("spawn2").transform.position;
+
+                        camObject.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+
+                        cam.transform.localRotation = Quaternion.identity;
+
+                        cam.transform.localPosition = new Vector3(0, 0, 0);
+
                     }
                     else
                     {
-                        endPosCam = GameObject.Find("spawn2").transform.position;
-                        targetRotation = GameObject.Find("spawn2").transform.rotation;
+                        camObject.transform.position = player.positionLost;
 
+                        cam.transform.rotation = Quaternion.identity;
+
+                        cam.orthographic = false;
+
+                        cam.fieldOfView = 60;
+
+                        GameObject.Find("VilleELP").transform.position = new Vector3(0, 0, 0);
                     }
                 }
+                else
+                {
+                    cam.orthographicSize = zoomCam;
+
+                    cam.transform.rotation = GameObject.Find("spawn2").transform.rotation;
+
+                    cam.transform.position = GameObject.Find("spawn2").transform.position;
+
+                }
             }
+            
         }
 
-        float elapsed = 0f;
-        GameObject map = GameObject.Find("VilleELP");
-        float startZoom = cam.orthographicSize;
-        Vector3 startPosCam = camObject.transform.position;
-        Quaternion startRotation = cam.transform.rotation;
+        ViewManager.Instance.StartFadeOut();
+        yield return null;
+    }
 
+    public void EnableLocalComponents()
+    {
+        PlayerData playerData = GetComponent<PlayerData>();
 
-        while (elapsed < temps)
+        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+
+        Camera360 cam360 = GetComponentInChildren<Camera360>();
+        takeEmoji emojiScript = GetComponent<takeEmoji>();
+        Camera camPlayer = GetComponentInChildren<Camera>();
+        PlayerInput input = GetComponentInChildren<PlayerInput>();
+        TchatManager tchatGeneral = FindObjectOfType<TchatManager>();
+
+        tchatGeneral.gameObject.GetComponentInChildren<Canvas>().enabled = true;
+
+        if (camPlayer == null || !camPlayer.isActiveAndEnabled) return;
+
+        if (input != null) input.enabled = true;
+
+        if (playerData.role == Role.Seeker)
         {
-            float t = elapsed / temps;
-            cam.orthographic = true;
-            cam.orthographicSize = Mathf.Lerp(startZoom, zoomCam, t);
+            playerData.ObjectsStateSetter(playerData.charlieObjects, false);
+            playerData.ObjectsStateSetter(playerData.seekerObjects, true);
 
-            if (!back)
-                map.transform.position = Vector3.Lerp(startPos, endPos, t);
+            if (camDragIso != null) camDragIso.enabled = true;
+            if (camZoomIso != null) camZoomIso.enabled = true;
+            if (camRotaIso != null) camRotaIso.enabled = true;
+            if (emojiScript != null) emojiScript.enabled = false;
 
-            if (back && !isLost)
-                map.transform.position = Vector3.Lerp(startPos, endPos, t);
-
-            if (isLost)
-            {
-                camObject.transform.position = Vector3.Lerp(startPosCam, endPosCam, t);
-                cam.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, t);
-
-            }
-
-            elapsed += Time.deltaTime;
-            yield return null; 
+            playerData.AbleSelect();
         }
-
-        if (isLost && back)
+        else if (playerData.role == Role.Lost)
         {
-            cam.orthographic = false;
+            playerData.ObjectsStateSetter(playerData.charlieObjects, true);
+            playerData.ObjectsStateSetter(playerData.seekerObjects, false);
+
+            if (cam360 != null) cam360.enabled = true;
+            if (emojiScript != null) emojiScript.enabled = true;
         }
     }
 
