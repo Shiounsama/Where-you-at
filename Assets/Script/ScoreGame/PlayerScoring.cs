@@ -250,6 +250,8 @@ public class PlayerScoring : NetworkBehaviour
                 }
             }
 
+
+            manager.nombrePartie++;
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
