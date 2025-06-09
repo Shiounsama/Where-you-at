@@ -113,7 +113,7 @@ public class PlayerData : NetworkBehaviour
         SetPlateform();
         if (isLocalPlayer)
         {
-            frontPNJ();
+            //frontPNJ();
             if (role == Role.Seeker)
             {
                 if (transform.position == new Vector3(0, 0, 0))
