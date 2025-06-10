@@ -271,14 +271,18 @@ public class PlayerScoring : NetworkBehaviour
         {
             player.GetComponent<PlayerData>().DisablePlayer();
         }
-
+        
         yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 43, false, 2f));
-
+        
+        manager.Instance.SetFxOnGuessedPNJ(true, true);
+        
         yield return new WaitForSeconds(1);
 
         FindObjectOfType<CityManager>().MakePlateformFall();
 
         yield return new WaitForSeconds(3);
+        
+        manager.Instance.SetFxOnGuessedPNJ(false, true);
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
         GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");

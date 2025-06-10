@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerData : NetworkBehaviour
@@ -22,9 +23,9 @@ public class PlayerData : NetworkBehaviour
 
     [Header("MidGame")]
     public GameObject playerPlateform;
-
+    
     [Header("EndGame")]
-    [SyncVar] public Color color;
+    public Color playerColor;
     [SyncVar] public Vector3 pnjValidePosition;
     public GameObject pnjValide;
 
@@ -83,6 +84,7 @@ public class PlayerData : NetworkBehaviour
                 {
                     pnjValide = pnj;
                     manager.Instance.seekerGuessedPNJs.Add(pnj);
+                    manager.Instance.colorList.Add(playerColor);
                     //manager.Instance.CamerasDezoom();
                 }
             }
@@ -98,7 +100,7 @@ public class PlayerData : NetworkBehaviour
             textMesh.gameObject.SetActive(true);
 
             textMesh.text = playerName;
-            textMesh.color = color;
+            textMesh.color = playerColor;
 
             print("textExiste" + pnjValide.GetComponentInChildren<TextMeshPro>().text);
         }

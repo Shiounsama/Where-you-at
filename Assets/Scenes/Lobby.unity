@@ -831,6 +831,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2269471034335199237, guid: 54036c443df40454b896139ffd1fd7ae, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7406976129910561116, guid: 54036c443df40454b896139ffd1fd7ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1237,6 +1241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ViewManager
       objectReference: {fileID: 0}
+    - target: {fileID: 125932800309155478, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1011157088026340020, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1379,9 +1387,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1900589237891294760, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
+      propertyPath: generalMessagePrefab
+      value: 
+      objectReference: {fileID: 3395364202626205395, guid: a9b688beca398f64d84552749cbc85c9, type: 3}
+    - target: {fileID: 1900589237891294760, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
+      propertyPath: personalMessagePrefab
+      value: 
+      objectReference: {fileID: 3395364202626205395, guid: 3b15248d91a5b35419c8e2c749543aae, type: 3}
     - target: {fileID: 3074136939739321978, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: m_Name
       value: NetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074136939739321978, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4418758861736077059, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: seedScript
@@ -1429,12 +1449,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6914267310917514558, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 14313890
+      value: 14759312
       objectReference: {fileID: 0}
     - target: {fileID: 7063551800902183939, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: sceneId
       value: 894018809
       objectReference: {fileID: 0}
+    - target: {fileID: 8335545185156175700, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
+      propertyPath: projectorFXPrefab
+      value: 
+      objectReference: {fileID: 8675771043927481686, guid: 2333a7f17700ca94e89c1f66ab7dbd3b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

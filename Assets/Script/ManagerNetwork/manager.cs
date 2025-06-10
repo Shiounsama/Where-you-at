@@ -13,6 +13,7 @@ public class manager : NetworkBehaviour
     public GameObject testBuilding;
     public GameObject projectorFXPrefab;
     private List<GameObject> projectorFXList;
+    public List<Color> colorList = new List<Color>();
 
     public static manager Instance;
 
@@ -38,11 +39,16 @@ public class manager : NetworkBehaviour
 
     public void SetFxOnGuessedPNJ(bool StateOfFX, bool ShowOnLostPlayer)
     {
+        int y = 0;
+        GameObject prefab = projectorFXPrefab;
+        
         if (seekerGuessedPNJs.Count > 0)
         {
             foreach (GameObject go in seekerGuessedPNJs)
             {
-                projectorFXList.Add(Instantiate(projectorFXPrefab, go.transform.localPosition, Quaternion.identity));
+                GameObject newFX = Instantiate(prefab, go.transform.position + Vector3.up * 13, Quaternion.identity);
+                newFX.GetComponent<SpriteRenderer>().color = colorList[y];
+                projectorFXList.Add(newFX);
             }
         }
 
@@ -50,7 +56,8 @@ public class manager : NetworkBehaviour
         {
             if (go.role == Role.Lost)
             {
-                projectorFXList.Add(Instantiate(projectorFXPrefab, go.transform.localPosition, Quaternion.identity));
+                projectorFXList.Add(Instantiate(prefab, go.transform.position + Vector3.up * 13, Quaternion.identity));
+                prefab.GetComponent<SpriteRenderer>().color = colorList[y];
             }
         }
 

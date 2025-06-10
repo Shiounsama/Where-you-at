@@ -72,7 +72,7 @@ public class TchatManager : NetworkBehaviour
 
         // Créer le message
         GameObject actualMessage = Instantiate(prefabToUse, canvasTransform.position, Quaternion.identity, canvasTransform);
-        actualMessage.GetComponent<TextMeshProUGUI>().text = fullMessage;
+        actualMessage.GetComponentInChildren<TextMeshProUGUI>().text = fullMessage;
     }
 
 
