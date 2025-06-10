@@ -11,6 +11,8 @@ public class manager : NetworkBehaviour
     public List<GameObject> player;
     public List<GameObject> seekerGuessedPNJs;
     public GameObject testBuilding;
+    public GameObject projectorFXPrefab;
+    private List<GameObject> projectorFXList;
 
     public static manager Instance;
 
@@ -34,6 +36,48 @@ public class manager : NetworkBehaviour
     public SyncList<GameObject> charlieRoleQueue = new SyncList<GameObject>();
     public string LostName { get; set; }
 
+    public void SetFxOnGuessedPNJ(bool StateOfFX, bool ShowOnLostPlayer)
+    {
+        if (seekerGuessedPNJs.Count > 0)
+        {
+            foreach (GameObject go in seekerGuessedPNJs)
+            {
+                projectorFXList.Add(Instantiate(projectorFXPrefab, go.transform.localPosition, Quaternion.identity));
+            }
+        }
+
+        foreach (PlayerData go in scriptPlayer)
+        {
+            if (go.role == Role.Lost)
+            {
+                projectorFXList.Add(Instantiate(projectorFXPrefab, go.transform.localPosition, Quaternion.identity));
+            }
+        }
+
+        foreach (GameObject go in projectorFXList)
+        {
+            go.SetActive(StateOfFX);
+        }
+
+        if (ShowOnLostPlayer)
+        {
+            foreach (GameObject go in projectorFXList)
+            {
+                go.SetActive(StateOfFX);
+            }
+        }
+        else
+        {
+            foreach (GameObject go in projectorFXList)
+            {
+                go.SetActive(false);
+            }
+            for (int i = 0; i < projectorFXList.Count - 1; i++)
+            {
+                projectorFXList[i].SetActive(StateOfFX);
+            }
+        }
+    }
     public void CamerasDezoom()
     {
         foreach (PlayerData player in scriptPlayer)

@@ -12,6 +12,9 @@ public class TchatManager : NetworkBehaviour
     public static TchatManager Instance;
 
     public List<ScriptableObject> listOfFamilyToResestValueUsed;
+    
+    [SerializeField] private GameObject generalMessagePrefab;
+    [SerializeField] private GameObject personalMessagePrefab;
 
     public void Awake()
     {
@@ -46,21 +49,32 @@ public class TchatManager : NetworkBehaviour
     /// <param name="message"></param>
     /// <param name="sender"></param>
     [Server]
-    public void AddMessage(string message, string sender)
+    public void AddMessage(string message, string sender, Role playerRole)
     {
         string fullMessage = $"{sender}: {message}";
         messageCount++;
-        Debug.Log("Message ajouté : " + fullMessage);
+        Debug.Log("Message ajoutï¿½ : " + fullMessage);
 
-        CreateMessage(fullMessage);
+        CreateMessage(fullMessage, sender, playerRole);
     }
 
     [ClientRpc]
-    private void CreateMessage(string fullMessage)
+    private void CreateMessage(string fullMessage, string senderName, Role playerRole)
     {
-        GameObject actualMessage = Instantiate(newMessagePrefab, canvasTransform.position, Quaternion.identity, canvasTransform);
+        // Trouver le joueur local
+        var localPlayerData = FindObjectOfType<TchatPlayer>()?.GetComponentInChildren<PlayerData>();
+        string localPlayerName = localPlayerData != null ? localPlayerData.playerName : "";
+
+        // Choisir le prefab
+        GameObject prefabToUse;
+        prefabToUse = playerRole == Role.Lost ? personalMessagePrefab : // Si le Lost envoei un message
+            generalMessagePrefab; // Si les autres envoient un messages
+
+        // CrÃ©er le message
+        GameObject actualMessage = Instantiate(prefabToUse, canvasTransform.position, Quaternion.identity, canvasTransform);
         actualMessage.GetComponent<TextMeshProUGUI>().text = fullMessage;
     }
+
 
     /// <summary>
     /// Enleve les messages du tchat de tous les joueurs
