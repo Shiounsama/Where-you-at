@@ -37,51 +37,74 @@ public class manager : NetworkBehaviour
     public SyncList<GameObject> charlieRoleQueue = new SyncList<GameObject>();
     public string LostName { get; set; }
 
-    public void SetFxOnGuessedPNJ(bool StateOfFX, bool ShowOnLostPlayer)
+    public void SetFxOnGuessedPNJ(bool stateOfFX, bool showOnLostPlayer)
     {
-        int y = 0;
-        GameObject prefab = projectorFXPrefab;
-        
-        if (seekerGuessedPNJs.Count > 0)
-        {
-            foreach (GameObject go in seekerGuessedPNJs)
-            {
-                GameObject newFX = Instantiate(prefab, go.transform.position + Vector3.up * 13, Quaternion.identity);
-                newFX.GetComponent<SpriteRenderer>().color = colorList[y];
-                projectorFXList.Add(newFX);
-            }
-        }
-
-        foreach (PlayerData go in scriptPlayer)
-        {
-            if (go.role == Role.Lost)
-            {
-                projectorFXList.Add(Instantiate(prefab, go.transform.position + Vector3.up * 13, Quaternion.identity));
-                prefab.GetComponent<SpriteRenderer>().color = colorList[y];
-            }
-        }
-
-        foreach (GameObject go in projectorFXList)
-        {
-            go.SetActive(StateOfFX);
-        }
-
-        if (ShowOnLostPlayer)
-        {
-            foreach (GameObject go in projectorFXList)
-            {
-                go.SetActive(StateOfFX);
-            }
-        }
+        // Sécurité : initialiser la liste si elle est null ou la nettoyer
+        if (projectorFXList == null)
+            projectorFXList = new List<GameObject>();
         else
         {
-            foreach (GameObject go in projectorFXList)
+            // Détruire les anciens FX pour éviter des doublons
+            foreach (GameObject fx in projectorFXList)
             {
-                go.SetActive(false);
+                Destroy(fx);
             }
-            for (int i = 0; i < projectorFXList.Count - 1; i++)
+            projectorFXList.Clear();
+        }
+
+        int colorIndex = 0;
+
+        // FX sur les PNJ devinés
+        foreach (GameObject pnj in seekerGuessedPNJs)
+        {
+            GameObject fx = Instantiate(projectorFXPrefab, pnj.transform.position + Vector3.up * 13, Quaternion.identity);
+            // Attribution de la couleur si l'index est valide
+            if (colorIndex < colorList.Count)
+                fx.GetComponent<SpriteRenderer>().color = colorList[colorIndex];
+            else
+                Debug.LogWarning("colorList ne contient pas assez de couleurs !");
+            projectorFXList.Add(fx);
+            colorIndex++;
+        }
+
+        // FX sur les joueurs Lost
+        foreach (PlayerData playerData in scriptPlayer)
+        {
+            if (playerData.role == Role.Lost)
             {
-                projectorFXList[i].SetActive(StateOfFX);
+                GameObject fx = Instantiate(projectorFXPrefab, playerData.transform.position + Vector3.up * 13, Quaternion.identity);
+                if (colorIndex < colorList.Count)
+                    fx.GetComponent<SpriteRenderer>().color = colorList[colorIndex];
+                else
+                    Debug.LogWarning("colorList ne contient pas assez de couleurs !");
+                projectorFXList.Add(fx);
+                colorIndex++;
+            }
+        }
+
+        // Gestion de l'affichage des FX
+        foreach (GameObject fx in projectorFXList)
+        {
+            fx.SetActive(false); // on désactive d'abord tout par sécurité
+        }
+
+        if (stateOfFX)
+        {
+            if (showOnLostPlayer)
+            {
+                // Activer tous les FX si l'option ShowOnLostPlayer est vraie
+                foreach (GameObject fx in projectorFXList)
+                {
+                    fx.SetActive(true);
+                }
+            }
+            else
+            {
+                // Activer uniquement les FX des PNJs devinés (et non celui des Lost)
+                for (int i = 0; i < seekerGuessedPNJs.Count && i < projectorFXList.Count; i++)
+                {
+                    projectorFXList[i].SetActive(true);
+                }
             }
         }
     }
