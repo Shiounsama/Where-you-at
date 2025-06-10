@@ -19,7 +19,7 @@ public class PNJPISpawn : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(spawnPIPNJ());
+        //StartCoroutine(spawnPIPNJ());
     }
 
     IEnumerator spawnPIPNJ()

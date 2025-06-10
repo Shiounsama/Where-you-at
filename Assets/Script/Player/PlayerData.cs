@@ -110,10 +110,10 @@ public class PlayerData : NetworkBehaviour
 
     private void Update()
     {
-        SetPlateform();
+        
         if (isLocalPlayer)
         {
-            //frontPNJ();
+            frontPNJ();
             if (role == Role.Seeker)
             {
                 if (transform.position == new Vector3(0, 0, 0))
@@ -131,8 +131,14 @@ public class PlayerData : NetworkBehaviour
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
 
+                        SetPlateform();
+
                         Destroy(PNJcible);
 
+                    }
+                    else
+                    {
+                        PNJcible = GameObject.FindWithTag("PNJCIBLE");
                     }
                 }
             }
@@ -355,7 +361,7 @@ public class PlayerData : NetworkBehaviour
 
             Xray.enabled = false;
 
-            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");           
 
             audioListener.enabled = true;
 
