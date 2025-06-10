@@ -11,6 +11,7 @@ public class Construction : MonoBehaviour
     private ConstructionType constructionType;
     private PointInteretManager pointInteretManager;
     public ConstructionTypeCollection ConstructionTypeCollection;
+    private manager Manager;
 
     public float rotationY;
     public Vector3 spawnPosition;
@@ -26,6 +27,8 @@ public class Construction : MonoBehaviour
             ConstructionTypeCollection.ResetPrefabLibrary(); 
         }
 
+        Manager = FindObjectOfType<manager>();
+
         pointInteretManager = transform.parent.GetComponent<PointInteretManager>();
         pointInteretManager.constructionList.Add(transform.GetComponent<Construction>());
 
@@ -34,7 +37,13 @@ public class Construction : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(spawnVille());
+        if (Manager != null)
+        {
+            if (!Manager.fakeVille)
+            {
+                StartCoroutine(spawnVille());
+            }
+        }
     }
 
     public void SpawnPrefab(TypeOfConstruction typeToSpawn)
