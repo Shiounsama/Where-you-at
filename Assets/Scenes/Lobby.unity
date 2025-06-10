@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 3da1b493386939448a34038068222648, type: 3}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.58833677, g: 0.83846146, b: 0.9195511, a: 1}
+  m_IndirectSpecularColor: {r: 0.58832693, g: 0.8384629, b: 0.91955775, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -777,17 +777,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &1090385381 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7204863649107466597, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
-  m_PrefabInstance: {fileID: 5565250443893513465}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60e2780bce54ac84e85cce3460db3cd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1205271935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,6 +1282,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1334309901}
     - target: {fileID: 6418173902552521082, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
+      propertyPath: views.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6418173902552521082, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
       propertyPath: views.Array.data[0]
       value: 
       objectReference: {fileID: 1334309901}
@@ -1315,7 +1308,7 @@ PrefabInstance:
     - target: {fileID: 6418173902552521082, guid: cdb5df5676dc79e4281ab3c4db6e0c37, type: 3}
       propertyPath: views.Array.data[5]
       value: 
-      objectReference: {fileID: 1090385381}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1436,7 +1429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6914267310917514558, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 14077820
+      value: 14313890
       objectReference: {fileID: 0}
     - target: {fileID: 7063551800902183939, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: sceneId
