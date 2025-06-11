@@ -431,7 +431,7 @@ public class PlayerData : NetworkBehaviour
 
                 GameObject hintPNJObject = Instantiate(PNJclone);
 
-                hintPNJObject.tag = "PNJCIBLE";
+                hintPNJObject.tag = "PNJCOPIE";
 
                 hintPNJObject.transform.rotation = Quaternion.Euler(0, 180, 0);
 
