@@ -227,6 +227,7 @@ public class manager : NetworkBehaviour
 
     private void PlayersStartScene()
     {
+
         foreach (PlayerData playerscript in scriptPlayer)
         {
             if (playerscript.isLocalPlayer)

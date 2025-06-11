@@ -115,6 +115,13 @@ public class PlayerData : NetworkBehaviour
         
         if (isLocalPlayer)
         {
+            if (PNJcible == null)
+            {
+                PNJcible = GameObject.FindWithTag("PNJCIBLE");
+                SetPlateform();
+
+            }
+
             frontPNJ();
             if (role == Role.Seeker)
             {
@@ -133,14 +140,8 @@ public class PlayerData : NetworkBehaviour
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
 
-                        SetPlateform();
-
                         Destroy(PNJcible);
 
-                    }
-                    else
-                    {
-                        PNJcible = GameObject.FindWithTag("PNJCIBLE");
                     }
                 }
             }
@@ -245,6 +246,8 @@ public class PlayerData : NetworkBehaviour
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
 
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
+
+            LockPNJ(GameObject.FindGameObjectsWithTag("PNJCIBLE"));
         }
     }
 
