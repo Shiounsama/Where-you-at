@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -62,7 +63,6 @@ public class ViewManager : NetworkBehaviour
     /// <param name="args"></param>
     public void Show<TView>(object args = null) where TView : View
     {
-
         if (args != null)
         {
             HideAll();
@@ -157,10 +157,19 @@ public class ViewManager : NetworkBehaviour
         fadeImage.DOFade(1, fadeDuration).OnComplete(() => IsFading = false);
     }
 
-    public void StartFadeOut()
+    public void StartFadeOut(Action onComplete = null)
     {
+        Debug.Log("StartFadeOut");
+
         IsFading = true;
-        fadeImage.DOFade(0, fadeDuration).OnComplete(() => IsFading = false);
+        fadeImage.DOFade(0, fadeDuration).OnComplete(() => {
+            IsFading = false;
+
+            if (onComplete != null)
+            {
+                onComplete();
+            }
+        });
     }
     #endregion
 

@@ -1,6 +1,8 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class FindYourFriendView : View
 {
@@ -21,6 +23,8 @@ public class FindYourFriendView : View
     [SerializeField, Range(5f, 30f)] private float waveFrequency = 30f;
 
     private CanvasGroup _arrowCanvasGroup;
+    private Volume _volume;
+    private DepthOfField _dof;
 
     public override void Initialize()
     {
@@ -30,21 +34,36 @@ public class FindYourFriendView : View
     public override void Show(object args = null)
     {
         base.Show(args);
-    }
 
-    private void Awake()
-    {
-        _arrowCanvasGroup = arrowImage.GetComponent<CanvasGroup>();
-    }
-
-    private void OnEnable()
-    {
         _arrowCanvasGroup.alpha = 0f;
 
         findYourFriendText.transform.localScale = Vector3.zero;
         silhouettePanel.transform.localPosition = new Vector2(0, Screen.height);
 
         MoveDownAnim();
+    }
+
+    private void Awake()
+    {
+        _arrowCanvasGroup = arrowImage.GetComponent<CanvasGroup>();
+        _volume = FindObjectOfType<Volume>();
+        _volume.profile.TryGet(out _dof);
+        _dof.focalLength.value = 100f;
+    }
+
+    private void OnEnable()
+    {
+        //_arrowCanvasGroup.alpha = 0f;
+
+        //findYourFriendText.transform.localScale = Vector3.zero;
+        //silhouettePanel.transform.localPosition = new Vector2(0, Screen.height);
+
+        //MoveDownAnim();
+    }
+
+    public void DisableBlur()
+    {
+        _dof.focalLength.value = 1f;
     }
 
     #region Animation
@@ -71,6 +90,26 @@ public class FindYourFriendView : View
         silhouettePanel.transform.DOLocalMoveX(Screen.width, moveRightAnimDuration)
             .SetEase(Ease.InExpo)
             .SetDelay(moveRightAnimDelay);
+
+        DOVirtual.Float(100f, 1f, moveRightAnimDuration, (t) =>
+        {
+            _dof.focalLength.value = t;
+            //Debug.Log(_dof.focalLength.value);
+        })
+            .SetEase(Ease.Linear)
+            .SetDelay(moveRightAnimDelay)
+            .OnComplete(() =>
+            {
+                View v = ViewManager.Instance.defaultView;
+                ViewManager.Instance.Show<View>(v);
+
+                timer timerGame = FindAnyObjectByType<timer>();
+
+                timerGame.RestartTimer();
+                timerGame.GetComponentInChildren<TMP_Text>().enabled = true;
+                timerGame.timeSprite.enabled = true;
+                timerGame.GetComponentInChildren<TMP_Text>().text = "3:00";
+            });
     }
 
     private void ArrowAnimation()
