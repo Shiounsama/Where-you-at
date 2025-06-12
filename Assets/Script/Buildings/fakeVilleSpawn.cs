@@ -8,19 +8,17 @@ public class fakeVilleSpawn : MonoBehaviour
 
     public List<GameObject> listVille = new List<GameObject>();
 
+    public Vector3 positionVille = new Vector3(0,0,0);
+
     private void Awake()
     {
         Manager = FindObjectOfType<manager>();
-    }
-
-
-    void Start()
-    {
         if (Manager != null)
         {
-            if (!Manager.fakeVille)
+            if (Manager.fakeVille)
             {
-                
+                spawnVilleFake();
+                StartCoroutine(Manager.fakeVillRole());
             }
 
         }
@@ -29,6 +27,7 @@ public class fakeVilleSpawn : MonoBehaviour
 
     private void spawnVilleFake()
     {
-
+        GameObject villeFake = Instantiate(listVille[manager.nombrePartie], positionVille, Quaternion.identity);
+        villeFake.name = "VilleELP";
     }
 }

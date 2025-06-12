@@ -119,6 +119,7 @@ public class PlayerData : NetworkBehaviour
             if (PNJcible == null)
             {
                 PNJcible = GameObject.FindWithTag("PNJCIBLE");
+                Debug.Log($"Le pnj cible est {PNJcible.name}");
                 SetPlateform();
 
             }
@@ -151,7 +152,6 @@ public class PlayerData : NetworkBehaviour
 
     private void SetPlateform()
     {
-        print("test");
               
         RaycastHit hit;
                     
@@ -159,7 +159,7 @@ public class PlayerData : NetworkBehaviour
         {
             if (hit.collider.CompareTag("Map") && !playerPlateform)
             {
-                print("Je suis dans le if");
+
                 playerPlateform = hit.collider.gameObject;
                 FindObjectOfType<CityManager>().SetHiderPlateform(playerPlateform);
 

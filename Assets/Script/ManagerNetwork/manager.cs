@@ -19,7 +19,7 @@ public class manager : NetworkBehaviour
 
     [Header("Fake ville")]
     public bool fakeVille = false;
-    public static int nombrePartie = 1;
+    public static int nombrePartie = 0;
 
     [SyncVar]
     public int nbrJoueur = 0;
