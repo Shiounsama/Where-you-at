@@ -277,6 +277,8 @@ public class RoleWheel : MonoBehaviour
                 MostForwardTile = currentTile;
         }
 
+        MostForwardTile.updateScale = false;
+
         StartPopOutAnimation();
     }
 
