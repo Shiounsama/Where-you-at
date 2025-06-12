@@ -198,6 +198,7 @@ public class manager : NetworkBehaviour
 
         foreach (PlayerData playerScript in scriptPlayer)
         {
+            
             player.Add(playerScript.gameObject);
             playerScript.AssignRole(Role.Seeker);
         }

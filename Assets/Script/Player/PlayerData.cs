@@ -26,7 +26,10 @@ public class PlayerData : NetworkBehaviour
     public GameObject playerPlateform;
     
     [Header("EndGame")]
+
+    [SyncVar]
     public Color playerColor;
+
     [SyncVar] public Vector3 pnjValidePosition;
     public GameObject pnjValide;
 
