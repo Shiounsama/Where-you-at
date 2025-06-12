@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -220,11 +221,15 @@ public class PlayerData : NetworkBehaviour
 
             GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
 
-            int randomNumber = Random.Range(0, allPNJ.Length);
+            int randomNumber = UnityEngine.Random.Range(0, allPNJ.Length);
 
             ClearOtherTchat();
 
-            ViewManager.Instance.StartFadeOut();
+            Action onComplete = delegate () {
+                ViewManager.Instance.Show<FindYourFriendView>();
+            };
+
+            ViewManager.Instance.StartFadeOut(onComplete);
             EnablePlayer(role);
         }
     }
@@ -370,8 +375,6 @@ public class PlayerData : NetworkBehaviour
 
             audioListener.enabled = true;
 
-            timer timerGame = FindAnyObjectByType<timer>();
-
             layoutGroupParent.gameObject.SetActive(false);
 
             canvasHintPNJ = GameObject.Find("ShowPNJ");
@@ -475,17 +478,12 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localPosition = Vector3.zero;
                 camPlayer.transform.localRotation = Quaternion.identity;
 
-
                 seekerAudio.enabled = false;
             }
 
             if (timerCoroutine != null)
                 StopCoroutine(timerCoroutine);
 
-            timerGame.RestartTimer();
-            timerGame.GetComponentInChildren<TMP_Text>().enabled = true;
-            timerGame.timeSprite.enabled = true;
-            timerGame.GetComponentInChildren<TMP_Text>().text = "3:00";
             ViewManager.Instance.Initialize();
         }
     }
@@ -551,8 +549,6 @@ public class PlayerData : NetworkBehaviour
             lockedRotation.z = 0;
             obj.transform.eulerAngles = lockedRotation;
             obj.transform.eulerAngles = lockedRotation;
-
-            
         }
     }
 
