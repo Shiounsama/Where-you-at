@@ -265,7 +265,9 @@ public class PlayerScoring : NetworkBehaviour
         timerScript.time = 9999;
 
         GameObject car = GameObject.Find("redCar");
-        car.SetActive(false);
+
+        if (car != null)
+            car.SetActive(false);
          
         foreach (PlayerScoring player in allScores)
         {
