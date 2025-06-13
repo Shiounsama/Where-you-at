@@ -112,7 +112,7 @@ MonoBehaviour:
   charlieObjects:
   - {fileID: 2344567739409970027}
   playerPlateform: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
   pnjValidePosition: {x: 0, y: 0, z: 0}
   pnjValide: {fileID: 0}
   taskItemPrefab: {fileID: 7063868767279716534, guid: 42ded5f96c9d67540861f57d63370297, type: 3}
@@ -136,6 +136,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  projectorFXPrefab: {fileID: 8675771043927481686, guid: 2333a7f17700ca94e89c1f66ab7dbd3b, type: 3}
+  colorList: []
   finish: 0
   Distance: 0
   ScoreJoueur: 0
@@ -145,6 +147,7 @@ MonoBehaviour:
   compteurGame: 0
   canPoint: 0
   OrdreGuess: []
+  seekerGuessedPNJs: []
   positionLost: {x: 0, y: 0, z: 0}
 --- !u!114 &3605825858785897536
 MonoBehaviour:

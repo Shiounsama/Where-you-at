@@ -87,8 +87,8 @@ public class PlayerData : NetworkBehaviour
                 if (pnjPosition == pnjSelected)
                 {
                     pnjValide = pnj;
-                    manager.Instance.seekerGuessedPNJs.Add(pnj);
-                    manager.Instance.colorList.Add(playerColor);
+                    GetComponent<PlayerScoring>().seekerGuessedPNJs.Add(pnj);
+                    GetComponent<PlayerScoring>().colorList.Add(playerColor);
                     //manager.Instance.CamerasDezoom();
                 }
             }
