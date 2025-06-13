@@ -12,7 +12,6 @@ public class PlayerScoring : NetworkBehaviour
 {
     public GameObject projectorFXPrefab;
     private List<GameObject> projectorFXList;
-    public List<Color> colorList = new List<Color>();
 
     [SyncVar]
     public bool finish;
@@ -42,7 +41,7 @@ public class PlayerScoring : NetworkBehaviour
     public List<PlayerScoring> OrdreGuess = new List<PlayerScoring>();
 
     [SyncVar]
-    public List<GameObject> seekerGuessedPNJs = new List<GameObject>();
+    public Vector3 seekerGuessedPNJs;
 
     [SyncVar]
     public Vector3 positionLost;
@@ -55,8 +54,11 @@ public class PlayerScoring : NetworkBehaviour
 
 
     [Command]
-    public void ServeurScore(bool newScore, float distance, Vector3 uwu)
+    public void ServeurScore(bool newScore, float distance, Vector3 guess)
     {
+        seekerGuessedPNJs = guess;
+
+
         StartCoroutine(resultat(newScore, distance));
     }
 
@@ -145,7 +147,6 @@ public class PlayerScoring : NetworkBehaviour
                 {
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
-                        Debug.Log($"OUAIS LE RESULTAT {resultat}");
                            
                         if (resultat >= 0 && resultat <= 5)
                         {
@@ -458,6 +459,7 @@ public class PlayerScoring : NetworkBehaviour
     public void SetFxOnGuessedPNJ(bool stateOfFX, bool showOnLostPlayer)
     {
         List<PlayerData> scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        GameObject building = GameObject.Find("VilleELP");
 
         // Sécurité : initialiser la liste si elle est null ou la nettoyer
         if (projectorFXList == null)
@@ -474,31 +476,32 @@ public class PlayerScoring : NetworkBehaviour
 
         int colorIndex = 0;
 
-        // FX sur les PNJ devinés
-        foreach (GameObject pnj in seekerGuessedPNJs)
-        {
-            GameObject fx = Instantiate(projectorFXPrefab, pnj.transform.position + Vector3.up * 13, Quaternion.identity);
-            // Attribution de la couleur si l'index est valide
-            if (colorIndex < colorList.Count)
-                fx.GetComponent<SpriteRenderer>().color = colorList[colorIndex];
-            else
-                Debug.LogWarning("colorList ne contient pas assez de couleurs !");
-            projectorFXList.Add(fx);
-            colorIndex++;
-        }
 
-        // FX sur les joueurs Lost
         foreach (PlayerData playerData in scriptPlayer)
         {
-            if (playerData.role == Role.Lost)
+            if (playerData.role == Role.Seeker)
             {
-                GameObject fx = Instantiate(projectorFXPrefab, playerData.transform.position + Vector3.up * 13, Quaternion.identity);
-                if (colorIndex < colorList.Count)
-                    fx.GetComponent<SpriteRenderer>().color = colorList[colorIndex];
-                else
-                    Debug.LogWarning("colorList ne contient pas assez de couleurs !");
-                projectorFXList.Add(fx);
-                colorIndex++;
+                if (playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs != new Vector3(0, 0, 0))
+                {
+                    // Instancier sans parent
+                    GameObject fx = Instantiate(projectorFXPrefab);
+
+                    // Assigner le parent
+                    fx.transform.SetParent(building.transform);
+
+                
+
+                    // Définir la position locale par rapport au parent (ici building)
+                    fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + Vector3.up * 13;
+
+                    // Appliquer la couleur
+                    fx.GetComponent<SpriteRenderer>().color = playerData.playerColor;
+
+
+                    // Ajouter à la liste
+                    projectorFXList.Add(fx);
+                    colorIndex++;
+                }
             }
         }
 
@@ -521,7 +524,7 @@ public class PlayerScoring : NetworkBehaviour
             else
             {
                 // Activer uniquement les FX des PNJs devinés (et non celui des Lost)
-                for (int i = 0; i < seekerGuessedPNJs.Count && i < projectorFXList.Count; i++)
+                for (int i = 0; i < projectorFXList.Count; i++)
                 {
                     projectorFXList[i].SetActive(true);
                 }

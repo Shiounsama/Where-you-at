@@ -136,7 +136,7 @@ public class manager : NetworkBehaviour
             switch (i) {
                 case 0:
                     scriptPlayer[i].playerColor = Color.red;
-                        break;
+                    break;
 
                 case 1:
                     scriptPlayer[i].playerColor = Color.blue;

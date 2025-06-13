@@ -54,7 +54,7 @@ public class PlayerData : NetworkBehaviour
         pnjValidePosition = pnj;
     }
 
-    [Command]
+    /*[Command]
     public void testPNJ()
     {
         foreach (var conn in NetworkServer.connections.Values)
@@ -93,7 +93,7 @@ public class PlayerData : NetworkBehaviour
                 }
             }
         }
-    }
+    }*/
 
     public void SpawnText()
     {
@@ -404,7 +404,7 @@ public class PlayerData : NetworkBehaviour
                 ObjectsStateSetter(charlieObjects, false);
                 ObjectsStateSetter(seekerObjects, true);
 
-                ViewManager.Instance.Show<SeekerView>();
+                //ViewManager.Instance.Show<SeekerView>();
 
                 camDragIso.enabled = true;
                 camZoomIso.enabled = true;

@@ -46,19 +46,25 @@ public class CheckPNJSelected : NetworkBehaviour
         //NetworkServer.Spawn(cameraSelection.selectedObject.gameObject);
         float resultat = Mathf.Round(Vector3.Distance(cameraSelection.selectedObject.gameObject.transform.position, PlayerData.PNJcible.transform.position));
         Vector3 testPNJ = new Vector3();
+        bool testZone = TestZoneNumber();
+
 
         if (isLocalPlayer)
         {
             _playerData = GetComponent<PlayerData>();
             testPNJ = cameraSelection.selectedObject.localPosition;
+            Vector3 testPNJGlobal = cameraSelection.selectedObject.position;
+
+            Debug.Log($"En vrai on est bien la non ? voici le testPNJ LOCAL {testPNJ} voici le GLOBAL {testPNJGlobal}");
+
             cameraSelection.OnObjectUnselected();
 
             _playerData.setPNJvalide(testPNJ);
         }
 
-        score.ServeurScore(TestZoneNumber(), resultat, testPNJ);
+        score.ServeurScore(testZone, resultat, testPNJ);
 
-        _playerData.testPNJ();
+        //_playerData.testPNJ();
         seekerView.guessButton.gameObject.SetActive(false);
 
         foreach (NetworkConnection conn in NetworkServer.connections.Values)
@@ -84,8 +90,6 @@ public class CheckPNJSelected : NetworkBehaviour
         {
             GameObject player = cameraSelection.selectedObject.gameObject;
             RaycastHit hit;
-
-           
 
             if (Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.down), out hit, 100f))
             {
