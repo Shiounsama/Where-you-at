@@ -22,12 +22,15 @@ public class RoleWheel : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private Animation wheelAnim;
+    [SerializeField] private Animation zoomAnim;
     [SerializeField] private Animation popOutAnim;
     [SerializeField] private Animation popInAnim;
 
     [Header("")]
     [SerializeField] private PlayerData debugSelectedPlayer;
     [SerializeField] private int selectedPlayerIndex;
+    [SerializeField, Range(1.1f, 1.5f)] private float zoomFinalScale = 1.25f;
+    [SerializeField] private Image _frameImage;
 
     [Header("Debug")]
     [SerializeField] private bool seeker = false;
@@ -79,6 +82,10 @@ public class RoleWheel : MonoBehaviour
         wheelAnim.EndAction = EndWheelAnimation;
         wheelAnim.Duration = _turnDuration;
 
+        zoomAnim.UpdateAction = UpdateZoomAnimation;
+        zoomAnim.EndAction = EndZoomAnimation;
+        zoomAnim.Duration = _turnDuration;
+
         popOutAnim.UpdateAction = UpdatePopOutAnimation;
         popOutAnim.EndAction = EndPopOutAnimation;
 
@@ -86,6 +93,7 @@ public class RoleWheel : MonoBehaviour
         popInAnim.EndAction = EndPopInAnimation;
 
         StartWheelAnimation();
+        StartZoomAnimation();
     }
 
     #region Enable Disable
@@ -165,13 +173,16 @@ public class RoleWheel : MonoBehaviour
         {
             Debug.Log("Ctrl + W");
             wheelAnim.Update(20f);
+            zoomAnim.Update(20f);
         }
         else
         {
             wheelAnim.Update(Time.deltaTime);
+            zoomAnim.Update(Time.deltaTime);
         }
 #else
         wheelAnim.Update(Time.deltaTime);
+        zoomAnim.Update(Time.deltaTime);
 #endif
 
         popOutAnim.Update(Time.deltaTime);
@@ -277,7 +288,28 @@ public class RoleWheel : MonoBehaviour
                 MostForwardTile = currentTile;
         }
 
+        MostForwardTile.updateScale = false;
+
         StartPopOutAnimation();
+    }
+
+    // Frame zoom animation
+
+    private void StartZoomAnimation()
+    {
+        _frameImage.transform.localScale = Vector3.one;
+
+        zoomAnim.StartAnimation();
+    }
+
+    private void UpdateZoomAnimation(float t)
+    {
+        _frameImage.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * zoomFinalScale, t);
+    }
+
+    private void EndZoomAnimation()
+    {
+        _frameImage.transform.localScale = Vector3.one * zoomFinalScale;
     }
 
     // Pop out animation

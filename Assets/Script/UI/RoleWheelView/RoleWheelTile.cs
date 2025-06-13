@@ -6,6 +6,7 @@ using UnityEngine;
 public class RoleWheelTile : MonoBehaviour, IComparable
 {
     public int scaleMultiplier { get; set; } = 5;
+    public bool updateScale { get; set; } = true;
 
     public NetworkRoomPlayerLobby AssociatedPlayer { get; private set; }
     public PlayerData DebugAssociatedPlayer { get; private set; }
@@ -60,6 +61,9 @@ public class RoleWheelTile : MonoBehaviour, IComparable
 
     private void LateUpdate()
     {
+        if (!updateScale) 
+            return;
+
         SetCurrentSize();
     }
 

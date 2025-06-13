@@ -28,7 +28,7 @@ public class PlayerScoring : NetworkBehaviour
     [SyncVar]
     public bool IsGuess = false;
 
-    [SyncVar]
+    [SyncVar, Tooltip("Phase du jeu")]
     public int compteurGame = 0;
 
     [SyncVar]
@@ -250,6 +250,8 @@ public class PlayerScoring : NetworkBehaviour
                 }
             }
 
+
+            manager.nombrePartie++;
             FindObjectOfType<ScoreGame>().ShowScore();
         }
     }
