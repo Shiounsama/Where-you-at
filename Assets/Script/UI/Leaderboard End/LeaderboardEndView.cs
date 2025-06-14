@@ -33,7 +33,7 @@ namespace Leaderboard.End
         /// <summary>
         /// Efface le leaderboard et cache tous les panels.
         /// </summary>
-        private void OnClick_NextRoundButton() => Debug.Log("NextRoundButton"); //TODO;
+        private void OnClick_NextRoundButton() => StartCoroutine(NetworkMana.Instance.RestartGame());
         #endregion
 
         #region Score
