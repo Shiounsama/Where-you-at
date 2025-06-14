@@ -484,9 +484,11 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localRotation = Quaternion.identity;
 
                 seekerAudio.enabled = false;
+
+                Destroy(PNJcible);
             }
 
-            Destroy(PNJcible);
+            
 
             if (timerCoroutine != null)
                 StopCoroutine(timerCoroutine);
