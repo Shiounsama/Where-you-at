@@ -423,6 +423,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5500203425927156984}
     m_Modifications:
+    - target: {fileID: 279100047339756126, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_Spacing
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 279100047339756126, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 279100047339756126, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 279100047339756126, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 279100047339756126, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643329231788136128, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643329231788136128, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2883389810137931629, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_Name
       value: General TChat
@@ -467,6 +495,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4917513313067921045, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 31a3d053ceb94464e88424968428a7e9, type: 3}
     - target: {fileID: 6434018488733056305, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: sceneId
       value: 0
@@ -477,7 +509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257715958972130316, guid: c30ce5c70efa5cc4d8fd283ee1c4b012, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 14105697
+      value: 14920145
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -584,8 +616,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 891574152355077951, guid: a7f7fe2bff6556742a424820b5ab669a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5765235594751977223}
   m_SourcePrefab: {fileID: 100100000, guid: a7f7fe2bff6556742a424820b5ab669a, type: 3}
+--- !u!1 &6108096061907301357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 891574152355077951, guid: a7f7fe2bff6556742a424820b5ab669a, type: 3}
+  m_PrefabInstance: {fileID: 6384926653150735570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5765235594751977223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6108096061907301357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2270e2646da6941b4ee0192381582b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleEndValue: 1.1
+  scaleSpeed: 3
 --- !u!224 &8285438468112300279 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3053469775310722085, guid: a7f7fe2bff6556742a424820b5ab669a, type: 3}
