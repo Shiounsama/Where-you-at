@@ -311,11 +311,10 @@ public class PlayerScoring : NetworkBehaviour
         }
 
         yield return new WaitForSeconds(1.5f);
-
         switch (manager.nombrePartie)
         {
             case 0:
-                yield return StartCoroutine(transitionCam(new Vector3(-41, 3, 42), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-14.4142151f, -0.794782221f, 14.1129827f), 8, true, 1f));
                 break;
 
             case 1:
@@ -323,7 +322,7 @@ public class PlayerScoring : NetworkBehaviour
                 break;
 
             case 2:
-                yield return StartCoroutine(transitionCam(new Vector3(-14, -1, 14), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-14.4142151f, -0.794782221f, 14.1129827f), 8, true, 1f));
                 break;
         }
 
