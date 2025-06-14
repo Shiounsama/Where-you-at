@@ -145,7 +145,7 @@ public class PlayerData : NetworkBehaviour
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
 
-                        Destroy(PNJcible);
+                        //Destroy(PNJcible);
 
                     }
                 }

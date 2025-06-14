@@ -61,6 +61,7 @@ public class ScoreGame : NetworkBehaviour
 
         timer timerScript = FindObjectOfType<timer>();
         timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+        timerScript.timeSprite.enabled = false;
 
         for (int i = 0; i< scores.Count; i++)
         {

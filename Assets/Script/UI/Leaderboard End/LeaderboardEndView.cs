@@ -51,8 +51,12 @@ namespace Leaderboard.End
             string playerName = playerScoring.GetComponent<PlayerData>().playerName;
             
             float distance = playerScoring.Distance;
-            
-            scoreElement.UpdateScoreText(placement, playerName, distance);
+
+            float Score = playerScoring.ScoreJoueur;
+
+            float scoreFinal = playerScoring.ScoreFinal;
+
+            scoreElement.UpdateScoreText(placement, playerName, Score);
 
             DisableNextRoundButton();
 
