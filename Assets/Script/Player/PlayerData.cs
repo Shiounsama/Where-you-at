@@ -138,7 +138,7 @@ public class PlayerData : NetworkBehaviour
             }
             if (role == Role.Lost)
             {
-                if (transform.position == new Vector3(0, 0, 0) || transform.position == DeuxiemeJoueurSpawn.transform.position)
+                if (transform.position == new Vector3(0, 0, 0) || transform.position != DeuxiemeJoueurSpawn.transform.position)
                 {
                     if (PNJcible != null)
                     {

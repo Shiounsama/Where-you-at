@@ -90,7 +90,8 @@ public class PlayerScoring : NetworkBehaviour
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
         int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
-        
+        List<PlayerData> scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+
 
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
@@ -133,7 +134,7 @@ public class PlayerScoring : NetworkBehaviour
                     }
                 }
 
-                        StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
+                        StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores, scriptPlayer));
 
             }
 
@@ -141,7 +142,6 @@ public class PlayerScoring : NetworkBehaviour
             {
                 var scoreGame = FindObjectOfType<ScoreGame>();
                 float moyenneScore = 0;
-                
 
                 foreach (PlayerScoring score in allScores)
                 {
@@ -164,27 +164,28 @@ public class PlayerScoring : NetworkBehaviour
                 }
 
                 foreach (PlayerScoring score in allScores)
-                {
+                {                  
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
                         score.ScoreFinal += score.ScoreJoueur;
-                        moyenneScore += score.ScoreJoueur;
-                    }
+                        moyenneScore += score.ScoreJoueur;                      
+                    }                 
+                }
 
-                    else
+                foreach (PlayerScoring score in allScores)
+                {
+                    if (score.GetComponent<PlayerData>().role == Role.Lost)
                     {
-                        score.ScoreJoueur = moyenneScore/seekerCount;
+                     
+                        score.ScoreJoueur = moyenneScore / seekerCount;
                         score.ScoreFinal += score.ScoreJoueur;
                         score.finish = true;
                     }
-
-                    scoreGame.ShowScore();
                 }
-                    
-                timer timerScript = FindObjectOfType<timer>();
-                timerScript.time = 999999;
-                
 
+                scoreGame.ShowScore();
+                timer timerScript = FindObjectOfType<timer>();
+                timerScript.time = 999999;                
             }
         }
     }
@@ -215,6 +216,7 @@ public class PlayerScoring : NetworkBehaviour
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        List<PlayerData> scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         foreach (PlayerScoring player in allScores)
         {
             player.compteurGame++;
@@ -223,7 +225,7 @@ public class PlayerScoring : NetworkBehaviour
 
         if (compteurGame == 1)
         {
-            StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
+            StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores, scriptPlayer));
         }
 
         if (compteurGame == 2)
@@ -262,7 +264,7 @@ public class PlayerScoring : NetworkBehaviour
         }
     }
 
-    IEnumerator StartGameTransition(List<string> allPlayerDataName, List<bool> allPlayerScoringFinished, List<PlayerScoring> allScores)
+    IEnumerator StartGameTransition(List<string> allPlayerDataName, List<bool> allPlayerScoringFinished, List<PlayerScoring> allScores, List<PlayerData> scriptPlayer)
     {
         timer timerScript = FindObjectOfType<timer>();
 
@@ -274,22 +276,22 @@ public class PlayerScoring : NetworkBehaviour
 
         if (car != null)
             car.SetActive(false);
-         
+
         foreach (PlayerScoring player in allScores)
         {
             player.GetComponent<PlayerData>().DisablePlayer();
         }
-        
+
         yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 43, false, 2f));
-        
+
         SetFxOnGuessedPNJ(true, true);
-        
+
         yield return new WaitForSeconds(1);
 
         FindObjectOfType<CityManager>().MakePlateformFall();
 
         yield return new WaitForSeconds(3);
-        
+
         SetFxOnGuessedPNJ(false, true);
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
@@ -345,6 +347,15 @@ public class PlayerScoring : NetworkBehaviour
         timerScript.timeSprite.enabled = true;
         timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
         timerScript.RestartTimer();
+
+
+        foreach (PlayerData scriptData in scriptPlayer)
+        { 
+            if(scriptData.layoutGroupParent != null) 
+            scriptData.layoutGroupParent.gameObject.SetActive(true);
+        }
+
+
     }
 
     IEnumerator transitionCam( Vector3 endPos, int zoomCam, bool back, float temps)
@@ -382,6 +393,8 @@ public class PlayerScoring : NetworkBehaviour
                         cam.transform.localRotation = Quaternion.identity;
 
                         cam.transform.localPosition = new Vector3(0, 0, 0);
+
+                        Debug.Log($"La camObject devrait etre a {GameObject.Find("spawn2").transform.position} mais la, elle est a {camObject.transform.position}");
 
                     }
                     else
@@ -488,9 +501,7 @@ public class PlayerScoring : NetworkBehaviour
 
                     // Assigner le parent
                     fx.transform.SetParent(building.transform);
-
-                
-
+               
                     // Définir la position locale par rapport au parent (ici building)
                     fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + Vector3.up * 13;
 
