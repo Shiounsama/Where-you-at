@@ -23,6 +23,7 @@ public class FindYourFriendView : View
     [SerializeField, Range(5f, 30f)] private float waveFrequency = 30f;
 
     private CanvasGroup _arrowCanvasGroup;
+    private GameObject _tchatPanel;
     private Volume _volume;
     private DepthOfField _dof;
 
@@ -39,6 +40,7 @@ public class FindYourFriendView : View
 
         findYourFriendText.transform.localScale = Vector3.zero;
         silhouettePanel.transform.localPosition = new Vector2(0, Screen.height);
+        _tchatPanel.SetActive(false);
 
         MoveDownAnim();
     }
@@ -49,6 +51,7 @@ public class FindYourFriendView : View
         _volume = FindObjectOfType<Volume>();
         _volume.profile.TryGet(out _dof);
         _dof.focalLength.value = 100f;
+        _tchatPanel = GameObject.FindGameObjectWithTag("TchatHistory");
     }
 
     private void OnEnable()
@@ -102,6 +105,8 @@ public class FindYourFriendView : View
             {
                 View v = ViewManager.Instance.defaultView;
                 ViewManager.Instance.Show<View>(v);
+
+                _tchatPanel.SetActive(true);
 
                 timer timerGame = FindAnyObjectByType<timer>();
 
