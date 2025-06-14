@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 3da1b493386939448a34038068222648, type: 3}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.58832693, g: 0.8384629, b: 0.91955775, a: 1}
+  m_IndirectSpecularColor: {r: 0.58837384, g: 0.83847064, b: 0.9195297, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1838,6 +1838,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1900589237891294760, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
+      propertyPath: generalMessagePrefab
+      value: 
+      objectReference: {fileID: 3395364202626205395, guid: a9b688beca398f64d84552749cbc85c9, type: 3}
+    - target: {fileID: 1900589237891294760, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
+      propertyPath: personalMessagePrefab
+      value: 
+      objectReference: {fileID: 3395364202626205395, guid: 3b15248d91a5b35419c8e2c749543aae, type: 3}
     - target: {fileID: 3074136939739321978, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: m_Name
       value: NetworkManager
@@ -1924,11 +1932,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6914267310917514558, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 14699652
+      value: 15517196
       objectReference: {fileID: 0}
     - target: {fileID: 7063551800902183939, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: sceneId
       value: 894018809
+      objectReference: {fileID: 0}
+    - target: {fileID: 8335545185156175700, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
+      propertyPath: fakeVille
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9183537862602669991, guid: f890cc3a1eeaeb042940ce08174095e1, type: 3}
       propertyPath: m_Texture
