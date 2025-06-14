@@ -312,7 +312,7 @@ public class PlayerScoring : NetworkBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
+        switch (manager.nombrePartie)
         {
             case 1:
                 yield return StartCoroutine(transitionCam(new Vector3(-41, 3, 42), 8, true, 1f));

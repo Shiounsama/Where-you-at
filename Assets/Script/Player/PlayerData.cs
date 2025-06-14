@@ -395,6 +395,22 @@ public class PlayerData : NetworkBehaviour
 
             showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
+            GameObject PNJclone = PNJcible.gameObject;
+
+            PNJclone.GetComponent<PNJClothe>().enabled = false;
+
+            Vector3 uwuVector = Vector3.zero;
+
+            GameObject hintPNJObject = Instantiate(PNJclone);
+
+            hintPNJObject.tag = "PNJCOPIE";
+
+            hintPNJObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+            hintPNJObject.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
+
+            hintPNJObject.GetComponent<Rigidbody>().useGravity = false;
+
             if (role == Role.Seeker)
             {
                 SeekerView seekerView = GetComponentInChildren<SeekerView>(true);
@@ -429,21 +445,7 @@ public class PlayerData : NetworkBehaviour
                 seekerAudio.enabled = true;
                 seekerAudio.cityTransform = building.transform;
 
-                GameObject PNJclone = PNJcible.gameObject;
-
-                PNJclone.GetComponent<PNJClothe>().enabled = false;
-
-                Vector3 uwuVector = Vector3.zero;
-
-                GameObject hintPNJObject = Instantiate(PNJclone);
-
-                hintPNJObject.tag = "PNJCOPIE";
-
-                hintPNJObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-
-                hintPNJObject.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
-
-                hintPNJObject.GetComponent<Rigidbody>().useGravity = false;
+                
 
                 foreach (Transform child in hintPNJObject.GetComponentsInChildren<Transform>())
                 {
@@ -483,6 +485,8 @@ public class PlayerData : NetworkBehaviour
 
                 seekerAudio.enabled = false;
             }
+
+            Destroy(PNJcible);
 
             if (timerCoroutine != null)
                 StopCoroutine(timerCoroutine);
