@@ -20,7 +20,7 @@ public class PauseMenuView : View
     {
         base.Show(args);
 
-        ViewManager.Instance.ShowFadedBackground(true);
+        //ViewManager.Instance.ShowFadedBackground(true);
     }
 
     public override void Hide()

@@ -90,7 +90,6 @@ MonoBehaviour:
   minDuration: 6
   maxDuration: 10
   circleRadius: 600
-  mostForwardColor: {r: 0.46666667, g: 0.7490196, b: 1, a: 1}
   tileBaseSize: {x: 500, y: 225}
   tilesScaleMultiplier: 12
   tileNormalSprite: {fileID: 21300000, guid: c0df150cd1b33b6498e016558e136c5e, type: 3}
@@ -98,6 +97,33 @@ MonoBehaviour:
   tilePrefab: {fileID: 0}
   wheelAnim:
     _duration: 0.5
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _startOffsetDuration: 0
+  zoomAnim:
+    _duration: 5
     _curve:
       serializedVersion: 2
       m_Curve:
@@ -179,6 +205,8 @@ MonoBehaviour:
     _startOffsetDuration: 0
   debugSelectedPlayer: {fileID: 0}
   selectedPlayerIndex: 0
+  zoomFinalScale: 1.25
+  _frameImage: {fileID: 0}
   seeker: 0
   editorMode: 0
 --- !u!1001 &97384467903723651
