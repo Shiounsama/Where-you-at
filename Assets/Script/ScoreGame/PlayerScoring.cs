@@ -10,6 +10,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerScoring : NetworkBehaviour
 {
+    public GameObject projectorFXPrefab;
+    private List<GameObject> projectorFXList;
+
     [SyncVar]
     public bool finish;
 
@@ -38,6 +41,9 @@ public class PlayerScoring : NetworkBehaviour
     public List<PlayerScoring> OrdreGuess = new List<PlayerScoring>();
 
     [SyncVar]
+    public Vector3 seekerGuessedPNJs;
+
+    [SyncVar]
     public Vector3 positionLost;
 
     public override void OnStartLocalPlayer()
@@ -48,8 +54,11 @@ public class PlayerScoring : NetworkBehaviour
 
 
     [Command]
-    public void ServeurScore(bool newScore, float distance)
+    public void ServeurScore(bool newScore, float distance, Vector3 guess)
     {
+        seekerGuessedPNJs = guess;
+
+
         StartCoroutine(resultat(newScore, distance));
     }
 
@@ -96,8 +105,6 @@ public class PlayerScoring : NetworkBehaviour
             {
                 allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                 allPlayerScoringFinished.Add(player.finish);
-
-
             }
 
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
@@ -140,7 +147,6 @@ public class PlayerScoring : NetworkBehaviour
                 {
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
-                        Debug.Log($"OUAIS LE RESULTAT {resultat}");
                            
                         if (resultat >= 0 && resultat <= 5)
                         {
@@ -265,20 +271,26 @@ public class PlayerScoring : NetworkBehaviour
         timerScript.time = 9999;
 
         GameObject car = GameObject.Find("redCar");
-        car.SetActive(false);
+
+        if (car != null)
+            car.SetActive(false);
          
         foreach (PlayerScoring player in allScores)
         {
             player.GetComponent<PlayerData>().DisablePlayer();
         }
-
+        
         yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 43, false, 2f));
-
+        
+        SetFxOnGuessedPNJ(true, true);
+        
         yield return new WaitForSeconds(1);
 
         FindObjectOfType<CityManager>().MakePlateformFall();
 
         yield return new WaitForSeconds(3);
+        
+        SetFxOnGuessedPNJ(false, true);
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
         GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
@@ -444,5 +456,79 @@ public class PlayerScoring : NetworkBehaviour
         }
     }
 
+    public void SetFxOnGuessedPNJ(bool stateOfFX, bool showOnLostPlayer)
+    {
+        List<PlayerData> scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+        GameObject building = GameObject.Find("VilleELP");
 
+        // Sécurité : initialiser la liste si elle est null ou la nettoyer
+        if (projectorFXList == null)
+            projectorFXList = new List<GameObject>();
+        else
+        {
+            // Détruire les anciens FX pour éviter des doublons
+            foreach (GameObject fx in projectorFXList)
+            {
+                Destroy(fx);
+            }
+            projectorFXList.Clear();
+        }
+
+        int colorIndex = 0;
+
+
+        foreach (PlayerData playerData in scriptPlayer)
+        {
+            if (playerData.role == Role.Seeker)
+            {
+                if (playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs != new Vector3(0, 0, 0))
+                {
+                    // Instancier sans parent
+                    GameObject fx = Instantiate(projectorFXPrefab);
+
+                    // Assigner le parent
+                    fx.transform.SetParent(building.transform);
+
+                
+
+                    // Définir la position locale par rapport au parent (ici building)
+                    fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + Vector3.up * 13;
+
+                    // Appliquer la couleur
+                    fx.GetComponent<SpriteRenderer>().color = playerData.playerColor;
+
+
+                    // Ajouter à la liste
+                    projectorFXList.Add(fx);
+                    colorIndex++;
+                }
+            }
+        }
+
+        // Gestion de l'affichage des FX
+        foreach (GameObject fx in projectorFXList)
+        {
+            fx.SetActive(false); // on désactive d'abord tout par sécurité
+        }
+
+        if (stateOfFX)
+        {
+            if (showOnLostPlayer)
+            {
+                // Activer tous les FX si l'option ShowOnLostPlayer est vraie
+                foreach (GameObject fx in projectorFXList)
+                {
+                    fx.SetActive(true);
+                }
+            }
+            else
+            {
+                // Activer uniquement les FX des PNJs devinés (et non celui des Lost)
+                for (int i = 0; i < projectorFXList.Count; i++)
+                {
+                    projectorFXList[i].SetActive(true);
+                }
+            }
+        }
+    }
 }
