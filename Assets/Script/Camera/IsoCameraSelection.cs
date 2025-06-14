@@ -1,4 +1,4 @@
-using UnityEngine;
+                                                                                                                                                            using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class IsoCameraSelection : MonoBehaviour
@@ -19,7 +19,7 @@ public class IsoCameraSelection : MonoBehaviour
     public void OnObjectSelected(InputAction.CallbackContext context)
     {
         if (!_seekerView)
-            _seekerView = ViewManager.Instance.defaultView as SeekerView;
+            _seekerView = ViewManager.Instance.defaultView as SeekerView;                           
 
         if (context.performed)
         {
@@ -73,7 +73,7 @@ public class IsoCameraSelection : MonoBehaviour
 
     public void OnObjectUnselected()
     {
-        if (selectedObject != null)
+        if (selectedObject != null)       
         {
             foreach (Transform child in selectedObject)
             {

@@ -63,10 +63,6 @@ public class PNJSpawner : MonoBehaviour
 
                 InstantiatePNJs(pnjPrefab, numberToSpawn);
             }
-            else
-            {
-                StartCoroutine(Manager.fakeVillRole());
-            }
         }
     }
 

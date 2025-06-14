@@ -19,7 +19,7 @@ public class TchatPlayer : NetworkBehaviour
     }
 
     /// <summary>
-    /// attrape le message écrit et grace au tchatManager l'envoie a tous le monde 
+    /// attrape le message ï¿½crit et grace au tchatManager l'envoie a tous le monde 
     /// </summary>
     public void SendMessage()
     {
@@ -66,6 +66,6 @@ public class TchatPlayer : NetworkBehaviour
     [Command]
     public void CmdSendMessage(string message)
     {
-        TchatManager.Instance.AddMessage(message, transform.parent.GetComponentInChildren<PlayerData>().playerName);
+        TchatManager.Instance.AddMessage(message, transform.parent.GetComponentInChildren<PlayerData>().playerName, transform.parent.GetComponentInChildren<PlayerData>().role);
     }
 }
