@@ -176,11 +176,6 @@ public class PlayerData : NetworkBehaviour
                 
     }
 
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-    }
-
     /// <summary>
     /// Assigne un nouveau r�le au joueur.
     /// </summary>
@@ -414,6 +409,17 @@ public class PlayerData : NetworkBehaviour
 
             hintPNJObject.GetComponent<Rigidbody>().useGravity = false;
 
+            foreach (Transform child in hintPNJObject.GetComponentsInChildren<Transform>())
+            {
+                if (child == hintPNJObject.transform) continue;
+
+                SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.color = Color.black;
+                }
+            }
+
             if (role == Role.Seeker)
             {
                 SeekerView seekerView = GetComponentInChildren<SeekerView>(true);
@@ -446,20 +452,7 @@ public class PlayerData : NetworkBehaviour
                 //PNJcible.SetActive(true);
 
                 seekerAudio.enabled = true;
-                seekerAudio.cityTransform = building.transform;
-
-                
-
-                foreach (Transform child in hintPNJObject.GetComponentsInChildren<Transform>())
-                {
-                    if (child == hintPNJObject.transform) continue;
-
-                    SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
-                    if (sr != null)
-                    {
-                        sr.color = Color.black;
-                    }
-                }
+                seekerAudio.cityTransform = building.transform;                
 
                 StartCoroutine(PNJHint(canvasHintPNJ));
             
