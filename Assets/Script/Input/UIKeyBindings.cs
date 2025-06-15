@@ -65,7 +65,7 @@ public class UIKeyBindings : MonoBehaviour
 
     private void OnPause(InputAction.CallbackContext context)
     {
-        Debug.Log("Pause");
+        // Debug.Log("Pause");
 
         if (ViewManager.Instance.IsCurrentView<SeekerView>() || ViewManager.Instance.IsCurrentView<LostView>())
         {

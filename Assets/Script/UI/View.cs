@@ -13,13 +13,17 @@ public abstract class View : NetworkBehaviour
 
     public bool IsInitialized { get; private set; }
 
-    public virtual void Initialize()
+    public virtual void Awake()
     {
         if (returnButton)
         {
+            
             returnButton.onClick.AddListener(OnClick_Return);
         }
+    }
 
+    public virtual void Initialize()
+    {
         if (IsInitialized)
             return;
 

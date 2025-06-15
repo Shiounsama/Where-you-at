@@ -6,14 +6,20 @@ using UnityEngine.UI;
 
 public class PauseMenuView : View
 {
-    [SerializeField] private Button resumeButton, settingsButton, mappingsButton, mainMenuButton;
+    [Header("Pause menu view")]
+    [SerializeField] private Button resumeButton; 
+    [SerializeField] private Button settingsButton, keybindsButton, quitButton;
 
-    public override void Initialize()
+    public override void Awake()
     {
+        base.Awake();
+
+        // Initialize buttons
+
         resumeButton.onClick.AddListener(OnClick_Resume);
         settingsButton.onClick.AddListener(OnClick_Settings);
-        mappingsButton.onClick.AddListener(OnClick_Mappings);
-        mainMenuButton.onClick.AddListener(OnClick_MainMenu);
+        keybindsButton.onClick.AddListener(OnClick_Keybinds);
+        quitButton.onClick.AddListener(OnClick_Quit);
     }
 
     public override void Show(object args = null)
@@ -38,18 +44,16 @@ public class PauseMenuView : View
 
     private void OnClick_Settings()
     {
-        // ViewManager.Instance.Show<SettingsMenuView>();
+        ViewManager.Instance.Show<SettingsView>();
     }
 
-    private void OnClick_Mappings()
+    private void OnClick_Keybinds()
     {
         // ViewManager.Instance.Show<MappingsView>();
     }
 
-    private void OnClick_MainMenu()
+    private void OnClick_Quit()
     {
-        //TODO
-
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

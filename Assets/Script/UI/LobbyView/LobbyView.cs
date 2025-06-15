@@ -18,8 +18,10 @@ public class LobbyView : View
 
     private PlayerStatus[] _playerStatuses;
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
+        
         _playerStatuses = GetComponentsInChildren<PlayerStatus>();
     }
 
