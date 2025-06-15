@@ -311,19 +311,18 @@ public class PlayerScoring : NetworkBehaviour
         }
 
         yield return new WaitForSeconds(1.5f);
-
-        switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
+        switch (manager.nombrePartie)
         {
+            case 0:
+                yield return StartCoroutine(transitionCam(new Vector3(-14.4142151f, -0.794782221f, 14.1129827f), 8, true, 1f));
+                break;
+
             case 1:
-                yield return StartCoroutine(transitionCam(new Vector3(-41, 3, 42), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-19.7944221f, -9.1157465f, 16.3399448f), 8, true, 1f));
                 break;
 
             case 2:
-                yield return StartCoroutine(transitionCam(new Vector3(6, -5, -8), 8, true, 1f));
-                break;
-
-            case 0:
-                yield return StartCoroutine(transitionCam(new Vector3(-14, -1, 14), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-14.4142151f, -0.794782221f, 14.1129827f), 8, true, 1f));
                 break;
         }
 
