@@ -49,7 +49,7 @@ public class PauseMenuView : View
 
     private void OnClick_Keybinds()
     {
-        // ViewManager.Instance.Show<MappingsView>();
+        ViewManager.Instance.Show<KeybindsView>();
     }
 
     private void OnClick_Quit()
