@@ -64,6 +64,8 @@ public class manager : NetworkBehaviour
     {
         if (!Instance)
             Instance = this;
+
+        nombrePartie = 0;
     }
 
     bool IsEveryoneActive()

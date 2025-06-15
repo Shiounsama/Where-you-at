@@ -122,22 +122,11 @@ public class PlayerData : NetworkBehaviour
         {
             if (PNJcible == null)
             {
-                GameObject parentObject = GameObject.Find("VilleELP");
-
-                GameObject pnjCible = null;
-
-                // Parcourt tous les enfants
-                foreach (Transform child in parentObject.GetComponentsInChildren<Transform>())
-                {
-                    if (child.CompareTag("PNJCIBLE"))
-                    {
-                        pnjCible = child.gameObject;
-                        break; 
-                    }
-                }
-
+                PNJcible = GameObject.FindWithTag("PNJCIBLE");
 
                 SetPlateform();
+
+                FindObjectOfType<fakeVilleSpawn>().spawnClone();
 
             }
 
@@ -650,6 +639,23 @@ public class PlayerData : NetworkBehaviour
                 emoVoisin.enabled = true;
             }
         }
+    }
+
+    public void AbleEnd()
+    {
+        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+
+        IsoCameraSelection camSelecIso = GetComponentInChildren<IsoCameraSelection>();
+
+
+        GetComponentInChildren<PlayerInput>().enabled = true;
+
+        camDragIso.enabled = true;
+        camRotaIso.enabled = true;
+        camSelecIso.enabled = true;
+        camSelecIso.CanSelect = false;
     }
 
     void OnDrawGizmosSelected()

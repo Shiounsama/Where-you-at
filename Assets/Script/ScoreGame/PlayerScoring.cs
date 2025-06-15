@@ -106,10 +106,12 @@ public class PlayerScoring : NetworkBehaviour
             {
                 allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                 allPlayerScoringFinished.Add(player.finish);
+                
             }
+            timer timerScript = FindObjectOfType<timer>();
 
+            timerScript.time = 30;
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
-
         }
         else
         {
@@ -183,9 +185,9 @@ public class PlayerScoring : NetworkBehaviour
                     }
                 }
 
-                scoreGame.ShowScore();
-                timer timerScript = FindObjectOfType<timer>();
-                timerScript.time = 999999;                
+                //Lancer la coroutine ici
+                StartCoroutine(StartEndTransition(allScores, scriptPlayer));
+
             }
         }
     }
@@ -258,9 +260,10 @@ public class PlayerScoring : NetworkBehaviour
                 }
             }
 
+            //Lancer la coroutine ici
+            StartCoroutine(StartEndTransition(allScores, scriptPlayer));
 
-            manager.nombrePartie++;
-            FindObjectOfType<ScoreGame>().ShowScore();
+
         }
     }
 
@@ -355,6 +358,39 @@ public class PlayerScoring : NetworkBehaviour
         }
 
 
+    }
+
+    IEnumerator StartEndTransition(List<PlayerScoring> allScores, List<PlayerData> scriptPlayer)
+    {
+        timer timerScript = FindObjectOfType<timer>();
+
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+        timerScript.timeSprite.enabled = false;
+        timerScript.StopTimer();
+
+        foreach (PlayerScoring player in allScores)
+        {
+            player.GetComponent<PlayerData>().DisablePlayer();
+        }
+
+        dezoomCamera();
+
+        yield return new WaitForSeconds(3);
+      
+        Debug.Log("Dr house est génial enfaite");
+
+        manager.nombrePartie++;
+        FindObjectOfType<ScoreGame>().ShowScore();
+
+        foreach (PlayerData scriptData in scriptPlayer)
+        {
+            if (scriptData.isLocalPlayer)
+            {
+                Debug.Log("la mort enfaite");
+                scriptData.AbleEnd();
+            }
+        }
+        yield return null;
     }
 
     IEnumerator transitionCam( Vector3 endPos, int zoomCam, bool back, float temps)
@@ -571,13 +607,44 @@ public class PlayerScoring : NetworkBehaviour
 
     IEnumerator dezoomCamera()
     {
+
         Camera cam = new Camera();
         GameObject camObject = new GameObject();
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        SetFxOnGuessedPNJ(true, true);
 
+        ViewManager.Instance.StartFadeIn();
+        yield return new WaitForSeconds(1f);
+
+        foreach (PlayerScoring player in allScores)
+        {
+            if (player.isLocalPlayer)
+            {
+                cam = player.GetComponentInChildren<Camera>();
+                camObject = player.gameObject;
+               
+                cam.orthographic = true;
+                cam.orthographicSize = 8;
+
+                player.positionLost = camObject.transform.position;
+
+                camObject.transform.position = GameObject.Find("spawnEND").transform.position;
+
+                camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
+
+                cam.transform.localRotation = Quaternion.identity;
+
+                cam.transform.localPosition = new Vector3(0, 0, 0);
+            }
+        
+        }
+
+        ViewManager.Instance.StartFadeOut();
+        yield return new WaitForSeconds(0.5f);
+
+       
         float elapsed = 0f;
         float startZoom = cam.orthographicSize;
-
-
 
         int temps = 1;
         
@@ -588,7 +655,39 @@ public class PlayerScoring : NetworkBehaviour
             cam.orthographicSize = Mathf.Lerp(startZoom, 43, t);
           
             elapsed += Time.deltaTime;
-            yield return null;
+            ViewManager.Instance.StartFadeOut();
+            
         }
+
+        ViewManager.Instance.StartFadeIn();
+        yield return new WaitForSeconds(1f);
+
+        foreach (PlayerScoring player in allScores)
+        {
+            if (player.isLocalPlayer)
+            {
+                cam = player.GetComponentInChildren<Camera>();
+                camObject = player.gameObject;
+
+                cam.orthographicSize = 8;
+
+                cam.orthographic = true;
+
+                player.positionLost = camObject.transform.position;
+
+                camObject.transform.position = GameObject.Find("spawnEND").transform.position;
+
+                camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
+
+                cam.transform.localRotation = Quaternion.identity;
+
+                cam.transform.localPosition = new Vector3(0, 0, 0);
+            }
+
+        }
+
+        ViewManager.Instance.StartFadeOut();
+
+        yield return null;
     }
 }
