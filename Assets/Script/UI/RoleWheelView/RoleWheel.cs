@@ -84,7 +84,6 @@ public class RoleWheel : MonoBehaviour
 
         zoomAnim.UpdateAction = UpdateZoomAnimation;
         zoomAnim.EndAction = EndZoomAnimation;
-        zoomAnim.Duration = _turnDuration;
 
         popOutAnim.UpdateAction = UpdatePopOutAnimation;
         popOutAnim.EndAction = EndPopOutAnimation;
