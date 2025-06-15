@@ -375,7 +375,7 @@ public class PlayerScoring : NetworkBehaviour
 
         StartCoroutine(dezoomCamera());
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
       
 
         manager.nombrePartie++;
@@ -624,9 +624,28 @@ public class PlayerScoring : NetworkBehaviour
                 camObject = player.gameObject;
                
                 cam.orthographic = true;
-                cam.orthographicSize = 8;
+                cam.orthographicSize = 2;
 
                 player.positionLost = camObject.transform.position;
+
+                switch (manager.nombrePartie)
+                {
+                    case 0:
+                        camObject.transform.position = new Vector3(1016, 1024.40002f, 954.799988f);
+
+                        camObject.transform.rotation = Quaternion.Euler(14.9999933f, 44.9999924f, 4.41945701e-07f);
+                        break;
+
+                    case 1:
+                        camObject.transform.position = GameObject.Find("spawnEND").transform.position;
+                        camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
+                        break;
+
+                    case 2:
+                        camObject.transform.position = GameObject.Find("spawnEND").transform.position;
+                        camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
+                        break;
+                }
 
                 camObject.transform.position = GameObject.Find("spawnEND").transform.position;
 
@@ -640,19 +659,21 @@ public class PlayerScoring : NetworkBehaviour
         }
 
         ViewManager.Instance.StartFadeOut();
-        yield return new WaitForSeconds(0.5f);
+
+        yield return new WaitForSeconds(2);
        
         float elapsed = 0f;
         float startZoom = cam.orthographicSize;
 
-        int temps = 1;
+        int temps = 3;
         
         while (elapsed < temps)
         {     
             float t = elapsed / temps;
             cam.orthographicSize = Mathf.Lerp(startZoom, 43, t);
           
-            elapsed += Time.deltaTime;                      
+            elapsed += Time.deltaTime;
+            yield return null;
         }
 
         yield return new WaitForSeconds(2f);
