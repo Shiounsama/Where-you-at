@@ -148,6 +148,7 @@ public class PlayerData : NetworkBehaviour
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
 
+                        Debug.Log($"Le transform est de {transform.position} alors que {PNJcible.transform.position}");
                         //Destroy(PNJcible);
 
                     }
@@ -481,7 +482,16 @@ public class PlayerData : NetworkBehaviour
 
                 seekerAudio.enabled = false;
 
-                Destroy(PNJcible);
+                foreach (Transform child in PNJcible.GetComponentsInChildren<Transform>())
+                {
+                    if (child == PNJcible.transform) continue;
+
+                    SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
+                    if (sr != null)
+                    {
+                        sr.enabled = false;
+                    }
+                }
             }
 
             

@@ -620,20 +620,26 @@ public class PlayerScoring : NetworkBehaviour
         {
             if (player.isLocalPlayer)
             {
+                player.GetComponent<PlayerData>().role = Role.Seeker;
                 cam = player.GetComponentInChildren<Camera>();
                 camObject = player.gameObject;
                
                 cam.orthographic = true;
-                cam.orthographicSize = 2;
+                cam.orthographicSize = 1;
 
                 player.positionLost = camObject.transform.position;
 
+
                 switch (manager.nombrePartie)
                 {
-                    case 0:
-                        camObject.transform.position = new Vector3(1016, 1024.40002f, 954.799988f);
+                    case 0:                        
+                        camObject.transform.position = new Vector3(1052, 1022.5f, 1068.80005f);
 
-                        camObject.transform.rotation = Quaternion.Euler(14.9999933f, 44.9999924f, 4.41945701e-07f);
+                        camObject.transform.rotation = Quaternion.Euler(14.9999952f, 135, 0);
+
+                        cam.transform.localRotation = Quaternion.identity;
+
+                        cam.transform.localPosition = new Vector3(0, 0, 0);
                         break;
 
                     case 1:
@@ -646,10 +652,6 @@ public class PlayerScoring : NetworkBehaviour
                         camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
                         break;
                 }
-
-                camObject.transform.position = GameObject.Find("spawnEND").transform.position;
-
-                camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
 
                 cam.transform.localRotation = Quaternion.identity;
 
