@@ -40,18 +40,12 @@ public class CityManager : MonoBehaviour
 
     public int _plateformWhereHiderIsIn;
 
-    
-
-    private void Start()
+    public void checkSol()
     {
-        
-            
         List<cityNumber> allCity = new List<cityNumber>(FindObjectsOfType<cityNumber>());
 
         foreach (cityNumber uwu in allCity)
         {
-
-
             _plateforms[uwu.zone]._plateforms.Add(uwu.gameObject);
 
             BoxCollider[] colliders = uwu.GetComponentsInChildren<BoxCollider>();
@@ -66,8 +60,6 @@ public class CityManager : MonoBehaviour
                 }
             }
         }
-            
-        
     }
 
     public void SetHiderPlateform(GameObject PlateformToCheck)

@@ -10,6 +10,8 @@ public class fakeVilleSpawn : MonoBehaviour
 
     public Vector3 positionVille = new Vector3(0,0,0);
 
+    public GameObject VilleFakeSpawn;
+
     private void Awake()
     {
         Manager = FindObjectOfType<manager>();
@@ -29,5 +31,16 @@ public class fakeVilleSpawn : MonoBehaviour
     {
         GameObject villeFake = Instantiate(listVille[manager.nombrePartie], positionVille, Quaternion.identity);
         villeFake.name = "VilleELP";
+        VilleFakeSpawn = villeFake;
+        CityManager citymanager = FindObjectOfType<CityManager>();
+        citymanager.checkSol();
+
+        
+    }
+
+    public void spawnClone()
+    {
+        GameObject villeFake2 = Instantiate(VilleFakeSpawn, positionVille + new Vector3(1000, 1000, 1000), Quaternion.identity);
+        villeFake2.name = "VilleELPclone";
     }
 }

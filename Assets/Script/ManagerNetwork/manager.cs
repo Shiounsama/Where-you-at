@@ -10,8 +10,16 @@ public class manager : NetworkBehaviour
     public List<PlayerData> scriptPlayer;
     public List<GameObject> player;
     public GameObject testBuilding;
-   
 
+    [Header("Projecteur couleur")]
+    public Color player1;
+    public Color player2;
+    public Color player3;
+    public Color player4;
+    public Color player5;
+    public Color player6;
+    public Color player7;
+    public Color player8;
 
     public static manager Instance;
 
@@ -64,6 +72,8 @@ public class manager : NetworkBehaviour
     {
         if (!Instance)
             Instance = this;
+
+        nombrePartie = 0;
     }
 
     bool IsEveryoneActive()
@@ -135,35 +145,35 @@ public class manager : NetworkBehaviour
         {
             switch (i) {
                 case 0:
-                    scriptPlayer[i].playerColor = Color.red;
+                    scriptPlayer[i].playerColor = player1;
                     break;
 
                 case 1:
-                    scriptPlayer[i].playerColor = Color.blue;
+                    scriptPlayer[i].playerColor = player2;
                     break;
 
                 case 2:
-                    scriptPlayer[i].playerColor = Color.green;
+                    scriptPlayer[i].playerColor = player3;
                     break;
 
                 case 3:
-                    scriptPlayer[i].playerColor = Color.yellow;
+                    scriptPlayer[i].playerColor = player4;
                     break;
 
                 case 4:
-                    scriptPlayer[i].playerColor = Color.yellow;
+                    scriptPlayer[i].playerColor = player5;
                     break;
 
                 case 5:
-                    scriptPlayer[i].playerColor = Color.cyan;
+                    scriptPlayer[i].playerColor = player6;
                     break;
 
                 case 6:
-                    scriptPlayer[i].playerColor = Color.magenta;
+                    scriptPlayer[i].playerColor = player7;
                     break;
 
                 case 7:
-                    scriptPlayer[i].playerColor = Color.white;
+                    scriptPlayer[i].playerColor = player8;
                     break;
             }
         }

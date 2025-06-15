@@ -1532,8 +1532,39 @@ MonoBehaviour:
   listVille:
   - {fileID: 2409982368724882184, guid: b7839ab52a84f4a4b87e60fdcee0debd, type: 3}
   - {fileID: 2828644636483321248, guid: 310f6b00d1f63254eb38b4368bfd6220, type: 3}
-  - {fileID: 4310199136082179247, guid: a52d54cd52b6d804aa081e6f19e2a82d, type: 3}
   positionVille: {x: 0, y: 0, z: 0}
+  VilleFakeSpawn: {fileID: 0}
+--- !u!1 &1904899584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1904899585}
+  m_Layer: 0
+  m_Name: spawnEND
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1904899585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904899584}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.12059042, y: 0.37940952, z: -0.049950182, w: 0.9159757}
+  m_LocalPosition: {x: 1016, y: 1024.4, z: 954.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 45, z: 0}
 --- !u!1 &1964493766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,6 +1719,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2123583817}
+  - {fileID: 1904899585}
   - {fileID: 1964493769}
   - {fileID: 1034379128}
   - {fileID: 602894948}

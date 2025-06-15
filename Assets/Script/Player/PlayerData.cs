@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerData : NetworkBehaviour
 {
@@ -122,8 +123,10 @@ public class PlayerData : NetworkBehaviour
             if (PNJcible == null)
             {
                 PNJcible = GameObject.FindWithTag("PNJCIBLE");
-                Debug.Log($"Le pnj cible est {PNJcible.name}");
+
                 SetPlateform();
+
+                FindObjectOfType<fakeVilleSpawn>().spawnClone();
 
             }
 
@@ -138,13 +141,14 @@ public class PlayerData : NetworkBehaviour
             }
             if (role == Role.Lost)
             {
-                if (transform.position == new Vector3(0, 0, 0) || transform.position == DeuxiemeJoueurSpawn.transform.position)
+                if (transform.position == new Vector3(0, 0, 0) || transform.position != DeuxiemeJoueurSpawn.transform.position)
                 {
                     if (PNJcible != null)
                     {
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
 
+                        Debug.Log($"Le transform est de {transform.position} alors que {PNJcible.transform.position}");
                         //Destroy(PNJcible);
 
                     }
@@ -171,11 +175,6 @@ public class PlayerData : NetworkBehaviour
            
         }
                 
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
     }
 
     /// <summary>
@@ -395,6 +394,33 @@ public class PlayerData : NetworkBehaviour
 
             showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
+            GameObject PNJclone = PNJcible.gameObject;
+
+            PNJclone.GetComponent<PNJClothe>().enabled = false;
+
+            Vector3 uwuVector = Vector3.zero;
+
+            GameObject hintPNJObject = Instantiate(PNJclone);
+
+            hintPNJObject.tag = "PNJCOPIE";
+
+            hintPNJObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+            hintPNJObject.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
+
+            hintPNJObject.GetComponent<Rigidbody>().useGravity = false;
+
+            foreach (Transform child in hintPNJObject.GetComponentsInChildren<Transform>())
+            {
+                if (child == hintPNJObject.transform) continue;
+
+                SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.color = Color.black;
+                }
+            }
+
             if (role == Role.Seeker)
             {
                 SeekerView seekerView = GetComponentInChildren<SeekerView>(true);
@@ -427,34 +453,7 @@ public class PlayerData : NetworkBehaviour
                 //PNJcible.SetActive(true);
 
                 seekerAudio.enabled = true;
-                seekerAudio.cityTransform = building.transform;
-
-                GameObject PNJclone = PNJcible.gameObject;
-
-                PNJclone.GetComponent<PNJClothe>().enabled = false;
-
-                Vector3 uwuVector = Vector3.zero;
-
-                GameObject hintPNJObject = Instantiate(PNJclone);
-
-                hintPNJObject.tag = "PNJCOPIE";
-
-                hintPNJObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-
-                hintPNJObject.transform.position = new Vector3(9999.9306640625f, 10000.75f, 9998.16015625f);
-
-                hintPNJObject.GetComponent<Rigidbody>().useGravity = false;
-
-                foreach (Transform child in hintPNJObject.GetComponentsInChildren<Transform>())
-                {
-                    if (child == hintPNJObject.transform) continue;
-
-                    SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
-                    if (sr != null)
-                    {
-                        sr.color = Color.black;
-                    }
-                }
+                seekerAudio.cityTransform = building.transform;                
 
                 StartCoroutine(PNJHint(canvasHintPNJ));
             
@@ -482,7 +481,20 @@ public class PlayerData : NetworkBehaviour
                 camPlayer.transform.localRotation = Quaternion.identity;
 
                 seekerAudio.enabled = false;
+
+                foreach (Transform child in PNJcible.GetComponentsInChildren<Transform>())
+                {
+                    if (child == PNJcible.transform) continue;
+
+                    SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
+                    if (sr != null)
+                    {
+                        sr.enabled = false;
+                    }
+                }
             }
+
+            
 
             if (timerCoroutine != null)
                 StopCoroutine(timerCoroutine);
@@ -590,7 +602,7 @@ public class PlayerData : NetworkBehaviour
         {
             GameObject taskItem = Instantiate(taskItemPrefab, layoutGroupParent);
             TextMeshProUGUI nameText = taskItem.GetComponentInChildren<TextMeshProUGUI>();
-            Image statusImage = taskItem.GetComponentInChildren<Image>();
+            UnityEngine.UI.Image statusImage = taskItem.GetComponentInChildren<UnityEngine.UI.Image>();
 
             if (nameText != null) nameText.text = names[i];
             if (statusImage != null) statusImage.sprite = finishedStates[i] ? finishedSprite : notFinishedSprite;
@@ -630,6 +642,29 @@ public class PlayerData : NetworkBehaviour
                 emoVoisin.enabled = true;
             }
         }
+    }
+
+    public void AbleEnd()
+    {
+        IsoCameraDrag camDragIso = GetComponentInChildren<IsoCameraDrag>();
+        IsoCameraRotation camRotaIso = GetComponentInChildren<IsoCameraRotation>();
+        IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
+
+        IsoCameraSelection camSelecIso = GetComponentInChildren<IsoCameraSelection>();
+        GameObject building = GameObject.Find("VilleELPclone");
+
+        camDragIso.objectToMove = building.transform;
+        camRotaIso.objectToRotate = building.transform;
+
+        GetComponentInChildren<PlayerInput>().enabled = true;
+
+        camDragIso.enabled = true;
+        camRotaIso.enabled = true;
+        camZoomIso.enabled = true;
+
+        camSelecIso.CanSelect = false;
+
+        
     }
 
     void OnDrawGizmosSelected()

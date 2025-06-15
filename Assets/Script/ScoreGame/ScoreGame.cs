@@ -33,7 +33,7 @@ public class ScoreGame : NetworkBehaviour
             _leaderboardEndView = ViewManager.Instance.GetView<LeaderboardEndView>();
 
         playerScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        playerScores = playerScores.Where(score => score.finish).OrderByDescending(scoreJoueur => scoreJoueur.ScoreJoueur).ToList();
+        playerScores = playerScores.OrderByDescending(scoreJoueur => scoreJoueur.ScoreJoueur).ToList();
 
         foreach (PlayerScoring score in playerScores)
         {

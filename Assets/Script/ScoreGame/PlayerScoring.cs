@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 public class PlayerScoring : NetworkBehaviour
 {
     public GameObject projectorFXPrefab;
-    private List<GameObject> projectorFXList;
+    [SerializeField] private List<GameObject> projectorFXList;
 
     [SyncVar]
     public bool finish;
@@ -90,7 +90,8 @@ public class PlayerScoring : NetworkBehaviour
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
         int finishedPlayers = allScores.Count(score => score.finish);
         int seekerCount = allScores.Count(score => score.GetComponent<PlayerData>().role == Role.Seeker);
-        
+        List<PlayerData> scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
+
 
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
@@ -105,10 +106,12 @@ public class PlayerScoring : NetworkBehaviour
             {
                 allPlayerDataName.Add(player.GetComponent<PlayerData>().playerName);
                 allPlayerScoringFinished.Add(player.finish);
+                
             }
+            timer timerScript = FindObjectOfType<timer>();
 
+            timerScript.time = 30;
             GetComponent<PlayerData>().showPlayer(allPlayerDataName, allPlayerScoringFinished);
-
         }
         else
         {
@@ -133,7 +136,7 @@ public class PlayerScoring : NetworkBehaviour
                     }
                 }
 
-                        StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
+                        StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores, scriptPlayer));
 
             }
 
@@ -141,7 +144,6 @@ public class PlayerScoring : NetworkBehaviour
             {
                 var scoreGame = FindObjectOfType<ScoreGame>();
                 float moyenneScore = 0;
-                
 
                 foreach (PlayerScoring score in allScores)
                 {
@@ -164,26 +166,27 @@ public class PlayerScoring : NetworkBehaviour
                 }
 
                 foreach (PlayerScoring score in allScores)
-                {
+                {                  
                     if (score.GetComponent<PlayerData>().role == Role.Seeker)
                     {
                         score.ScoreFinal += score.ScoreJoueur;
-                        moyenneScore += score.ScoreJoueur;
-                    }
+                        moyenneScore += score.ScoreJoueur;                      
+                    }                 
+                }
 
-                    else
+                foreach (PlayerScoring score in allScores)
+                {
+                    if (score.GetComponent<PlayerData>().role == Role.Lost)
                     {
-                        score.ScoreJoueur = moyenneScore/seekerCount;
+                     
+                        score.ScoreJoueur = moyenneScore / seekerCount;
                         score.ScoreFinal += score.ScoreJoueur;
                         score.finish = true;
                     }
-
-                    scoreGame.ShowScore();
                 }
-                    
-                timer timerScript = FindObjectOfType<timer>();
-                timerScript.time = 999999;
-                
+
+                //Lancer la coroutine ici
+                StartCoroutine(StartEndTransition(allScores, scriptPlayer));
 
             }
         }
@@ -215,6 +218,7 @@ public class PlayerScoring : NetworkBehaviour
         List<string> allPlayerDataName = new List<string>();
         List<bool> allPlayerScoringFinished = new List<bool>();
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        List<PlayerData> scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         foreach (PlayerScoring player in allScores)
         {
             player.compteurGame++;
@@ -223,7 +227,7 @@ public class PlayerScoring : NetworkBehaviour
 
         if (compteurGame == 1)
         {
-            StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores));
+            StartCoroutine(StartGameTransition(allPlayerDataName, allPlayerScoringFinished, allScores, scriptPlayer));
         }
 
         if (compteurGame == 2)
@@ -256,13 +260,14 @@ public class PlayerScoring : NetworkBehaviour
                 }
             }
 
+            //Lancer la coroutine ici
+            StartCoroutine(StartEndTransition(allScores, scriptPlayer));
 
-            manager.nombrePartie++;
-            FindObjectOfType<ScoreGame>().ShowScore();
+
         }
     }
 
-    IEnumerator StartGameTransition(List<string> allPlayerDataName, List<bool> allPlayerScoringFinished, List<PlayerScoring> allScores)
+    IEnumerator StartGameTransition(List<string> allPlayerDataName, List<bool> allPlayerScoringFinished, List<PlayerScoring> allScores, List<PlayerData> scriptPlayer)
     {
         timer timerScript = FindObjectOfType<timer>();
 
@@ -274,22 +279,22 @@ public class PlayerScoring : NetworkBehaviour
 
         if (car != null)
             car.SetActive(false);
-         
+
         foreach (PlayerScoring player in allScores)
         {
             player.GetComponent<PlayerData>().DisablePlayer();
         }
-        
+
         yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 43, false, 2f));
-        
+
         SetFxOnGuessedPNJ(true, true);
-        
+
         yield return new WaitForSeconds(1);
 
         FindObjectOfType<CityManager>().MakePlateformFall();
 
         yield return new WaitForSeconds(3);
-        
+
         SetFxOnGuessedPNJ(false, true);
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
@@ -309,19 +314,18 @@ public class PlayerScoring : NetworkBehaviour
         }
 
         yield return new WaitForSeconds(1.5f);
-
-        switch (FindObjectOfType<CityManager>()._plateformWhereHiderIsIn)
+        switch (manager.nombrePartie)
         {
+            case 0:
+                yield return StartCoroutine(transitionCam(new Vector3(-14.4142151f, -0.794782221f, 14.1129827f), 8, true, 1f));
+                break;
+
             case 1:
-                yield return StartCoroutine(transitionCam(new Vector3(-41, 3, 42), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-19.7944221f, -9.1157465f, 16.3399448f), 8, true, 1f));
                 break;
 
             case 2:
-                yield return StartCoroutine(transitionCam(new Vector3(6, -5, -8), 8, true, 1f));
-                break;
-
-            case 0:
-                yield return StartCoroutine(transitionCam(new Vector3(-14, -1, 14), 8, true, 1f));
+                yield return StartCoroutine(transitionCam(new Vector3(-14.4142151f, -0.794782221f, 14.1129827f), 8, true, 1f));
                 break;
         }
 
@@ -345,6 +349,46 @@ public class PlayerScoring : NetworkBehaviour
         timerScript.timeSprite.enabled = true;
         timerScript.GetComponentInChildren<TMP_Text>().text = "3:00";
         timerScript.RestartTimer();
+
+
+        foreach (PlayerData scriptData in scriptPlayer)
+        { 
+            if(scriptData.layoutGroupParent != null) 
+            scriptData.layoutGroupParent.gameObject.SetActive(true);
+        }
+
+
+    }
+
+    IEnumerator StartEndTransition(List<PlayerScoring> allScores, List<PlayerData> scriptPlayer)
+    {
+        timer timerScript = FindObjectOfType<timer>();
+
+        timerScript.GetComponentInChildren<TMP_Text>().enabled = false;
+        timerScript.timeSprite.enabled = false;
+        timerScript.StopTimer();
+
+        foreach (PlayerScoring player in allScores)
+        {
+            player.GetComponent<PlayerData>().DisablePlayer();
+        }
+
+        StartCoroutine(dezoomCamera());
+
+        yield return new WaitForSeconds(7);
+      
+
+        manager.nombrePartie++;
+        FindObjectOfType<ScoreGame>().ShowScore();
+
+        foreach (PlayerData scriptData in scriptPlayer)
+        {
+            if (scriptData.isLocalPlayer)
+            {
+                scriptData.AbleEnd();
+            }
+        }
+        yield return null;
     }
 
     IEnumerator transitionCam( Vector3 endPos, int zoomCam, bool back, float temps)
@@ -460,6 +504,7 @@ public class PlayerScoring : NetworkBehaviour
     {
         List<PlayerData> scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         GameObject building = GameObject.Find("VilleELP");
+        GameObject building2 = GameObject.Find("VilleELPclone");
 
         // Sécurité : initialiser la liste si elle est null ou la nettoyer
         if (projectorFXList == null)
@@ -467,11 +512,11 @@ public class PlayerScoring : NetworkBehaviour
         else
         {
             // Détruire les anciens FX pour éviter des doublons
-            foreach (GameObject fx in projectorFXList)
+            /*foreach (GameObject fx in projectorFXList)
             {
                 Destroy(fx);
             }
-            projectorFXList.Clear();
+            projectorFXList.Clear();*/
         }
 
         int colorIndex = 0;
@@ -479,28 +524,54 @@ public class PlayerScoring : NetworkBehaviour
 
         foreach (PlayerData playerData in scriptPlayer)
         {
-            if (playerData.role == Role.Seeker)
+            if (playerData.role == Role.Seeker && stateOfFX)
             {
-                if (playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs != new Vector3(0, 0, 0))
+                for (int i = 0; i < 2; i++)
                 {
-                    // Instancier sans parent
-                    GameObject fx = Instantiate(projectorFXPrefab);
+                    if (i == 0)
+                    {
+                        if (playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs != new Vector3(0, 0, 0))
+                        {
+                            // Instancier sans parent
+                            GameObject fx = Instantiate(projectorFXPrefab);
 
-                    // Assigner le parent
-                    fx.transform.SetParent(building.transform);
+                            // Assigner le parent
+                            fx.transform.SetParent(building.transform);
 
-                
+                            // Définir la position locale par rapport au parent (ici building)
+                            fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + Vector3.up * 13;
 
-                    // Définir la position locale par rapport au parent (ici building)
-                    fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + Vector3.up * 13;
-
-                    // Appliquer la couleur
-                    fx.GetComponent<SpriteRenderer>().color = playerData.playerColor;
+                            // Appliquer la couleur
+                            fx.GetComponent<SpriteRenderer>().color = playerData.playerColor;
 
 
-                    // Ajouter à la liste
-                    projectorFXList.Add(fx);
-                    colorIndex++;
+                            // Ajouter à la liste
+                            projectorFXList.Add(fx);
+                            colorIndex++;
+                        }
+                    }
+                    else
+                    {
+                        if (playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs != new Vector3(0, 0, 0))
+                        {
+                            // Instancier sans parent
+                            GameObject fx = Instantiate(projectorFXPrefab);
+
+                            // Assigner le parent
+                            fx.transform.SetParent(building2.transform);
+
+                            // Définir la position locale par rapport au parent (ici building)
+                            fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + Vector3.up * 13;
+
+                            // Appliquer la couleur
+                            fx.GetComponent<SpriteRenderer>().color = playerData.playerColor;
+
+
+                            // Ajouter à la liste
+                            projectorFXList.Add(fx);
+                            colorIndex++;
+                        }
+                    }
                 }
             }
         }
@@ -530,5 +601,111 @@ public class PlayerScoring : NetworkBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator dezoomCamera()
+    {
+        Camera cam = new Camera();
+        GameObject camObject = new GameObject();
+        List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
+        
+
+        ViewManager.Instance.StartFadeIn();
+
+        yield return new WaitForSeconds(1f);
+
+        SetFxOnGuessedPNJ(true, true);
+
+        foreach (PlayerScoring player in allScores)
+        {
+            if (player.isLocalPlayer)
+            {
+                player.GetComponent<PlayerData>().role = Role.Seeker;
+                cam = player.GetComponentInChildren<Camera>();
+                camObject = player.gameObject;
+               
+                cam.orthographic = true;
+                cam.orthographicSize = 1;
+
+                player.positionLost = camObject.transform.position;
+
+
+                switch (manager.nombrePartie)
+                {
+                    case 0:                        
+                        camObject.transform.position = new Vector3(1052, 1022.5f, 1068.80005f);
+
+                        camObject.transform.rotation = Quaternion.Euler(14.9999952f, 135, 0);
+
+                        cam.transform.localRotation = Quaternion.identity;
+
+                        cam.transform.localPosition = new Vector3(0, 0, 0);
+                        break;
+
+                    case 1:
+                        camObject.transform.position = GameObject.Find("spawnEND").transform.position;
+                        camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
+                        break;
+
+                    case 2:
+                        camObject.transform.position = GameObject.Find("spawnEND").transform.position;
+                        camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
+                        break;
+                }
+
+                cam.transform.localRotation = Quaternion.identity;
+
+                cam.transform.localPosition = new Vector3(0, 0, 0);
+            }
+        
+        }
+
+        ViewManager.Instance.StartFadeOut();
+
+        yield return new WaitForSeconds(2);
+       
+        float elapsed = 0f;
+        float startZoom = cam.orthographicSize;
+
+        int temps = 3;
+        
+        while (elapsed < temps)
+        {     
+            float t = elapsed / temps;
+            cam.orthographicSize = Mathf.Lerp(startZoom, 43, t);
+          
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2f);
+        ViewManager.Instance.StartFadeIn();
+        yield return new WaitForSeconds(1f);
+
+        foreach (PlayerScoring player in allScores)
+        {
+            if (player.isLocalPlayer)
+            {
+                cam = player.GetComponentInChildren<Camera>();
+                camObject = player.gameObject;
+
+                cam.orthographicSize = 8;
+
+                player.positionLost = camObject.transform.position;
+
+                camObject.transform.position = GameObject.Find("spawnEND").transform.position;
+
+                camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
+
+                cam.transform.localRotation = Quaternion.identity;
+
+                cam.transform.localPosition = new Vector3(0, 0, 0);
+            }
+
+        }
+
+        ViewManager.Instance.StartFadeOut();
+
+        yield return null;
     }
 }
