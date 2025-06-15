@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerData : NetworkBehaviour
 {
@@ -121,8 +122,21 @@ public class PlayerData : NetworkBehaviour
         {
             if (PNJcible == null)
             {
-                PNJcible = GameObject.FindWithTag("PNJCIBLE");
-                Debug.Log($"Le pnj cible est {PNJcible.name}");
+                GameObject parentObject = GameObject.Find("VilleELP");
+
+                GameObject pnjCible = null;
+
+                // Parcourt tous les enfants
+                foreach (Transform child in parentObject.GetComponentsInChildren<Transform>())
+                {
+                    if (child.CompareTag("PNJCIBLE"))
+                    {
+                        pnjCible = child.gameObject;
+                        break; 
+                    }
+                }
+
+
                 SetPlateform();
 
             }
@@ -596,7 +610,7 @@ public class PlayerData : NetworkBehaviour
         {
             GameObject taskItem = Instantiate(taskItemPrefab, layoutGroupParent);
             TextMeshProUGUI nameText = taskItem.GetComponentInChildren<TextMeshProUGUI>();
-            Image statusImage = taskItem.GetComponentInChildren<Image>();
+            UnityEngine.UI.Image statusImage = taskItem.GetComponentInChildren<UnityEngine.UI.Image>();
 
             if (nameText != null) nameText.text = names[i];
             if (statusImage != null) statusImage.sprite = finishedStates[i] ? finishedSprite : notFinishedSprite;

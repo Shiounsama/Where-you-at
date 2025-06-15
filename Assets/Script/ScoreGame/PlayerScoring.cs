@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 public class PlayerScoring : NetworkBehaviour
 {
     public GameObject projectorFXPrefab;
-    private List<GameObject> projectorFXList;
+    [SerializeField] private List<GameObject> projectorFXList;
 
     [SyncVar]
     public bool finish;
@@ -393,8 +393,6 @@ public class PlayerScoring : NetworkBehaviour
 
                         cam.transform.localPosition = new Vector3(0, 0, 0);
 
-                        Debug.Log($"La camObject devrait etre a {GameObject.Find("spawn2").transform.position} mais la, elle est a {camObject.transform.position}");
-
                     }
                     else
                     {
@@ -472,6 +470,7 @@ public class PlayerScoring : NetworkBehaviour
     {
         List<PlayerData> scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         GameObject building = GameObject.Find("VilleELP");
+        GameObject building2 = GameObject.Find("VilleELPclone");
 
         // Sécurité : initialiser la liste si elle est null ou la nettoyer
         if (projectorFXList == null)
@@ -479,11 +478,11 @@ public class PlayerScoring : NetworkBehaviour
         else
         {
             // Détruire les anciens FX pour éviter des doublons
-            foreach (GameObject fx in projectorFXList)
+            /*foreach (GameObject fx in projectorFXList)
             {
                 Destroy(fx);
             }
-            projectorFXList.Clear();
+            projectorFXList.Clear();*/
         }
 
         int colorIndex = 0;
@@ -491,26 +490,54 @@ public class PlayerScoring : NetworkBehaviour
 
         foreach (PlayerData playerData in scriptPlayer)
         {
-            if (playerData.role == Role.Seeker)
+            if (playerData.role == Role.Seeker && stateOfFX)
             {
-                if (playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs != new Vector3(0, 0, 0))
+                for (int i = 0; i < 2; i++)
                 {
-                    // Instancier sans parent
-                    GameObject fx = Instantiate(projectorFXPrefab);
+                    if (i == 0)
+                    {
+                        if (playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs != new Vector3(0, 0, 0))
+                        {
+                            // Instancier sans parent
+                            GameObject fx = Instantiate(projectorFXPrefab);
 
-                    // Assigner le parent
-                    fx.transform.SetParent(building.transform);
-               
-                    // Définir la position locale par rapport au parent (ici building)
-                    fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + Vector3.up * 13;
+                            // Assigner le parent
+                            fx.transform.SetParent(building.transform);
 
-                    // Appliquer la couleur
-                    fx.GetComponent<SpriteRenderer>().color = playerData.playerColor;
+                            // Définir la position locale par rapport au parent (ici building)
+                            fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + Vector3.up * 13;
+
+                            // Appliquer la couleur
+                            fx.GetComponent<SpriteRenderer>().color = playerData.playerColor;
 
 
-                    // Ajouter à la liste
-                    projectorFXList.Add(fx);
-                    colorIndex++;
+                            // Ajouter à la liste
+                            projectorFXList.Add(fx);
+                            colorIndex++;
+                        }
+                    }
+                    else
+                    {
+                        if (playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs != new Vector3(0, 0, 0))
+                        {
+                            // Instancier sans parent
+                            GameObject fx = Instantiate(projectorFXPrefab);
+
+                            // Assigner le parent
+                            fx.transform.SetParent(building2.transform);
+
+                            // Définir la position locale par rapport au parent (ici building)
+                            fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + Vector3.up * 13;
+
+                            // Appliquer la couleur
+                            fx.GetComponent<SpriteRenderer>().color = playerData.playerColor;
+
+
+                            // Ajouter à la liste
+                            projectorFXList.Add(fx);
+                            colorIndex++;
+                        }
+                    }
                 }
             }
         }
@@ -539,6 +566,29 @@ public class PlayerScoring : NetworkBehaviour
                     projectorFXList[i].SetActive(true);
                 }
             }
+        }
+    }
+
+    IEnumerator dezoomCamera()
+    {
+        Camera cam = new Camera();
+        GameObject camObject = new GameObject();
+
+        float elapsed = 0f;
+        float startZoom = cam.orthographicSize;
+
+
+
+        int temps = 1;
+        
+        while (elapsed < temps)
+        {
+            float t = elapsed / temps;
+            cam.orthographic = true;
+            cam.orthographicSize = Mathf.Lerp(startZoom, 43, t);
+          
+            elapsed += Time.deltaTime;
+            yield return null;
         }
     }
 }
