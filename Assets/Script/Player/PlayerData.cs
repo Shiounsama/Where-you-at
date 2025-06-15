@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerData : NetworkBehaviour
@@ -23,9 +24,12 @@ public class PlayerData : NetworkBehaviour
 
     [Header("MidGame")]
     public GameObject playerPlateform;
-
+    
     [Header("EndGame")]
-    [SyncVar] public Color color;
+
+    [SyncVar]
+    public Color playerColor;
+
     [SyncVar] public Vector3 pnjValidePosition;
     public GameObject pnjValide;
 
@@ -50,7 +54,7 @@ public class PlayerData : NetworkBehaviour
         pnjValidePosition = pnj;
     }
 
-    [Command]
+    /*[Command]
     public void testPNJ()
     {
         foreach (var conn in NetworkServer.connections.Values)
@@ -83,12 +87,13 @@ public class PlayerData : NetworkBehaviour
                 if (pnjPosition == pnjSelected)
                 {
                     pnjValide = pnj;
-                    manager.Instance.seekerGuessedPNJs.Add(pnj);
+                    GetComponent<PlayerScoring>().seekerGuessedPNJs.Add(pnj);
+                    GetComponent<PlayerScoring>().colorList.Add(playerColor);
                     //manager.Instance.CamerasDezoom();
                 }
             }
         }
-    }
+    }*/
 
     public void SpawnText()
     {
@@ -99,7 +104,7 @@ public class PlayerData : NetworkBehaviour
             textMesh.gameObject.SetActive(true);
 
             textMesh.text = playerName;
-            textMesh.color = color;
+            textMesh.color = playerColor;
 
             print("textExiste" + pnjValide.GetComponentInChildren<TextMeshPro>().text);
         }
@@ -111,10 +116,18 @@ public class PlayerData : NetworkBehaviour
 
     private void Update()
     {
-        SetPlateform();
+        
         if (isLocalPlayer)
         {
-            //frontPNJ();
+            if (PNJcible == null)
+            {
+                PNJcible = GameObject.FindWithTag("PNJCIBLE");
+                Debug.Log($"Le pnj cible est {PNJcible.name}");
+                SetPlateform();
+
+            }
+
+            frontPNJ();
             if (role == Role.Seeker)
             {
                 if (transform.position == new Vector3(0, 0, 0))
@@ -132,7 +145,7 @@ public class PlayerData : NetworkBehaviour
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
 
-                        Destroy(PNJcible);
+                        //Destroy(PNJcible);
 
                     }
                 }
@@ -142,7 +155,6 @@ public class PlayerData : NetworkBehaviour
 
     private void SetPlateform()
     {
-        print("test");
               
         RaycastHit hit;
                     
@@ -150,7 +162,7 @@ public class PlayerData : NetworkBehaviour
         {
             if (hit.collider.CompareTag("Map") && !playerPlateform)
             {
-                print("Je suis dans le if");
+
                 playerPlateform = hit.collider.gameObject;
                 FindObjectOfType<CityManager>().SetHiderPlateform(playerPlateform);
 
@@ -242,6 +254,8 @@ public class PlayerData : NetworkBehaviour
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj"));
 
             LockPNJ(GameObject.FindGameObjectsWithTag("pnj pi"));
+
+            LockPNJ(GameObject.FindGameObjectsWithTag("PNJCIBLE"));
         }
     }
 
@@ -360,7 +374,7 @@ public class PlayerData : NetworkBehaviour
 
             Xray.enabled = false;
 
-            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
+            GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");           
 
             audioListener.enabled = true;
 
@@ -390,7 +404,7 @@ public class PlayerData : NetworkBehaviour
                 ObjectsStateSetter(charlieObjects, false);
                 ObjectsStateSetter(seekerObjects, true);
 
-                ViewManager.Instance.Show<SeekerView>();
+                //ViewManager.Instance.Show<SeekerView>();
 
                 camDragIso.enabled = true;
                 camZoomIso.enabled = true;
@@ -423,7 +437,7 @@ public class PlayerData : NetworkBehaviour
 
                 GameObject hintPNJObject = Instantiate(PNJclone);
 
-                hintPNJObject.tag = "PNJCIBLE";
+                hintPNJObject.tag = "PNJCOPIE";
 
                 hintPNJObject.transform.rotation = Quaternion.Euler(0, 180, 0);
 

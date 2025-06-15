@@ -50,7 +50,7 @@ public class CityManager : MonoBehaviour
 
         foreach (cityNumber uwu in allCity)
         {
-            Debug.Log(uwu.name);
+
 
             _plateforms[uwu.zone]._plateforms.Add(uwu.gameObject);
 

@@ -9,14 +9,15 @@ public class manager : NetworkBehaviour
 {
     public List<PlayerData> scriptPlayer;
     public List<GameObject> player;
-    public List<GameObject> seekerGuessedPNJs;
     public GameObject testBuilding;
+   
+
 
     public static manager Instance;
 
     [Header("Fake ville")]
     public bool fakeVille = false;
-    public static int nombrePartie = 1;
+    public static int nombrePartie = 0;
 
     [SyncVar]
     public int nbrJoueur = 0;
@@ -34,6 +35,7 @@ public class manager : NetworkBehaviour
     public SyncList<GameObject> charlieRoleQueue = new SyncList<GameObject>();
     public string LostName { get; set; }
 
+    
     public void CamerasDezoom()
     {
         foreach (PlayerData player in scriptPlayer)
@@ -124,8 +126,46 @@ public class manager : NetworkBehaviour
 
         foreach (PlayerData playerScript in scriptPlayer)
         {
+            
             player.Add(playerScript.gameObject);
             playerScript.AssignRole(Role.Seeker);
+        }
+
+        for(int i = 0; i < scriptPlayer.Count(); i++)
+        {
+            switch (i) {
+                case 0:
+                    scriptPlayer[i].playerColor = Color.red;
+                    break;
+
+                case 1:
+                    scriptPlayer[i].playerColor = Color.blue;
+                    break;
+
+                case 2:
+                    scriptPlayer[i].playerColor = Color.green;
+                    break;
+
+                case 3:
+                    scriptPlayer[i].playerColor = Color.yellow;
+                    break;
+
+                case 4:
+                    scriptPlayer[i].playerColor = Color.yellow;
+                    break;
+
+                case 5:
+                    scriptPlayer[i].playerColor = Color.cyan;
+                    break;
+
+                case 6:
+                    scriptPlayer[i].playerColor = Color.magenta;
+                    break;
+
+                case 7:
+                    scriptPlayer[i].playerColor = Color.white;
+                    break;
+            }
         }
 
         int nbrRandom = Random.Range(0, player.Count);
@@ -153,6 +193,7 @@ public class manager : NetworkBehaviour
 
     private void PlayersStartScene()
     {
+
         foreach (PlayerData playerscript in scriptPlayer)
         {
             if (playerscript.isLocalPlayer)

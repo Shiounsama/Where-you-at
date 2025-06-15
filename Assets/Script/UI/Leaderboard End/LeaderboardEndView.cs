@@ -33,7 +33,7 @@ namespace Leaderboard.End
         /// <summary>
         /// Efface le leaderboard et cache tous les panels.
         /// </summary>
-        private void OnClick_NextRoundButton() => Debug.Log("NextRoundButton"); //TODO;
+        private void OnClick_NextRoundButton() => StartCoroutine(NetworkMana.Instance.RestartGame());
         #endregion
 
         #region Score
@@ -51,8 +51,12 @@ namespace Leaderboard.End
             string playerName = playerScoring.GetComponent<PlayerData>().playerName;
             
             float distance = playerScoring.Distance;
-            
-            scoreElement.UpdateScoreText(placement, playerName, distance);
+
+            float Score = playerScoring.ScoreJoueur;
+
+            float scoreFinal = playerScoring.ScoreFinal;
+
+            scoreElement.UpdateScoreText(placement, playerName, Score);
 
             DisableNextRoundButton();
 

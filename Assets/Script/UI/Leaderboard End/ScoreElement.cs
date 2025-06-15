@@ -27,7 +27,7 @@ namespace Leaderboard.End
             string newScoreText = string.Empty;
 
             rankNameText.text = $"{placement}. {playerName}";
-            distanceScoreText.text = $"{distance} m";
+            distanceScoreText.text = $"{distance} points";
         }
     }
 }

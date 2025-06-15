@@ -19,11 +19,12 @@ public class PNJPISpawn : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(spawnPIPNJ());
+        //StartCoroutine(spawnPIPNJ());
     }
 
     IEnumerator spawnPIPNJ()
     {
+        Debug.Log("Je ne suis pas censé etre la");
         yield return new WaitForSeconds(1f);
         Random.InitState(seed.Instance.SeedValue);
         for (int i = 0; i < nombrePNJPI; i++)
