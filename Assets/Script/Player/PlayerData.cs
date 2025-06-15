@@ -641,14 +641,20 @@ public class PlayerData : NetworkBehaviour
         IsoCameraZoom camZoomIso = GetComponentInChildren<IsoCameraZoom>();
 
         IsoCameraSelection camSelecIso = GetComponentInChildren<IsoCameraSelection>();
+        GameObject building = GameObject.Find("VilleELPclone");
 
+        camDragIso.objectToMove = building.transform;
+        camRotaIso.objectToRotate = building.transform;
 
         GetComponentInChildren<PlayerInput>().enabled = true;
 
         camDragIso.enabled = true;
         camRotaIso.enabled = true;
-        camSelecIso.enabled = true;
+        camZoomIso.enabled = true;
+
         camSelecIso.CanSelect = false;
+
+        
     }
 
     void OnDrawGizmosSelected()

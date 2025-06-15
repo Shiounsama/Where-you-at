@@ -373,11 +373,10 @@ public class PlayerScoring : NetworkBehaviour
             player.GetComponent<PlayerData>().DisablePlayer();
         }
 
-        dezoomCamera();
+        StartCoroutine(dezoomCamera());
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
       
-        Debug.Log("Dr house est génial enfaite");
 
         manager.nombrePartie++;
         FindObjectOfType<ScoreGame>().ShowScore();
@@ -386,7 +385,6 @@ public class PlayerScoring : NetworkBehaviour
         {
             if (scriptData.isLocalPlayer)
             {
-                Debug.Log("la mort enfaite");
                 scriptData.AbleEnd();
             }
         }
@@ -607,14 +605,16 @@ public class PlayerScoring : NetworkBehaviour
 
     IEnumerator dezoomCamera()
     {
-
         Camera cam = new Camera();
         GameObject camObject = new GameObject();
         List<PlayerScoring> allScores = new List<PlayerScoring>(FindObjectsOfType<PlayerScoring>());
-        SetFxOnGuessedPNJ(true, true);
+        
 
         ViewManager.Instance.StartFadeIn();
+
         yield return new WaitForSeconds(1f);
+
+        SetFxOnGuessedPNJ(true, true);
 
         foreach (PlayerScoring player in allScores)
         {
@@ -641,7 +641,6 @@ public class PlayerScoring : NetworkBehaviour
 
         ViewManager.Instance.StartFadeOut();
         yield return new WaitForSeconds(0.5f);
-
        
         float elapsed = 0f;
         float startZoom = cam.orthographicSize;
@@ -649,16 +648,14 @@ public class PlayerScoring : NetworkBehaviour
         int temps = 1;
         
         while (elapsed < temps)
-        {
+        {     
             float t = elapsed / temps;
-            cam.orthographic = true;
             cam.orthographicSize = Mathf.Lerp(startZoom, 43, t);
           
-            elapsed += Time.deltaTime;
-            ViewManager.Instance.StartFadeOut();
-            
+            elapsed += Time.deltaTime;                      
         }
 
+        yield return new WaitForSeconds(2f);
         ViewManager.Instance.StartFadeIn();
         yield return new WaitForSeconds(1f);
 
@@ -670,8 +667,6 @@ public class PlayerScoring : NetworkBehaviour
                 camObject = player.gameObject;
 
                 cam.orthographicSize = 8;
-
-                cam.orthographic = true;
 
                 player.positionLost = camObject.transform.position;
 
