@@ -17,7 +17,7 @@ public class SettingsView : View
 
     private Image _toggleSoundButtonLogoImage;
 
-    private bool _isSoundEnabled = true;
+    private bool _isMuted = false;
 
     public override void Awake()
     {
@@ -40,13 +40,14 @@ public class SettingsView : View
 
     private void ToggleSoundButtonLogoImage()
     {
-        _toggleSoundButtonLogoImage.sprite = _isSoundEnabled ? enabledSoundSprite : disabledSoundSprite;
+        _toggleSoundButtonLogoImage.sprite = _isMuted ? disabledSoundSprite : enabledSoundSprite;
     }
 
     #region Button events
     private void OnClick_ToggleSound()
     {
-        _isSoundEnabled = !_isSoundEnabled;
+        SoundMixerManager.Instance.ToggleMasterVolume();
+        _isMuted = SoundMixerManager.Instance.isMuted;
         ToggleSoundButtonLogoImage();
     }
 
