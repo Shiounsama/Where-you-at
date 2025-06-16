@@ -32,7 +32,7 @@ public class SeekerView : View
     #region Button Events
     private void OnClick_OpeningQuestionButton()
     {
-        throw new NotImplementedException();
+        
     }
 
     private void OnClick_GuessButton()

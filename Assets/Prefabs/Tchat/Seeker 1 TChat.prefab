@@ -187,8 +187,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228a4a200bb0df04c93ed3815edcc9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   returnButton: {fileID: 0}
   submitButton: {fileID: 0}
+  TchatPanel: {fileID: 0}
   openingQuestionButton: {fileID: 7530977430742183899}
   guessButton: {fileID: 2063322196602054123}
 --- !u!1 &2575875852434506772
@@ -977,6 +981,7 @@ GameObject:
   - component: {fileID: 2962569427864473243}
   - component: {fileID: 7530977430742183899}
   - component: {fileID: 2202573203993742998}
+  - component: {fileID: 1724128454020198746}
   m_Layer: 5
   m_Name: Opening Question Button
   m_TagString: Untagged
@@ -1153,6 +1158,18 @@ MonoBehaviour:
     stateToTake: 0
   - objectToChangeState: {fileID: 2351974588190141184}
     stateToTake: 0
+--- !u!114 &1724128454020198746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833927995347516202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6091e338c3eb48468761bce4b983c21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5389633424659866463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,6 +1316,7 @@ GameObject:
   - component: {fileID: 6889572126440387433}
   - component: {fileID: 6364373666568463182}
   - component: {fileID: 532972657930286704}
+  - component: {fileID: 5604528919676307301}
   m_Layer: 5
   m_Name: Send Message Button
   m_TagString: Untagged
@@ -1420,6 +1438,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5604528919676307301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5562701187426297119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 553c5d1f4362f53439776071fdd055ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6037704024948734540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,6 +1593,7 @@ GameObject:
   - component: {fileID: 6375832446084622693}
   - component: {fileID: 3778477705043063668}
   - component: {fileID: 2063322196602054123}
+  - component: {fileID: 4852305163235144667}
   m_Layer: 5
   m_Name: guessButton
   m_TagString: Untagged
@@ -1684,6 +1715,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4852305163235144667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8170470991062542374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82bdfc5db5083434687fb7495c4478e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8875551539820599480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,6 +1899,14 @@ PrefabInstance:
       propertyPath: textToModify
       value: 
       objectReference: {fileID: 9194165883197537858}
+    - target: {fileID: 443137152783466670, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 640929440459873298, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 981512301311006911, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: textToModify
       value: 
@@ -1864,6 +1915,14 @@ PrefabInstance:
       propertyPath: textToModify
       value: 
       objectReference: {fileID: 9194165883197537858}
+    - target: {fileID: 1340484608176832835, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388692978228625902, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1420139806090433153, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: textToModify
       value: 
@@ -1871,6 +1930,10 @@ PrefabInstance:
     - target: {fileID: 1814849521969549890, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997503633699183066, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2009516986923198392, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: m_Pivot.x
@@ -1972,9 +2035,21 @@ PrefabInstance:
       propertyPath: textToModify
       value: 
       objectReference: {fileID: 9194165883197537858}
+    - target: {fileID: 2280355637065466003, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2335711760945030259, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: m_Name
       value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477691883399591861, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2504783022913573482, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3262539264641565321, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: objectsToModify.Array.size
@@ -2012,10 +2087,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4875255946842331098, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5301694144731058432, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: textToModify
       value: 
       objectReference: {fileID: 9194165883197537858}
+    - target: {fileID: 6225475513113144288, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6429541233040219003, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: textToModify
       value: 
@@ -2028,6 +2111,10 @@ PrefabInstance:
       propertyPath: textToModify
       value: 
       objectReference: {fileID: 9194165883197537858}
+    - target: {fileID: 6651948549516046226, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6689685802962813397, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: textToModify
       value: 
@@ -2044,6 +2131,18 @@ PrefabInstance:
       propertyPath: textToModify
       value: 
       objectReference: {fileID: 9194165883197537858}
+    - target: {fileID: 7242494707595204734, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300556872788812443, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7445333667734542297, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7598382363642221645, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: textToModify
       value: 
@@ -2056,6 +2155,14 @@ PrefabInstance:
       propertyPath: textToModify
       value: 
       objectReference: {fileID: 9194165883197537858}
+    - target: {fileID: 8029544492576590491, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201140766775009505, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8223588114213306337, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: textToModify
       value: 
@@ -2064,6 +2171,10 @@ PrefabInstance:
       propertyPath: textToModify
       value: 
       objectReference: {fileID: 9194165883197537858}
+    - target: {fileID: 8533830518048170442, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8945043926859668738, guid: 546c3b7cafeff9744b14c50ae2351bdd, type: 3}
       propertyPath: m_IsActive
       value: 0

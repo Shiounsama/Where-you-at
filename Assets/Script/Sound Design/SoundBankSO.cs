@@ -12,9 +12,12 @@ namespace SoundDesign
         public AudioClip roleWheelTickClip;
 
         [Header("UI")]
-        public AudioClip buttonClickClip;
-        public AudioClip buttonHoverClip;
-        public AudioClip cancelButtonClickClip;
+        public AudioClip buttonClick_ConfirmJoin_Clip;
+        public AudioClip buttonClick_SendMessage_Clip;
+        public AudioClip buttonClick_Guess_Clip;
+        public AudioClip buttonClick_Ready_Clip;
+        public AudioClip buttonClick_Unready_Clip;
+        public AudioClip buttonClick_AskQuestion_Clip;
 
         public AudioClip textTypingClip;
 

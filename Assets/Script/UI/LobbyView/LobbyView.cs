@@ -105,6 +105,7 @@ public class LobbyView : View
     {
         readyButton.GetComponent<Image>().sprite = isReady ? unreadyButtonSprite : readyButtonSprite;
         readyButton.GetComponentInChildren<TextMeshProUGUI>().text = isReady ? "Unready" : "Ready";
+        GetComponentInChildren<ReadyButtonAudio>().ToggleAudioClip();
     }
 
     public void DestroyStartGameButton()
