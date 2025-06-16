@@ -124,8 +124,6 @@ public class PlayerData : NetworkBehaviour
             {
                 PNJcible = GameObject.FindWithTag("PNJCIBLE");
 
-                Debug.Log($"JE SUIS LE PERSONNAGE PRINCIPALE {PNJcible.name}");
-
                 SetPlateform();
 
                 FindObjectOfType<fakeVilleSpawn>().spawnClone();
@@ -383,13 +381,10 @@ public class PlayerData : NetworkBehaviour
 
             canvasHintPNJ = GameObject.Find("ShowPNJ");
 
-            camDragIso.lastValidPosition = new Vector3(0, 0, 0);
-
             foreach (PlayerScoring score in playerScore)
             {
                 score.ScoreJoueur = 0;
                 score.Distance = 0;
-                score.delAllProjecteur();
                 if (score.GetComponent<PlayerData>().role == Role.Seeker)
                 {
                     allPlayerDataName.Add(score.GetComponent<PlayerData>().playerName);
@@ -399,7 +394,7 @@ public class PlayerData : NetworkBehaviour
 
             showPlayer(allPlayerDataName, allPlayerScoringFinished);
 
-            /*GameObject PNJclone = PNJcible.gameObject;
+            GameObject PNJclone = PNJcible.gameObject;
 
             PNJclone.GetComponent<PNJClothe>().enabled = false;
 
@@ -424,7 +419,7 @@ public class PlayerData : NetworkBehaviour
                 {
                     sr.color = Color.black;
                 }
-            }*/
+            }
 
             if (role == Role.Seeker)
             {
