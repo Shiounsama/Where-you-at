@@ -287,7 +287,7 @@ public class PlayerScoring : NetworkBehaviour
 
         yield return StartCoroutine(transitionCam(new Vector3(-15, -6, 13), 43, false, 2f));
 
-        SetFxOnGuessedPNJ(true, true);
+        SetFxOnGuessedPNJ(true, true, false);
 
         yield return new WaitForSeconds(1);
 
@@ -295,7 +295,7 @@ public class PlayerScoring : NetworkBehaviour
 
         yield return new WaitForSeconds(3);
 
-        SetFxOnGuessedPNJ(false, true);
+        SetFxOnGuessedPNJ(false, true, false);
 
         GameObject[] allPNJ = GameObject.FindGameObjectsWithTag("pnj");
         GameObject[] allPNJPI = GameObject.FindGameObjectsWithTag("pnj pi");
@@ -500,11 +500,13 @@ public class PlayerScoring : NetworkBehaviour
         }
     }
 
-    public void SetFxOnGuessedPNJ(bool stateOfFX, bool showOnLostPlayer)
+    public void SetFxOnGuessedPNJ(bool stateOfFX, bool showOnLostPlayer, bool end)
     {
         List<PlayerData> scriptPlayer = new List<PlayerData>(FindObjectsOfType<PlayerData>());
         GameObject building = GameObject.Find("VilleELP");
         GameObject building2 = GameObject.Find("VilleELPclone");
+
+        
 
         // Sécurité : initialiser la liste si elle est null ou la nettoyer
         if (projectorFXList == null)
@@ -526,12 +528,16 @@ public class PlayerScoring : NetworkBehaviour
         {
             if (playerData.role == Role.Seeker && stateOfFX)
             {
+                
+
                 for (int i = 0; i < 2; i++)
                 {
+                    
                     if (i == 0)
                     {
                         if (playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs != new Vector3(0, 0, 0))
                         {
+
                             // Instancier sans parent
                             GameObject fx = Instantiate(projectorFXPrefab);
 
@@ -573,8 +579,32 @@ public class PlayerScoring : NetworkBehaviour
                         }
                     }
                 }
+
+
+                if (end)
+                {
+                    building.transform.position = new Vector3(0, 0, 0);
+
+                    GameObject fx = Instantiate(projectorFXPrefab);
+                    // Assigner le parent
+                    fx.transform.SetParent(building2.transform);
+
+                    // Définir la position locale par rapport au parent (ici building)
+                    fx.transform.localPosition = PlayerData.PNJcible.transform.position + Vector3.up * 13;
+
+                    // Appliquer la couleur
+                    fx.GetComponent<SpriteRenderer>().color = Color.white;
+
+                    // Ajouter à la liste
+                    projectorFXList.Add(fx);
+                }
             }
+
+
+            
         }
+
+       
 
         // Gestion de l'affichage des FX
         foreach (GameObject fx in projectorFXList)
@@ -603,6 +633,15 @@ public class PlayerScoring : NetworkBehaviour
         }
     }
 
+    public void delAllProjecteur()
+    {
+        foreach (GameObject fx in projectorFXList)
+        {
+            Destroy(fx);
+        }
+        projectorFXList.Clear();
+    }
+
     IEnumerator dezoomCamera()
     {
         Camera cam = new Camera();
@@ -614,7 +653,7 @@ public class PlayerScoring : NetworkBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        SetFxOnGuessedPNJ(true, true);
+        SetFxOnGuessedPNJ(true, true, true);
 
         foreach (PlayerScoring player in allScores)
         {
@@ -643,13 +682,21 @@ public class PlayerScoring : NetworkBehaviour
                         break;
 
                     case 1:
-                        camObject.transform.position = GameObject.Find("spawnEND").transform.position;
-                        camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
+                        camObject.transform.position = new Vector3(1027.5f, 1025.69995f, 955.900024f);
+                        camObject.transform.rotation = Quaternion.Euler(14.9999933f, 44.9999924f, 4.41945701e-07f);
+
+                        cam.transform.localRotation = Quaternion.identity;
+
+                        cam.transform.localPosition = new Vector3(0, 0, 0);
                         break;
 
                     case 2:
-                        camObject.transform.position = GameObject.Find("spawnEND").transform.position;
-                        camObject.transform.rotation = GameObject.Find("spawnEND").transform.rotation;
+                        camObject.transform.position = new Vector3(1041.5f, 1014.29999f, 1031.69995f);
+                        camObject.transform.rotation = Quaternion.Euler(14.9999952f, 135, 0);
+
+                        cam.transform.localRotation = Quaternion.identity;
+
+                        cam.transform.localPosition = new Vector3(0, 0, 0);
                         break;
                 }
 
