@@ -26,6 +26,8 @@ public class PauseMenuView : View
     {
         base.Show(args);
 
+        TchatPanel?.SetActive(false);
+
         //ViewManager.Instance.ShowFadedBackground(true);
     }
 
@@ -33,7 +35,7 @@ public class PauseMenuView : View
     {
         base.Hide();
 
-        ViewManager.Instance.ShowFadedBackground(false);
+        //ViewManager.Instance.ShowFadedBackground(false);
     }
 
     #region Button events

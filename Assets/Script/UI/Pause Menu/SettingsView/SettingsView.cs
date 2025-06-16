@@ -19,6 +19,13 @@ public class SettingsView : View
 
     private bool _isMuted = false;
 
+    public override void Show(object args = null)
+    {
+        base.Show(args);
+
+        TchatPanel?.SetActive(false);
+    }
+
     public override void Awake()
     {
         base.Awake();

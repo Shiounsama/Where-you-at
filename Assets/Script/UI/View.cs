@@ -13,13 +13,16 @@ public abstract class View : NetworkBehaviour
 
     public bool IsInitialized { get; private set; }
 
+    public GameObject TchatPanel;
+
     public virtual void Awake()
     {
         if (returnButton)
         {
-            
             returnButton.onClick.AddListener(OnClick_Return);
         }
+
+        TchatPanel = GameObject.FindGameObjectWithTag("TchatHistory");
     }
 
     public virtual void Initialize()

@@ -9,6 +9,13 @@ public class SeekerView : View
     [SerializeField] private Button openingQuestionButton;
     public Button guessButton;
 
+    public override void Show(object args = null)
+    {
+        base.Show(args);
+
+        TchatPanel?.SetActive(true);
+    }
+
     public override void Initialize()
     {
         if (IsInitialized)
