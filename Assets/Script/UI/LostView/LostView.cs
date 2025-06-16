@@ -13,6 +13,9 @@ public class LostView : View
     {
         base.Show(args);
 
+        if (!TchatPanel)
+            return;
+
         TchatPanel?.SetActive(true);
     }
 }
