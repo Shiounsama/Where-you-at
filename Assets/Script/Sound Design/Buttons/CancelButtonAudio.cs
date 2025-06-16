@@ -6,6 +6,6 @@ public class CancelButtonAudio : ButtonAudio
     {
         base.Start();
 
-        buttonClickClip = SoundBank.cancelButtonClickClip;
+        //buttonClickClip = SoundBank.cancelButtonClickClip;
     }
 }
