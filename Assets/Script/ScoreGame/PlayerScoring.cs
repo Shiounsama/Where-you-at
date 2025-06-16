@@ -599,6 +599,9 @@ public class PlayerScoring : NetworkBehaviour
                     projectorFXList.Add(fx);
                 }
             }
+
+
+            
         }
 
        
@@ -628,6 +631,15 @@ public class PlayerScoring : NetworkBehaviour
                 }
             }
         }
+    }
+
+    public void delAllProjecteur()
+    {
+        foreach (GameObject fx in projectorFXList)
+        {
+            Destroy(fx);
+        }
+        projectorFXList.Clear();
     }
 
     IEnumerator dezoomCamera()
@@ -670,7 +682,7 @@ public class PlayerScoring : NetworkBehaviour
                         break;
 
                     case 1:
-                        camObject.transform.position = new Vector3(1034.5f, 1025.69995f, 955.900024f);
+                        camObject.transform.position = new Vector3(1027.5f, 1025.69995f, 955.900024f);
                         camObject.transform.rotation = Quaternion.Euler(14.9999933f, 44.9999924f, 4.41945701e-07f);
 
                         cam.transform.localRotation = Quaternion.identity;
