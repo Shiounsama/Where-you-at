@@ -10,6 +10,9 @@ namespace SoundDesign
         public static SoundMixerManager Instance;
 
         public AudioMixer AudioMixer { get; private set; }
+        public bool isMuted { get; private set; } = false;
+
+        private float lastMasterVolumeValue = Mathf.Log10(1) * 20f;
 
         private void Awake()
         {
@@ -23,17 +26,48 @@ namespace SoundDesign
 
         public void SetMasterVolume(float level)
         {
-            AudioMixer.SetFloat("masterVolume", Mathf.Log10(level) * 20f);
+            float volumeValue = Mathf.Log10(level) * 20f;
+            lastMasterVolumeValue = volumeValue;
+
+            if (isMuted)
+                return;
+
+            AudioMixer.SetFloat("masterVolume", volumeValue);
         }
 
         public void SetSFXVolume(float level)
         {
-            AudioMixer.SetFloat("sfxVolume", Mathf.Log10(level) * 20f);
+            float volumeValue = Mathf.Log10(level) * 20f;
+            AudioMixer.SetFloat("sfxVolume", volumeValue);
         }
 
         public void SetMusicVolume(float level)
         {
-            AudioMixer.SetFloat("musicVolume", Mathf.Log10(level) * 20f);
+            float volumeValue = Mathf.Log10(level) * 20f;
+            AudioMixer.SetFloat("musicVolume", volumeValue);
+        }
+
+        public void MuteMasterVolume(bool mute)
+        {
+            float volumeValue = 0;
+
+            if (mute)
+            {
+                volumeValue = Mathf.Log10(0.0001f) * 20f;
+            }
+            else
+            {
+                volumeValue = lastMasterVolumeValue;
+            }
+
+            AudioMixer.SetFloat("masterVolume", volumeValue);
+        }
+
+        public void ToggleMasterVolume()
+        {
+            isMuted = !isMuted;
+
+            MuteMasterVolume(isMuted);
         }
     }
 }

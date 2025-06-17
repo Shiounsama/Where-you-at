@@ -236,7 +236,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -338,6 +338,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9e3d5393caad042ab762ab35bd42e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  returnButton: {fileID: 0}
+  submitButton: {fileID: 0}
+  TchatPanel: {fileID: 0}
 --- !u!1 &3672214025256431238
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +428,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -669,6 +675,7 @@ GameObject:
   - component: {fileID: 3869382079879117860}
   - component: {fileID: 6012220789588179340}
   - component: {fileID: 1835839796878736454}
+  - component: {fileID: 1927357461055219638}
   m_Layer: 5
   m_Name: SendButton
   m_TagString: Untagged
@@ -790,6 +797,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1927357461055219638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5237676370513089654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 553c5d1f4362f53439776071fdd055ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6826639403121373400
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,7 +980,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 4ae45c594a8be9147819942f1e928601, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -1373,7 +1392,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -1486,7 +1505,7 @@ PrefabInstance:
     - target: {fileID: 572603520809074686, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
       propertyPath: m_spriteAsset
       value: 
-      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2762891758040442813, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1676,7 +1695,7 @@ PrefabInstance:
     - target: {fileID: 572603520809074686, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
       propertyPath: m_spriteAsset
       value: 
-      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2762891758040442813, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1866,7 +1885,7 @@ PrefabInstance:
     - target: {fileID: 572603520809074686, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
       propertyPath: m_spriteAsset
       value: 
-      objectReference: {fileID: 11400000, guid: e1e8b4b9a01eba04aadf47359de6fe72, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2762891758040442813, guid: 1ec59970a9a725d428668c22b1b62185, type: 3}
       propertyPath: m_Pivot.x
       value: 0

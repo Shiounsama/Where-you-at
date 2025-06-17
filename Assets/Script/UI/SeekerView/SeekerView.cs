@@ -9,6 +9,13 @@ public class SeekerView : View
     [SerializeField] private Button openingQuestionButton;
     public Button guessButton;
 
+    public override void Show(object args = null)
+    {
+        base.Show(args);
+
+        TchatPanel?.SetActive(true);
+    }
+
     public override void Initialize()
     {
         if (IsInitialized)
@@ -25,7 +32,7 @@ public class SeekerView : View
     #region Button Events
     private void OnClick_OpeningQuestionButton()
     {
-        throw new NotImplementedException();
+        
     }
 
     private void OnClick_GuessButton()

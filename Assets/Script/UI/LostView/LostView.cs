@@ -6,8 +6,16 @@ public class LostView : View
 {
     public override void Initialize()
     {
-
-
         base.Initialize();
+    }
+
+    public override void Show(object args = null)
+    {
+        base.Show(args);
+
+        if (!TchatPanel)
+            return;
+
+        TchatPanel?.SetActive(true);
     }
 }

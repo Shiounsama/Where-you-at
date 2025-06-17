@@ -137,6 +137,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   projectorFXPrefab: {fileID: 8675771043927481686, guid: 2333a7f17700ca94e89c1f66ab7dbd3b, type: 3}
+  projectorFXList: []
   finish: 0
   Distance: 0
   ScoreJoueur: 0
@@ -202,7 +203,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -192.98474, y: 93.91333}
+  m_AnchoredPosition: {x: 343.5, y: 100.246826}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &3275796948432259357
@@ -940,7 +941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3992533625738469483
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1267,7 +1268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -201.81177, y: -193.36798}
+  m_AnchoredPosition: {x: -194.70215, y: -186.03448}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &1727337832398661940
@@ -1414,7 +1415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8002641114915060444
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1942,6 +1943,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5817665984477566024}
     m_Modifications:
+    - target: {fileID: 12924479358801419, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What emotion are the locals around you feeling
+      objectReference: {fileID: 0}
     - target: {fileID: 25709101015749212, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -344
@@ -1949,6 +1954,10 @@ PrefabInstance:
     - target: {fileID: 25709101015749212, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 50362919250825441, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: KEY PLACES
       objectReference: {fileID: 0}
     - target: {fileID: 50362919250825441, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
@@ -1973,6 +1982,10 @@ PrefabInstance:
     - target: {fileID: 174518885477657042, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_RenderMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 193943419960419747, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: CLOTHING
       objectReference: {fileID: 0}
     - target: {fileID: 193943419960419747, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
@@ -2051,6 +2064,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 466693554212065567, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What domesticated animals can you see ?
+      objectReference: {fileID: 0}
+    - target: {fileID: 466693554212065567, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -2124,7 +2141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 689063528153977925, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 719710689067793868, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2135,6 +2152,10 @@ PrefabInstance:
       value: -76.159485
       objectReference: {fileID: 0}
     - target: {fileID: 760133247025412321, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: KEY PLACES
+      objectReference: {fileID: 0}
+    - target: {fileID: 760133247025412321, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2142,6 +2163,26 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 817542669126013706, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 817542669126013706, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -211
+      objectReference: {fileID: 0}
+    - target: {fileID: 834522164294843328, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 834522164294843328, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -54
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137011302868714810, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: EXOTIC
+      objectReference: {fileID: 0}
     - target: {fileID: 1264712639468587093, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2167,6 +2208,10 @@ PrefabInstance:
       value: ChangeStateOfObjects, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1408611426237879216, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: HOUSES
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408611426237879216, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2174,6 +2219,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 1455343372671144603, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: BUILDINGS
+      objectReference: {fileID: 0}
     - target: {fileID: 1455343372671144603, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -2201,6 +2250,10 @@ PrefabInstance:
     - target: {fileID: 1573659844558042039, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1573659844558042039, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Describe the houses around you.
       objectReference: {fileID: 0}
     - target: {fileID: 1573659844558042039, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
@@ -2255,12 +2308,28 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1629570151706624382, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What colour are the vehicules around you ?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629570151706624382, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1629570151706624382, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710804020877113225, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741654657363005759, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 86
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741654657363005759, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 136
       objectReference: {fileID: 0}
     - target: {fileID: 1750331392150773622, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2331,6 +2400,10 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1807246306103643853, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What color are the buildings around you ?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1807246306103643853, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -2360,7 +2433,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2007155278102915237, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011365873966650552, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What color are the animals around you ?
       objectReference: {fileID: 0}
     - target: {fileID: 2202573203993742998, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: objectsToModify.Array.size
@@ -2547,6 +2624,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2227859131442463912, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What exotic animal can you see ?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227859131442463912, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -2595,6 +2676,10 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2451205391077166678, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What kind of key place or structure is there around you ?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2451205391077166678, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: 
       objectReference: {fileID: 0}
@@ -2604,7 +2689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2475680356061631758, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2575875852434506772, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_Name
@@ -2616,11 +2701,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2630585470145412799, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2682943590313060101, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2759095174112273824, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: NUMBER
       objectReference: {fileID: 0}
     - target: {fileID: 2759095174112273824, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
@@ -2632,11 +2721,11 @@ PrefabInstance:
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 2779597471146305390, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 148
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 2779597471146305390, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -192
+      value: -203
       objectReference: {fileID: 0}
     - target: {fileID: 2785693766156376122, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_Sprite
@@ -2684,11 +2773,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2998298662673645752, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -43.345703
+      value: 37.806152
       objectReference: {fileID: 0}
     - target: {fileID: 2998298662673645752, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -216
+      value: -199.40332
       objectReference: {fileID: 0}
     - target: {fileID: 3018408657603611439, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
@@ -2752,7 +2841,7 @@ PrefabInstance:
       objectReference: {fileID: 4848526662738087277}
     - target: {fileID: 3374171135929264445, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3383796125007166689, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
@@ -2761,6 +2850,10 @@ PrefabInstance:
     - target: {fileID: 3404654919197842348, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3713061743255181722, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: BOTTOMS
       objectReference: {fileID: 0}
     - target: {fileID: 3713061743255181722, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
@@ -2822,10 +2915,40 @@ PrefabInstance:
       propertyPath: m_PixelsPerUnitMultiplier
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3799229116543983621, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 33.089844
+      objectReference: {fileID: 0}
+    - target: {fileID: 3799229116543983621, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.1049805
+      objectReference: {fileID: 0}
     - target: {fileID: 4126037643367137227, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3eba823f032d4ac4e8f69ab330bd7394, type: 3}
+    - target: {fileID: 4126929989901498921, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: 'COLOUR
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4126929989901498921, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_fontSize
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 4126929989901498921, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 4126929989901498921, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_characterSpacing
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4157476609794055656, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: EMOTIONS
+      objectReference: {fileID: 0}
     - target: {fileID: 4157476609794055656, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -2840,7 +2963,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248965725526227165, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_text
-      value: DOMESTIQUES
+      value: DOMESTIC
       objectReference: {fileID: 0}
     - target: {fileID: 4281221765424306422, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2862,6 +2985,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ChangeStateOfObjects, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 4286326836261798845, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: LOCALS
+      objectReference: {fileID: 0}
     - target: {fileID: 4331132325015225272, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -886.5
@@ -2878,6 +3005,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -96.27106
       objectReference: {fileID: 0}
+    - target: {fileID: 4371277536304279314, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -76
+      objectReference: {fileID: 0}
+    - target: {fileID: 4371277536304279314, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -82
+      objectReference: {fileID: 0}
     - target: {fileID: 4530053252195502841, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2893,6 +3028,34 @@ PrefabInstance:
     - target: {fileID: 4690059818232523660, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 174.27222
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701390933681632005, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: FEELING
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704975588337509421, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 43.990234
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704975588337509421, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -78.66528
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763073844317684937, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763073844317684937, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 54
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798391275875531183, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -39
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798391275875531183, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -104
       objectReference: {fileID: 0}
     - target: {fileID: 4832973322532946871, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2932,7 +3095,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5045554120878829659, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_text
-      value: ESPECES
+      value: SPECIES
+      objectReference: {fileID: 0}
+    - target: {fileID: 5048442931294428186, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What kind of clothes are the locals around you wearing ?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5125346953716064272, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: BUILDINGS
       objectReference: {fileID: 0}
     - target: {fileID: 5125346953716064272, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
@@ -2942,6 +3113,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5152296810281665999, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: TOTAL
+      objectReference: {fileID: 0}
     - target: {fileID: 5152296810281665999, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -3010,6 +3185,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 140
       objectReference: {fileID: 0}
+    - target: {fileID: 5558756794631999667, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What kind of bottomwear are the locals around you wearing ?
+      objectReference: {fileID: 0}
     - target: {fileID: 5562701187426297119, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -3066,9 +3245,13 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3eba823f032d4ac4e8f69ab330bd7394, type: 3}
+    - target: {fileID: 6221543252624679782, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Describe how there's more or less buildings around you ?
+      objectReference: {fileID: 0}
     - target: {fileID: 6234601676860998390, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6294752962011260478, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
@@ -3162,9 +3345,17 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4291840810
       objectReference: {fileID: 0}
+    - target: {fileID: 6463125305556292971, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What do you feel when seeing the animals around you ?
+      objectReference: {fileID: 0}
     - target: {fileID: 6487290968530242677, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621524021841872705, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: ANIMALS
       objectReference: {fileID: 0}
     - target: {fileID: 6744464272592226163, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
@@ -3272,7 +3463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7188998319098491604, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_text
-      value: COULEUR
+      value: COLOUR
       objectReference: {fileID: 0}
     - target: {fileID: 7188998319098491604, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
@@ -3282,6 +3473,14 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 7213959868723610867, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213959868723610867, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 7277407478824039006, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -405
@@ -3289,6 +3488,10 @@ PrefabInstance:
     - target: {fileID: 7277407478824039006, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -317
+      objectReference: {fileID: 0}
+    - target: {fileID: 7511932985346515154, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: BUILDINGS
       objectReference: {fileID: 0}
     - target: {fileID: 7514250882478616053, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3339,12 +3542,20 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7839763843026632742, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Describe what type of vehicules you can see.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839763843026632742, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7839763843026632742, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7856297464786218600, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: HOUSES
       objectReference: {fileID: 0}
     - target: {fileID: 7856297464786218600, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
@@ -3397,6 +3608,10 @@ PrefabInstance:
     - target: {fileID: 7913355723432184557, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913355723432184557, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What color houses are there around you ?
       objectReference: {fileID: 0}
     - target: {fileID: 7913355723432184557, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3459,6 +3674,10 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8185262816051995952, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What color are the key places around you ?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185262816051995952, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -3466,9 +3685,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8275484328744494790, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 129.67676
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275484328744494790, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -43
+      objectReference: {fileID: 0}
     - target: {fileID: 8298090012698245440, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372860472368591206, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Describe to us how many locals are around you
       objectReference: {fileID: 0}
     - target: {fileID: 8402905594401774078, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_Sprite
@@ -3507,6 +3738,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 757012e1cc196ef419b8373c333be7e6, type: 3}
     - target: {fileID: 8608769928403841849, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_text
+      value: TOPS
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608769928403841849, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3542,6 +3777,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8711896852595137204, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 206
+      objectReference: {fileID: 0}
+    - target: {fileID: 8711896852595137204, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -208
+      objectReference: {fileID: 0}
     - target: {fileID: 8749113152561837142, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: objectsToModify.Array.size
       value: 7
@@ -3564,7 +3807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811106148607980265, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_text
-      value: TYPE DE BATIMENTS
+      value: CATEGORY
       objectReference: {fileID: 0}
     - target: {fileID: 8811106148607980265, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_fontAsset
@@ -3659,6 +3902,10 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8999539018991439259, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What kind of buildings are there around you ?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999539018991439259, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: 
       objectReference: {fileID: 0}
@@ -3718,6 +3965,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 9162748747698869387, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: What kind of tops are the locals around you wearing ?
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1521239693642329802, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
     - {fileID: 6071598876890314990, guid: ff869f791c60cf3428fe41e17ff84e13, type: 3}
