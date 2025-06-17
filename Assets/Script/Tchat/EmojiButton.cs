@@ -11,7 +11,7 @@ public class EmojiButton : MonoBehaviour
 
     private TextMeshProUGUI textToChangeToEmoji;
 
-    private void OnEnable()
+    private void Start()
     {
         takeEmoji = GetComponentInParent<takeEmoji>();
 
