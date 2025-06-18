@@ -124,8 +124,6 @@ public class PlayerData : NetworkBehaviour
             {
                 PNJcible = GameObject.FindWithTag("PNJCIBLE");
 
-                Debug.Log($"JE SUIS LE PERSONNAGE PRINCIPALE {PNJcible.name}");
-
                 SetPlateform();
 
                 FindObjectOfType<fakeVilleSpawn>().spawnClone();
@@ -150,7 +148,8 @@ public class PlayerData : NetworkBehaviour
                         transform.position = new Vector3(PNJcible.transform.position.x, 0.8f, PNJcible.transform.position.z);
                         transform.rotation = PNJcible.transform.rotation;
 
-                        Debug.Log($"Le transform est de {transform.position} alors que {PNJcible.transform.position}");
+
+                        activateEmotion();
                         //Destroy(PNJcible);
 
                     }
@@ -645,6 +644,7 @@ public class PlayerData : NetworkBehaviour
             if (emoVoisin != null)
             {
                 emoVoisin.enabled = true;
+                Debug.Log("hehehehehe");
             }
         }
     }

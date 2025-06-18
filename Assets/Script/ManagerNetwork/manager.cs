@@ -266,7 +266,7 @@ public class manager : NetworkBehaviour
 
     public IEnumerator fakeVillRole()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(4);
         GiveRole();
     }
 
