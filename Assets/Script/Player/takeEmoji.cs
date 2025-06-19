@@ -18,6 +18,8 @@ public class takeEmoji : MonoBehaviour
 
     public Transform EmojiMenu;
 
+    private bool Bouton;
+
     public IEnumerator DelayFunction(float delay, Action callback)
     {
         yield return new WaitForSeconds(delay);
@@ -38,8 +40,8 @@ public class takeEmoji : MonoBehaviour
                     {
                         GetStartedEmoji();
                         Debug.Log("PLOP !");
-                        Destroy(hit.collider.gameObject);
                         AddEmojiToList("<sprite name=" + hit.collider.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name + ">");
+                        Destroy(hit.collider.gameObject);
                     }
                 }
         }
@@ -68,12 +70,13 @@ public class takeEmoji : MonoBehaviour
 
     public void GetStartedEmoji()
     {
-        if(emojiList.Count < 5 )
+        if(Bouton)
         {
             foreach (Transform child in EmojiMenu)
             {
                 emojiList.Add(child.GetComponentInChildren<TextMeshProUGUI>().text);
             }
+            Bouton = false;
         }
     }
 }

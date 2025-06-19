@@ -10,23 +10,30 @@ public class EmojiButton : MonoBehaviour
     public TMP_InputField textToSend;
 
     private TextMeshProUGUI textToChangeToEmoji;
+    [SerializeField] private bool OuiTest;
 
-    private void Start()
+    public void Start()
     {
         takeEmoji = GetComponentInParent<takeEmoji>();
 
         textToSend = takeEmoji.textToSend;
 
         textToChangeToEmoji = GetComponentInChildren<TextMeshProUGUI>();
+    }
 
-        if (isQuestion())
+    public void OnEnable()
+    {
+        if (OuiTest)
         {
-            textToChangeToEmoji.text = emojiFamilyToTakeIn.GetEmoji(false);
-        }
-
-        else
-        {
-            textToChangeToEmoji.text = "<sprite name=" + emojiFamilyToTakeIn.GetEmoji(true) + ">";
+            if (isQuestion())
+            {
+                textToChangeToEmoji.text = emojiFamilyToTakeIn.GetEmoji(false);
+            }
+        
+            else
+            {
+                textToChangeToEmoji.text = "<sprite name=" + emojiFamilyToTakeIn.GetEmoji(true) + ">";
+            }
         }
     }
 
