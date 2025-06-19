@@ -593,8 +593,10 @@ public class PlayerScoring : NetworkBehaviour
                     // Assigner le parent
                     fx.transform.SetParent(building2.transform);
 
+                    Vector3 positionProjecteur = new Vector3(-0.1f, 9.6f, -0.1f);
+
                     // Définir la position locale par rapport au parent (ici building)
-                    fx.transform.localPosition = PlayerData.PNJcible.transform.position + Vector3.up * 13;
+                    fx.transform.localPosition = playerData.GetComponent<PlayerScoring>().seekerGuessedPNJs + positionProjecteur;
 
                     // Appliquer la couleur
                     fx.GetComponent<SpriteRenderer>().color = Color.white;
