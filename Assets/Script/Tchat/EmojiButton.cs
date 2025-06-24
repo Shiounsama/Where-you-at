@@ -19,10 +19,7 @@ public class EmojiButton : MonoBehaviour
         textToSend = takeEmoji.textToSend;
 
         textToChangeToEmoji = GetComponentInChildren<TextMeshProUGUI>();
-    }
-
-    public void OnEnable()
-    {
+        
         if (OuiTest)
         {
             if (isQuestion())
@@ -36,6 +33,22 @@ public class EmojiButton : MonoBehaviour
             }
         }
     }
+
+    /* void OnEnable()
+    {
+        if (OuiTest)
+        {
+            if (isQuestion())
+            {
+                textToChangeToEmoji.text = emojiFamilyToTakeIn.GetEmoji(false);
+            }
+        
+            else
+            {
+                textToChangeToEmoji.text = "<sprite name=" + emojiFamilyToTakeIn.GetEmoji(true) + ">";
+            }
+        }
+    }*/
 
     public void OnButtonPressed()
     {
